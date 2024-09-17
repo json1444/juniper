@@ -1,0 +1,72 @@
+@charset "UTF-8"; 
+
+@font-face {
+    font-family: 'luckpet';
+    src: url(petangue\ DEMO.otf) format(opentype);
+}
+
+* {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    height: 100vh;
+}
+
+.p1 {
+    text-align: center;
+    font-family: cursive, Arial;
+    font-size: 2.8vh;
+    padding: 4px;
+}
+
+h1#titu1 {
+      font-family: luckpet;
+      color: rgba(0, 0, 0, 0.777);
+      background-color: rgb(255, 217, 0);
+      
+      padding: 20px;
+      font-size: 60px;
+}
+.h3 {
+    text-align: end;
+
+    
+    position: relative;
+    top: -60px;
+    left: -20px;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(255, 81, 0);
+}
+#pesquisa {
+    text-align: center;
+    font-size: 20px;
+    font-family: cursive, Arial;
+    border-radius: 23px 23px 23px 23px;
+
+    position: relative;
+    bottom: 22px;
+
+    width: 70vw;
+    height: 30px;
+    margin: auto;
+    display: block;
+}
+
+img {
+  
+  margin: auto;
+  display: block;
+  border-radius: 35px 35px;
+
+  width: 60vh;
+  position: relative;
+  bottom: 1vh
+  
+}

@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    body {
+        background-image: linear-gradient(to right, rgb(255, 217, 0), white);
+    }
+    h1.h1 {
+        font-size: 2.5em;
+    }
+    p.p {
+        font-size: 1.2em;
+    }
+    div#caixa01 {
+     width: 350px;
+     height: 84vh;
+    }
+    input.input1 {
+        width: 70%;
+    }
+    input.input2 {
+        width: 70%;
+    }
+    form {
+        margin-top: 70px;
+}
+}
+
+
+@media screen and (min-width: 992px) and (max-width: 1400px) {
+    body {
+        background-image: linear-gradient(to bottom, rgb(255, 217, 0), white);
+}
+h1.h1 {
+    font-size: 2.9em;
+    margin-top: -5px;
+}
+p.p {
+    font-size: 1.4em;
+}
+div#caixa01 {
+ width: 410px;
+ height: 84vh;
+}
+input.input1 {
+    width: 80%;
+}
+input.input2 {
+    width: 80%;
+}
+form {
+    margin-top: 95px;
+}
+h1.luckpet  {
+    font-size: 40px;
+}
+}

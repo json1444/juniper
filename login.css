@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'luckpet';
+    src: url(petangue\ DEMO.otf) format(opentype);
+}
+h1.luckpet {
+    font-family: 'luckpet';
+    text-align: center;
+    padding: 0px;
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.777)
+}
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background-image: linear-gradient(to left, rgb(255, 217, 0), white);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family:cursive, Arial;
+}
+
+div#caixa01 {
+    background-color: rgba(0, 0, 0, 0.856);
+    background-image: url(dog\ fundo\ amarelo.jpg);
+    background-position: bottom bottom;
+    background-size: cover;
+    border-radius: 30px;
+
+
+    box-shadow: 1px 2px 5px 1px rgb(0, 0, 0);
+    width: 280px;
+    height: 70vh;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    transition: width 0.7s, height 0.7s;
+    transition-timing-function: ease;
+}
+
+h1.h1 {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 1px 1px black;
+    color: white;
+    margin-top: -8px;
+    
+}
+
+p.p {
+    text-align: center;
+    margin-top: -3px;
+    text-shadow: 1px 1px black;
+    color: white;
+    padding: 5px;
+}
+
+form {
+  margin-top: 50px;
+  
+  padding: 30px;
+  color: white;
+}
+
+
+input.input1 {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 8px;
+}
+input.input2 {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 8px;
+}
+input.input3 {
+    color:rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    margin: 5px 0px 0px 35px;
+    padding: 5px;
+}
