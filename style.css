@@ -6,8 +6,8 @@
 }
 
 * {
-    margin: 0%;
-    padding: 0%;
+    margin: 0px;
+    padding: 0px;
 }
 
 body {
@@ -16,7 +16,7 @@ body {
 
 .p1 {
     text-align: center;
-    font-family: cursive, Arial;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 2.8vh;
     padding: 4px;
 }
@@ -26,7 +26,7 @@ h1#titu1 {
       color: rgba(0, 0, 0, 0.777);
       background-color: rgb(255, 217, 0);
       
-      padding: 20px;
+      padding: 10px;
       font-size: 60px;
 }
 .h3 {
@@ -35,7 +35,7 @@ h1#titu1 {
     
     position: relative;
     top: -60px;
-    left: -20px;
+    left: -14px;
 }
 a {
     color: black;
@@ -47,7 +47,7 @@ a:hover {
 #pesquisa {
     text-align: center;
     font-size: 20px;
-    font-family: cursive, Arial;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 23px 23px 23px 23px;
 
     position: relative;
