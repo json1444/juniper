@@ -41,8 +41,7 @@ div#caixa01 {
     top: 50%;
     overflow: hidden;
     transform: translate(-50%, -50%);
-    transition: width 0.7s, height 0.7s;
-    transition-timing-function: ease;
+    
 }
 
 h1.h1 {
@@ -86,4 +85,8 @@ input.input3 {
     border-radius: 8px;
     margin: 5px 0px 0px 35px;
     padding: 5px;
+}
+input.input3:hover {
+    background-color:rgba(255, 255, 255, 0.582);
+    cursor: pointer;
 }

@@ -17,7 +17,7 @@ body {
 .p1 {
     text-align: center;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 2.8vh;
+    font-size: 2.4vh;
     padding: 4px;
 }
 
@@ -30,12 +30,10 @@ h1#titu1 {
       font-size: 60px;
 }
 .h3 {
-    text-align: end;
+    text-align:right;
+    margin-top: -54px;
+    padding-right: 14px;
 
-    
-    position: relative;
-    top: -60px;
-    left: -14px;
 }
 a {
     color: black;
@@ -50,13 +48,14 @@ a:hover {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 23px 23px 23px 23px;
 
-    position: relative;
-    bottom: 22px;
-
-    width: 70vw;
+     width: 70vw;
     height: 30px;
+    margin-top: 20px;
     margin: auto;
     display: block;
+}
+div.input {
+    margin-top: 50px;
 }
 
 img {
