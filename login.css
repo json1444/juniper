@@ -27,12 +27,8 @@ div#caixa01 {
     box-shadow: 1px 2px 5px 1px rgb(0, 0, 0);
     width: 280px;
     height: 70vh;
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-    overflow: hidden;
-    transform: translate(-50%, -50%);  
+    margin: auto;
+    margin-top: 50px;
 }
 
 h1.h1 {
