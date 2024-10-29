@@ -10,8 +10,14 @@
     }
     .form02 {
         margin-top: 160px;
-        
 }
+}
+input.input1 {
+    width: 70%;
+    margin-top: 35px;
+}
+input.input2 {
+    width: 70%;
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
