@@ -8,6 +8,7 @@
 * {
     margin: 0px;
     padding: 0px;
+    
 }
 
 body {
@@ -23,20 +24,22 @@ body {
 
 h1#titu1 {
       font-family: luckpet;
-      color: rgba(0, 0, 0, 0.777);
-      background-color: rgb(255, 217, 0);
+      color: rgba(255, 255, 255, 0.911);
+      background-color: rgba(72, 0, 139, 0.753);
       
       padding: 10px;
       font-size: 60px;
 }
 .h3 {
+    color: orange;
     text-align:right;
     margin-top: -54px;
     padding-right: 14px;
-
+    font-size: 18px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 a {
-    color: black;
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 a:hover {
@@ -44,28 +47,107 @@ a:hover {
 }
 #pesquisa {
     text-align: center;
+    margin: auto;
+    display:block;
     font-size: 20px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 23px 23px 23px 23px;
 
-     width: 70vw;
+     width: 30vw;
     height: 30px;
-    margin-top: 20px;
-    margin: auto;
-    display: block;
 }
 div.input {
-    margin-top: 50px;
+    margin-top: -10px;
 }
 
-img {
-  
-  margin: auto;
-  display: block;
-  border-radius: 35px 35px;
+.h10 {
+    text-indent: 200px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+}
 
-  width: 60vh;
-  position: relative;
-  bottom: 1vh
-  
+.carousel-container {
+    
+    width: 80%;
+    height: 20px;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 70vw;
+    margin-left: 200px;
+}
+
+.carousel-item {
+    min-width: 225px;
+    background-color: #ffd90000;
+    color: #333;
+    padding: 1px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    flex: none;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+}
+
+.left-btn {
+    left: 10px;
+}
+
+.right-btn {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.img01 {
+    width: 230px;
+}
+.img02 {
+    width: 230px;
+}
+.img03 {
+    width: 230px;
+}
+.img04 {
+    width: 230px;
+}
+.img05 {
+    width: 230px;
+}
+
+.section01 {
+    height: 70%;
+}
+.section02 {
+    background-color: #33333386;
+    height: 200px;
+    width: 100%;
+}
+.titu12 {
+    text-align: center;
+    color: rgb(72, 0, 139);
 }
