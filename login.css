@@ -13,6 +13,7 @@ body {
     background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png);
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-repeat: no-repeat;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
@@ -21,12 +22,14 @@ body {
 div#caixa01 {
     background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png);
     background-position: center bottom;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 30px;
+    border-radius: 20px;
 
     box-shadow: 1px 2px 5px 1px rgb(0, 0, 0);
     width: 280px;
-    height: 70vh;
+    height: 80vh;
     position: absolute;
 
     left: 50%;
@@ -64,6 +67,8 @@ form {
 input.input1 {
     padding: 5px;
     margin: 5px;
+    margin-bottom: 4px;
+    margin-top: 4px;
     border-radius: 8px;
 }
 input.input2 {
