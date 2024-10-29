@@ -10,7 +10,7 @@
     padding: 0px;
 }
 body {
-    background-image: url(/img/Black\ Simple\ Pet\ Shop\ Logo.png) linear-gradient(to left, rgb(72, 0, 139), white);
+    background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -19,7 +19,7 @@ body {
 }
 
 div#caixa01 {
-    background-image: url(/img/Black\ Simple\ Pet\ Shop\ Logo.png);
+    background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png);
     background-position: center bottom;
     background-size: cover;
     border-radius: 30px;
