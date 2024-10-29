@@ -10,7 +10,7 @@
     padding: 0px;
 }
 body {
-    background-image: linear-gradient(to left, rgb(72, 0, 139), white);
+    background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png) linear-gradient(to left, rgb(72, 0, 139), white);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -24,7 +24,6 @@ div#caixa01 {
     background-size: cover;
     border-radius: 30px;
 
-
     box-shadow: 1px 2px 5px 1px rgb(0, 0, 0);
     width: 280px;
     height: 70vh;
@@ -33,8 +32,7 @@ div#caixa01 {
     left: 50%;
     top: 50%;
     overflow: hidden;
-    transform: translate(-50%, -50%);
-    
+    transform: translate(-50%, -50%);  
 }
 
 h1.h1 {
@@ -43,7 +41,6 @@ h1.h1 {
     text-shadow: 1px 1px black;
     color: white;
     margin-top: -8px;
-    
 }
 
 p.p {
