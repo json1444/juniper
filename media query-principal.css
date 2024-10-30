@@ -1,28 +1,38 @@
 @charset "UTF-8";
 
 @media screen  and (min-width: 350px) and (max-width: 400px){
-    html {
-        width: 323px;
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    body {
+        width: 70vw;
     }
     .p1 {
         text-align: center;
+        margin: auto;
+        
         padding-left: 62px;
-        font-size: 9px;
+        font-size: 10px;
+        padding-left: 14px;
+        padding-bottom: 0px;
+        padding-top: 8px;
+        margin-left: 50px;
     }
     h1#titu1 {
         font-size: 35px;
-        width: 94.3vw;
+        width: 94.4vw;
     }
     .h3 {
         font-size: 13px;
         margin-top: -40px;
-        margin-right: -70px;
+        margin-right: -110px;
     }
     #pesquisa {
         margin-top: 32px;
         font-size: 18px;
         height: 20px;
-        width: 99vw;
+        width: 98.8vw;
         border-radius: 0px 0px 0px 0px;
     }
     .h10 {
