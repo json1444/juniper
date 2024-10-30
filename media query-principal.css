@@ -13,17 +13,82 @@
         margin-top: -40px;
     }
     #pesquisa {
-        margin-top: 32px;
+        margin-top: 30px;
         font-size: 10px;
         width: 70%;
     }
     .h10 {
-        margin-top: -30px;
+        margin-top: -10px;
         text-indent: 40px;
-        font-size: 22px;
+        font-size: 28px;
     }
     .carousel {
         margin-left: 40px;
+        margin-top: -10px;
+    }
+    .carousel-btn {
+        font-size: 10px;
+    }
+}
+
+
+@media screen  and (min-width: 401px) and (max-width: 550px){
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    h1#titu1 {
+        font-size: 50px;
+    }
+    .h3 {
+        font-size: 15px;
+        margin-top: -50px;
+    }
+    #pesquisa {
+        margin-top: 47px;
+        font-size: 15px;
+        width: 70%;
+    }
+    .h10 {
+        margin-top: 0px;
+        text-indent: 55px;
+        font-size: 30px;
+    }
+    .carousel {
+        margin-left: 55px;
+        margin-top: -1px;
+        
+    }
+    .carousel-btn {
+        font-size: 10px;
+    }
+}
+
+
+@media screen  and (min-width: 550px) and (max-width: 1050px){
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    h1#titu1 {
+        font-size: 60px;
+    }
+    .h3 {
+        font-size: 20px;
+        margin-top: -60px;
+    }
+    #pesquisa {
+        margin-top: 58px;
+        font-size: 20px;
+        width: 70%;
+    }
+    .h10 {
+        margin-top: -5px;
+        text-indent: 70px;
+        font-size: 35px;
+    }
+    .carousel {
+        margin-left: 70px;
         margin-top: -10px;
     }
     .carousel-btn {
