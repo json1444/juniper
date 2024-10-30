@@ -148,11 +148,125 @@ div.input {
     height: 70%;
 }
 .section02 {
-    background-color: #888888;
-    height: 200px;
+    background-color: #88888852;
+    height: 500px;
     width: 100%;
+    margin-top: 45px;
 }
 .titu12 {
     text-align: center;
-    color: rgb(255, 255, 255);
+    font-family: luckpet1;
+    font-size: 35px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: rgba(0, 0, 0, 0.918);
+}
+
+.carousel02 {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+    font-family:monospace;
+    font-weight: bolder;
+    font-size: 17px;
+}
+
+.raçao1 {
+    width: 200px;
+}
+.raçao2 {
+    width: 200px;
+}
+.raçao3 {
+    width: 200px;
+}
+.raçao4 {
+    width: 200px;
+}
+.raçao5 {
+    width: 200px;
+}
+.raçao6 {
+    width: 200px;
+}
+.raçao7 {
+    width: 200px;
+}
+.raçao8 {
+    width: 200px;
+}
+.raçao9 {
+    width: 200px;
+}
+
+.divraçao1 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao2 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao3 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao4 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao5 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao6 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao7 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao8 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+.divraçao9 {
+    background-color: rgba(255, 255, 255, 0.575);
+    height: 315px;
+    border-radius: 20px 20px 20px;
+    margin: auto;
+    text-align: center;
+}
+
+button {
+    width: 120px;
+    height: 22px;
+    border-radius: 10px 10px;
+    text-shadow: 0px 0.6px 0px rgb(43, 255, 0);
 }
