@@ -103,12 +103,12 @@ div.input {
     border: none;
     padding: 10px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1px;
     border-radius: 50%;
 }
 
 .left-btn {
-    left: 10px;
+    left: 0px;
 }
 
 .right-btn {

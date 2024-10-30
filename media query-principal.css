@@ -2,31 +2,31 @@
 
 @media screen  and (min-width: 350px) and (max-width: 400px){
     html {
-        width: 343px;
+        width: 323px;
     }
     .p1 {
         text-align: center;
-        padding-left: 20px;
-        font-size: 12px;
+        padding-left: 62px;
+        font-size: 9px;
     }
     h1#titu1 {
         font-size: 35px;
-        width: 332px;
+        width: 94.3vw;
     }
     .h3 {
         font-size: 13px;
         margin-top: -40px;
-        margin-right: -10px;
+        margin-right: -70px;
     }
     #pesquisa {
         margin-top: 32px;
         font-size: 18px;
         height: 20px;
-        width: 102%;
+        width: 99vw;
         border-radius: 0px 0px 0px 0px;
     }
     .h10 {
-        text-indent: 50px;
+        text-indent: 40px;
         margin-top: -15px;
         font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 20px;
@@ -75,12 +75,11 @@
 }
 
 .left-btn {
-    left: 10px;
     font-size: 11px;
 }
 
 .right-btn {
-    right: 10px;
+    margin-right: 20px;
     font-size: 11px;
 }
 
