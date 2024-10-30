@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+@media screen  and (min-width: 350px) and (max-width: 400px){
+    html {
+        width: 343px;
+    }
+    .p1 {
+        text-align: center;
+        padding-left: 20px;
+        font-size: 12px;
+    }
+    h1#titu1 {
+        font-size: 35px;
+        width: 332px;
+    }
+    .h3 {
+        font-size: 13px;
+        margin-top: -40px;
+        margin-right: -10px;
+    }
+    #pesquisa {
+        margin-top: 32px;
+        font-size: 18px;
+        height: 20px;
+        width: 102%;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .h10 {
+        text-indent: 50px;
+        margin-top: -15px;
+        font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 20px;
+    }
+    
+.carousel-container {
+    
+    width: 80%;
+    height: 20px;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 68vw;
+    margin-left: 40px;
+    margin-top: -10px;
+}
+
+.carousel-item {
+    min-width: 225px;
+    background-color: #ffd90000;
+    color: #333;
+    padding: 1px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    flex: none;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 0px;
+    border-radius: 50%;
+}
+
+.left-btn {
+    left: 10px;
+    font-size: 11px;
+}
+
+.right-btn {
+    right: 10px;
+    font-size: 11px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.titu12 {
+    color: orange;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+}
