@@ -22,7 +22,7 @@
     }
     .h10 {
         margin-top: -10px;
-        text-indent: 40px;
+        text-indent: 60px;
         font-size: 28px;
     }
     .carousel {
@@ -31,6 +31,21 @@
     }
     .carousel-btn {
         font-size: 10px;
+    }
+    .img01 {
+        width: 180px;
+    }
+    .img02 {
+        width: 180px;
+    }
+    .img03 {
+        width: 180px;
+    }
+    .img04 {
+        width: 180px;
+    }
+    .img05 {
+        width: 180px;
     }
     .section02 {
         margin-top: -20px;
