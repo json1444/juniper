@@ -8,15 +8,10 @@
 * {
     margin: 0px;
     padding: 0px;
+    
 }
 body {
-    background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgba(153, 0, 255, 0.918);
 }
 
 div#caixa01 {
@@ -26,6 +21,7 @@ div#caixa01 {
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 20px;
+    
 
     box-shadow: 1px 2px 5px 1px rgb(0, 0, 0);
     width: 280px;

@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/*PAGINA LOGIN*/
+
 @media screen and (min-width: 350px) and (max-width: 767px) {
     body {
         background-image: linear-gradient(to top, rgb(72, 0, 139), white);
@@ -75,3 +77,7 @@ h1.luckpet  {
     font-size: 40px;
 }
 }
+
+/*PAGINA PRINCIPAL
+--------------------*/
+
