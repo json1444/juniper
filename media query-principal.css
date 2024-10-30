@@ -5,6 +5,9 @@
         margin: 0px;
         padding: 0px;
     }
+    .p1 {
+        font-size: 11px;
+    }
     h1#titu1 {
         font-size: 35px;
     }
@@ -28,6 +31,42 @@
     }
     .carousel-btn {
         font-size: 10px;
+    }
+    .section02 {
+        margin-top: -20px;
+        height: 460px;
+    }
+    .titu12 {
+        font-size: 25px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    .raçao1 {
+        width: 165px;
+    }
+    .raçao2 {
+        width: 165px;
+    }
+    .raçao3 {
+        width: 165px;
+    }
+    .raçao4 {
+        width: 165px;
+    }
+    .raçao5 {
+        width: 165px;
+    }
+    .raçao6 {
+        width: 165px;
+    }
+    .raçao7 {
+        width: 165px;
+    }
+    .raçao8 {
+        width: 165px;
+    }
+    .raçao9 {
+        width: 165px;
     }
 }
 
@@ -62,6 +101,42 @@
     .carousel-btn {
         font-size: 10px;
     }
+    .section02 {
+        margin-top: 7px;
+        height: 440px;
+    }
+    .titu12 {
+        font-size: 25px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    .raçao1 {
+        width: 185px;
+    }
+    .raçao2 {
+        width: 185px;
+    }
+    .raçao3 {
+        width: 185px;
+    }
+    .raçao4 {
+        width: 185px;
+    }
+    .raçao5 {
+        width: 185px;
+    }
+    .raçao6 {
+        width: 185px;
+    }
+    .raçao7 {
+        width: 185px;
+    }
+    .raçao8 {
+        width: 185px;
+    }
+    .raçao9 {
+        width: 185px;
+    }
 }
 
 
@@ -93,5 +168,41 @@
     }
     .carousel-btn {
         font-size: 10px;
+    }
+    .section02 {
+        margin-top: -4px;
+        height: 460px;
+    }
+    .titu12 {
+        font-size: 25px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    .raçao1 {
+        width: 195px;
+    }
+    .raçao2 {
+        width: 195px;
+    }
+    .raçao3 {
+        width: 195px;
+    }
+    .raçao4 {
+        width: 195px;
+    }
+    .raçao5 {
+        width: 195px;
+    }
+    .raçao6 {
+        width: 165px;
+    }
+    .raçao7 {
+        width: 195px;
+    }
+    .raçao8 {
+        width: 195px;
+    }
+    .raçao9 {
+        width: 195px;
     }
 }
