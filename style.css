@@ -14,7 +14,7 @@
     padding: 0px;
 }
 
-body {
+body, html {
     height: 100vh;
 }
 
