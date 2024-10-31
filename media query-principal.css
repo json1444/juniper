@@ -83,6 +83,62 @@
     .raçao9 {
         width: 170px;
     }
+    .section03 {
+        width: 100%;
+        height: 1190px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637);
+    }
+    .titu13 {
+        text-align: center;
+        font-family:cursive;
+        font-size: 25px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        color: rgba(72, 0, 139, 0.863);
+    }
+    .planos {
+        display: block;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 16px;
+       padding: 20px;
+       color: rgba(72, 0, 139, 0.863);
+    }
+    .plano1 {
+        width: 85vw;
+        height: 300px;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano2 {
+        width: 85vw;
+        height: 300px;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano3 {
+        width: 85vw;
+        height: 300px;
+        padding: 10px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .butplano {
+        margin-top: 10px;
+        font-family: luckpet2;
+        font-size: 20px;
+        width: 160px;
+        height: 60px;
+        padding: 15px 20px 20px 20px;
+        color: white;
+        background-color: rgba(72, 0, 139, 0.863);
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+    }
 }
 
 
@@ -151,6 +207,62 @@
     }
     .raçao9 {
         width: 185px;
+    }  
+    .section03 {
+        width: 100%;
+        height: 1190px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637);
+    }
+    .titu13 {
+        text-align: center;
+        font-family:cursive;
+        font-size: 30px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        color: rgba(72, 0, 139, 0.863);
+    }
+    .planos {
+        display: block;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 17px;
+       padding: 20px;
+       color: rgba(72, 0, 139, 0.863);
+    }
+    .plano1 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano2 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano3 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .butplano {
+        margin-top: 10px;
+        font-family: luckpet2;
+        font-size: 20px;
+        width: 160px;
+        height: 60px;
+        padding: 15px 20px 20px 20px;
+        color: white;
+        background-color: rgba(72, 0, 139, 0.863);
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
     }
 }
 
@@ -219,5 +331,63 @@
     }
     .raçao9 {
         width: 195px;
+    }
+    .section03 {
+        width: 100%;
+        height: 1299px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637);
+    }
+    .titu13 {
+        text-align: center;
+        font-family:cursive;
+        font-size: 40px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        color: rgba(72, 0, 139, 0.863);
+    }
+    .planos {
+        display: block;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 19px;
+       padding: 33px;
+       color: rgba(72, 0, 139, 0.863);
+    }
+    .plano1 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano2 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano3 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .butplano {
+        font-family: luckpet2;
+        font-size: 16px;
+        width: 140px;
+        height: 50px;
+        padding: 15px 20px 30px 20px;
+        color: white;
+        background-color: rgba(72, 0, 139, 0.863);
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
     }
 }
