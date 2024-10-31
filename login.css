@@ -10,7 +10,9 @@
     padding: 0px;
     
 }
-body {
+body, html {
+    width: 100%;
+    height: 100%;
     background-color: rgba(153, 0, 255, 0.918);
 }
 
