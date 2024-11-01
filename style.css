@@ -19,7 +19,7 @@
 }
 
 body, html {
-    height: 100%;
+    height: 780px;
     width: 100%;
 }
 
@@ -69,7 +69,7 @@ div.input {
 }
 
 .h10 {
-    text-indent: 200px;
+    text-indent: 100px;
     font-family: luckpet1;
     font-size: 40px;
     margin-top: 40px;
@@ -88,8 +88,8 @@ div.input {
     gap: 10px;
     overflow-x: auto;
     scroll-behavior: smooth;
-    width: 70vw;
-    margin-left: 200px;
+    width: 80vw;
+    margin-left: 100px;
 }
 
 .carousel-item {
@@ -133,19 +133,19 @@ div.input {
 }
 
 .img01 {
-    width: 280px;
+    width: 350px;
 }
 .img02 {
-    width: 280px;
+    width: 350px;
 }
 .img03 {
-    width: 280px;
+    width: 350px;
 }
 .img04 {
-    width: 280px;
+    width: 350px;
 }
 .img05 {
-    width: 280px;
+    width: 350px;
 }
 
 .section01 {
