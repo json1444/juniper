@@ -23,7 +23,7 @@
         position: absolute;
         font-family: luckpet2;
         font-size: 12px;
-        right: 150px;
+        right: 80px;
         top: 34px;
         width: 30px;
         height: 30px;
@@ -34,6 +34,25 @@
         justify-content: center;
         cursor: pointer;
         color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 12px;
+        right: 20px;
+        top: 34px;
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 20px;
     }
     #pesquisa {
         margin-top: 34px;
@@ -180,10 +199,11 @@
     .icone {
         position: absolute;
         font-family: luckpet2;
-        right: 160px;
-        top: 42px;
-        width: 32px;
-        height: 32px;
+        font-size: 14px;
+        right: 80px;
+        top: 45px;
+        width: 35px;
+        height: 35px;
         background-color: #ffffff;
         border-radius: 50%;
         display: flex;
@@ -191,6 +211,25 @@
         justify-content: center;
         cursor: pointer;
         color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 14px;
+        right: 20px;
+        top: 45px;
+        width: 35px;
+        height: 35px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 22px;
     }
     #pesquisa {
         margin-top: 49px;
@@ -320,10 +359,11 @@
     .icone {
         position: absolute;
         font-family: luckpet2;
-        right: 200px;
-        top: 47px;
-        width: 35px;
-        height: 35px;
+        font-size: 15px;
+        right: 80px;
+        top: 50px;
+        width: 37px;
+        height: 37px;
         background-color: #ffffff;
         border-radius: 50%;
         display: flex;
@@ -331,6 +371,25 @@
         justify-content: center;
         cursor: pointer;
         color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 14.2px;
+        right: 20px;
+        top: 50px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 25px;
     }
     #pesquisa {
         margin-top: 58px;
