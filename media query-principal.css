@@ -19,8 +19,24 @@
         font-size: 15px;
         margin-top: -40px;
     }
+    .icone {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 12px;
+        right: 150px;
+        top: 34px;
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
     #pesquisa {
-        margin-top: 29px;
+        margin-top: 34px;
         font-size: 10px;
         width: 70%;
     }
@@ -154,12 +170,30 @@
     h1#titu1 {
         font-size: 50px;
     }
+    .p1 {
+        font-size: 2vh;
+    }
     .h3 {
         font-size: 15px;
         margin-top: -50px;
     }
+    .icone {
+        position: absolute;
+        font-family: luckpet2;
+        right: 160px;
+        top: 42px;
+        width: 32px;
+        height: 32px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
     #pesquisa {
-        margin-top: 45px;
+        margin-top: 49px;
         font-size: 15px;
         width: 70%;
     }
@@ -283,8 +317,23 @@
         font-size: 20px;
         margin-top: -60px;
     }
+    .icone {
+        position: absolute;
+        font-family: luckpet2;
+        right: 200px;
+        top: 47px;
+        width: 35px;
+        height: 35px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
     #pesquisa {
-        margin-top: 55px;
+        margin-top: 58px;
         font-size: 20px;
         width: 70%;
     }
