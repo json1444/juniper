@@ -2,15 +2,15 @@
 
 @font-face {
     font-family: 'luckpet';
-    src: url(POSTERABLE.ttf) format(opentype); 
+    src: url(fontes/POSTERABLE.ttf) format(opentype); 
 }
 @font-face {
     font-family: 'luckpet1';
-    src: url(POSTERABLE.ttf) format(opentype);
+    src: url(fontes/POSTERABLE.ttf) format(opentype);
 }
 @font-face {
     font-family: 'luckpet2';
-    src: url(MilkyNice-Clean.otf) format(opentype);
+    src: url(fontes/MilkyNice-Clean.otf) format(opentype);
 }
 
 * {

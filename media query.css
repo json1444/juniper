@@ -4,7 +4,7 @@
 
 @media screen and (min-width: 350px) and (max-width: 767px) {
     body {
-        background-image: url(PetLuck.png);
+        background-image: url(img/PetLuck.png);
         background-size: 180px;
     }
     h1.h1 {
@@ -25,7 +25,7 @@ input.input2 {
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
     body {
-        background-image: url(PetLuck.png);
+        background-image: url(img/PetLuck.png);
         background-size: 200px;
     }
     h1.h1 {
@@ -53,7 +53,7 @@ input.input2 {
 
 @media screen and (min-width: 992px) and (max-width: 1400px) {
     body {
-        background-image: url(PetLuck.png);
+        background-image: url(img/PetLuck.png);
 }
 h1.h1 {
     font-size: 2.5em;
