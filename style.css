@@ -353,9 +353,12 @@ div.input {
 }
 
 button {
+    font-family: luckpet2;
     width: 120px;
     height: 22px;
-    border-radius: 15px 15px;
+    border-radius: 25px 25px;
+    color: #48008bdc;
+    background-color: #3333332c;
 }
 
 
