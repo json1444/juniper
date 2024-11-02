@@ -255,7 +255,7 @@ div.input {
     gap: 10px;
     overflow-x: auto;
     padding: 10px;
-    font-family:monospace;
+    font-family:luckpet2;
     font-weight: bolder;
     font-size: 17px;
 }
@@ -290,63 +290,63 @@ div.input {
 
 .divraçao1 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao2 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao3 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao4 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao5 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao6 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao7 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao8 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao9 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 315px;
+    height: 345px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
@@ -354,11 +354,13 @@ div.input {
 
 button {
     font-family: luckpet2;
-    width: 120px;
-    height: 22px;
+    width: 140px;
+    height: 32px;
+    font-size: 17px;
+    cursor: pointer;
     border-radius: 25px 25px;
     color: #48008bdc;
-    background-color: #3333332c;
+    background-color: #6b6b6b2c;
 }
 
 
