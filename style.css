@@ -237,7 +237,7 @@ div.input {
 }
 .section02 {
     background-color: #88888852;
-    height: 630px;
+    height: 690px;
     width: 100%;
     margin-top: 45px;
 }
@@ -287,66 +287,69 @@ div.input {
 .raçao9 {
     width: 200px;
 }
+.p3 {
+    margin-top: 15px
+}
 
 .divraçao1 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao2 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao3 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao4 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao5 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao6 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao7 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao8 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao9 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 405px;
+    height: 470px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
