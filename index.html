@@ -18,7 +18,7 @@
         <div class="icone">
         <img class="img11" src="img/comprar-online.png" alt="">
             <div class="opcoes">
-                <a href="">
+                <a href="#" onclick="abrirCarrinho()">
                     <p>Carrinho</p>
                 </a>
             </div>
@@ -32,7 +32,7 @@
                     </a>
                     ---OU--- 
                     <a href="login.html">
-                     <br>   <br><p><a href="login.html">Cadastrar</a></p>
+                     <br>   <br><p>Cadastrar</p>
                     </a>
                 </div>
             </div>
@@ -65,6 +65,7 @@
     </section>
         
     <section class="section02">
+
         <h1 class="titu12"><span style="color: rgb(72, 0, 139);">P</span>rodutos que seu pet vai <span style="color: red;">amar</span>!</h1>
 
         <div class="carousel02">
@@ -131,7 +132,7 @@
                 
                 <button class="botao-remover" onclick="atualizarProduto('pessego', 3.99, 'remover')">Remover</button>
             
-                <p class="p3" id="pessego-quantidade">Unidades:0</p><br><span id="pessego-total-valor">Total: R$ 0,00</span>
+                <p class="p3" id="pessego-quantidade">Unidades: 0</p><br><span id="pessego-total-valor">Total: R$ 0,00</span>
             </div>
 
             <div class="divraçao7"><img class="raçao7" src="img/img-raçao/MirtiloPet.png" alt=""><p>Ração de <span style="color: #4682b4;">Mirtilo</span>
@@ -167,6 +168,24 @@
 
                 <p class="p3" id="maca-quantidade">Unidades: 0</p><br><span id="maca-total-valor">Total: R$ 0,00</span>
         </div>
+
+           <!-- Botão para abrir o modal do carrinho -->
+
+
+<!-- Modal do carrinho -->
+<div id="modal-carrinho" class="modal">
+    <div class="modal-content">
+        <span class="fechar" onclick="fecharCarrinho()">&times;</span>
+        <h2>Confira sua compra</h2> <br><br>
+
+        <div id="conteudo-carrinho"></div>
+        
+<br><br>
+
+        <p style="color: green;" id="subtotal">Subtotal: R$ 0,00</p>
+        <button class="botao-sacola">Ir para sacola</button>
+    </div>
+</div>
     </section>
 
     <section class="section03">

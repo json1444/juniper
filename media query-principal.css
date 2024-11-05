@@ -24,7 +24,7 @@
         font-family: luckpet2;
         font-size: 12px;
         right: 80px;
-        top: 33px;
+        top: 12px;
         width: 30px;
         height: 30px;
         background-color: #ffffff;
@@ -40,7 +40,7 @@
         font-family: luckpet2;
         font-size: 12px;
         right: 20px;
-        top: 33px;
+        top: 12px;
         width: 30px;
         height: 30px;
         background-color: #ffffff;
@@ -196,6 +196,30 @@
         color: #48008bdc;
         background-color: #6b6b6b2c;
     }
+
+    .modal {
+        margin-top: 90px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 15px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
+    .modal-content {
+        background-color: #ffffff;
+        margin: 15% auto;
+        padding: 40px;
+        border: 1px solid #000000;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 8px;
+    }
+
     .section03 {
         width: 100%;
         height: 1190px;
@@ -275,7 +299,7 @@
         font-family: luckpet2;
         font-size: 14px;
         right: 80px;
-        top: 42px;
+        top: 15px;
         width: 35px;
         height: 35px;
         background-color: #ffffff;
@@ -291,7 +315,7 @@
         font-family: luckpet2;
         font-size: 14px;
         right: 20px;
-        top: 42px;
+        top: 15px;
         width: 35px;
         height: 35px;
         background-color: #ffffff;
@@ -433,6 +457,20 @@
         color: #48008bdc;
         background-color: #6b6b6b2c;
     }
+
+    .modal {
+        margin-top: 60px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 19px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
     .section03 {
         width: 100%;
         height: 1190px;
@@ -509,7 +547,7 @@
         font-family: luckpet2;
         font-size: 15px;
         right: 80px;
-        top: 47px;
+        top: 19px;
         width: 37px;
         height: 37px;
         background-color: #ffffff;
@@ -525,7 +563,7 @@
         font-family: luckpet2;
         font-size: 14.2px;
         right: 20px;
-        top: 47px;
+        top: 19px;
         width: 37px;
         height: 37px;
         background-color: #ffffff;
@@ -667,6 +705,20 @@
         color: #48008bdc;
         background-color: #6b6b6b2c;
     }
+
+    .modal {
+        margin-top: 30px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 19px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
     .section03 {
         width: 100%;
         height: 1299px;
