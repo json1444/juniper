@@ -22,6 +22,10 @@ body, html {
     height: 780px;
     width: 100%;
 }
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
 
 .p1 {
     text-align: center;
@@ -40,7 +44,7 @@ h1#titu1 {
 }
 
 header {
-    position: sticky;
+    position:sticky;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -152,92 +156,59 @@ a:hover {
     font-size: 20px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 23px 23px 23px 23px;
-
      width: 50vw;
     height: 30px;
+
+    position: relative;
+    z-index: 1010;
 }
 div.input {
-    margin-top: 40px;
+    margin-top: -56px;
 }
 
-.h10 {
-    text-indent: 100px;
-    font-family: luckpet1;
-    font-size: 40px;
-    margin-top: 40px;
+#div1 {
+    font-size: 17px;
+    text-align: center;
+    margin: auto;
+    border-radius: 0px 0px;
+    padding: 10px 10px 10px 10px;
+    margin-top: -11px;
+    background-color:rgb(255, 123, 0);
+    width: 98.6%;
+    font-family: luckpet2;
 }
 
 .carousel-container {
-    
-    width: 80%;
-    height: 20px;
-    max-width: 600px;
+    width: 100%;
     overflow: hidden;
 }
 
 .carousel {
     display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    width: 80vw;
-    margin-left: 100px;
+    width: 100%;
+    transition: transform 0.5s ease;
+    position: relative;
 }
 
 .carousel-item {
-    min-width: 225px;
-    background-color: #ffd90000;
-    color: #333;
-    padding: 3px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    flex: none;
-}
-
-.carousel-btn {
     position: absolute;
-    top: 60%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 0px;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-align: center;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    position: relative;
+}
+
+.carousel img {
+    width: 60%;
+    height: 85vh;
+    border-radius: 30px;
+    margin-top: 33px;
     cursor: pointer;
-    font-size: 20px;
-    border-radius: 50%;
-}
-
-.left-btn {
-    left: 0px;
-}
-
-.right-btn {
-    right: 0px;
-}
-
-.carousel-btn:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
-}
-
-.img01 {
-    width: 350px;
-}
-.img02 {
-    width: 350px;
-}
-.img03 {
-    width: 350px;
-}
-.img04 {
-    width: 350px;
-}
-.img05 {
-    width: 350px;
 }
 
 .section01 {
@@ -379,6 +350,30 @@ button {
 }
 
 
+/* style.css */
+.notificacao {
+    position: fixed;
+    top: 78px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    visibility: hidden;
+}
+
+.notificacao.remover {
+    background-color: #f44336; /* Cor vermelha para remoção */
+}
+
+.notificacao.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
 /* Estilo do modal */
 .modal {
     margin-top: -50px;
@@ -441,7 +436,7 @@ button {
 }
 .titu13 {
     text-align: center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: luckpet1;
     font-size: 35px;
     padding-top: 20px;
     padding-bottom: 30px;

@@ -53,12 +53,46 @@
     }
     .opcoes, .opcoes2 {
         top: 20px;
+        z-index: 2010;
+        right: -18px;
     }
     #pesquisa {
-        margin-top: 34px;
-        font-size: 10px;
-        width: 70%;
+        margin-top: 56px;
+        font-size: 13px;
+        width: 99%;
+        border-radius: 0px 0px;
     }
+    #div1 {
+        margin-top: -2px;
+        width: 94.3%;
+        font-size: 12px;
+        border-radius: 0px 0px;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+    .carousel img {
+        width: 100vw;
+        height: 50vh;
+        border-radius: 0px;
+        margin-top: 33px;
+        margin-left: -40px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
+    }
+    
     .h10 {
         margin-top: 10px;
         text-indent: 40px;
@@ -71,23 +105,10 @@
     .carousel-btn {
         font-size: 10px;
     }
-    .img01 {
-        width: 280px;
-    }
-    .img02 {
-        width: 280px;
-    }
-    .img03 {
-        width: 280px;
-    }
-    .img04 {
-        width: 280px;
-    }
-    .img05 {
-        width: 280px;
-    }
+    
+
     .section02 {
-        margin-top: 40px;
+        margin-top: 50px;
         height: 579px;
     }
     .titu12 {
@@ -197,6 +218,19 @@
         background-color: #6b6b6b2c;
     }
 
+    .notificacao {
+    position: fixed;
+    top: 53px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    visibility: hidden;
+}
+
     .modal {
         margin-top: 90px;
         display: none; /* Oculto por padrão */
@@ -287,7 +321,7 @@
 }
 
 
-@media screen  and (min-width: 401px) and (max-width: 550px){
+@media screen  and (min-width: 401px) and (max-width: 630px){
     * {
         margin: 0px;
         padding: 0px;
@@ -335,28 +369,54 @@
         color: white;
     }
     .opcoes, .opcoes2 {
-        top: 22px;
+        top: 20px;
+        z-index: 2010;
+        right: -18px;
     }
     #pesquisa {
-        margin-top: 49px;
+        margin-top: 56px;
         font-size: 15px;
-        width: 70%;
+        width: 99%;
+        border-radius: 0px 0px;
+    }
+    #div1 {
+        width: 96.7%;
+        font-size: 13px;
+        border-radius: 0px 0px;
+        margin-top: 13px
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+    .carousel img {
+        width: 90vw;
+        height: 59vh;
+        border-radius: 30px;
+        margin-top: 33px;
+        margin-left: 26px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
     }
     .h10 {
         margin-top: 0px;
         text-indent: 55px;
         font-size: 30px;
     }
-    .carousel {
-        margin-left: 55px;
-        margin-top: -1px;
-        
-    }
-    .carousel-btn {
-        font-size: 10px;
-    }
+
     .section02 {
-        margin-top: 7px;
+        margin-top: 40px;
         height: 610px;
     }
     .titu12 {
@@ -547,8 +607,7 @@
     }
 }
 
-
-@media screen  and (min-width: 550px) and (max-width: 1050px){
+@media screen  and (min-width: 630px) and (max-width: 700px){
     * {
         margin: 0px;
         padding: 0px;
@@ -593,27 +652,599 @@
         color: white;
     }
     .opcoes, .opcoes2 {
-        top: 25px;
+        top: 20px;
+        right: -18px;
+        z-index: 2010;
+        font-size: 15px;
     }
     #pesquisa {
-        margin-top: 58px;
-        font-size: 20px;
-        width: 70%;
+        margin-top: 56px;
+        font-size: 19px;
+        width: 99.4%;
+        border-radius: 0px 0px;
     }
-    .h10 {
-        margin-top: -5px;
-        text-indent: 70px;
-        font-size: 35px;
+    #div1 {
+        width: 97.1%;
+        font-size: 17px;
+        margin-top: 24px;
+        border-radius: 0px 0px;
     }
+
     .carousel {
-        margin-left: 70px;
-        margin-top: -10px;
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
     }
-    .carousel-btn {
-        font-size: 10px;
+
+    .carousel img {
+        width: 70vw;
+        margin: auto;
+        text-align: center;
+        height: 58vh;
+        border-radius: 0px;
+        margin-top: 33px;
+        margin-left: 107px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
     }
     .section02 {
-        margin-top: -4px;
+        margin-top: 34px;
+        height: 630px;
+    }
+    .titu12 {
+        font-size: 35px;
+        padding-top: 35px;
+        padding-bottom: 25px;
+    }
+    .raçao1 {
+        width: 195px;
+    }
+    .raçao2 {
+        width: 195px;
+    }
+    .raçao3 {
+        width: 195px;
+    }
+    .raçao4 {
+        width: 195px;
+    }
+    .raçao5 {
+        width: 195px;
+    }
+    .raçao6 {
+        width: 195px;
+    }
+    .raçao7 {
+        width: 195px;
+    }
+    .raçao8 {
+        width: 195px;
+    }
+    .raçao9 {
+        width: 195px;
+    }
+
+    .divraçao1 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao2 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao3 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao4 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao5 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao6 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao7 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao8 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao9 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    
+    button {
+        font-family: luckpet2;
+        width: 140px;
+        height: 32px;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 25px 25px;
+        color: #48008bdc;
+        background-color: #6b6b6b2c;
+    }
+
+    .modal {
+        margin-top: 30px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 19px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
+    .section03 {
+        width: 100%;
+        height: 1299px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637);
+    }
+    .titu13 {
+        text-align: center;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 40px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        color: rgba(72, 0, 139, 0.863);
+    }
+    .planos {
+        display: block;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 19px;
+       padding: 33px;
+       color: rgba(72, 0, 139, 0.863);
+    }
+    .plano1 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano2 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano3 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .butplano {
+        font-family: luckpet2;
+        font-size: 16px;
+        width: 140px;
+        height: 50px;
+        padding: 15px 20px 30px 20px;
+        color: white;
+        background-color: rgba(72, 0, 139, 0.863);
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+    }
+}
+
+
+@media screen  and (min-width: 700px) and (max-width: 799px){
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    h1#titu1 {
+        font-size: 60px;
+    }
+    .h3 {
+        font-size: 20px;
+        margin-top: -60px;
+    }
+    .icone {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 15px;
+        right: 80px;
+        top: 19px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 14.2px;
+        right: 20px;
+        top: 19px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 20px;
+        z-index: 2010;
+        right: -18px;
+        font-size: 17px;
+    }
+    #pesquisa {
+        margin-top: 56px;
+        font-size: 20px;
+        width: 99.5%;
+        border-radius: 0px 0px;
+    }
+    #div1 {
+        width: 97.2%;
+        font-size: 18px;
+        margin-top: 24px;
+        border-radius: 0px 0px;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+    .carousel img {
+        width: 70vw;
+        margin: auto;
+        text-align: center;
+        height: 60vh;
+        border-radius: 0px;
+        margin-top: 33px;
+        margin-left: 110px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
+    }
+    .section02 {
+        margin-top: 40px;
+        height: 630px;
+    }
+    .titu12 {
+        font-size: 35px;
+        padding-top: 35px;
+        padding-bottom: 25px;
+    }
+    .raçao1 {
+        width: 195px;
+    }
+    .raçao2 {
+        width: 195px;
+    }
+    .raçao3 {
+        width: 195px;
+    }
+    .raçao4 {
+        width: 195px;
+    }
+    .raçao5 {
+        width: 195px;
+    }
+    .raçao6 {
+        width: 195px;
+    }
+    .raçao7 {
+        width: 195px;
+    }
+    .raçao8 {
+        width: 195px;
+    }
+    .raçao9 {
+        width: 195px;
+    }
+
+    .divraçao1 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao2 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao3 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao4 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao5 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao6 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao7 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao8 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao9 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    
+    button {
+        font-family: luckpet2;
+        width: 140px;
+        height: 32px;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 25px 25px;
+        color: #48008bdc;
+        background-color: #6b6b6b2c;
+    }
+
+    .modal {
+        margin-top: 30px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 19px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
+    .section03 {
+        width: 100%;
+        height: 1299px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637);
+    }
+    .titu13 {
+        text-align: center;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 40px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        color: rgba(72, 0, 139, 0.863);
+    }
+    .planos {
+        display: block;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 19px;
+       padding: 33px;
+       color: rgba(72, 0, 139, 0.863);
+    }
+    .plano1 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano2 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano3 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .butplano {
+        font-family: luckpet2;
+        font-size: 16px;
+        width: 140px;
+        height: 50px;
+        padding: 15px 20px 30px 20px;
+        color: white;
+        background-color: rgba(72, 0, 139, 0.863);
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+    }
+}
+
+
+@media screen  and (min-width: 800px) and (max-width: 1050px){
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    h1#titu1 {
+        font-size: 60px;
+    }
+    .h3 {
+        font-size: 20px;
+        margin-top: -60px;
+    }
+    .icone {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 15px;
+        right: 80px;
+        top: 19px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 14.2px;
+        right: 20px;
+        top: 19px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 20px;
+        z-index: 2010;
+        right: -18px;
+        font-size: 20px;
+    }
+    #pesquisa {
+        margin-top: 56px;
+        font-size: 23px;
+        width: 99.4%;
+        border-radius: 0px 0px;
+    }
+    #div1 {
+        width: 97.4%;
+        font-size: 21px;
+        margin-top: 24px;
+        border-radius: 0px 0px;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+    .carousel img {
+        width: 80vw;
+        margin: auto;
+        text-align: center;
+        height: 80vh;
+        border-radius: 0px;
+        margin-top: 33px;
+        margin-left: 76px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
+    }
+    .section02 {
+        margin-top: 44px;
         height: 630px;
     }
     .titu12 {
