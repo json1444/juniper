@@ -264,9 +264,9 @@
         cursor: pointer;
     }
 
-
+    
     #sectioncuri {
-        height: 270%;
+        height: 70%;
     }
     
     .curi-h2 {
@@ -277,7 +277,7 @@
         padding-bottom: 80px;
     }
     .paidiv {
-        display: block;
+        display: flex;
         margin: auto;
         justify-content: center;
         text-align: center;
@@ -285,61 +285,51 @@
     }
     
     .paidiv2 {
-        display: block;
-
+        text-align: center;
+        
+        justify-content: center;
+        display: flex;
         
         font-family: luckpet2;
-        font-size: 17px;
-    }
-    .p5 {
-        position: absolute;
-        top: 200%;
-    
-        width: 0vw;
+        font-size: 13px;
     }
     .p6 {
-      position: absolute;
-      top: 250%;
-      width: 100vw;
-    }
-    .p7 {
-        
-        
+    width: 350px;
     }
     
     .div05 {
     background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
-    background-size: 399px;
+    background-size: 150px;
     background-repeat: no-repeat;
     background-position: center;
     z-index: 1;
     
         padding: 50px;
         margin-right: 20px;
-        width: 200px;
+        margin-top: -80px;
+        width: 4400px;
         height: 200px;
-        background-color: #4CAF50;
+        background-color: #ffffff00;
     }
     .div6 {
     background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
-    background-size: 299px;
+    background-size: 145px;
     background-repeat: no-repeat;
     z-index: 1;
     
-        padding: 50px;
-        width: 200px;
+        width: 100px;
         height: 200px;
-        background-color: #534caf;
+        background-color: #ffffff00;
     }
     .div07 {
     background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
-    background-size: 299px;
+    background-size: 112px;
     background-repeat: no-repeat;
     z-index: 1;
     
         margin-left: 20px;
         
-        padding: 50px;
+       
         width: 200px;
         height: 200px;
     }
@@ -348,7 +338,6 @@
        opacity: 0.1;
     }
     
-
 
     .section03 {
         width: 100%;
