@@ -7,13 +7,14 @@
     }
     body, html {
         height: 600px;
-        width: 100%;
+        width: 99.9%;
     }
     .p1 {
         font-size: 11px;
     }
     h1#titu1 {
         font-size: 35px;
+        width: 94.4%;
     }
     .h3 {
         font-size: 15px;
@@ -65,7 +66,7 @@
     }
     #div1 {
         margin-top: -2px;
-        width: 94.3%;
+        width: 94.4%;
         font-size: 12px;
         border-radius: 0px 0px;
     }
@@ -262,6 +263,92 @@
         font-weight: bold;
         cursor: pointer;
     }
+
+
+    #sectioncuri {
+        height: 270%;
+    }
+    
+    .curi-h2 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding: 30px;
+        padding-bottom: 80px;
+    }
+    .paidiv {
+        display: block;
+        margin: auto;
+        justify-content: center;
+        text-align: center;
+        background-attachment: fixed;
+    }
+    
+    .paidiv2 {
+        display: block;
+
+        
+        font-family: luckpet2;
+        font-size: 17px;
+    }
+    .p5 {
+        position: absolute;
+        top: 200%;
+    
+        width: 0vw;
+    }
+    .p6 {
+      position: absolute;
+      top: 250%;
+      width: 100vw;
+    }
+    .p7 {
+        
+        
+    }
+    
+    .div05 {
+    background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+    background-size: 399px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    
+        padding: 50px;
+        margin-right: 20px;
+        width: 200px;
+        height: 200px;
+        background-color: #4CAF50;
+    }
+    .div6 {
+    background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+    background-size: 299px;
+    background-repeat: no-repeat;
+    z-index: 1;
+    
+        padding: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: #534caf;
+    }
+    .div07 {
+    background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+    background-size: 299px;
+    background-repeat: no-repeat;
+    z-index: 1;
+    
+        margin-left: 20px;
+        
+        padding: 50px;
+        width: 200px;
+        height: 200px;
+    }
+    .div07:hover, .div6:hover, .div05:hover {
+       transform: translateY(0px);
+       opacity: 0.1;
+    }
+    
+
 
     .section03 {
         width: 100%;
