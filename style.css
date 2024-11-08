@@ -450,6 +450,9 @@ button {
     text-align: center;
     background-attachment: fixed;
 }
+.paidiv:hover {
+    opacity: 0.3;
+}
 .paidiv2 {
     text-align: center;
     margin-left: -30px;
