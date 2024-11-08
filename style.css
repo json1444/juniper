@@ -450,7 +450,6 @@ button {
     text-align: center;
     background-attachment: fixed;
 }
-
 .paidiv2 {
     text-align: center;
     margin-left: -30px;
@@ -478,7 +477,7 @@ z-index: 1;
     height: 200px;
     background-color: #4CAF50;
 }
-.div6 {
+.div06 {
 background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
 background-size: 299px;
 background-repeat: no-repeat;
@@ -501,7 +500,7 @@ z-index: 1;
     width: 200px;
     height: 200px;
 }
-.div07:hover, .div6:hover, .div05:hover {
+.div07:hover, .div06:hover, .div05:hover {
    transform: translateY(95px);
 }
 

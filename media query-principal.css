@@ -7,14 +7,13 @@
     }
     body, html {
         height: 600px;
-        width: 99.9%;
+        width: 99.8%;
     }
     .p1 {
         font-size: 11px;
     }
     h1#titu1 {
         font-size: 35px;
-        width: 94.4%;
     }
     .h3 {
         font-size: 15px;
@@ -66,7 +65,7 @@
     }
     #div1 {
         margin-top: -2px;
-        width: 94.4%;
+        width: 94.3%;
         font-size: 12px;
         border-radius: 0px 0px;
     }
@@ -264,9 +263,9 @@
         cursor: pointer;
     }
 
-    
+
     #sectioncuri {
-        height: 70%;
+        height: 195%;
     }
     
     .curi-h2 {
@@ -277,67 +276,66 @@
         padding-bottom: 80px;
     }
     .paidiv {
-        display: flex;
-        margin: auto;
-        justify-content: center;
-        text-align: center;
+        display: block;
         background-attachment: fixed;
     }
-    
     .paidiv2 {
-        text-align: center;
-        
-        justify-content: center;
-        display: flex;
-        
+        display: grid;
         font-family: luckpet2;
-        font-size: 13px;
+        font-size: 17px; 
+        margin-top: -800px;
+        height: 122px;
+    }
+    .p5 {
+        height: 252px;
     }
     .p6 {
-    width: 350px;
+    width: 150px;
+    height: 272px;
     }
-    
+
     .div05 {
     background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
-    background-size: 150px;
+    background-size: 399px;
     background-repeat: no-repeat;
     background-position: center;
     z-index: 1;
     
-        padding: 50px;
-        margin-right: 20px;
-        margin-top: -80px;
-        width: 4400px;
+       
+        margin-left: 30px;
+        width: 55vw;
         height: 200px;
-        background-color: #ffffff00;
+        background-color: #4CAF50;
     }
-    .div6 {
+    .div06 {
     background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
-    background-size: 145px;
+    background-size: 299px;
     background-repeat: no-repeat;
     z-index: 1;
     
-        width: 100px;
+        margin-left: 30px;
+        width: 55vw;
         height: 200px;
-        background-color: #ffffff00;
+        background-color: hsl(214, 100%, 57%);
     }
     .div07 {
     background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
-    background-size: 112px;
+    background-size: 299px;
     background-repeat: no-repeat;
     z-index: 1;
-    
-        margin-left: 20px;
-        
-       
-        width: 200px;
+
+    background-color: #ce0000;
+
+        margin-left: 30px;
+        width: 55vw;
         height: 200px;
     }
-    .div07:hover, .div6:hover, .div05:hover {
+    .div07:hover, .div06:hover, .div05:hover {
        transform: translateY(0px);
        opacity: 0.1;
     }
     
+
 
     .section03 {
         width: 100%;
