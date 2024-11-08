@@ -132,15 +132,19 @@ header {
     display: none;
     position: absolute;
     top: 34px;
+    right: 0px;
     border-radius: 5px;
     margin-top: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.opcoes, .opcoes2 {
+    font-size: 22px;
+}
 
 .icone2:hover .opcoes2 {
     display: block;
-    background-color: rgb(255, 123, 0);
+    background-color: #ff7b00;
 }
 a {
     color: rgb(255, 255, 255);
@@ -173,8 +177,8 @@ div.input {
     border-radius: 0px 0px;
     padding: 10px 10px 10px 10px;
     margin-top: -11px;
-    background-color:rgb(255, 123, 0);
-    width: 98.6%;
+    background-color:#ff7b00;
+    width: 98.5%;
     font-family: luckpet2;
 }
 
@@ -204,8 +208,8 @@ div.input {
 }
 
 .carousel img {
-    width: 60%;
-    height: 85vh;
+    width: 67%;
+    height: 95vh;
     border-radius: 30px;
     margin-top: 33px;
     cursor: pointer;
@@ -342,7 +346,7 @@ button {
     cursor: pointer;
     border-radius: 25px 25px;
     color: #48008bdc;
-    background-color: #6b6b6b2c;
+    background-color: #6b6b6b3f;
 }
 
 .botao-remover {
@@ -428,9 +432,81 @@ button {
     background-color: #0056b3;
 }
 
+#sectioncuri {
+    height: 70%;
+}
+
+.curi-h2 {
+    text-align: center;
+    font-family: luckpet1;
+    font-size: 35px;
+    padding: 30px;
+    padding-bottom: 80px;
+}
+.paidiv {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    background-attachment: fixed;
+}
+.paidiv2 {
+    text-align: center;
+    margin-left: -30px;
+    margin-top: -335px;
+    justify-content: center;
+    display: flex;
+    
+    font-family: luckpet2;
+    font-size: 17px;
+}
+.p6 {
+width: 420px;
+}
+
+.div05 {
+background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+background-size: 399px;
+background-repeat: no-repeat;
+background-position: center;
+z-index: 1;
+
+    padding: 50px;
+    margin-right: 20px;
+    width: 200px;
+    height: 200px;
+    background-color: #4CAF50;
+}
+.div06 {
+background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+background-size: 299px;
+background-repeat: no-repeat;
+z-index: 1;
+
+    padding: 50px;
+    width: 200px;
+    height: 200px;
+    background-color: #534caf;
+}
+.div07 {
+background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+background-size: 299px;
+background-repeat: no-repeat;
+z-index: 1;
+
+    margin-left: 20px;
+    
+    padding: 50px;
+    width: 200px;
+    height: 200px;
+}
+.div07:hover, .div06:hover, .div05:hover {
+   transform: translateY(95px);
+}
+
 .section03 {
     width: 100%;
-    height: 500px;
+    height: 540px;
     text-align: center;
     background-color: rgba(0, 172, 100, 0.637) ;
 }
@@ -438,15 +514,15 @@ button {
     text-align: center;
     font-family: luckpet1;
     font-size: 35px;
-    padding-top: 20px;
+    padding-top: 50px;
     padding-bottom: 30px;
-    color: rgba(72, 0, 139, 0.863);
+    color: #48008bdc;
 }
 .planos {
     display: flex;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 18px;
-   padding: 20px;
+   padding: 30px;
    gap: 30px;
    color: rgba(72, 0, 139, 0.863);
 }
