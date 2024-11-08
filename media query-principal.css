@@ -265,7 +265,7 @@
 
 
     #sectioncuri {
-        height: 195%;
+        height: 189%;
     }
     
     .curi-h2 {
@@ -280,18 +280,16 @@
         background-attachment: fixed;
     }
     .paidiv2 {
-        display: grid;
-        font-family: luckpet2;
-        font-size: 17px; 
-        margin-top: -800px;
-        height: 122px;
+        width: 0px;
+        font-size: 0.1px;
+        opacity: 0.1;
     }
     .p5 {
-        height: 252px;
+        height: 0px;
     }
     .p6 {
-    width: 150px;
-    height: 272px;
+    width: 0px;
+    height: 0px;
     }
 
     .div05 {
@@ -302,8 +300,8 @@
     z-index: 1;
     
        
-        margin-left: 30px;
-        width: 55vw;
+        margin-left: 0px;
+        width: 71.4vw;
         height: 200px;
         background-color: #4CAF50;
     }
@@ -313,8 +311,8 @@
     background-repeat: no-repeat;
     z-index: 1;
     
-        margin-left: 30px;
-        width: 55vw;
+        margin-left: 0px;
+        width: 71.3vw;
         height: 200px;
         background-color: hsl(214, 100%, 57%);
     }
@@ -326,13 +324,12 @@
 
     background-color: #ce0000;
 
-        margin-left: 30px;
-        width: 55vw;
+        margin-left: 0px;
+        width: 71.4vw;
         height: 200px;
     }
     .div07:hover, .div06:hover, .div05:hover {
        transform: translateY(0px);
-       opacity: 0.1;
     }
     
 
