@@ -220,7 +220,7 @@ div.input {
 }
 .section02 {
     background-color: #88888852;
-    height: 690px;
+    height: 1300px;
     width: 100%;
     margin-top: 45px;
 }
@@ -232,6 +232,62 @@ div.input {
     padding-bottom: 50px;
     color: rgba(0, 0, 0, 0.918);
 }
+
+div#paidivcamisa {
+    font-family: luckpet2;
+    text-align: center;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    line-height: 25px;
+    font-size: 15px;
+    
+    padding-bottom: 100px;
+}
+
+.divcam1 {
+    height: 490px;
+    background-color: #ffffff;
+    border-radius: 30px;
+}
+.camisa1 {
+    width: 30vw;
+    height: 350px;
+}
+.divcam2 {
+    height: 490px;
+    background-color: #ffffff;
+    border-radius: 30px;
+}
+.camisa2 {
+    width: 30vw;
+    height: 350px;
+}
+.divcam3 {
+    height: 490px;
+    background-color: #ffffff;
+    border-radius: 30px;
+}
+.camisa3 {
+    width: 30vw;
+    height: 350px;
+}
+.pcam {
+    width: 30vw;
+}
+.buttamanho {
+    height: 20px;
+    width: 5vw;
+    font-size: 1vw;
+}
+.p10 {
+    margin-top: -5px;
+    color:#8a2be2;
+}
+
+
 
 .carousel02 {
     display: flex;
