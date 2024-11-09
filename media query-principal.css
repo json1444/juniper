@@ -265,7 +265,7 @@
 
 
     #sectioncuri {
-        height: 189%;
+        height: 100%;
     }
     
     .curi-h2 {
@@ -275,61 +275,75 @@
         padding: 30px;
         padding-bottom: 80px;
     }
+    
     .paidiv {
-        display: block;
-        background-attachment: fixed;
+        display: flex;
+        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
+        overflow-y: auto; /* Ativa rolagem vertical */
+        gap: 20px; /* Espaço entre as imagens */
+        height: 400px; /* Define uma altura para o contêiner de rolagem */
+        padding: 10px;
+        margin-top: -40px;
+        margin-left: 12px;
+        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
+        align-items: center; /* Centraliza as imagens horizontalmente */
     }
+    
+    .paidiv::-webkit-scrollbar {
+        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
+    }
+    
+    .paidiv::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+    
+    .paidiv::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
     .paidiv2 {
+        text-align: center;
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        font-family: luckpet2;
+        font-size: 17px;
         width: 0px;
-        font-size: 0.1px;
-        opacity: 0.1;
-    }
-    .p5 {
         height: 0px;
+        opacity: 0.1;
+        visibility: hidden;
     }
-    .p6 {
-    width: 0px;
-    height: 0px;
+    
+    .div05, .div06, .div07 {
+        padding-top: 200px;
+        width: 180px; /* Largura fixa para centralizar as imagens */
+        height: 250px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
     }
-
+    
     .div05 {
-    background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
-    background-size: 399px;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
-    
-       
-        margin-left: 0px;
-        width: 71.4vw;
-        height: 200px;
-        background-color: #4CAF50;
+        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+        margin-top: 400px;
+        margin-left: 20px;
     }
+    
     .div06 {
-    background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
-    background-size: 299px;
-    background-repeat: no-repeat;
-    z-index: 1;
+        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+    }
     
-        margin-left: 0px;
-        width: 71.3vw;
-        height: 200px;
-        background-color: hsl(214, 100%, 57%);
-    }
     .div07 {
-    background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
-    background-size: 299px;
-    background-repeat: no-repeat;
-    z-index: 1;
-
-    background-color: #ce0000;
-
-        margin-left: 0px;
-        width: 71.4vw;
-        height: 200px;
+        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+        margin-right: 20px;
     }
+    
     .div07:hover, .div06:hover, .div05:hover {
-       transform: translateY(0px);
+        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
     }
     
 
@@ -342,7 +356,7 @@
     }
     .titu13 {
         text-align: center;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-family:luckpet1;
         font-size: 25px;
         padding-top: 20px;
         padding-bottom: 30px;
@@ -625,6 +639,91 @@
         border-radius: 8px;
     }
 
+
+    #sectioncuri {
+        height: 78%;
+    }
+    
+    .curi-h2 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding: 30px;
+        padding-bottom: 80px;
+    }
+    
+    .paidiv {
+        display: flex;
+        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
+        overflow-y: auto; /* Ativa rolagem vertical */
+        gap: 20px; /* Espaço entre as imagens */
+        height: 400px; /* Define uma altura para o contêiner de rolagem */
+        padding: 10px;
+        margin-top: -40px;
+        margin-left: 12px;
+        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
+        align-items: center; /* Centraliza as imagens horizontalmente */
+    }
+    
+    .paidiv::-webkit-scrollbar {
+        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
+    }
+    
+    .paidiv::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+    
+    .paidiv::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .paidiv2 {
+        text-align: center;
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        font-family: luckpet2;
+        font-size: 17px;
+        width: 0px;
+        height: 0px;
+        opacity: 0.1;
+        visibility: hidden;
+    }
+    
+    .div05, .div06, .div07 {
+        padding-top: 200px;
+        width: 240px; /* Largura fixa para centralizar as imagens */
+        height: 250px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
+    }
+    
+    .div05 {
+        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+        margin-top: 400px;
+        margin-left: 20px;
+    }
+    
+    .div06 {
+        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+    }
+    
+    .div07 {
+        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+        margin-right: 20px;
+    }
+    
+    .div07:hover, .div06:hover, .div05:hover {
+        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+    }
+    
+
+
     .section03 {
         width: 100%;
         height: 1190px;
@@ -633,7 +732,7 @@
     }
     .titu13 {
         text-align: center;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-family:luckpet1;
         font-size: 30px;
         padding-top: 20px;
         padding-bottom: 30px;
@@ -900,6 +999,89 @@
         background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
     }
 
+    #sectioncuri {
+        height: 73%;
+    }
+    
+    .curi-h2 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding: 30px;
+        padding-bottom: 80px;
+    }
+    
+    .paidiv {
+        display: flex;
+        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
+        overflow-y: auto; /* Ativa rolagem vertical */
+        gap: 20px; /* Espaço entre as imagens */
+        height: 400px; /* Define uma altura para o contêiner de rolagem */
+        padding: 10px;
+        margin-top: -40px;
+        margin-left: 12px;
+        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
+        align-items: center; /* Centraliza as imagens horizontalmente */
+    }
+    
+    .paidiv::-webkit-scrollbar {
+        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
+    }
+    
+    .paidiv::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+    
+    .paidiv::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .paidiv2 {
+        text-align: center;
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        font-family: luckpet2;
+        font-size: 17px;
+        width: 0px;
+        height: 0px;
+        opacity: 0.1;
+        visibility: hidden;
+    }
+    
+    .div05, .div06, .div07 {
+        padding-top: 200px;
+        width: 250px; /* Largura fixa para centralizar as imagens */
+        height: 250px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
+    }
+    
+    .div05 {
+        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+        margin-top: 400px;
+        margin-left: 20px;
+    }
+    
+    .div06 {
+        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+    }
+    
+    .div07 {
+        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+        margin-right: 20px;
+    }
+    
+    .div07:hover, .div06:hover, .div05:hover {
+        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+    }
+    
+
     .section03 {
         width: 100%;
         height: 1299px;
@@ -908,7 +1090,7 @@
     }
     .titu13 {
         text-align: center;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-family:luckpet1;
         font-size: 40px;
         padding-top: 20px;
         padding-bottom: 30px;
@@ -1178,6 +1360,94 @@
         background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
     }
 
+
+    #sectioncuri {
+        height: 74%;
+    }
+    
+    .curi-h2 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding: 30px;
+        padding-bottom: 80px;
+    }
+    
+    .paidiv {
+        display: flex;
+        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
+        overflow-y: auto; /* Ativa rolagem vertical */
+        gap: 20px; /* Espaço entre as imagens */
+        height: 400px; /* Define uma altura para o contêiner de rolagem */
+        padding: 10px;
+        margin-top: -40px;
+        margin-left: 12px;
+        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
+        align-items: center; /* Centraliza as imagens horizontalmente */
+    }
+    
+    .paidiv::-webkit-scrollbar {
+        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
+    }
+    
+    .paidiv::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+    
+    .paidiv::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .paidiv2 {
+        text-align: center;
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        font-family: luckpet2;
+        font-size: 17px;
+        width: 0px;
+        height: 0px;
+        opacity: 0.1;
+        visibility: hidden;
+    }
+    
+    .div05, .div06, .div07 {
+        padding-top: 200px;
+        width: 290px; /* Largura fixa para centralizar as imagens */
+        height: 350px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
+    }
+    
+    .div05 {
+        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+        margin-top: 600px;
+        margin-left: 20px;
+        padding-top: 260px;
+    }
+    
+    .div06 {
+        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+        padding-top: 260px;
+    }
+    
+    .div07 {
+        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+        margin-right: 20px;
+        padding-top: 260px;
+    }
+    
+    .div07:hover, .div06:hover, .div05:hover {
+        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+    }
+    
+
+
     .section03 {
         width: 100%;
         height: 1299px;
@@ -1186,7 +1456,7 @@
     }
     .titu13 {
         text-align: center;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-family:luckpet1;
         font-size: 40px;
         padding-top: 20px;
         padding-bottom: 30px;
@@ -1455,6 +1725,93 @@
         background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
     }
 
+
+    #sectioncuri {
+        height: 74%;
+    }
+    
+    .curi-h2 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding: 30px;
+        padding-bottom: 80px;
+    }
+    
+    .paidiv {
+        display: flex;
+        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
+        overflow-y: auto; /* Ativa rolagem vertical */
+        gap: 20px; /* Espaço entre as imagens */
+        height: 400px; /* Define uma altura para o contêiner de rolagem */
+        padding: 10px;
+        margin-top: -40px;
+        margin-left: 12px;
+        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
+        align-items: center; /* Centraliza as imagens horizontalmente */
+    }
+    
+    .paidiv::-webkit-scrollbar {
+        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
+    }
+    
+    .paidiv::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+    
+    .paidiv::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .paidiv2 {
+        text-align: center;
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        font-family: luckpet2;
+        font-size: 17px;
+        width: 0px;
+        height: 0px;
+        opacity: 0.1;
+        visibility: hidden;
+    }
+    
+    .div05, .div06, .div07 {
+        padding-top: 200px;
+        width: 490px; /* Largura fixa para centralizar as imagens */
+        height: 350px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
+    }
+    
+    .div05 {
+        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+        margin-top: 990px;
+        margin-left: 20px;
+        padding-top: 460px;
+    }
+    
+    .div06 {
+        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+        padding-top: 360px;
+        padding-top: 400px;
+    }
+    
+    .div07 {
+        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+        margin-right: 20px;
+        padding-top: 400px;
+    }
+    
+    .div07:hover, .div06:hover, .div05:hover {
+        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+    }
+
     .section03 {
         width: 100%;
         height: 1299px;
@@ -1463,7 +1820,7 @@
     }
     .titu13 {
         text-align: center;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-family: luckpet1;
         font-size: 40px;
         padding-top: 20px;
         padding-bottom: 30px;
@@ -1508,6 +1865,278 @@
         width: 140px;
         height: 50px;
         padding: 15px 20px 30px 20px;
+        color: white;
+        background-color: rgba(72, 0, 139, 0.863);
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+    }
+}
+
+
+
+@media screen  and (min-width: 1050px) and (max-width: 1155px){
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    h1#titu1 {
+        font-size: 60px;
+    }
+    .h3 {
+        font-size: 20px;
+        margin-top: -60px;
+    }
+    .icone {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 15px;
+        right: 80px;
+        top: 19px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-family: luckpet2;
+        font-size: 14.2px;
+        right: 20px;
+        top: 19px;
+        width: 37px;
+        height: 37px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 20px;
+        z-index: 2010;
+        right: -18px;
+        font-size: 20px;
+    }
+    #pesquisa {
+        margin-top: 56px;
+        font-size: 23px;
+        width: 99.4%;
+        border-radius: 0px 0px;
+    }
+    #div1 {
+        width: 97.4%;
+        font-size: 21px;
+        margin-top: 24px;
+        border-radius: 0px 0px;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+    .carousel img {
+        width: 80vw;
+        margin: auto;
+        text-align: center;
+        height: 80vh;
+        border-radius: 0px;
+        margin-top: 33px;
+        margin-left: 76px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
+    }
+    .section02 {
+        margin-top: 44px;
+        height: 630px;
+    }
+    .titu12 {
+        font-size: 35px;
+        padding-top: 35px;
+        padding-bottom: 25px;
+    }
+    .raçao1 {
+        width: 195px;
+    }
+    .raçao2 {
+        width: 195px;
+    }
+    .raçao3 {
+        width: 195px;
+    }
+    .raçao4 {
+        width: 195px;
+    }
+    .raçao5 {
+        width: 195px;
+    }
+    .raçao6 {
+        width: 195px;
+    }
+    .raçao7 {
+        width: 195px;
+    }
+    .raçao8 {
+        width: 195px;
+    }
+    .raçao9 {
+        width: 195px;
+    }
+
+    .divraçao1 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao2 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao3 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao4 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao5 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao6 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao7 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao8 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    .divraçao9 {
+        background-color: rgba(255, 255, 255, 0.575);
+        height: 467px;
+        border-radius: 20px 20px 20px;
+        margin: auto;
+        text-align: center;
+    }
+    
+    button {
+        font-family: luckpet2;
+        width: 140px;
+        height: 32px;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 25px 25px;
+        color: #48008bdc;
+        background-color: #6b6b6b2c;
+    }
+
+    .modal {
+        margin-top: 30px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 19px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
+    .section03 {
+        width: 100%;
+        height: 540px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637) ;
+    }
+    .titu13 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding-top: 50px;
+        padding-bottom: 30px;
+        color: #48008bdc;
+    }
+    .planos {
+        display: flex;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
+       padding: 30px;
+       gap: 30px;
+       color: rgba(72, 0, 139, 0.863);
+    }
+    .plano1 {
+        width: 500px;
+        height: 300px;
+        padding: 10px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano2 {
+        width: 500px;
+        height: 300px;
+        padding: 10px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .plano3 {
+        width: 500px;
+        height: 300px;
+        padding: 10px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px 15px 15px;
+    }
+    .butplano {
+        margin-top: -10px;
+        font-family: luckpet2;
+        font-size: 20px;
+        width: 160px;
+        height: 60px;
+        padding: 15px 20px 20px 20px;
         color: white;
         background-color: rgba(72, 0, 139, 0.863);
         border-radius: 20px 20px 20px 20px;
