@@ -17,8 +17,8 @@ body, html {
 }
 
 div#caixa01 {
-    background-image: url(img/Black\ Simple\ Pet\ Shop\ Logo.png);
-    background-position: center bottom;
+    background-image: url(img/karsten-winegeart-WaMMo0it6Vg-unsplash.jpg);
+    background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -73,13 +73,14 @@ input.input2 {
     border-radius: 8px;
 }
 input.input3 {
-    color:rgb(0, 0, 0);
+    color:rgb(206, 47, 255);
     background-color: rgb(255, 255, 255);
     border-radius: 8px;
     margin: 5px 0px 0px 35px;
     padding: 5px;
+    font-family: luckpet2;
 }
 input.input3:hover {
-    background-color: rgb(175, 90, 255);
+    background-color: rgba(255, 255, 255, 0.74);
     cursor: pointer;
 }

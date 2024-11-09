@@ -5,7 +5,7 @@
 @media screen and (min-width: 350px) and (max-width: 767px) {
     body {
         background-image: url(img/PetLuck.png);
-        background-size: 180px;
+        background-size: 70px;
     }
     h1.h1 {
         margin-top: 9px;
