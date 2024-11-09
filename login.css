@@ -2,7 +2,15 @@
 
 @font-face {
     font-family: 'luckpet';
-    src: url(fontes/petangue\ DEMO.otf) format(opentype);
+    src: url(fontes/POSTERABLE.ttf) format(opentype); 
+}
+@font-face {
+    font-family: 'luckpet1';
+    src: url(fontes/POSTERABLE.ttf) format(opentype);
+}
+@font-face {
+    font-family: 'luckpet2';
+    src: url(fontes/MilkyNice-Clean.otf) format(opentype);
 }
 
 * {
@@ -38,7 +46,7 @@ div#caixa01 {
 
 h1.h1 {
     text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: luckpet2;
     text-shadow: 1px 1px black;
     color: white;
     margin-top: -8px;
@@ -46,6 +54,7 @@ h1.h1 {
 
 p.p {
     text-align: center;
+    font-family: luckpet1;
     margin-top: -3px;
     text-shadow: 1px 1px black;
     color: white;
