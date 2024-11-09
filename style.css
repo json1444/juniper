@@ -220,7 +220,7 @@ div.input {
 }
 .section02 {
     background-color: #88888852;
-    height: 1300px;
+    height: 1360px;
     width: 100%;
     margin-top: 45px;
 }
@@ -240,37 +240,40 @@ div#paidivcamisa {
     margin: auto;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: -4px;
     line-height: 25px;
-    font-size: 15px;
+    font-size: 18px;
     
     padding-bottom: 100px;
 }
 
 .divcam1 {
-    height: 490px;
+    height: 525px;
     background-color: #ffffff;
     border-radius: 30px;
 }
 .camisa1 {
+    border-radius: 30px 30px 0px 0px;
     width: 30vw;
     height: 350px;
 }
 .divcam2 {
-    height: 490px;
+    height: 525px;
     background-color: #ffffff;
     border-radius: 30px;
 }
 .camisa2 {
+    border-radius: 30px 30px 0px 0px;
     width: 30vw;
     height: 350px;
 }
 .divcam3 {
-    height: 490px;
+    height: 525px;
     background-color: #ffffff;
     border-radius: 30px;
 }
 .camisa3 {
+    border-radius: 30px 30px 0px 0px;
     width: 30vw;
     height: 350px;
 }
@@ -278,15 +281,22 @@ div#paidivcamisa {
     width: 30vw;
 }
 .buttamanho {
-    height: 20px;
-    width: 5vw;
-    font-size: 1vw;
+    height: 28px;
+    width: 13vw;
+    font-size: 1.6vw;
 }
 .p10 {
     margin-top: -5px;
     color:#8a2be2;
 }
 
+
+.subtitu {
+    text-align: center;
+    font-family: luckpet2;
+    padding-bottom: 30px;
+    font-size: 2vw;
+}
 
 
 .carousel02 {
@@ -301,30 +311,39 @@ div#paidivcamisa {
 
 .raçao1 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao2 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao3 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao4 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao5 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao6 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao7 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao8 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .raçao9 {
     width: 200px;
+    border-radius: 25px 25px 0px 0px;
 }
 .p3 {
     margin-top: 15px
@@ -401,7 +420,7 @@ button {
     font-size: 17px;
     cursor: pointer;
     border-radius: 25px 25px;
-    color: #48008bdc;
+    color: #8a2be2;
     background-color: #6b6b6b3f;
 }
 
@@ -572,7 +591,7 @@ z-index: 1;
     font-size: 35px;
     padding-top: 50px;
     padding-bottom: 30px;
-    color: #48008bdc;
+    color: #8a2be2;
 }
 .planos {
     display: flex;
@@ -580,7 +599,7 @@ z-index: 1;
     font-size: 18px;
    padding: 30px;
    gap: 30px;
-   color: rgba(72, 0, 139, 0.863);
+   color: #8a2be2;
 }
 .plano1 {
     width: 500px;
@@ -611,7 +630,7 @@ z-index: 1;
     height: 60px;
     padding: 15px 20px 20px 20px;
     color: white;
-    background-color: rgba(72, 0, 139, 0.863);
+    background-color: #8a2be2;
     border-radius: 20px 20px 20px 20px;
     box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
 }

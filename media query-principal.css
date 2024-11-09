@@ -110,13 +110,77 @@
 
     .section02 {
         margin-top: 50px;
-        height: 579px;
+        height: 2179px;
     }
     .titu12 {
-        font-size: 21px;
+        font-size: 6vw;
         padding-top: 25px;
         padding-bottom: 25px;
     }
+
+
+    div#paidivcamisa {
+        font-family: luckpet2;
+        text-align: center;
+        display: block;
+        margin: auto;
+        justify-content: center;
+        margin-top: 20px;
+        line-height: 25px;
+        font-size: 16px;
+        
+        padding-bottom: 100px;
+    }
+    
+    .divcam1 {
+        margin-left: 11vw;
+        height: 470px;
+        width: 80vw;
+        background-color: #ffffff;
+        border-radius: 30px;
+    }
+    .camisa1 {
+        width: 80vw;
+        height: 300px;
+    }
+    .divcam2 {
+        margin-left: 11vw;
+        margin-top: 30px;
+        height: 470px;
+        width: 80vw;
+        background-color: #ffffff;
+        border-radius: 30px;
+    }
+    .camisa2 {
+        width: 80vw;
+        height: 300px;
+    }
+    .divcam3 {
+        margin-left: 11vw;
+        margin-top: 30px;
+        height: 470px;
+        width: 80vw;
+        background-color: #ffffff;
+        border-radius: 30px;
+    }
+    .camisa3 {
+        width: 80vw;
+        height: 300px;
+    }
+    .pcam {
+        width: 80vw;
+    }
+    .buttamanho {
+        height: 20px;
+        width: 32vw;
+        font-size: 4vw;
+    }
+    .p10 {
+        margin-top: -5px;
+        color:#8a2be2;
+    }
+
+
     .raçao1 {
         width: 180px;
     }
