@@ -285,6 +285,16 @@ div#paidivcamisa {
     width: 13vw;
     font-size: 1.6vw;
 }
+.butcomprar {
+    margin-left: 260px;
+    position: relative;
+    top: -70px;
+    width: 6.6vw;
+    color: black;
+}
+.butcomprar:hover {
+    transform: translate(-3px, -3px);
+}
 .p10 {
     margin-top: -5px;
     color:#8a2be2;

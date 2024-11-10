@@ -1,14 +1,17 @@
-// Objeto para armazenar quantidades e valores totais de cada produto //
 let produtos = {
-    morango: { quantidade: 0, total: 0},
-    uva: { quantidade: 0, total: 0},
-    coco: { quantidade: 0, total: 0},
-    limao: { quantidade: 0, total: 0},
-    banana: { quantidade: 0, total: 0},
-    pessego: { quantidade: 0, total: 0},
-    mirtilo: { quantidade: 0, total: 0},
-    abacaxi: { quantidade: 0, total: 0 },
-    maca: { quantidade: 0, total: 0 }
+    morango: { quantidade: 0, total: 0, tipo: "alimento" },
+    uva: { quantidade: 0, total: 0, tipo: "alimento" },
+    coco: { quantidade: 0, total: 0, tipo: "alimento" },
+    limao: { quantidade: 0, total: 0, tipo: "alimento" },
+    banana: { quantidade: 0, total: 0, tipo: "alimento" },
+    pessego: { quantidade: 0, total: 0, tipo: "alimento" },
+    mirtilo: { quantidade: 0, total: 0, tipo: "alimento" },
+    abacaxi: { quantidade: 0, total: 0, tipo: "alimento" },
+    maca: { quantidade: 0, total: 0, tipo: "alimento" },
+
+    blusa: { quantidade: 0, total: 0, tipo: "vestimenta" },
+    colete: { quantidade: 0, total: 0, tipo: "vestimenta" },
+    moletom: { quantidade: 0, total: 0, tipo: "vestimenta" }
 };
 
 function atualizarProduto(produto, preco, acao) {
@@ -22,12 +25,10 @@ function atualizarProduto(produto, preco, acao) {
 
     if (acao === 'adicionar') {
         notificacao.textContent = `${produto.charAt(0).toUpperCase() + produto.slice(1)} adicionado ao carrinho`;
-        notificacao.classList.remove("remover");
         produtoData.quantidade++;
         produtoData.total += parseFloat(preco);
     } else if (acao === 'remover' && produtoData.quantidade > 0) {
         notificacao.textContent = `${produto.charAt(0).toUpperCase() + produto.slice(1)} removido do carrinho`;
-        notificacao.classList.add("remover");
         produtoData.quantidade--;
         produtoData.total -= parseFloat(preco);
     }
@@ -52,7 +53,9 @@ function abrirCarrinho() {
     for (let produto in produtos) {
         let produtoData = produtos[produto];
         if (produtoData.quantidade > 0) {
-            conteudoCarrinho += `<li>${produto.charAt(0).toUpperCase() + produto.slice(1)}: 
+            // Define a cor baseada no tipo do produto
+            let cor = produtoData.tipo === "alimento" ? "darkorange" : "darkblue";
+            conteudoCarrinho += `<li style="color: ${cor};">${produto.charAt(0).toUpperCase() + produto.slice(1)}: 
             ${produtoData.quantidade} unidades - Total: R$ ${produtoData.total.toFixed(2)}</li>`;
             subtotal += produtoData.total;
         }
@@ -78,7 +81,6 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 };
-
 
 let currentIndex = 0;
 const items = document.querySelectorAll('.carousel-item');

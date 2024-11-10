@@ -110,7 +110,7 @@
 
     .section02 {
         margin-top: 50px;
-        height: 2179px;
+        height: 1249px;
     }
     .titu12 {
         font-size: 6vw;
@@ -128,9 +128,10 @@
         margin-top: 20px;
         line-height: 25px;
         font-size: 16px;
-        
-        padding-bottom: 100px;
-    }
+     /* Adicionando rolagem vertical */
+     height: 500px; /* Defina a altura conforme necessário */
+     overflow-y: auto; /* Habilita a rolagem vertical */
+ }
     
     .divcam1 {
         margin-left: 11vw;
@@ -178,6 +179,11 @@
     .p10 {
         margin-top: -5px;
         color:#8a2be2;
+    }
+
+    .subtitu {
+        font-size: 7vw;
+        margin-top: 20px;
     }
 
 
