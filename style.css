@@ -220,7 +220,7 @@ div.input {
 }
 .section02 {
     background-color: #88888852;
-    height: 1360px;
+    height: 1290px;
     width: 100%;
     margin-top: 45px;
 }
@@ -278,17 +278,23 @@ div#paidivcamisa {
     height: 350px;
 }
 .pcam {
+    line-height: 33px;
     width: 30vw;
+    font-size: 21px;
 }
 .buttamanho {
     height: 28px;
-    width: 13vw;
+    width: 10vw;
     font-size: 1.6vw;
+}
+.buttamanho:focus {
+background-color: #ff7b00;
+color: #ffffff;
 }
 .butcomprar {
     margin-left: 260px;
     position: relative;
-    top: -70px;
+    top: -45px;
     width: 6.6vw;
     color: black;
 }
@@ -356,68 +362,91 @@ div#paidivcamisa {
     border-radius: 25px 25px 0px 0px;
 }
 .p3 {
-    margin-top: 15px
+    margin-top: 15px;
+    font-size: 20px;
+    color: #ff7b00;
+}
+#maca-total-valor, 
+#uva-total-valor,
+#abacaxi-total-valor, #morango-total-valor, 
+#coco-total-valor,
+#limao-total-valor,
+#banana-total-valor,
+#pessego-total-valor,
+#mirtilo-total-valor {
+    color: #000000;
+    font-size: 20px;
+    font-family:luckpet2;
 }
 
 .divraçao1 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao2 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+    font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao3 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao4 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao5 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
     border-radius: 20px 20px 20px;
+    font-size: 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao6 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao7 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao8 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+    font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
 }
 .divraçao9 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 470px;
+    height: 410px;
+    font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
     text-align: center;
@@ -430,8 +459,11 @@ button {
     font-size: 17px;
     cursor: pointer;
     border-radius: 25px 25px;
-    color: #8a2be2;
+    color: #424242;
     background-color: #6b6b6b3f;
+}
+button:active {
+    background-color: #ff7b00;
 }
 
 .botao-remover {

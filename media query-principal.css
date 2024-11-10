@@ -135,7 +135,7 @@
     
     .divcam1 {
         margin-left: 11vw;
-        height: 470px;
+        height: 510px;
         width: 80vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -147,7 +147,7 @@
     .divcam2 {
         margin-left: 11vw;
         margin-top: 30px;
-        height: 470px;
+        height: 510px;
         width: 80vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -159,7 +159,7 @@
     .divcam3 {
         margin-left: 11vw;
         margin-top: 30px;
-        height: 470px;
+        height: 510px;
         width: 80vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -170,11 +170,20 @@
     }
     .pcam {
         width: 80vw;
+        font-size: 17px;
     }
     .buttamanho {
-        height: 20px;
+        height: 23px;
         width: 32vw;
         font-size: 4vw;
+    }
+    .butcomprar {
+        margin-left: 10px;
+        position: relative;
+        top: 8px;
+        width: 30vw;
+        font-size: 17px;
+        color: black;
     }
     .p10 {
         margin-top: -5px;
@@ -216,63 +225,72 @@
     }
     .divraçao1 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao2 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao3 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao4 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao5 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao6 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao7 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao8 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
     }
     .divraçao9 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 450px;
+        height: 380px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
@@ -282,10 +300,10 @@
         font-family: luckpet2;
         width: 120px;
         height: 32px;
-        font-size: 13px;
+        font-size: 15px;
         cursor: pointer;
         border-radius: 25px 25px;
-        color: #48008bdc;
+        color: #424242;
         background-color: #6b6b6b2c;
     }
 
@@ -325,6 +343,9 @@
         border-radius: 8px;
     }
 
+    #conteudo-carrinho {
+        font-size: 16px;
+    }
     .fechar {
         color: #ff0000;
         float: right;
