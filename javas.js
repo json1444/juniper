@@ -42,8 +42,8 @@ function atualizarProduto(produto, preco, acao) {
     }, 3000);
 
     // Atualize a quantidade e o total na interface para o produto específico
-    document.getElementById(produto + '-quantidade').textContent = "Unidades: " + produtoData.quantidade;
-    document.getElementById(produto + '-total-valor').textContent = "Total: R$ " + produtoData.total.toFixed(2);
+    document.getElementById(produto + '-quantidade').textContent = "Unid: " + produtoData.quantidade;
+    document.getElementById(produto + '-total-valor').textContent = "R$ " + produtoData.total.toFixed(2);
 }
 
 function abrirCarrinho() {

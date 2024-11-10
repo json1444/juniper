@@ -80,87 +80,122 @@
             <div class="divcam3"><img class="camisa3" src="img/CamisaPetluck3.png" alt=""><p class="pcam">Blusa Encanto Vermelho - <button class="buttamanho">Tam PP</button> <button class="buttamanho">Tam P</button><br>A partir de R$ 45,00<br><span style="color: #8a2be2;">R$ 39,99</span> <p class="p10">para assinantes <br><button class="butcomprar" onclick="atualizarProduto('blusa', 39.99, 'adicionar')">Comprar</button></p></p></div>
         </div>
 
-
           <h1 class="subtitu">Nutrição Balanceada para uma Vida Saudável!</h1>
 
 
+          <a href="#">
+            <p class="pcar" onclick="abrirCarrinho()">> Clique aqui e Confira o seu Carrinho <</p>
+        </a>
+
         <div class="carousel02">
             <div class="divraçao1"><img class="raçao1" src="img/img-raçao/MorangoPet.png" alt=""><p>Ração de <span style="color: red;">Morango</span>
-<br><br>
-                R$ 4,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 4,99</span>
+<br>               
+                <span class="p3" id="morango-quantidade">Unid: 0</span><span id="morango-total-valor"> R$ 0,00</span>
+
                 <button class="botao" onclick="atualizarProduto('morango', 4.99, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('morango', 4.99, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao2"><img class="raçao2" src="img/img-raçao/UvaPet.png" alt=""><p>Ração de <span style="color: #8a2be2;">Uva</span>
-<br><br>
-                <s style="color: red;">R$ 5,99</s> <span style="color: #00ac00;">R$ 4,50</span>
-<br><br>                
+<br>
+                <span style="line-height: 55px;"><s style="color: red;">R$ 5,99</s> <span style="color: #00ac00;">R$ 4,50</span></span>
+<br>               
+                   <span class="p3" id="uva-quantidade">Unid: 0</span><span id="uva-total-valor"> R$ 0,00</span>
+
                 <button class="botao" onclick="atualizarProduto('uva', 4.50, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('uva', 4.50, 'remover')">Remover</button>
         </div>
 
             <div class="divraçao3"><img class="raçao3" src="img/img-raçao/CocoPet.png" alt=""><p>Ração de <span style="color: saddlebrown;">Coco</span>
-<br><br>
-                R$ 3,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 3,99</span>
+<br>
+                  
+                <span class="p3" id="coco-quantidade">Unid: 0</span><span id="coco-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('coco', 3.99, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('coco', 3.99, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao4"><img class="raçao4" src="img/img-raçao/LimaoPet.png" alt=""><p>Ração de <span style="color: #7bce00;">Limão</span>
-<br><br>
-                R$ 4,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 4,99</span>
+<br>
+
+                <span class="p3" id="limao-quantidade">Unid: 0</span><span id="limao-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('limao', 4.99, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('limao', 4.99, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao5"><img class="raçao5" src="img/img-raçao/BananaPet.png" alt=""><p>Ração de <span style="color: #dab900;">Banana</span>
-<br><br>
-                <s style="color: red;">R$ 5,99</s> <span style="color: #00ac00;">R$ 4,50</span>
-<br><br>
+<br>
+                <span style="line-height: 55px;"><s style="color: red;">R$ 5,99</s> <span style="color: #00ac00;">R$ 4,50</span></span>
+<br>
+
+                <span class="p3" id="banana-quantidade">Unid: 0</span><span id="banana-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('banana', 4.50, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('banana', 4.50, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao6"><img class="raçao6" src="img/img-raçao/PessegoPet.png" alt=""><p>Ração de <span style="color: #be9a78;">Pêssego</span>
-<br><br>
-                R$ 3,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 3,99</span>
+<br>
+
+                <span class="p3" id="pessego-quantidade">Unid: 0</span><span id="pessego-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('pessego', 3.99, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('pessego', 3.99, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao7"><img class="raçao7" src="img/img-raçao/MirtiloPet.png" alt=""><p>Ração de <span style="color: #4682b4;">Mirtilo</span>
-<br><br>
-                R$ 4,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 4,99</span>
+<br>
+
+                <span class="p3" id="mirtilo-quantidade">Unid: 0</span><span id="mirtilo-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('mirtilo', 4.99, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('mirtilo', 4.99, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao8"><img class="raçao8" src="img/img-raçao/AbacaxiPet.png" alt=""><p>Ração de <span style="color:  #32cd32;">Abacaxi</span>
-<br><br>
-                R$ 4,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 4,99</span>
+<br>
+
+                <span class="p3" id="abacaxi-quantidade">Unid: 0</span><span id="abacaxi-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('abacaxi', 4.99, 'adicionar')">Adicionar</button>
                 
                 <button class="botao-remover" onclick="atualizarProduto('abacaxi', 4.99, 'remover')">Remover</button>
             </div>
 
             <div class="divraçao9"><img class="raçao9" src="img/img-raçao/MaçaPet.png" alt=""><p>Ração de <span style="color: red;">Maçã</span>
-<br><br>
-                R$ 5,99
-<br><br>
+<br>
+                <span style="line-height: 55px;">R$ 5,99</span>
+<br>
+
+                <span class="p3" id="maca-quantidade">Unid: 0</span><span id="maca-total-valor"> R$ 0,00</span>
+
+
                 <button class="botao" onclick="atualizarProduto('maca', 5.99, 'adicionar')">Adicionar</button> 
                 
                 <button class="botao-remover" onclick="atualizarProduto('maca', 5.99, 'remover')">Remover</button>
@@ -217,7 +252,7 @@
         <div class="planos">
             <div class="plano1"><h3><span style="font-family: luckpet2;">PetLuck</span></h3>
              <br>
-                <h1><span style="font-family: luckpet2; color: rgb(255, 123, 0);;">Plano Básico</span></h1>
+                <h1><span style="font-family: luckpet3; color: rgb(255, 123, 0);;">Plano Básico</span></h1>
              <br>
                 <h3>☻ Cuidados essenciais para
                 <br>
@@ -227,7 +262,7 @@
 
          <div class="plano2"><h3><span style="font-family: luckpet2;">PetLuck</span><h3>
                 <br>
-                <h1><span style="font-family: luckpet2; color: rgb(255, 123, 0);;">Plano Essencial</span></h1>
+                <h1><span style="font-family: luckpet3; color: rgb(255, 123, 0);;">Plano Essencial</span></h1>
              <br>
                 <h3>❤ Cobertura completa com <br> ótimo custo-benefício</h3>
              <br>
@@ -237,7 +272,7 @@
 
          <div class="plano3"><h3><span style="font-family: luckpet2;">Petluck</span></h3>
                 <br>
-                <h1><span style="font-family: luckpet2; color: rgb(255, 123, 0);">Plano Premium</span></h1>
+                <h1><span style="font-family: luckpet3; color: rgb(255, 123, 0);">Plano Premium</span></h1>
              <br>
                 <h3>★ Máxima cobertura para qualquer
                 <br>

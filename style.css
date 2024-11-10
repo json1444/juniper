@@ -12,6 +12,10 @@
     font-family: 'luckpet2';
     src: url(fontes/MilkyNice-Clean.otf) format(opentype);
 }
+@font-face {
+    font-family: 'luckpet3';
+    src: url(fontes/MADE\ TOMMY\ Medium_PERSONAL\ USE.otf) format(opentype);
+}
 
 * {
     margin: 0px;
@@ -220,7 +224,7 @@ div.input {
 }
 .section02 {
     background-color: #88888852;
-    height: 1290px;
+    height: 1330px;
     width: 100%;
     margin-top: 45px;
 }
@@ -248,55 +252,65 @@ div#paidivcamisa {
 }
 
 .divcam1 {
-    height: 525px;
+    height: 500px;
+    width: 25vw;
     background-color: #ffffff;
     border-radius: 30px;
+    font-family: luckpet3;
 }
 .camisa1 {
     border-radius: 30px 30px 0px 0px;
-    width: 30vw;
-    height: 350px;
+    width: 25vw;
+    height: 290px;
 }
 .divcam2 {
-    height: 525px;
+    height: 500px;
+    width: 25vw;
     background-color: #ffffff;
     border-radius: 30px;
+    font-family: luckpet3;
 }
 .camisa2 {
     border-radius: 30px 30px 0px 0px;
-    width: 30vw;
-    height: 350px;
+    width: 25vw;
+    height: 290px;
 }
 .divcam3 {
-    height: 525px;
+    height: 500px;
+    width: 25vw;
+    font-family: luckpet3;
     background-color: #ffffff;
     border-radius: 30px;
 }
 .camisa3 {
     border-radius: 30px 30px 0px 0px;
-    width: 30vw;
-    height: 350px;
+    width: 25vw;
+    height: 290px;
 }
 .pcam {
     line-height: 33px;
-    width: 30vw;
+    width: 25vw;
     font-size: 21px;
 }
 .buttamanho {
-    height: 28px;
-    width: 10vw;
-    font-size: 1.6vw;
+    margin-top: -30px;
+    height: 25px;
+    width: 7vw;
+    font-size: 1.4vw;
 }
 .buttamanho:focus {
 background-color: #ff7b00;
 color: #ffffff;
 }
+.buttamanho:hover {
+    transform: translate(-3px, -3px);
+}
 .butcomprar {
-    margin-left: 260px;
+    margin-left: 20px;
     position: relative;
-    top: -45px;
+    top: -15px;
     width: 6.6vw;
-    color: black;
+    color: #424242;
 }
 .butcomprar:hover {
     transform: translate(-3px, -3px);
@@ -311,7 +325,19 @@ color: #ffffff;
     text-align: center;
     font-family: luckpet2;
     padding-bottom: 30px;
+    margin-top: -30px;
     font-size: 2vw;
+}
+
+.pcar {
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    color: black;
+    font-size: 25px;
+}
+.pcar:hover {
+    color: rgb(112, 112, 112);
 }
 
 
@@ -320,7 +346,7 @@ color: #ffffff;
     gap: 10px;
     overflow-x: auto;
     padding: 10px;
-    font-family:luckpet2;
+    font-family:luckpet3;
     font-weight: bolder;
     font-size: 17px;
 }
@@ -362,9 +388,9 @@ color: #ffffff;
     border-radius: 25px 25px 0px 0px;
 }
 .p3 {
-    margin-top: 15px;
     font-size: 20px;
-    color: #ff7b00;
+    padding: 10px;
+    color: #424242;
 }
 #maca-total-valor, 
 #uva-total-valor,
@@ -374,14 +400,16 @@ color: #ffffff;
 #banana-total-valor,
 #pessego-total-valor,
 #mirtilo-total-valor {
-    color: #000000;
     font-size: 20px;
-    font-family:luckpet2;
+    font-family:luckpet3;
+    padding: 10px;
+    padding-bottom: 30px;
+    color: #424242;
 }
 
 .divraçao1 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
 font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -389,7 +417,7 @@ font-size: 20px;
 }
 .divraçao2 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
     font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -397,7 +425,7 @@ font-size: 20px;
 }
 .divraçao3 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
 font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -405,7 +433,7 @@ font-size: 20px;
 }
 .divraçao4 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
 font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -413,7 +441,7 @@ font-size: 20px;
 }
 .divraçao5 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
     border-radius: 20px 20px 20px;
     font-size: 20px;
     margin: auto;
@@ -421,7 +449,7 @@ font-size: 20px;
 }
 .divraçao6 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
 font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -429,7 +457,7 @@ font-size: 20px;
 }
 .divraçao7 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
 font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -437,7 +465,7 @@ font-size: 20px;
 }
 .divraçao8 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
     font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -445,7 +473,7 @@ font-size: 20px;
 }
 .divraçao9 {
     background-color: rgba(255, 255, 255, 0.575);
-    height: 410px;
+    height: 430px;
     font-size: 20px;
     border-radius: 20px 20px 20px;
     margin: auto;
@@ -454,6 +482,7 @@ font-size: 20px;
 
 button {
     font-family: luckpet2;
+    margin-top: 20px;
     width: 140px;
     height: 32px;
     font-size: 17px;
