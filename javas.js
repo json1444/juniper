@@ -1,13 +1,22 @@
+// Define o tempo em milissegundos para o carregamento (aqui 3 segundos)
+const tempoDeCarregamento = 3000;
+
+setTimeout(() => {
+    document.getElementById("loading").style.display = "none"; // Esconde a mensagem de carregamento
+    document.querySelector(".carousel-container").style.display = "block"; // Exibe o carousel
+}, tempoDeCarregamento);
+
+
+
 let produtos = {
     morango: { quantidade: 0, total: 0, tipo: "alimento" },
     uva: { quantidade: 0, total: 0, tipo: "alimento" },
     coco: { quantidade: 0, total: 0, tipo: "alimento" },
     limao: { quantidade: 0, total: 0, tipo: "alimento" },
     banana: { quantidade: 0, total: 0, tipo: "alimento" },
-    pessego: { quantidade: 0, total: 0, tipo: "alimento" },
+    cereja: { quantidade: 0, total: 0, tipo: "alimento" },
     mirtilo: { quantidade: 0, total: 0, tipo: "alimento" },
-    abacaxi: { quantidade: 0, total: 0, tipo: "alimento" },
-    maca: { quantidade: 0, total: 0, tipo: "alimento" },
+    laranja: { quantidade: 0, total: 0, tipo: "alimento" },
 
     blusa: { quantidade: 0, total: 0, tipo: "vestimenta" },
     colete: { quantidade: 0, total: 0, tipo: "vestimenta" },
@@ -33,6 +42,12 @@ function atualizarProduto(produto, preco, acao) {
         produtoData.total -= parseFloat(preco);
     }
 
+       // Evita que o total fique negativo próximo de zero
+       if (produtoData.total < 0.01 && produtoData.total > -0.01) {
+        produtoData.total = 0;}
+
+
+        
     // Exibe a notificação
     notificacao.classList.add("show");
 

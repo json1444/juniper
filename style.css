@@ -186,8 +186,22 @@ div.input {
     font-family: luckpet2;
 }
 
+#loading {
+    position: fixed;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #ffffff;
+    background-color: rgba(153, 0, 255, 0.918);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
 .carousel-container {
     width: 100%;
+    display: none;
     overflow: hidden;
 }
 
@@ -228,6 +242,7 @@ div.input {
     width: 100%;
     margin-top: 45px;
 }
+
 .titu12 {
     text-align: center;
     font-family: luckpet1;
@@ -324,13 +339,15 @@ color: #ffffff;
 .subtitu {
     text-align: center;
     font-family: luckpet2;
-    padding-bottom: 30px;
+    padding-bottom: -30px;
     margin-top: -30px;
     font-size: 2vw;
 }
 
 .pcar {
-    text-align: center;
+    position: relative;
+    top: 38%;
+    text-align:center;
     padding: 5px;
     margin-top: 10px;
     color: black;
@@ -392,13 +409,13 @@ color: #ffffff;
     padding: 10px;
     color: #424242;
 }
-#maca-total-valor, 
+ 
 #uva-total-valor,
-#abacaxi-total-valor, #morango-total-valor, 
+#laranja-total-valor, #morango-total-valor, 
 #coco-total-valor,
 #limao-total-valor,
 #banana-total-valor,
-#pessego-total-valor,
+#cereja-total-valor,
 #mirtilo-total-valor {
     font-size: 20px;
     font-family:luckpet3;
