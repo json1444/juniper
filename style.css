@@ -200,6 +200,42 @@ div.input {
     z-index: 1000;
 }
 
+#rolagens {
+    display: flex;
+    margin-top: auto;
+    justify-content: center;
+    padding: 20px;
+    font-family: luckpet3;
+    font-size: 1.2vw;
+    color: white;
+}
+.rolagem1 {
+    text-align: center;
+    border-radius: 20px;
+  margin-right: 130px;
+  padding-top: 15px;
+  width: 12vw;
+  height: 40px;
+  background-color: rgba(153, 0, 255, 0.918);
+}
+.rolagem2 {
+    text-align: center;
+    border-radius: 20px;
+    padding-top: 15px;
+   width: 12vw;
+   height: 40px;
+   background-color: rgba(153, 0, 255, 0.918);
+}
+.rolagem3 {
+    text-align: center;
+    border-radius: 20px;
+    margin-left: 130px;
+    padding-top: 15px;
+    width: 12vw;
+    height: 40px;
+    background-color: rgba(153, 0, 255, 0.918);
+}
+
 .carousel-container {
     width: 100%;
     display: none;
