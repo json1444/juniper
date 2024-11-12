@@ -107,16 +107,3 @@ function showNextImage() {
 }
 
 setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
-
-
-
-function scrollCarousel(direction) {
-    const carousel = document.querySelector('.carousel02');
-    const scrollAmount = 200; // Ajuste para o quanto deseja rolar
-
-    if (direction === 'left') {
-        carousel.scrollLeft -= scrollAmount;
-    } else {
-        carousel.scrollLeft += scrollAmount;
-    }
-}
