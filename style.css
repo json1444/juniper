@@ -103,7 +103,7 @@ header {
 /* Mostra o menu de opções ao passar o mouse sobre o ícone */
 .icone:hover .opcoes {
     display: block;
-    background-color: rgb(255, 123, 0);
+    background-color:#dbdbdb;
 }
 
 
@@ -148,14 +148,15 @@ header {
 
 .icone2:hover .opcoes2 {
     display: block;
-    background-color: #ff7b00;
+    background-color: #dbdbdb;
+    color: rgb(255, 166, 0);
 }
 a {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-decoration: none;
 }
 a:hover {
-    color: rgb(63, 255, 245);
+    color:#8a2be2;
 }
 #pesquisa {
     text-align: center;
@@ -226,8 +227,8 @@ div.input {
 }
 
 .carousel img {
-    width: 67%;
-    height: 95vh;
+    width: 63%;
+    height: 595px;
     border-radius: 30px;
     margin-top: 33px;
     cursor: pointer;
@@ -319,6 +320,7 @@ color: #ffffff;
 }
 .buttamanho:hover {
     transform: translate(-3px, -3px);
+    color: black;
 }
 .butcomprar {
     margin-left: 20px;
@@ -329,6 +331,7 @@ color: #ffffff;
 }
 .butcomprar:hover {
     transform: translate(-3px, -3px);
+    color: black;
 }
 .p10 {
     margin-top: -5px;
@@ -509,11 +512,17 @@ button {
     background-color: #6b6b6b3f;
 }
 button:active {
-    background-color: #ff7b00;
+    background-color: white;
 }
+.botao:hover {
+        color: rgb(0, 175, 0);
+    }
 
 .botao-remover {
     margin-top: 15px;
+}
+.botao-remover:hover {
+    color: red;
 }
 
 
