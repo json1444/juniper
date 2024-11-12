@@ -176,6 +176,7 @@ div.input {
 }
 
 #div1 {
+    color: white;
     font-size: 17px;
     text-align: center;
     margin: auto;
@@ -184,7 +185,7 @@ div.input {
     margin-top: -11px;
     background-color:#ff7b00;
     width: 98.5%;
-    font-family: luckpet2;
+    font-family: luckpet3;
 }
 
 #loading {
@@ -202,39 +203,57 @@ div.input {
 
 #rolagens {
     display: flex;
-    margin-top: auto;
     justify-content: center;
     padding: 20px;
+}
+.butrolagem {
+    font-size: 1.4vw;
+    margin-top: 10px;
+    color: white;
     font-family: luckpet3;
-    font-size: 1.2vw;
-    color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.butrolagem:hover {
+    color:#ffd000;
+    transform: scale(1.05);
+    box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
 }
 .rolagem1 {
+    
     text-align: center;
     border-radius: 20px;
-  margin-right: 130px;
-  padding-top: 15px;
+  margin-right: 100px;
+
   width: 12vw;
-  height: 40px;
+  height: 55px;
   background-color: rgba(153, 0, 255, 0.918);
 }
 .rolagem2 {
     text-align: center;
     border-radius: 20px;
-    padding-top: 15px;
    width: 12vw;
-   height: 40px;
+   height: 55px;
    background-color: rgba(153, 0, 255, 0.918);
 }
 .rolagem3 {
     text-align: center;
     border-radius: 20px;
-    margin-left: 130px;
-    padding-top: 15px;
+    margin-left: 100px;
     width: 12vw;
-    height: 40px;
+    height: 55px;
     background-color: rgba(153, 0, 255, 0.918);
 }
+.rolagem4 {
+    text-align: center;
+    border-radius: 20px;
+    margin-left: 100px;
+    
+    width: 12vw;
+    height: 55px;
+    background-color: rgba(153, 0, 255, 0.918);
+}
+
 
 .carousel-container {
     width: 100%;
@@ -304,6 +323,7 @@ div#paidivcamisa {
 }
 
 .divcam1 {
+    padding: 15px;
     height: 500px;
     width: 25vw;
     background-color: #ffffff;
@@ -316,6 +336,7 @@ div#paidivcamisa {
     height: 290px;
 }
 .divcam2 {
+    padding: 15px;
     height: 500px;
     width: 25vw;
     background-color: #ffffff;
@@ -328,6 +349,7 @@ div#paidivcamisa {
     height: 290px;
 }
 .divcam3 {
+    padding: 15px;
     height: 500px;
     width: 25vw;
     font-family: luckpet3;
@@ -361,7 +383,7 @@ color: #ffffff;
 .butcomprar {
     margin-left: 20px;
     position: relative;
-    top: -15px;
+    top: 3px;
     width: 6.6vw;
     color: #424242;
 }
@@ -406,9 +428,10 @@ color: #ffffff;
 
 .carousel02::-webkit-scrollbar {
     height: 8px;
+    background-color:#ff7b00;
 }
 .carousel02::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+   background-color:#8a2be2;
     border-radius: 10px;
 }
 
