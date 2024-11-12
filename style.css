@@ -207,7 +207,7 @@ div.input {
     padding: 20px;
     font-family: luckpet3;
     font-size: 1.2vw;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 .rolagem1 {
     text-align: center;
@@ -407,42 +407,11 @@ color: #ffffff;
     font-size: 17px;
 }
 
-.raçao1 {
+.raçao1, .raçao2, .raçao3, .raçao4, .raçao5, .raçao6, .raçao7, .raçao8, .raçao9 {
     width: 200px;
     border-radius: 25px 25px 0px 0px;
 }
-.raçao2 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao3 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao4 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao5 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao6 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao7 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao8 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
-.raçao9 {
-    width: 200px;
-    border-radius: 25px 25px 0px 0px;
-}
+
 .p3 {
     font-size: 20px;
     padding: 10px;
@@ -463,7 +432,7 @@ color: #ffffff;
     color: #424242;
 }
 
-.divraçao1 {
+.divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8, .divraçao9 {
     background-color: rgba(255, 255, 255, 0.575);
     height: 430px;
 font-size: 20px;
@@ -471,70 +440,7 @@ font-size: 20px;
     margin: auto;
     text-align: center;
 }
-.divraçao2 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-    font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao3 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao4 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao5 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-    border-radius: 20px 20px 20px;
-    font-size: 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao6 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao7 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao8 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-    font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
-.divraçao9 {
-    background-color: rgba(255, 255, 255, 0.575);
-    height: 430px;
-    font-size: 20px;
-    border-radius: 20px 20px 20px;
-    margin: auto;
-    text-align: center;
-}
+
 
 button {
     font-family: luckpet2;
