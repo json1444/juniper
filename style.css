@@ -46,6 +46,13 @@ h1#titu1 {
       padding: 10px;
       font-size: 60px;
 }
+.atitu {
+    color: white;
+    transition: 2s;
+}
+.atitu:hover {
+    color: #ff7b00;
+}
 
 header {
     position:sticky;
@@ -94,7 +101,7 @@ header {
     top: 34px;
     background-color: rgb(218, 41, 41);
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 15px;
     margin-top: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -103,7 +110,7 @@ header {
 /* Mostra o menu de opções ao passar o mouse sobre o ícone */
 .icone:hover .opcoes {
     display: block;
-    background-color:#dbdbdb;
+    background-color: #1a1a1a;
 }
 
 
@@ -137,7 +144,8 @@ header {
     position: absolute;
     top: 34px;
     right: 0px;
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
     margin-top: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -148,11 +156,11 @@ header {
 
 .icone2:hover .opcoes2 {
     display: block;
-    background-color: #dbdbdb;
+    background-color: #1a1a1a;
     color: rgb(255, 166, 0);
 }
 a {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 a:hover {
@@ -195,7 +203,7 @@ div.input {
     transform: translate(-50%, -50%);
     font-size: 18px;
     color: #ffffff;
-    background-color: rgba(153, 0, 255, 0.918);
+    background-color: rgba(0, 0, 0, 0.918);
     padding: 20px;
     border-radius: 5px;
     z-index: 1000;
@@ -205,6 +213,7 @@ div.input {
     display: flex;
     justify-content: center;
     padding: 20px;
+    margin-left: 80px;
 }
 .butrolagem {
     font-size: 1.4vw;
@@ -223,7 +232,7 @@ div.input {
     
     text-align: center;
     border-radius: 20px;
-  margin-right: 100px;
+  margin-right: 70px;
 
   width: 12vw;
   height: 55px;
@@ -260,6 +269,7 @@ div.input {
     width: 80%;
     height: 450px;
     border-radius: 30px;
+    
     margin-top: 33px;
     cursor: pointer;
 }
@@ -304,6 +314,7 @@ div#paidivcamisa {
     background-color: #ffffff;
     border-radius: 30px;
     font-family: luckpet3;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
 }
 .camisa1 {
     border-radius: 30px 30px 0px 0px;
@@ -317,6 +328,7 @@ div#paidivcamisa {
     background-color: #ffffff;
     border-radius: 30px;
     font-family: luckpet3;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
 }
 .camisa2 {
     border-radius: 30px 30px 0px 0px;
@@ -330,6 +342,7 @@ div#paidivcamisa {
     font-family: luckpet3;
     background-color: #ffffff;
     border-radius: 30px;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
 }
 .camisa3 {
     border-radius: 30px 30px 0px 0px;

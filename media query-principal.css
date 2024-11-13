@@ -70,6 +70,42 @@
         border-radius: 0px 0px;
     }
 
+
+    #rolagens {
+        display: block;
+        margin-left: -30px;
+        justify-content: center;
+        padding-top: 45px;
+        position: relative;
+        top: 18%;
+    }
+    .butrolagem {
+        font-size: 5.2vw;
+        margin-top: 10px;
+        color: white;
+        font-family: luckpet3;
+        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .butrolagem:hover {
+        color:#bbff00;
+        transform: scale(1.05);
+        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+    }
+    .pesquisavel {
+        
+        text-align: center;
+        border-radius: 0px;
+        box-shadow: 0px 1px 3px 1px orange;
+      margin-left: 280px;
+      margin: 10px;
+    
+      width: 100vw;
+      height: 55px;
+      background-image: linear-gradient(to right, #b84effea, #42006e);
+    }
+
+
     .carousel {
         display: flex;
         width: 310px;
@@ -78,10 +114,14 @@
     }
 
     .carousel img {
+        position: absolute;
+        right: 20px;
+        left: 0px;
+        top: 40%;
         width: 100vw;
-        height: 50vh;
+        height: 150px;
         border-radius: 0px;
-        margin-top: 33px;
+        margin-top: -333px;
         margin-left: -40px;
         cursor: pointer;
     }
@@ -108,13 +148,13 @@
     }
     
 
-    .section02 {
+    #section02 {
         margin-top: 50px;
-        height: 1249px;
+        height: 1429px;
     }
     .titu12 {
         font-size: 6vw;
-        padding-top: 25px;
+        padding-top: 115px;
         padding-bottom: 25px;
     }
 
@@ -134,7 +174,7 @@
  }
     
     .divcam1 {
-        margin-left: 11vw;
+        margin-left: 6vw;
         height: 510px;
         width: 80vw;
         background-color: #ffffff;
@@ -145,7 +185,7 @@
         height: 300px;
     }
     .divcam2 {
-        margin-left: 11vw;
+        margin-left: 6vw;
         margin-top: 30px;
         height: 510px;
         width: 80vw;
@@ -157,7 +197,7 @@
         height: 300px;
     }
     .divcam3 {
-        margin-left: 11vw;
+        margin-left: 6vw;
         margin-top: 30px;
         height: 510px;
         width: 80vw;
@@ -190,9 +230,14 @@
         color:#8a2be2;
     }
 
-    .subtitu {
-        font-size: 7vw;
-        margin-top: 20px;
+    #subtitu {
+        font-size: 7.4vw;
+        margin-top: 40px;
+        text-align:center;
+    }
+    .pcar {
+        color: #000000;
+        font-size: 4.5vw;
     }
 
 
@@ -220,10 +265,7 @@
     .raçao8 {
         width: 180px;
     }
-    .raçao9 {
-        width: 180px;
-    }
-    .divraçao1 {
+    .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
         background-color: rgba(255, 255, 255, 0.575);
         height: 380px;
         font-size: 17.5px;
@@ -231,70 +273,7 @@
         margin: auto;
         text-align: center;
     }
-    .divraçao2 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao3 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao4 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao5 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao6 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao7 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao8 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao9 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
-        font-size: 17.5px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
+
     
     button {
         font-family: luckpet2;
@@ -363,6 +342,7 @@
         text-align: center;
         font-family: luckpet1;
         font-size: 35px;
+        margin-top: 20px;
         padding: 30px;
         padding-bottom: 80px;
     }
@@ -439,9 +419,9 @@
     
 
 
-    .section03 {
+    #section03 {
         width: 100%;
-        height: 1190px;
+        height: 1170px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -495,6 +475,68 @@
         border-radius: 20px 20px 20px 20px;
         box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
     }
+
+    footer {
+        background-color: #000000ec; /* Cor de fundo escura */
+        color: #fff; /* Cor do texto */
+        padding: 0px;
+        text-align: center;
+        font-family: luckpet3; /* Escolha uma fonte para o texto */
+      }
+      
+      .footer-content h3 {
+        font-size: 8vw;
+        padding: 10px;
+      }
+      
+      .footer-content p {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+      
+      .footer-bottom {
+        margin-top: 3px;
+        font-size: 12px;
+      }
+      
+      .footer-content {
+        max-width: 1200px; /* Largura máxima para centralizar */
+        margin: 0 auto;
+      }
+      
+      .socials {
+        display: block;
+        padding: 0;
+        margin: 20px 0;
+      }
+      
+      .socials li {
+        display: block;
+        margin: 15px;
+      }
+      
+      .socials a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        transition: color 0.3s;
+      }
+      
+      .socials a:hover {
+        color: #ff6b6b; /* Cor ao passar o mouse */
+      }
+      
+      .footer-bottom {
+        border-top: 1px solid #444; /* Linha divisória */
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    
+      .img-redessociais {
+        width: 20px;
+        height: 20px;
+        
+      }
 }
 
 
