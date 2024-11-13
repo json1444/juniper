@@ -41,7 +41,7 @@ body, html {
 h1#titu1 {
       font-family: luckpet;
       color: rgba(255, 255, 255, 0.966);
-      background-color: rgba(153, 0, 255, 0.918);
+      background-color: #9900ffea;
       
       padding: 10px;
       font-size: 60px;
@@ -282,8 +282,8 @@ div.input {
 }
 
 .carousel img {
-    width: 63%;
-    height: 595px;
+    width: 80%;
+    height: 450px;
     border-radius: 30px;
     margin-top: 33px;
     cursor: pointer;
