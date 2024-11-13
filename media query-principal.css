@@ -73,14 +73,14 @@
 
     #rolagens {
         display: block;
-        margin-left: -30px;
+        margin-left: 10px;
         justify-content: center;
         padding-top: 45px;
         position: relative;
-        top: 18%;
+        top: 20%;
     }
     .butrolagem {
-        font-size: 5.2vw;
+        font-size: 4.6vw;
         margin-top: 10px;
         color: white;
         font-family: luckpet3;
@@ -97,10 +97,10 @@
         text-align: center;
         border-radius: 0px;
         box-shadow: 0px 1px 3px 1px orange;
-      margin-left: 280px;
+      margin-left: 180px;
       margin: 10px;
     
-      width: 100vw;
+      width: 80vw;
       height: 55px;
       background-image: linear-gradient(to right, #b84effea, #42006e);
     }
@@ -149,12 +149,12 @@
     
 
     #section02 {
-        margin-top: 50px;
-        height: 2629px;
+        margin-top: 120px;
+        height: 2505px;
     }
     .titu12 {
-        font-size: 6vw;
-        padding-top: 115px;
+        font-size: 5.8vw;
+        padding-top: 35px;
         padding-bottom: 25px;
     }
 
@@ -230,12 +230,19 @@
 
     #subtitu {
         font-size: 7.4vw;
-        margin-top: 40px;
+        margin-top: 10px;
         text-align:center;
     }
     .pcar {
-        color: #000000;
-        font-size: 4.5vw;
+        display: block;
+        text-align: center;
+        font-size: 1em;
+        padding: 10px;
+        font-family: luckpet1;
+        margin: 20px 0;
+    }
+    .pcar:hover {
+        color: rgb(112, 112, 112);
     }
 
 
@@ -252,7 +259,7 @@
         width: 195px;
     }
     .raçao5 {
-        width: 180px;
+        width: 195px;
     }
     .raçao6 {
         width: 195px;
@@ -265,7 +272,7 @@
     }
     .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
         background-color: rgba(255, 255, 255, 0.575);
-        height: 380px;
+        height: 390px;
         font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;

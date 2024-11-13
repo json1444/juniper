@@ -216,7 +216,7 @@ div.input {
     margin-left: 80px;
 }
 .butrolagem {
-    font-size: 1.4vw;
+    font-size: 1.3vw;
     margin-top: 10px;
     color: white;
     font-family: luckpet3;
@@ -234,7 +234,7 @@ div.input {
     border-radius: 20px;
   margin-right: 70px;
 
-  width: 12vw;
+  width: 14vw;
   height: 55px;
   background-color: rgba(153, 0, 255, 0.918);
 }
@@ -387,7 +387,7 @@ color: #ffffff;
 
 #subtitu {
     text-align: center;
-    font-family: luckpet2;
+    font-family: luckpet3;
     font-size: 2vw;
     margin: 20px 0;
 }
