@@ -219,7 +219,7 @@ div.input {
     transform: scale(1.05);
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
 }
-.rolagem1 {
+.pesquisavel {
     
     text-align: center;
     border-radius: 20px;
@@ -229,31 +229,6 @@ div.input {
   height: 55px;
   background-color: rgba(153, 0, 255, 0.918);
 }
-.rolagem2 {
-    text-align: center;
-    border-radius: 20px;
-   width: 12vw;
-   height: 55px;
-   background-color: rgba(153, 0, 255, 0.918);
-}
-.rolagem3 {
-    text-align: center;
-    border-radius: 20px;
-    margin-left: 100px;
-    width: 12vw;
-    height: 55px;
-    background-color: rgba(153, 0, 255, 0.918);
-}
-.rolagem4 {
-    text-align: center;
-    border-radius: 20px;
-    margin-left: 100px;
-    
-    width: 12vw;
-    height: 55px;
-    background-color: rgba(153, 0, 255, 0.918);
-}
-
 
 .carousel-container {
     width: 100%;
