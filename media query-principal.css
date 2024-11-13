@@ -150,7 +150,7 @@
 
     #section02 {
         margin-top: 50px;
-        height: 1429px;
+        height: 2629px;
     }
     .titu12 {
         font-size: 6vw;
@@ -162,19 +162,17 @@
     div#paidivcamisa {
         font-family: luckpet2;
         text-align: center;
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
         margin: auto;
         justify-content: center;
         margin-top: 20px;
         line-height: 25px;
         font-size: 16px;
-     /* Adicionando rolagem vertical */
-     height: 500px; /* Defina a altura conforme necessário */
-     overflow-y: auto; /* Habilita a rolagem vertical */
  }
     
     .divcam1 {
-        margin-left: 6vw;
+        margin-left: 1vw;
         height: 510px;
         width: 80vw;
         background-color: #ffffff;
@@ -185,7 +183,7 @@
         height: 300px;
     }
     .divcam2 {
-        margin-left: 6vw;
+        margin-left: 1vw;
         margin-top: 30px;
         height: 510px;
         width: 80vw;
@@ -197,7 +195,7 @@
         height: 300px;
     }
     .divcam3 {
-        margin-left: 6vw;
+        margin-left: 1vw;
         margin-top: 30px;
         height: 510px;
         width: 80vw;
@@ -242,28 +240,28 @@
 
 
     .raçao1 {
-        width: 180px;
+        width: 195px;
     }
     .raçao2 {
-        width: 180px;
+        width: 195px;
     }
     .raçao3 {
-        width: 180px;
+        width: 195px;
     }
     .raçao4 {
-        width: 180px;
+        width: 195px;
     }
     .raçao5 {
         width: 180px;
     }
     .raçao6 {
-        width: 180px;
+        width: 195px;
     }
     .raçao7 {
-        width: 180px;
+        width: 195px;
     }
     .raçao8 {
-        width: 180px;
+        width: 195px;
     }
     .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
         background-color: rgba(255, 255, 255, 0.575);
@@ -421,7 +419,7 @@
 
     #section03 {
         width: 100%;
-        height: 1170px;
+        height: 1209px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -434,7 +432,8 @@
         color: rgba(72, 0, 139, 0.863);
     }
     .planos {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 16px;
        padding: 20px;
