@@ -729,6 +729,11 @@ z-index: 1;
     height: 4vh;
     padding: 5px;
 }
+.butavaliacao {
+    width: 15vw;
+    color: black;
+    background-color:rgb(255, 115, 0);
+}
 #mensagem {
     text-align: center;
     font-family: luckpet3;
