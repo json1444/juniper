@@ -679,6 +679,64 @@ z-index: 1;
 }
 
 
+/* CSS */
+.titulo-avaliacao {
+    font-family: luckpet3;
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+#form-avaliacao {
+    text-align: center;
+    padding: 20px;
+    font-family: luckpet3;
+}
+#nome {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    border-radius: 30px;
+    
+    width: 10vw;
+    height: 3vh;
+    padding: 5px;
+}
+#comentario {
+    font-family: luckpet3;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 20vw;
+    height: 6vh;
+    padding: 5px;
+}
+#nota {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 10vw;
+    height: 4vh;
+    padding: 5px;
+}
+#mensagem {
+    text-align: center;
+    font-family: luckpet3;
+    color: #8a2be2;
+    padding: 10px;
+}
+
+
 footer {
     background-color: #000000ec; /* Cor de fundo escura */
     color: #fff; /* Cor do texto */

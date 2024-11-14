@@ -107,3 +107,46 @@ function showNextImage() {
 }
 
 setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
+
+
+
+
+// Função para carregar avaliações
+async function carregarAvaliacoes() {
+    const response = await fetch('http://localhost:3000/avaliacoes');
+    const avaliacoes = await response.json();
+    const listaAvaliacoes = document.getElementById('lista-avaliacoes');
+    
+    listaAvaliacoes.innerHTML = avaliacoes.map(avaliacao => `
+        <div>
+            <strong>${avaliacao.nome_cliente}</strong> - Nota: ${avaliacao.nota}
+            <p>${avaliacao.comentario}</p>
+            <small>${new Date(avaliacao.data).toLocaleString()}</small>
+        </div>
+    `).join('');
+}
+
+// Evento para enviar a avaliação
+document.getElementById('form-avaliacao').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+
+    const response = await fetch('http://localhost:3000/avaliacoes', {
+        method: 'POST',
+        body: JSON.stringify({
+            nome_cliente: formData.get('nome_cliente'),
+            comentario: formData.get('comentario'),
+            nota: formData.get('nota')
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    const mensagem = await response.text();
+    document.getElementById('mensagem').innerText = mensagem;
+    
+    this.reset();
+    carregarAvaliacoes();
+});
+
+// Carrega as avaliações ao abrir a página
+carregarAvaliacoes();

@@ -55,13 +55,13 @@
 
 
     <div id="rolagens">
-        <div class="pesquisavel" data-nome="plano de saude"><button style="margin-top: 10px;" class="butrolagem"><a class="butrolagem" href="#section03">🐕Saúde Pet</a></button></div>
+        <div class="pesquisavel" data-nome="plano de saude"><button style="margin-top: 10px;" class="butrolagem"><a class="butrolagem" href="#section03">🐕 Saúde Pet</a></button></div>
 
-        <div  class="pesquisavel" data-nome="moda pet"><button class="butrolagem"><a class="butrolagem" href="#section02">🥼Moda Pet</a></button></div>
+        <div  class="pesquisavel" data-nome="moda pet"><button class="butrolagem"><a class="butrolagem" href="#section02">🥼 Moda Pet</a></button></div>
 
-        <div  class="pesquisavel" data-nome="nutrição pet"><button class="butrolagem"><a class="butrolagem" href="#subtitu">🍏Nutrição Pet</a></button></div>
+        <div  class="pesquisavel" data-nome="nutrição pet"><button class="butrolagem"><a class="butrolagem" href="#subtitu">🍏 Nutrição Pet</a></button></div>
 
-        <div class="pesquisavel"><button class="butrolagem"><a class="butrolagem" href="#sectioncuri" data-nome="curiosidades">👀Curiosidades</a></button></div>
+        <div class="pesquisavel"><button class="butrolagem"><a class="butrolagem" href="#sectioncuri" data-nome="curiosidades">👀 Curiosidades</a></button></div>
     </div>
 
         <div class="carousel">
@@ -285,6 +285,19 @@
         </div>
     </section>
     </div>
+    
+    <h2 class="titulo-avaliacao">Avalie o Site</h2>
+    <form id="form-avaliacao">
+        <input type="text" id="nome" name="nome_cliente" placeholder="Seu nome" required />
+        
+        <textarea id="comentario" name="comentario" placeholder="Escreva sua avaliação" required></textarea>
+
+        <input type="number" id="nota" name="nota" min="1" max="10" placeholder="Nota (1 a 10)" required />
+
+        <button type="submit">Enviar Avaliação</button>
+    </form>
+    <div id="mensagem">Avaliação enviada com sucesso!</div>
+
 </body>
 
 <footer>
