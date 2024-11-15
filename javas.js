@@ -157,3 +157,17 @@ if (typeof window !== 'undefined') {
         // Código que usa window
     };
 }
+
+
+// Selecione o elemento que dispara o evento (por exemplo, um botão de enviar)
+const botaoEnviar = document.getElementById('seuBotaoId'); // Substitua 'seuBotaoId' pelo ID correto do botão
+
+// Adiciona evento de clique para navegadores de desktop
+botaoEnviar.addEventListener('click', function(event) {
+  // Código para enviar avaliação
+});
+
+// Adiciona evento de toque para dispositivos móveis
+botaoEnviar.addEventListener('touchstart', function(event) {
+  // Código para enviar avaliação
+});
