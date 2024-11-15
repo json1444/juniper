@@ -756,7 +756,7 @@
 
     #section02 {
         margin-top: 52px;
-        height: 2590px;
+        height: 2600px;
     }
     .titu12 {
         font-size: 5.8vw;
@@ -768,10 +768,8 @@
     div#paidivcamisa {
         font-family: luckpet2;
         text-align: center;
-        display: flex;
-        flex-wrap: wrap;
-        margin: auto;
-        justify-content: center;
+        display: grid;
+        
         margin-top: 20px;
         line-height: 25px;
         font-size: 16px;
@@ -851,34 +849,15 @@
     }
 
 
-    .raçao1 {
+    .raçao1, .raçao2, .raçao3, .raçao4, .raçao5, .raçao6, .raçao7, .raçao8 {
         width: 195px;
-    }
-    .raçao2 {
-        width: 195px;
-    }
-    .raçao3 {
-        width: 195px;
-    }
-    .raçao4 {
-        width: 195px;
-    }
-    .raçao5 {
-        width: 195px;
-    }
-    .raçao6 {
-        width: 195px;
-    }
-    .raçao7 {
-        width: 195px;
-    }
-    .raçao8 {
-        width: 195px;
+        height: auto;
+        border-radius: 15px 15px 0 0;
     }
     .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
         background-color: rgba(255, 255, 255, 0.575);
         height: 390px;
-        font-size: 17.5px;
+        font-size: 19.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
@@ -888,8 +867,6 @@
         display: flex;
         gap: 15px;
         overflow-y: auto;
-        
-       
         font-family: luckpet3;
         font-weight: bold;
         font-size: 17px;
@@ -1041,6 +1018,7 @@
     .div07 {
         background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
         margin-right: 20px;
+        
     }
     
     .div07:hover, .div06:hover, .div05:hover {
@@ -1303,6 +1281,43 @@
         border-radius: 0px 0px;
     }
 
+
+    #rolagens {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        margin-left: 20px;
+    }
+    .butrolagem {
+        font-size: 2.4vw;
+        margin-top: 10px;
+        color: white;
+        font-family: luckpet3;
+        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .butrolagem:hover {
+        color:#ffd000;
+        transform: scale(1.05);
+        box-shadow: 0px 0px 12px rgb(0, 0, 0, 0.3);
+    }
+    .pesquisavel {
+        
+        text-align: center;
+        border-radius: 20px;
+      margin-right: 20px;
+    
+      width: 25vw;
+      height: 55px;
+      background-color: rgba(153, 0, 255, 0.918);
+    }
+    
+    .carousel-container {
+        width: 100%;
+        display: none;
+        overflow: hidden;
+    }
+
     .carousel {
         display: flex;
         width: 310px;
@@ -1311,13 +1326,12 @@
     }
 
     .carousel img {
-        width: 70vw;
+        width: 100vw;
         margin: auto;
         text-align: center;
-        height: 58vh;
+        height: 258px;
         border-radius: 0px;
         margin-top: 33px;
-        margin-left: 107px;
         cursor: pointer;
     }
 
@@ -1328,105 +1342,154 @@
         transition: opacity 0.5s ease;
         text-align: center;
     }
-    .section02 {
+    #section02 {
         margin-top: 34px;
-        height: 630px;
+        height: 1200px;
     }
     .titu12 {
-        font-size: 35px;
+        font-size: 30px;
         padding-top: 35px;
         padding-bottom: 25px;
     }
-    .raçao1 {
-        width: 195px;
+
+
+    div#paidivcamisa {
+        font-family: luckpet2;
+        text-align: center;
+        display: flex;
+        margin: auto;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        line-height: 25px;
+        font-size: 18px;
+        
+        padding-bottom: 60px;
     }
-    .raçao2 {
-        width: 195px;
+    
+    .divcam1 {
+        padding: 0px;
+        height: 424px;
+        width: 31vw;
+        margin-left: 13px;
+        background-color: #ffffff;
+        border-radius: 30px;
+        font-family: luckpet3;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
-    .raçao3 {
-        width: 195px;
+    .camisa1 {
+        border-radius: 30px 30px 0px 0px;
+        width: 31vw;
+        height: 200px;
     }
-    .raçao4 {
-        width: 195px;
+    .divcam2 {
+        padding: 0px;
+        height: 424px;
+        width: 31vw;
+        background-color: #ffffff;
+        border-radius: 30px;
+        font-family: luckpet3;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
-    .raçao5 {
-        width: 195px;
+    .camisa2 {
+        border-radius: 30px 30px 0px 0px;
+        width: 31vw;
+        height: 200px;
     }
-    .raçao6 {
-        width: 195px;
+    .divcam3 {
+        padding: 0px;
+        height: 424px;
+        width: 31vw;
+        margin-right: 10px;
+        font-family: luckpet3;
+        background-color: #ffffff;
+        border-radius: 30px;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
-    .raçao7 {
-        width: 195px;
+    .camisa3 {
+        border-radius: 30px 30px 0px 0px;
+        width: 31vw;
+        height: 200px;
     }
-    .raçao8 {
-        width: 195px;
+    .pcam {
+        line-height: 33px;
+        width: 100%;
+        margin-left: 1px;
+        font-size: 17px;
     }
-    .raçao9 {
-        width: 195px;
+    .buttamanho {
+        margin-top: -30px;
+        height: 25px;
+        width: 11vw;
+        font-size: 2.4vw;
+    }
+    .buttamanho:focus {
+    background-color: #ff7b00;
+    color: #ffffff;
+    }
+    .buttamanho:hover {
+        transform: translate(-3px, -3px);
+        color: black;
+    }
+    .butcomprar {
+        margin-right: 20px;
+        position: relative;
+        top: 3px;
+        width: 13.6vw;
+        color: #424242;
+    }
+    .butcomprar:hover {
+        transform: translate(-3px, -3px);
+        color: black;
+    }
+    .p10 {
+        margin-top: -5px;
+        color:#8a2be2;
+    }
+    #subtitu {
+        text-align: center;
+        font-family: luckpet3;
+        font-size: 4vw;
+        margin: 20px 0;
     }
 
-    .divraçao1 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao1 {
+        width: 205px;
     }
-    .divraçao2 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao2 {
+        width: 205px;
     }
-    .divraçao3 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao3 {
+        width: 205px;
     }
-    .divraçao4 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao4 {
+        width: 205px;
     }
-    .divraçao5 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao5 {
+        width: 205px;
     }
-    .divraçao6 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao6 {
+        width: 205px;
     }
-    .divraçao7 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao7 {
+        width: 205px;
     }
-    .divraçao8 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+    .raçao8 {
+        width: 205px;
     }
-    .divraçao9 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
+    .raçao9 {
+        width: 205px;
+    }
+
+    .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        min-width: 35%;
+        height: 400px;
         text-align: center;
+        font-size: 19px;
+        padding: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     button {
@@ -1465,7 +1528,7 @@
         text-align: center;
         font-family: luckpet1;
         font-size: 35px;
-        padding: 30px;
+        padding: 40px;
         padding-bottom: 80px;
     }
     
@@ -1540,7 +1603,7 @@
     }
     
 
-    .section03 {
+    #section03 {
         width: 100%;
         height: 1299px;
         text-align: center;
@@ -1598,6 +1661,129 @@
         border-radius: 20px 20px 20px 20px;
         box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
     }
+    /* CSS */
+.titulo-avaliacao {
+    font-family: luckpet3;
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+#form-avaliacao {
+    text-align: center;
+    padding: 20px;
+    font-family: luckpet3;
+}
+#nome {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    border-radius: 30px;
+    
+    width: 19vw;
+    height: 3vh;
+    padding: 5px;
+}
+#comentario {
+    font-family: luckpet3;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 40vw;
+    height: 7vh;
+    padding: 5px;
+}
+#nota {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 15vw;
+    height: 4vh;
+    padding: 5px;
+}
+.butavaliacao {
+    width: 22vw;
+    color: black;
+    background-color:rgb(255, 115, 0);
+}
+#mensagem {
+    text-align: center;
+    font-family: luckpet3;
+    color: #8a2be2;
+    padding: 10px;
+}
+
+
+footer {
+    background-color: #000000ec; /* Cor de fundo escura */
+    color: #fff; /* Cor do texto */
+    padding: 20px 0;
+    text-align: center;
+    font-family: luckpet3; /* Escolha uma fonte para o texto */
+  }
+  
+  .footer-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-content p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .footer-bottom {
+    margin-top: 3px;
+    font-size: 12px;
+  }
+  
+  .footer-content {
+    max-width: 1200px; /* Largura máxima para centralizar */
+    margin: 0 auto;
+  }
+  
+  .socials {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .socials li {
+    display: inline;
+    margin: 0 10px;
+  }
+  
+  .socials a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+  
+  .socials a:hover {
+    color: #ff6b6b; /* Cor ao passar o mouse */
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #444; /* Linha divisória */
+    padding-top: 10px;
+  }
+
+  .img-redessociais {
+    width: 20px;
+    height: 20px;
+    
+  }
 }
 
 
@@ -1664,6 +1850,50 @@
         border-radius: 0px 0px;
     }
 
+
+    #loading {
+        position: fixed;
+        top: 33%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        color: #ffffff;
+        background-color: rgba(0, 0, 0, 0.918);
+        padding: 20px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+    
+    #rolagens {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        margin-left: 30px;
+    }
+    .butrolagem {
+        font-size: 2.3vw;
+        margin-top: 10px;
+        color: white;
+        font-family: luckpet3;
+        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .butrolagem:hover {
+        color:#ffd000;
+        transform: scale(1.05);
+        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+    }
+    .pesquisavel {
+        
+        text-align: center;
+        border-radius: 20px;
+      margin-right: 30px;
+    
+      width: 24vw;
+      height: 55px;
+      background-color: rgba(153, 0, 255, 0.918);
+    }
+
     .carousel {
         display: flex;
         width: 310px;
@@ -1672,13 +1902,12 @@
     }
 
     .carousel img {
-        width: 70vw;
+        width: 100vw;
         margin: auto;
         text-align: center;
-        height: 60vh;
+        height: 47vh;
         border-radius: 0px;
         margin-top: 33px;
-        margin-left: 110px;
         cursor: pointer;
     }
 
@@ -1689,105 +1918,169 @@
         transition: opacity 0.5s ease;
         text-align: center;
     }
-    .section02 {
+
+
+    div#paidivcamisa {
+        font-family: luckpet2;
+        text-align: center;
+        display: flex;
+        margin: auto;
+        justify-content: center;
+        gap: 10px;
+        padding: 40px;
+        margin-top: -4px;
+        line-height: 25px;
+        font-size: 18px;
+        
+        padding-bottom: 60px;
+    }
+    
+    .divcam1 {
+        padding: 5px;
+        height: 540px;
+        margin-left: 10px;
+        width: 30vw;
+        background-color: #ffffff;
+        border-radius: 30px;
+        font-family: luckpet3;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
+    }
+    .camisa1 {
+        border-radius: 30px 30px 0px 0px;
+        width: 30vw;
+        height: 250px;
+    }
+    .divcam2 {
+        padding: 5px;
+        height: 540px;
+        width: 30vw;
+        background-color: #ffffff;
+        border-radius: 30px;
+        font-family: luckpet3;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
+    }
+    .camisa2 {
+        border-radius: 30px 30px 0px 0px;
+        width: 30vw;
+        height: 250px;
+    }
+    .divcam3 {
+        padding: 5px;
+        margin-right: 10px;
+        height: 540px;
+        width: 30vw;
+        font-family: luckpet3;
+        background-color: #ffffff;
+        border-radius: 30px;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
+    }
+    .camisa3 {
+        border-radius: 30px 30px 0px 0px;
+        width: 30vw;
+        height: 250px;
+    }
+    .pcam {
+        line-height: 33px;
+        width: 27vw;
+        font-size: 20px;
+        margin-left: 6px;
+    }
+    .buttamanho {
+        margin-top: -30px;
+        height: 25px;
+        width: 14vw;
+        font-size: 2.4vw;
+    }
+    .buttamanho:focus {
+    background-color: #ff7b00;
+    color: #ffffff;
+    }
+    .buttamanho:hover {
+        transform: translate(-3px, -3px);
+        color: black;
+    }
+    .butcomprar {
+        margin-right: 20px;
+        position: relative;
+        top: 3px;
+        width: 11vw;
+        color: #424242;
+    }
+    .butcomprar:hover {
+        transform: translate(-3px, -3px);
+        color: black;
+    }
+    .p10 {
+        margin-top: -5px;
+        color:#8a2be2;
+    }
+    
+    
+    #subtitu {
+        text-align: center;
+        font-family: luckpet3;
+        font-size: 4vw;
+        margin: 20px 0;
+    }
+    
+    .pcar {
+        font-family: luckpet1;
+        display: block;
+        text-align: center;
+        font-size: 1.2em;
+        padding: 10px;
+        color: black;
+        margin: 20px 0;
+    }
+    .pcar:hover {
+        color: rgb(112, 112, 112);
+    }
+
+    #section02 {
         margin-top: 40px;
-        height: 630px;
+        height: 1380px;
     }
     .titu12 {
         font-size: 35px;
         padding-top: 35px;
         padding-bottom: 25px;
     }
+    .pcar {
+        font-size: 20px;
+    }
     .raçao1 {
-        width: 195px;
+        width: 220px;
     }
     .raçao2 {
-        width: 195px;
+        width: 220px;
     }
     .raçao3 {
-        width: 195px;
+        width: 220px;
     }
     .raçao4 {
-        width: 195px;
+        width: 220px;
     }
     .raçao5 {
-        width: 195px;
+        width: 220px;
     }
     .raçao6 {
-        width: 195px;
+        width: 220px;
     }
     .raçao7 {
-        width: 195px;
+        width: 220px;
     }
     .raçao8 {
-        width: 195px;
-    }
-    .raçao9 {
-        width: 195px;
+        width: 220px;
     }
 
-    .divraçao1 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
+    .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        height: 417px;
+        font-size: 21px;
         text-align: center;
-    }
-    .divraçao2 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao3 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao4 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao5 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao6 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao7 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao8 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao9 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
+        padding: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     button {
@@ -1906,9 +2199,9 @@
     
 
 
-    .section03 {
+    #section03 {
         width: 100%;
-        height: 1299px;
+        height: 1259px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -1967,6 +2260,129 @@
         border-radius: 20px 20px 20px 20px;
         box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
     }
+    /* CSS */
+.titulo-avaliacao {
+    font-family: luckpet3;
+    font-size: 3em;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+#form-avaliacao {
+    text-align: center;
+    padding: 20px;
+    font-family: luckpet3;
+}
+#nome {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    border-radius: 30px;
+    
+    width: 18vw;
+    height: 3vh;
+    padding: 5px;
+}
+#comentario {
+    font-family: luckpet3;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 40vw;
+    height: 8vh;
+    padding: 5px;
+}
+#nota {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 14vw;
+    height: 4vh;
+    padding: 5px;
+}
+.butavaliacao {
+    width: 19vw;
+    color: black;
+    background-color:rgb(255, 115, 0);
+}
+#mensagem {
+    text-align: center;
+    font-family: luckpet3;
+    color: #8a2be2;
+    padding: 10px;
+}
+
+
+footer {
+    background-color: #000000ec; /* Cor de fundo escura */
+    color: #fff; /* Cor do texto */
+    padding: 20px 0;
+    text-align: center;
+    font-family: luckpet3; /* Escolha uma fonte para o texto */
+  }
+  
+  .footer-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-content p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .footer-bottom {
+    margin-top: 3px;
+    font-size: 12px;
+  }
+  
+  .footer-content {
+    max-width: 1200px; /* Largura máxima para centralizar */
+    margin: 0 auto;
+  }
+  
+  .socials {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .socials li {
+    display: inline;
+    margin: 0 10px;
+  }
+  
+  .socials a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+  
+  .socials a:hover {
+    color: #ff6b6b; /* Cor ao passar o mouse */
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #444; /* Linha divisória */
+    padding-top: 10px;
+  }
+
+  .img-redessociais {
+    width: 20px;
+    height: 20px;
+    
+  }
 }
 
 

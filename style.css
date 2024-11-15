@@ -266,9 +266,9 @@ div.input {
 }
 
 .carousel img {
-    width: 80%;
+    width: 100vw;
     height: 450px;
-    border-radius: 30px;
+    border-radius: 0px;
     
     margin-top: 33px;
     cursor: pointer;
@@ -369,7 +369,8 @@ color: #ffffff;
     color: black;
 }
 .butcomprar {
-    margin-left: 20px;
+    margin-left: 10px;
+    font-family: luckpet3;
     position: relative;
     top: 3px;
     width: 6.6vw;
