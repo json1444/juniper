@@ -80,9 +80,9 @@
         top: 20%;
     }
     .butrolagem {
-        font-size: 4vw;
+        font-size: 16px;
         margin-top: 10px;
-        color: white;
+        color: rgb(255, 255, 255);
         font-family: luckpet3;
         box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
         transition: transform 0.2s, box-shadow 0.2s;
@@ -101,7 +101,7 @@
     
       width: 80vw;
       height: 55px;
-      background-image: linear-gradient(to , #8925b8ea, #ff8800);
+      background-image: linear-gradient(to left, #8a25b8, #ff8800);
     }
 
     .carousel {
@@ -148,11 +148,11 @@
 
     #section02 {
         margin-top: 120px;
-        height: 2505px;
+        height: 2545px;
     }
     .titu12 {
         font-size: 5.8vw;
-        padding-top: 35px;
+        padding-top: 50px;
         padding-bottom: 25px;
     }
 
@@ -687,7 +687,7 @@
         top: 17%;
     }
     .butrolagem {
-        font-size: 18px;
+        font-size: 16.1px;
         margin-top: 10px;
         color: white;
         font-family: luckpet3;
