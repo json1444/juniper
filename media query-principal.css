@@ -101,9 +101,8 @@
     
       width: 80vw;
       height: 55px;
-      background-image: linear-gradient(to right, #b84effea, #42006e);
+      background-image: linear-gradient(to , #8925b8ea, #ff8800);
     }
-
 
     .carousel {
         display: flex;
@@ -219,7 +218,7 @@
         position: relative;
         top: 8px;
         width: 30vw;
-        font-size: 17px;
+        font-size: 15px;
         color: black;
     }
     .p10 {
@@ -532,7 +531,7 @@
     border-radius: 30px;
     color: rgb(24, 206, 0);
 
-    width: 30vw;
+    width: 36vw;
     height: 4vh;
     padding: 5px;
 }
