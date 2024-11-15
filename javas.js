@@ -131,7 +131,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', async funct
     event.preventDefault();
     const formData = new FormData(this);
 
-    const response = await fetch('http://localhost:3000/avaliacoes', {
+    const response = await fetch('http://10.0.0.150:3000/avaliacoes', {
         method: 'POST',
         body: JSON.stringify({
             nome_cliente: formData.get('nome_cliente'),
@@ -150,3 +150,10 @@ document.getElementById('form-avaliacao').addEventListener('submit', async funct
 
 // Carrega as avaliações ao abrir a página
 carregarAvaliacoes();
+
+
+if (typeof window !== 'undefined') {
+    window.onclick = function(event) {
+        // Código que usa window
+    };
+}
