@@ -113,7 +113,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 // Função para carregar avaliações
 async function carregarAvaliacoes() {
-    const response = await fetch('http://localhost:3000/avaliacoes');
+    const response = await fetch('http://10.0.0.150/avaliacoes');
     const avaliacoes = await response.json();
     const listaAvaliacoes = document.getElementById('lista-avaliacoes');
     
