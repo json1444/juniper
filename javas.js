@@ -113,7 +113,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 // Função para carregar avaliações
 async function carregarAvaliacoes() {
-    const response = await fetch('http://10.0.0.150/avaliacoes');
+    const response = await fetch('http://localhost:3000/avaliacoes');
     const avaliacoes = await response.json();
     const listaAvaliacoes = document.getElementById('lista-avaliacoes');
     
@@ -131,7 +131,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', async funct
     event.preventDefault();
     const formData = new FormData(this);
 
-    const response = await fetch('http://10.0.0.150:3000/avaliacoes', {
+    const response = await fetch('http://localhost:3000/avaliacoes', {
         method: 'POST',
         body: JSON.stringify({
             nome_cliente: formData.get('nome_cliente'),
@@ -158,16 +158,15 @@ if (typeof window !== 'undefined') {
     };
 }
 
-
 // Selecione o elemento que dispara o evento (por exemplo, um botão de enviar)
 const botaoEnviar = document.getElementById('seuBotaoId'); // Substitua 'seuBotaoId' pelo ID correto do botão
 
 // Adiciona evento de clique para navegadores de desktop
-botaoEnviar.addEventListener('click', function(event) {
+botaoEnviar.addEventListener('seuBotaoId', function(event) {
   // Código para enviar avaliação
 });
 
 // Adiciona evento de toque para dispositivos móveis
-botaoEnviar.addEventListener('touchstart', function(event) {
+botaoEnviar.addEventListener('seuBotaoId', function(event) {
   // Código para enviar avaliação
 });
