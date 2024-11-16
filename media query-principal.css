@@ -92,7 +92,7 @@
         text-align: center;
     
       width: 100vw;
-      height: 55px;
+      height: 60px;
       background-color: #40006b;
     }
 
@@ -170,7 +170,7 @@
         left: 0px;
         top:40%;
         width: 100vw;
-        height: 25vh;
+        height: auto;
         border-radius: 0px;
         margin-top: 33px;
         margin-left: -40px;
