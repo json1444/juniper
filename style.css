@@ -267,6 +267,13 @@ main {
     
     font-family: luckpet3;
 }
+.imgdesc {
+    height: 50px;
+    width: 50px; 
+    position: relative; 
+    left: 4.6%; 
+    top: 35px;
+}
 
 .carousel-container {
     width: 100%;

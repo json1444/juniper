@@ -63,45 +63,98 @@
         width: 98.9vw;
         border-radius: 0px 0px;
     }
-    #div1 {
-        margin-top: -6px;
-        width: 94.0vw;
-        font-size: 12px;
-        border-radius: 0px 0px;
-    }
 
 
     #rolagens {
-        display: block;
-        margin-left: 10px;
-        justify-content: center;
-        padding-top: 45px;
-        position: relative;
-        top: 20%;
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+       
+        margin-top: -3px;
+        width: 100vw;
     }
     .butrolagem {
-        font-size: 16px;
+        font-size: 3.8vw;
         margin-top: 10px;
-        color: rgb(255, 255, 255);
+        width: 25vw;
+        padding-right: 5px;
+        color: white;
         font-family: luckpet3;
         box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .butrolagem:hover {
-        color:#bbff00;
+        color:#ffd000;
         transform: scale(1.05);
         box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
     }
     .pesquisavel {
         text-align: center;
-        border-radius: 30px 20px;
-        box-shadow: 0px 1px 3px 1px orange;
-      margin-left: 180px;
-      margin: 10px;
     
-      width: 80vw;
+      width: 100vw;
       height: 55px;
-      background-image: linear-gradient(to left, #8a25b8, #ff8800);
+      background-color: #40006b;
+    }
+
+
+    main {
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+        padding: 10px;
+        margin-left:-30px;
+    }
+    #div1 {
+        color: #40006b;
+        font-size: 4vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div2 {
+        color: #40006b;
+        font-size: 4vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div3 {
+        color: #40006b;
+        font-size: 4vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    .imgdesc {
+        height: 50px;
+        width: 50vw; 
+        position: relative; 
+        left: 15%; 
+        top: 35px;
+    }
+    .pdesc {
+        width: 60vw;
     }
 
     .carousel {
@@ -115,11 +168,11 @@
         position: absolute;
         right: 20px;
         left: 0px;
-        top: 40%;
+        top:40%;
         width: 100vw;
-        height: 150px;
+        height: 160px;
         border-radius: 0px;
-        margin-top: -333px;
+        margin-top: 33px;
         margin-left: -40px;
         cursor: pointer;
     }
@@ -147,7 +200,7 @@
     
 
     #section02 {
-        margin-top: 120px;
+        margin-top: 230px;
         height: 2545px;
     }
     .titu12 {
@@ -223,7 +276,7 @@
     }
     .p10 {
         margin-top: -5px;
-        color:#8a2be2;
+        color:#ff7b00;
     }
 
     #subtitu {
@@ -434,7 +487,7 @@
         font-size: 25px;
         padding-top: 20px;
         padding-bottom: 30px;
-        color: rgba(72, 0, 139, 0.863);
+        color: #40006b;
     }
     .planos {
         display: flex;
@@ -442,7 +495,7 @@
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 16px;
        padding: 20px;
-       color: rgba(72, 0, 139, 0.863);
+       color: #40006b;
     }
     .plano1 {
         width: 85vw;
@@ -475,7 +528,7 @@
         height: 60px;
         padding: 15px 20px 20px 20px;
         color: white;
-        background-color: rgba(72, 0, 139, 0.863);
+        background-color: #40006b;
         border-radius: 20px 20px 20px 20px;
         box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
     }
