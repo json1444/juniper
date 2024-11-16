@@ -41,7 +41,7 @@ body, html {
 h1#titu1 {
       font-family: luckpet;
       color: rgba(255, 255, 255, 0.966);
-      background-color: #9900ffea;
+      background-color: #ff7b00;
       
       padding: 10px;
       font-size: 60px;
@@ -51,7 +51,7 @@ h1#titu1 {
     transition: 2s;
 }
 .atitu:hover {
-    color: #ff7b00;
+    color: #9900ffea;
 }
 
 header {
@@ -183,19 +183,6 @@ div.input {
     margin-top: -56px;
 }
 
-#div1 {
-    color: white;
-    font-size: 17px;
-    text-align: center;
-    margin: auto;
-    border-radius: 0px 0px;
-    padding: 10px 10px 10px 10px;
-    margin-top: -11px;
-    background-color:#ff7b00;
-    width: 98.5%;
-    font-family: luckpet3;
-}
-
 #loading {
     position: fixed;
     top: 33%;
@@ -212,8 +199,7 @@ div.input {
 #rolagens {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    margin-left: 80px;
+    margin-top: -11px;
 }
 .butrolagem {
     font-size: 1.3vw;
@@ -229,14 +215,53 @@ div.input {
     box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
 }
 .pesquisavel {
+    text-align: center;
+
+  width: 100vw;
+  height: 55px;
+  background-color: #40006b;
+}
+
+main {
+    display: flex;
+    margin: 10px;
+    font-size: 1.3vw;
+    width: 95vw;
+}
+#div1 {
+    color: #40006b;
     
     text-align: center;
-    border-radius: 20px;
-  margin-right: 70px;
+    margin: auto;
+    border-radius: 10px 10px;
+    padding: 10px 10px 10px 50px;
+    margin-top: 20px;
+    background-color:#ddddddea;
+    
+    font-family: luckpet3;
+}
+#div2 {
+    color: #40006b;
+    
+    text-align: center;
+    margin: auto;
+    border-radius: 10px 10px;
+    padding: 10px 10px 10px 50px;
+    margin-top: 20px;
+    background-color:#ddddddea;
 
-  width: 14vw;
-  height: 55px;
-  background-color: rgba(153, 0, 255, 0.918);
+    font-family: luckpet3;
+}
+#div3 {
+    color: #40006b;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px 10px;
+    padding: 10px 10px 10px 50px;
+    margin-top: 20px;
+    background-color:#ddddddea;
+    
+    font-family: luckpet3;
 }
 
 .carousel-container {
@@ -382,7 +407,7 @@ color: #ffffff;
 }
 .p10 {
     margin-top: -5px;
-    color:#8a2be2;
+    color:#ff7b00;
 }
 
 
@@ -627,7 +652,7 @@ z-index: 1;
     width: 100%;
     height: 540px;
     text-align: center;
-    background-color: rgba(0, 172, 100, 0.637) ;
+    background-color: #00ac64a2;
 }
 .titu13 {
     text-align: center;
@@ -635,7 +660,7 @@ z-index: 1;
     font-size: 35px;
     padding-top: 50px;
     padding-bottom: 30px;
-    color: #8a2be2;
+    color: #40006b;
 }
 .planos {
     display: flex;
@@ -643,7 +668,7 @@ z-index: 1;
     font-size: 18px;
    padding: 30px;
    gap: 30px;
-   color: #8a2be2;
+   color: #40006b;
 }
 .plano1 {
     width: 500px;
@@ -674,7 +699,7 @@ z-index: 1;
     height: 60px;
     padding: 15px 20px 20px 20px;
     color: white;
-    background-color: #8a2be2;
+    background-color: #40006b;
     border-radius: 20px 20px 20px 20px;
     box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
 }
