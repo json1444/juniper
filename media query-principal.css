@@ -98,9 +98,10 @@
     }
 
 div#cabecasite {
-    background-image: url(img/desc-img.jpg);
+    background-image: url(img/desc.jpg);
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: top;
     background-attachment: fixed;
     height: 200px;
     width: 100vw;
@@ -210,7 +211,7 @@ div#cabecasite {
     
 
     #section02 {
-        margin-top: 170px;
+        margin-top: 205px;
         height: 2545px;
     }
     .titu12 {
