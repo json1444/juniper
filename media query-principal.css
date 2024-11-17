@@ -99,7 +99,7 @@
 
 div#cabecasite {
     background-image: url(img/desc.jpg);
-    background-size: cover;
+    background-size: 360px;
     background-repeat: no-repeat;
     background-position: top;
     background-attachment: fixed;
