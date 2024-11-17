@@ -63,7 +63,6 @@
         font-size: 13px;
         width: 98.9vw;
         border-radius: 0px 0px;
-        transition: 3s;
     }
 
 
@@ -107,6 +106,7 @@ div#cabecasite {
     
     height: 39vh;
     width: 100%;
+    transition: 5s;
 }
 @supports (-webkit-touch-callout: none) and (not (translate: none)) {
     div#cabecasite {
