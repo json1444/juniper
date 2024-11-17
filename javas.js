@@ -2,6 +2,12 @@ window.onload = function () {
     window.scrollTo(0, 0); // Força a página para o topo ao carregar
 };
 
+const cabecaSite = document.querySelector("#cabecasite");
+window.addEventListener("scroll", () => {
+    let scrollPosition = window.scrollY;
+    cabecaSite.style.backgroundPositionY = `${scrollPosition * 0.5}px`; // Ajusta o fator de deslocamento
+});
+
 
 
 // Define o tempo em milissegundos para o carregamento (aqui 3 segundos)
