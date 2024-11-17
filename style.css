@@ -20,6 +20,7 @@
 * {
     margin: 0px;
     padding: 0px;
+    transition: 1s;
 }
 
 body, html {
@@ -186,12 +187,13 @@ div.input {
 
 #loading {
     position: fixed;
+    font-family: luckpet1;
     top: 33%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 18px;
     color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.918);
+    background-color: rgba(0, 26, 255, 0.918);
     padding: 20px;
     border-radius: 5px;
     z-index: 1000;
