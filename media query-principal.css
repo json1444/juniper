@@ -4,7 +4,7 @@
     * {
         margin: 0px;
         padding: 0px;
-        transition: 2s;
+        transition: 1s;
     }
     body, html {
         height: 600px;
@@ -101,9 +101,9 @@
 div#cabecasite {
     background-image: url(img/desc.jpg);
     background-attachment: fixed;
-    background-size: cover;
+    background-size: contain;
     
-    height: 270px;
+    height: 45vh;
     width: 100vw;
 }
     main {
