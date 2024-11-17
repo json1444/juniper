@@ -101,9 +101,9 @@
 div#cabecasite {
     background-image: url(img/desc.jpg);
     background-attachment: fixed;
-    background-size: 700px;
-    background-position: top;
-    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: repeat;
     
     height: 45vh;
     width: 100%;
@@ -188,9 +188,9 @@ div#cabecasite {
         left: 0px;
         top:40%;
         width: 100vw;
-        height: auto;
+        height: 170px;
         border-radius: 0px;
-        margin-top: 25px;
+        margin-top: 10px;
         margin-left: -40px;
         cursor: pointer;
     }
