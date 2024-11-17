@@ -1,3 +1,9 @@
+window.onload = function () {
+    window.scrollTo(0, 0); // Força a página para o topo ao carregar
+};
+
+
+
 // Define o tempo em milissegundos para o carregamento (aqui 3 segundos)
 const tempoDeCarregamento = 3000;
 
