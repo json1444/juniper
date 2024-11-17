@@ -126,7 +126,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 // Carregar avaliações do backend
 function fetchReviews() {
-    fetch("http://10.0.0.150/reviews")
+    fetch("http://10.0.0.150:3000/reviews")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Erro ao buscar as avaliações");
@@ -158,7 +158,7 @@ document.getElementById("review-form").addEventListener("submit", (event) => {
         rating: parseInt(document.getElementById("rating").value),
     };
 
-    fetch("http://10.0.0.150/reviews", {
+    fetch("http://10.0.0.150:3000/reviews", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
