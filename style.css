@@ -20,7 +20,6 @@
 * {
     margin: 0px;
     padding: 0px;
-    transition: 1s;
 }
 
 body, html {
@@ -54,6 +53,7 @@ h1#titu1 {
 }
 .atitu:hover {
     color: #9900ffea;
+    transform: translateY(20px);
 }
 
 header {
@@ -94,7 +94,6 @@ header {
 }
 :hover.icone {
     background-color: rgb(63, 255, 245);
-    transform:translateY(-10px)
 }
 
 /* Estiliza o menu de opções que estará oculto inicialmente */
@@ -104,7 +103,7 @@ header {
     top: 34px;
     background-color: rgb(218, 41, 41);
     border: 1px solid #ddd;
-    border-radius: 15px;
+    border-radius: 20px 10px;
     margin-top: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -113,7 +112,7 @@ header {
 /* Mostra o menu de opções ao passar o mouse sobre o ícone */
 .icone:hover .opcoes {
     display: block;
-    background-color: #1a1a1a;
+    background-color: #ffffff;
 }
 
 
@@ -140,7 +139,6 @@ header {
 }
 :hover.icone2 {
     background-color: rgb(63, 255, 245);
-    transform:translateY(-10px)
 }
 
 .opcoes2 {
@@ -149,7 +147,7 @@ header {
     top: 34px;
     right: 0px;
     border: 1px solid #ddd;
-    border-radius: 15px;
+    border-radius: 20px 10px;
     margin-top: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -160,11 +158,11 @@ header {
 
 .icone2:hover .opcoes2 {
     display: block;
-    background-color: #1a1a1a;
+    background-color: #ffffff;
     color: rgb(255, 166, 0);
 }
 a {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-decoration: none;
 }
 a:hover {
@@ -411,6 +409,7 @@ color: #ffffff;
 .butcomprar {
     margin-left: 10px;
     font-family: luckpet3;
+    box-shadow: 1px 1px 1px 1px rgb(0, 255, 0);
     position: relative;
     top: 3px;
     width: 6.6vw;
@@ -714,8 +713,8 @@ z-index: 1;
     height: 60px;
     padding: 15px 20px 20px 20px;
     color: white;
-    background-color: #40006b;
-    border-radius: 20px 20px 20px 20px;
+    background-color:#40006b;
+    border-radius: 40px 10px;
     box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
 }
 
@@ -772,7 +771,7 @@ z-index: 1;
 }
 .butavaliacao {
     width: 15vw;
-    color: black;
+    color: rgb(255, 255, 255);
     background-color:rgb(255, 115, 0);
 }
 #mensagem {
