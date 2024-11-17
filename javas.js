@@ -123,62 +123,60 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-// Função para carregar avaliações
-async function carregarAvaliacoes() {
-    const response = await fetch('http://localhost:3000/avaliacoes');
-    const avaliacoes = await response.json();
-    const listaAvaliacoes = document.getElementById('lista-avaliacoes');
-    
-    listaAvaliacoes.innerHTML = avaliacoes.map(avaliacao => `
-        <div>
-            <strong>${avaliacao.nome_cliente}</strong> - Nota: ${avaliacao.nota}
-            <p>${avaliacao.comentario}</p>
-            <small>${new Date(avaliacao.data).toLocaleString()}</small>
-        </div>
-    `).join('');
+
+// Carregar avaliações do backend
+function fetchReviews() {
+    fetch("http://127.0.0.1:3000/reviews")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erro ao buscar as avaliações");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            document.getElementById("reviews").innerHTML = data
+                .map((review) => `
+                    <div>
+                        <p><strong>${review.name}</strong></p>
+                        <p>${review.text}</p>
+                        <p>Rating: ${"★".repeat(review.rating)}</p>
+                        <small>${new Date(review.created_at).toLocaleString()}</small>
+                    </div>
+                `)
+                .join("");
+        })
+        .catch((error) => console.error("Erro:", error));
 }
 
-// Evento para enviar a avaliação
-document.getElementById('form-avaliacao').addEventListener('submit', async function(event) {
+// Enviar uma nova avaliação para o backend
+document.getElementById("review-form").addEventListener("submit", (event) => {
     event.preventDefault();
-    const formData = new FormData(this);
 
-    const response = await fetch('http://localhost:3000/avaliacoes', {
-        method: 'POST',
-        body: JSON.stringify({
-            nome_cliente: formData.get('nome_cliente'),
-            comentario: formData.get('comentario'),
-            nota: formData.get('nota')
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    });
-
-    const mensagem = await response.text();
-    document.getElementById('mensagem').innerText = mensagem;
-    
-    this.reset();
-    carregarAvaliacoes();
-});
-
-// Carrega as avaliações ao abrir a página
-carregarAvaliacoes();
-
-
-if (typeof window !== 'undefined') {
-    window.onclick = function(event) {
-        // Código que usa window
+    const review = {
+        name: document.getElementById("name").value,
+        text: document.getElementById("text").value,
+        rating: parseInt(document.getElementById("rating").value),
     };
-}
 
-// Selecione o elemento que dispara o evento (por exemplo, um botão de enviar)
-const botaoEnviar = document.getElementById('seuBotaoId'); // Substitua 'seuBotaoId' pelo ID correto do botão
-
-// Adiciona evento de clique para navegadores de desktop
-botaoEnviar.addEventListener('seuBotaoId', function(event) {
-  // Código para enviar avaliação
+    fetch("http://127.0.0.1:3000/reviews", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(review),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erro ao enviar a avaliação");
+            }
+            return response.json();
+        })
+        .then(() => {
+            document.getElementById("review-form").reset();
+            fetchReviews(); // Atualizar as avaliações
+        })
+        .catch((error) => console.error("Erro:", error));
 });
 
-// Adiciona evento de toque para dispositivos móveis
-botaoEnviar.addEventListener('seuBotaoId', function(event) {
-  // Código para enviar avaliação
-});
+// Carregar avaliações ao iniciar
+fetchReviews();
