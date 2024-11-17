@@ -7,7 +7,7 @@
         transition: 1s;
     }
     body, html {
-        height: 600px;
+        height: 100%;
         width: 99.8%;
     }
     .p1 {
