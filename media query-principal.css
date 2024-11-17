@@ -70,7 +70,6 @@
     #rolagens {
         display: flex;
         gap: 0px;
-        overflow-y: auto;
        
         margin-top: -10px;
         height: 100px;
@@ -78,12 +77,11 @@
     }
     .butrolagem {
         font-size: 4vw;
-        width: 25vw;
+        width: 15vw;
         padding-right: 5px;
         color: white;
         font-family: luckpet3;
         box-shadow: 0px 0px 0px rgb(0, 0, 0, 0.2);
-        transition: transform 0.2s, box-shadow 0.2s;
     }
     
     .butrolagem:hover, .saudepet:hover {
