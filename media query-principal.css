@@ -93,7 +93,7 @@
         text-align: center;
     
       width: 100vw;
-      height: 90px;
+      height: 70px;
       background-color: #40006b;
     }
 
@@ -101,7 +101,7 @@ div#cabecasite {
     background-image: url(img/desc-img.jpg);
     background-size: 400px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 1px;
     background-attachment: fixed;
     height: 240px;
     width: 100vw;
