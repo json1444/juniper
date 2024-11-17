@@ -63,6 +63,7 @@
         font-size: 13px;
         width: 98.9vw;
         border-radius: 0px 0px;
+        transition: 3s;
     }
 
 
@@ -101,9 +102,10 @@
 div#cabecasite {
     background-image: url(img/dog.jpg);
     background-attachment: fixed;
-    background-size: contain;
-    background-position: top top;
-    
+    background-size: 700px;
+    background-position: right;
+    background-repeat: no-repeat;
+  
     
     height: 39vh;
     width: 100%;

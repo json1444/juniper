@@ -183,6 +183,7 @@ a:hover {
 }
 div.input {
     margin-top: -56px;
+    transition: 2s;
 }
 
 #loading {
