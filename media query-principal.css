@@ -101,11 +101,11 @@
 div#cabecasite {
     background-image: url(img/dog.jpg);
     background-attachment: fixed;
-    background-size: 500px;
-    background-position: top;
-    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top top;
     
-    height: 45vh;
+    
+    height: 39vh;
     width: 100%;
 }
 @supports (-webkit-touch-callout: none) and (not (translate: none)) {
@@ -218,7 +218,7 @@ div#cabecasite {
     
 
     #section02 {
-        margin-top: 205px;
+        margin-top: 215px;
         height: 2545px;
     }
     .titu12 {
