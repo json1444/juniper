@@ -97,13 +97,22 @@
       background-color: #40006b;
     }
 
-
+div#cabecasite {
+    background-image: url(img/desc-img.jpg);
+    background-size: 400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    height: 240px;
+    width: 100vw;
+}
     main {
+        
         display: flex;
         gap: 0px;
         overflow-y: auto;
         padding: 10px;
-        margin-top: 193px;
+        margin-top: 0px;
         margin-left: -17px;
     }
     #div1 {
@@ -174,7 +183,7 @@
         width: 100vw;
         height: auto;
         border-radius: 0px;
-        margin-top: -370px;
+        margin-top: 25px;
         margin-left: -40px;
         cursor: pointer;
     }
@@ -202,7 +211,7 @@
     
 
     #section02 {
-        margin-top: 80px;
+        margin-top: 170px;
         height: 2545px;
     }
     .titu12 {
