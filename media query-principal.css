@@ -104,7 +104,12 @@ div#cabecasite {
     background-size: contain;
     
     height: 45vh;
-    min-width: 100%;
+    width: 100%;
+}
+@supports (-webkit-touch-callout: none) and (not (translate: none)) {
+    div#cabecasite {
+        background-attachment: scroll; /* Alternativa para Safari */
+    }
 }
     main {
         

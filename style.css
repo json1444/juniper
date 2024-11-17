@@ -94,6 +94,7 @@ header {
 }
 :hover.icone {
     background-color: rgb(63, 255, 245);
+    transform:translateY(-10px)
 }
 
 /* Estiliza o menu de opções que estará oculto inicialmente */
@@ -139,6 +140,7 @@ header {
 }
 :hover.icone2 {
     background-color: rgb(63, 255, 245);
+    transform:translateY(-10px)
 }
 
 .opcoes2 {
