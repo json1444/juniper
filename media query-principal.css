@@ -103,8 +103,8 @@ div#cabecasite {
     background-attachment: fixed;
     background-size: contain;
     
-    height: 330px;
-    max-width: 360px;
+    height: 45vh;
+    min-width: 100%;
 }
     main {
         
