@@ -69,6 +69,7 @@
         display: flex;
         gap: 0px;
         overflow-y: auto;
+        padding-bottom: 10px;
        
         margin-top: -10px;
         width: 100vw;
@@ -178,7 +179,7 @@
         width: 100vw;
         height: auto;
         border-radius: 0px;
-        margin-top: -333px;
+        margin-top: -350px;
         margin-left: -40px;
         cursor: pointer;
     }
