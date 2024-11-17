@@ -99,10 +99,10 @@
 
 div#cabecasite {
     background-image: url(img/desc-img.jpg);
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 240px;
+    height: 200px;
     width: 100vw;
 }
     main {
