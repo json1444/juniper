@@ -99,11 +99,11 @@
     }
 
 div#cabecasite {
-    background-image: url(img/pexels-qiana-zhang-175967787-11132138.jpg);
+    background-image: url(img/dog.jpg);
     background-attachment: fixed;
-    background-size: contain;
+    background-size: 500px;
     background-position: top;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     
     height: 45vh;
     width: 100%;
