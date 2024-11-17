@@ -5,7 +5,7 @@ window.onload = function () {
 const cabecaSite = document.querySelector("#cabecasite");
 window.addEventListener("scroll", () => {
     let scrollPosition = window.scrollY;
-    cabecaSite.style.backgroundPositionY = `${scrollPosition * 0.5}px;` // Ajusta o fator de deslocamento
+    cabecaSite.style.backgroundPositionY = `${scrollPosition * 0.5}px`; // Ajusta o fator de deslocamento
 });
 
 
