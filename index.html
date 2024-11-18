@@ -297,12 +297,15 @@
     </div>
     
   
-    <form id="reviewForm">
-        <input type="text" id="name" placeholder="Seu nome" required>
-        <textarea id="text" placeholder="Sua avaliação" required></textarea>
-        <input type="number" id="rating" placeholder="Avaliação (1-5)" required>
-        <button type="submit" id="submit-button">Enviar Avaliação</button>
+    <form id="form-avaliacao">
+        <input type="text" id="nome_usuario" placeholder="Seu Nome" required>
+        <textarea id="comentario" placeholder="Escreva seu comentário" required></textarea>
+        <input type="number" id="avaliacao" min="1" max="5" placeholder="Sua Avaliação (1-5)" required>
+        <button type="submit">Enviar Avaliação</button>
       </form>
+      
+      <!-- Container para exibir as avaliações -->
+      <div id="avaliacoes"></div>
   
 
 </body>

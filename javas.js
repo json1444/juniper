@@ -123,31 +123,50 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-document.querySelector('#submit-button').addEventListener('click', async (event) => {
-    event.preventDefault();  // Previne o envio do formulário de forma tradicional
-    console.log("Botão de avaliação clicado!");
+document.getElementById('form-avaliacao').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const nomeUsuario = document.getElementById('nome_usuario').value;
+    const comentario = document.getElementById('comentario').value;
+    const avaliacao = document.getElementById('avaliacao').value;
   
-    const name = document.querySelector('#name').value;
-    const text = document.querySelector('#text').value;
-    const rating = document.querySelector('#rating').value;
-  
-    // Usando a URL do Vercel
-    const apiUrl = 'https://projeto-luckpet.vercel.app/api/reviews';
-  
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, text, rating }),
-    });
-  
-    const data = await response.json();
-    console.log(data);  // Verifique a resposta da API no console
-  
-    if (response.ok) {
-      alert('Avaliação enviada com sucesso!');
-    } else {
-      alert('Erro ao enviar a avaliação');
+    try {
+      const response = await fetch('/avaliacoes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome_usuario: nomeUsuario, comentario: comentario, avaliacao: avaliacao }),
+      });
+      
+      if (response.ok) {
+        alert('Avaliação enviada com sucesso!');
+        document.getElementById('form-avaliacao').reset();
+        carregarAvaliacoes();
+      } else {
+        alert('Erro ao enviar avaliação.');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
     }
   });
+  
+  // Função para carregar avaliações
+  async function carregarAvaliacoes() {
+    try {
+      const response = await fetch('/avaliacoes');
+      const avaliacoes = await response.json();
+      
+      const container = document.getElementById('avaliacoes');
+      container.innerHTML = ''; // Limpa o container
+      
+      avaliacoes.forEach(avaliacao => {
+        const div = document.createElement('div');
+        div.innerHTML = `<strong>${avaliacao.nome_usuario}</strong> (${avaliacao.avaliacao} estrelas): ${avaliacao.comentario}`;
+        container.appendChild(div);
+      });
+    } catch (error) {
+      console.error('Erro ao carregar avaliações:', error);
+    }
+  }
+  
+  // Carregar as avaliações ao iniciar
+  carregarAvaliacoes();
