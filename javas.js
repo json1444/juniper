@@ -137,7 +137,8 @@ document.querySelector('#submit-button').addEventListener('click', async (event)
       text: text,
       rating: rating,
     };
-  
+    const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/api/reviews' : 'https://seu-app.vercel.app/api/reviews';
+    
     const response = await fetch('http://localhost:3000/api/reviews', {
       method: 'POST',
       headers: {
