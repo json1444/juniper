@@ -4,8 +4,11 @@ const mysql = require('mysql2');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para receber dados JSON
-app.use(express.json());
+// Configurar o EJS como motor de visualização
+app.set('view engine', 'ejs');
+
+// Middleware para receber dados do formulário (POST)
+app.use(express.urlencoded({ extended: true }));
 
 // Configuração da conexão com o MySQL
 const connection = mysql.createConnection({
@@ -24,34 +27,41 @@ connection.connect((err) => {
   console.log('Conectado ao banco de dados MySQL');
 });
 
+// Rota principal (Página de avaliações)
+app.get('/', (req, res) => {
+  // Buscar todas as avaliações
+  connection.query('SELECT * FROM avaliacoes ORDER BY data_avaliacao DESC', (err, results) => {
+    if (err) {
+      console.error('Erro ao buscar avaliações:', err);
+      return res.status(500).send('Erro ao buscar avaliações');
+    }
+    res.render('index', { avaliacoes: results });
+  });
+});
+
+// Rota para enviar uma avaliação
+app.post('/avaliar', (req, res) => {
+  const { nome_usuario, comentario, nota } = req.body;
+
+  if (!nome_usuario || !nota) {
+    return res.status(400).send('Nome e nota são obrigatórios!');
+  }
+
+  // Inserir nova avaliação no banco de dados
+  connection.query(
+    'INSERT INTO avaliacoes (nome_usuario, comentario, nota) VALUES (?, ?, ?)',
+    [nome_usuario, comentario, nota],
+    (err) => {
+      if (err) {
+        console.error('Erro ao inserir avaliação:', err);
+        return res.status(500).send('Erro ao inserir avaliação');
+      }
+      res.redirect('/');
+    }
+  );
+});
+
 // Servidor ouvindo
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
-
-
-// Rota para adicionar uma nova avaliação
-app.post('/avaliacoes', (req, res) => {
-    const { nome_usuario, comentario, avaliacao } = req.body;
-    
-    const query = 'INSERT INTO avaliacoes (nome_usuario, comentario, avaliacao) VALUES (?, ?, ?)';
-    connection.query(query, [nome_usuario, comentario, avaliacao], (err, result) => {
-      if (err) {
-        console.error('Erro ao inserir avaliação:', err);
-        return res.status(500).send('Erro no servidor');
-      }
-      res.status(201).send('Avaliação adicionada com sucesso!');
-    });
-  });
-  
-  // Rota para listar todas as avaliações
-  app.get('/avaliacoes', (req, res) => {
-    const query = 'SELECT * FROM avaliacoes';
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error('Erro ao buscar avaliações:', err);
-        return res.status(500).send('Erro no servidor');
-      }
-      res.json(results);
-    });
-  });
