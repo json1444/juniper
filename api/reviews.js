@@ -1,6 +1,17 @@
 const mysql = require('mysql2');
+const cors = require('cors');
+const express = require('express');
 
-// Criação de um pool de conexões para melhor desempenho
+// Inicializando o app do Express
+const app = express();
+
+// Configurando o CORS para permitir todas as origens
+app.use(cors());
+
+// Definindo o corpo da requisição para ser JSON
+app.use(express.json());
+
+// Criação do pool de conexões para o banco de dados
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -8,10 +19,11 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 });
 
-// Promessa para garantir o funcionamento assíncrono do pool
+// Usando promises para o pool de conexões
 const promisePool = pool.promise();
 
-module.exports = async (req, res) => {
+// Rota para lidar com requisições
+app.all('/reviews', async (req, res) => {
   try {
     if (req.method === 'GET') {
       // Consulta para pegar todas as avaliações
@@ -27,7 +39,10 @@ module.exports = async (req, res) => {
       res.status(405).json({ error: 'Método não permitido' });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+    console.error('Erro no backend:', err);
+    res.status(500).json({ error: 'Erro ao processar a requisição' });
   }
-};
+});
+
+// Exporta o app para o Vercel
+module.exports = app;

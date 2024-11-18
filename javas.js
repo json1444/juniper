@@ -123,40 +123,32 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-// Função para exibir as avaliações
-async function getReviews() {
-    const response = await fetch('/api/reviews');
-    const reviews = await response.json();
-    const reviewsList = document.getElementById('reviews');
-    reviewsList.innerHTML = '';
-    reviews.forEach(review => {
-      const li = document.createElement('li');
-      li.textContent = `${review.name}: ${review.text} (Rating: ${review.rating})`;
-      reviewsList.appendChild(li);
-    });
-  }
+document.querySelector('#submit-button').addEventListener('click', async (event) => {
+  event.preventDefault();  // Previne o envio do formulário de forma tradicional
+  console.log("Botão de avaliação clicado!");
 
-  // Função para enviar uma nova avaliação
-  document.getElementById('reviewForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const name = document.getElementById('name').value;
-    const text = document.getElementById('text').value;
-    const rating = document.getElementById('rating').value;
+  const name = document.querySelector('#name').value;
+  const text = document.querySelector('#text').value;
+  const rating = document.querySelector('#rating').value;
 
-    const response = await fetch('/api/reviews', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, text, rating })
-    });
-
-    const result = await response.json();
-    console.log(result);
-
-    // Após enviar, recarrega as avaliações
-    getReviews();
+  const response = await fetch('/api/reviews', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      text,
+      rating
+    })
   });
 
-  // Carregar as avaliações quando a página for carregada
-  getReviews();
+  const data = await response.json();
+  console.log(data);  // Verifique a resposta da API no console
+
+  if (response.ok) {
+    alert('Avaliação enviada com sucesso!');
+  } else {
+    alert('Erro ao enviar a avaliação');
+  }
+});
