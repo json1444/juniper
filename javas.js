@@ -131,7 +131,8 @@ document.querySelector('#submit-button').addEventListener('click', async (event)
     const text = document.querySelector('#text').value;
     const rating = document.querySelector('#rating').value;
   
-    const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/api/reviews' : 'https://seu-app.vercel.app/api/reviews';
+    // Usando a URL do Vercel
+    const apiUrl = 'https://projeto-luckpet.vercel.app/api/reviews';
   
     const response = await fetch(apiUrl, {
       method: 'POST',
