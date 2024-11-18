@@ -106,7 +106,7 @@ div#cabecasite {
     background-repeat: no-repeat;
   
     
-    height: 39vh;
+    height: 260px;
     width: 100%;
 }
 @supports (-webkit-touch-callout: none) and (not (translate: none)) {

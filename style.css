@@ -183,7 +183,6 @@ a:hover {
 }
 div.input {
     margin-top: -56px;
-    transition: 2s;
 }
 
 #loading {
@@ -758,6 +757,25 @@ z-index: 1;
     height: 6vh;
     padding: 5px;
 }
+#stars {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.star:hover {
+    color: rgb(255, 238, 0);
+}
+.star {
+    font-size: 30px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star.selected {
+    color: gold;
+}
+
 #nota {
     font-family: luckpet3;
     text-align: center;

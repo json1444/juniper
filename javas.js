@@ -123,60 +123,80 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
+   // Função para armazenar e exibir a média das avaliações
+   function displayAverageRating() {
+    const reviews = JSON.parse(localStorage.getItem('lista-avaliacoes')) || [];
+    if (reviews.length > 0) {
+        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+        const averageRating = (totalRating / reviews.length).toFixed(1);
 
-// Carregar avaliações do backend
-function fetchReviews() {
-    fetch("http://10.0.0.150:3000/reviews")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Erro ao buscar as avaliações");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            document.getElementById("reviews").innerHTML = data
-                .map((review) => `
-                    <div>
-                        <p><strong>${review.name}</strong></p>
-                        <p>${review.text}</p>
-                        <p>Rating: ${"★".repeat(review.rating)}</p>
-                        <small>${new Date(review.created_at).toLocaleString()}</small>
-                    </div>
-                `)
-                .join("");
-        })
-        .catch((error) => console.error("Erro:", error));
+        document.getElementById('average-rating').innerHTML = `Avaliação média: ${averageRating} estrelas`;
+    }
 }
 
-// Enviar uma nova avaliação para o backend
-document.getElementById("review-form").addEventListener("submit", (event) => {
-    event.preventDefault();
+// Função para exibir as avaliações paginadas
+const reviewsPerPage = 5;
+let currentPage = 1;
 
-    const review = {
-        name: document.getElementById("name").value,
-        text: document.getElementById("text").value,
-        rating: parseInt(document.getElementById("rating").value),
-    };
+function displayPagedReviews() {
+    const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    const startIndex = (currentPage - 1) * reviewsPerPage;
+    const endIndex = startIndex + reviewsPerPage;
 
-    fetch("http://10.0.0.150:3000/reviews", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(review),
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Erro ao enviar a avaliação");
-            }
-            return response.json();
-        })
-        .then(() => {
-            document.getElementById("review-form").reset();
-            fetchReviews(); // Atualizar as avaliações
-        })
-        .catch((error) => console.error("Erro:", error));
-});
+    const reviewsToShow = reviews.slice(startIndex, endIndex);
 
-// Carregar avaliações ao iniciar
-fetchReviews();
+    const reviewsContainer = document.getElementById('reviews');
+    reviewsContainer.innerHTML = "<h2>Avaliações:</h2>";
+
+    reviewsToShow.forEach(review => {
+        const reviewElement = document.createElement('div');
+        reviewElement.classList.add('review');
+        reviewElement.innerHTML = `
+            <strong>${review.name}</strong> - ${'★'.repeat(review.rating)} ${'☆'.repeat(5 - review.rating)}
+            `;
+            reviewsContainer.appendChild(reviewElement);
+        });
+
+        // Exibe navegação de páginas
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = `
+            <button ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(-1)">Anterior</button>
+            <span>Página ${currentPage}</span>
+            <button ${currentPage * reviewsPerPage >= reviews.length ? 'disabled' : ''} onclick="changePage(1)">Próxima</button>
+        `;
+    }
+
+    // Função para alterar a página
+    function changePage(direction) {
+        currentPage += direction;
+        displayPagedReviews();
+    }
+
+    // Função para salvar a avaliação no LocalStorage
+    document.getElementById('review-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const text = document.getElementById('text').value;
+        const rating = parseInt(document.getElementById('rating').value);
+
+        const review = { name, text, rating };
+
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+        reviews.push(review);
+
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+
+        // Limpa o formulário após o envio
+        document.getElementById('name').value = '';
+        document.getElementById('text').value = '';
+        document.getElementById('rating').value = '1';
+
+        // Atualiza as exibições
+        displayAverageRating();
+        displayPagedReviews();
+    });
+
+    // Exibe as informações ao carregar a página
+    displayAverageRating();
+    displayPagedReviews();
