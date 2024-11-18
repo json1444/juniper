@@ -131,20 +131,14 @@ document.querySelector('#submit-button').addEventListener('click', async (event)
     const text = document.querySelector('#text').value;
     const rating = document.querySelector('#rating').value;
   
-    // Corrigir a criação do objeto reviewData
-    const reviewData = {
-      name: name,
-      text: text,
-      rating: rating,
-    };
     const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/api/reviews' : 'https://seu-app.vercel.app/api/reviews';
-    
-    const response = await fetch('http://localhost:3000/api/reviews', {
+  
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reviewData),
+      body: JSON.stringify({ name, text, rating }),
     });
   
     const data = await response.json();
