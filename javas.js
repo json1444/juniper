@@ -124,31 +124,34 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 document.querySelector('#submit-button').addEventListener('click', async (event) => {
-  event.preventDefault();  // Previne o envio do formulário de forma tradicional
-  console.log("Botão de avaliação clicado!");
-
-  const name = document.querySelector('#name').value;
-  const text = document.querySelector('#text').value;
-  const rating = document.querySelector('#rating').value;
-
-  const response = await fetch('/api/reviews', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name,
-      text,
-      rating
-    })
+    event.preventDefault();  // Previne o envio do formulário de forma tradicional
+    console.log("Botão de avaliação clicado!");
+  
+    const name = document.querySelector('#name').value;
+    const text = document.querySelector('#text').value;
+    const rating = document.querySelector('#rating').value;
+  
+    // Corrigir a criação do objeto reviewData
+    const reviewData = {
+      name: name,
+      text: text,
+      rating: rating,
+    };
+  
+    const response = await fetch('http://localhost:3000/api/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reviewData),
+    });
+  
+    const data = await response.json();
+    console.log(data);  // Verifique a resposta da API no console
+  
+    if (response.ok) {
+      alert('Avaliação enviada com sucesso!');
+    } else {
+      alert('Erro ao enviar a avaliação');
+    }
   });
-
-  const data = await response.json();
-  console.log(data);  // Verifique a resposta da API no console
-
-  if (response.ok) {
-    alert('Avaliação enviada com sucesso!');
-  } else {
-    alert('Erro ao enviar a avaliação');
-  }
-});

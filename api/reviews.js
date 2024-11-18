@@ -23,7 +23,7 @@ const pool = mysql.createPool({
 const promisePool = pool.promise();
 
 // Rota para lidar com requisições
-app.all('/reviews', async (req, res) => {
+app.all('/api/reviews', async (req, res) => {
   try {
     if (req.method === 'GET') {
       // Consulta para pegar todas as avaliações
@@ -44,5 +44,7 @@ app.all('/reviews', async (req, res) => {
   }
 });
 
-// Exporta o app para o Vercel
-module.exports = app;
+// Inicia o servidor na porta 3000 (ou qualquer outra porta que você configurar)
+app.listen(3000, () => {
+  console.log("Servidor rodando na porta 3000");
+});
