@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware para receber dados JSON
 app.use(express.json()); // Para poder lidar com JSON no corpo das requisições
