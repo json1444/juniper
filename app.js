@@ -41,6 +41,9 @@ app.get('/', (req, res) => {
 
 // Rota para enviar uma avaliação
 app.post('/avaliar', (req, res) => {
+// Lógica para avaliação
+res.send('Avaliação recebida');
+
   const { nome_usuario, comentario, nota } = req.body;
 
   if (!nome_usuario || !nota) {
