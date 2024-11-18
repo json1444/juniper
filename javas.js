@@ -123,7 +123,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-const API_URL = 'https://projeto-luckpet.vercel.app'; // URL do seu back-end
+const API_URL = '/avaliar'; // URL do seu back-end
 
 // Enviar avaliação
 document.getElementById('form-avaliacao').addEventListener('submit', async (e) => {
