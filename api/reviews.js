@@ -11,6 +11,8 @@ app.use(cors());
 // Definindo o corpo da requisição para ser JSON
 app.use(express.json());
 
+require('dotenv').config();
+
 // Criação do pool de conexões para o banco de dados
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -45,6 +47,6 @@ app.all('/api/reviews', async (req, res) => {
 });
 
 // Inicia o servidor na porta 3000 (ou qualquer outra porta que você configurar)
-app.listen(3000, () => {
-  console.log("Servidor rodando na porta 3000");
+app.listen(4000, () => {
+  console.log("Servidor rodando na porta 4000");
 });
