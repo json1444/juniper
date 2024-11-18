@@ -134,7 +134,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', async (e) =
   const avaliacao = document.getElementById('avaliacao').value;
 
   try {
-    const response = await fetch(`${API_URL}`/avaliacoes, {
+    const response = await fetch(`${API_URL}/avaliacoes`, {  // Corrigido aqui
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome_usuario: nomeUsuario, comentario: comentario, avaliacao: avaliacao }),
@@ -155,7 +155,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', async (e) =
 // Função para carregar avaliações
 async function carregarAvaliacoes() {
   try {
-    const response = await fetch(`${API_URL}`/avaliacoes);
+    const response = await fetch(`${API_URL}/avaliacoes`); // Corrigido aqui
     const avaliacoes = await response.json();
     
     const container = document.getElementById('avaliacoes');

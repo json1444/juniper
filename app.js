@@ -4,11 +4,8 @@ const mysql = require('mysql2');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Configurar o EJS como motor de visualização
-app.set('view engine', 'ejs');
-
-// Middleware para receber dados do formulário (POST)
-app.use(express.urlencoded({ extended: true }));
+// Middleware para receber dados JSON
+app.use(express.json()); // Para poder lidar com JSON no corpo das requisições
 
 // Configuração da conexão com o MySQL
 const connection = mysql.createConnection({
@@ -27,39 +24,34 @@ connection.connect((err) => {
   console.log('Conectado ao banco de dados MySQL');
 });
 
-// Rota principal (Página de avaliações)
-app.get('/', (req, res) => {
-  // Buscar todas as avaliações
+// Rota principal para carregar as avaliações
+app.get('/avaliacoes', (req, res) => {
   connection.query('SELECT * FROM avaliacoes ORDER BY data_avaliacao DESC', (err, results) => {
     if (err) {
       console.error('Erro ao buscar avaliações:', err);
       return res.status(500).send('Erro ao buscar avaliações');
     }
-    res.render('index', { avaliacoes: results });
+    res.json(results); // Retorna as avaliações em formato JSON
   });
 });
 
 // Rota para enviar uma avaliação
-app.post('/avaliar', (req, res) => {
-// Lógica para avaliação
-res.send('Avaliação recebida');
+app.post('/avaliacoes', (req, res) => { // Alterei a rota para /avaliacoes
+  const { nome_usuario, comentario, avaliacao } = req.body;
 
-  const { nome_usuario, comentario, nota } = req.body;
-
-  if (!nome_usuario || !nota) {
-    return res.status(400).send('Nome e nota são obrigatórios!');
+  if (!nome_usuario || !avaliacao) {
+    return res.status(400).send('Nome e avaliação são obrigatórios!');
   }
 
-  // Inserir nova avaliação no banco de dados
   connection.query(
-    'INSERT INTO avaliacoes (nome_usuario, comentario, nota) VALUES (?, ?, ?)',
-    [nome_usuario, comentario, nota],
+    'INSERT INTO avaliacoes (nome_usuario, comentario, avaliacao) VALUES (?, ?, ?)',
+    [nome_usuario, comentario, avaliacao],
     (err) => {
       if (err) {
         console.error('Erro ao inserir avaliação:', err);
         return res.status(500).send('Erro ao inserir avaliação');
       }
-      res.redirect('/');
+      res.status(201).send('Avaliação enviada com sucesso!'); // Confirma a criação da avaliação
     }
   );
 });
