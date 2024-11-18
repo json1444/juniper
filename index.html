@@ -296,25 +296,18 @@
     </section>
     </div>
     
-    <h2 class="titulo-avaliacao">Avalie o Site</h2>
-    <form id="form-avaliacao">
-        <input type="text" id="nome" name="nome_cliente" placeholder="Seu nome" required />
-        
-        <textarea id="comentario" name="comentario" placeholder="Escreva sua avaliação" required></textarea>
+    
+    <form id="reviewForm">
+  <input type="text" id="name" placeholder="Seu nome" required>
+  <textarea id="text" placeholder="Sua avaliação" required></textarea>
+  <input type="number" id="rating" placeholder="Avaliação (1-5)" required>
+  <button type="submit">Enviar Avaliação</button>
+</form>
 
-        <div id="stars">
-            <label for="rating">Avalie com estrelas:</label>
-            <span class="star" data-value="1">&#9733;</span>
-            <span class="star" data-value="2">&#9733;</span>
-            <span class="star" data-value="3">&#9733;</span>
-            <span class="star" data-value="4">&#9733;</span>
-            <span class="star" data-value="5">&#9733;</span>
-        </div>
-
-        <button id="seuBotaoId" class="butavaliacao" type="submit">Enviar Avaliação</button>
-    </form>
-    <div id="mensagem"></div>
-    <div id="lista-avaliacoes"></div>
+<div id="reviewsList">
+  <h3>Avaliações</h3>
+  <ul id="reviews"></ul>
+</div>
 
 </body>
 

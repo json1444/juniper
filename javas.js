@@ -123,80 +123,40 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-   // Função para armazenar e exibir a média das avaliações
-   function displayAverageRating() {
-    const reviews = JSON.parse(localStorage.getItem('lista-avaliacoes')) || [];
-    if (reviews.length > 0) {
-        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-        const averageRating = (totalRating / reviews.length).toFixed(1);
+// Função para exibir as avaliações
+async function getReviews() {
+    const response = await fetch('/api/reviews');
+    const reviews = await response.json();
+    const reviewsList = document.getElementById('reviews');
+    reviewsList.innerHTML = '';
+    reviews.forEach(review => {
+      const li = document.createElement('li');
+      li.textContent = `${review.name}: ${review.text} (Rating: ${review.rating})`;
+      reviewsList.appendChild(li);
+    });
+  }
 
-        document.getElementById('average-rating').innerHTML = `Avaliação média: ${averageRating} estrelas`;
-    }
-}
+  // Função para enviar uma nova avaliação
+  document.getElementById('reviewForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const text = document.getElementById('text').value;
+    const rating = document.getElementById('rating').value;
 
-// Função para exibir as avaliações paginadas
-const reviewsPerPage = 5;
-let currentPage = 1;
-
-function displayPagedReviews() {
-    const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-    const startIndex = (currentPage - 1) * reviewsPerPage;
-    const endIndex = startIndex + reviewsPerPage;
-
-    const reviewsToShow = reviews.slice(startIndex, endIndex);
-
-    const reviewsContainer = document.getElementById('reviews');
-    reviewsContainer.innerHTML = "<h2>Avaliações:</h2>";
-
-    reviewsToShow.forEach(review => {
-        const reviewElement = document.createElement('div');
-        reviewElement.classList.add('review');
-        reviewElement.innerHTML = `
-            <strong>${review.name}</strong> - ${'★'.repeat(review.rating)} ${'☆'.repeat(5 - review.rating)}
-            `;
-            reviewsContainer.appendChild(reviewElement);
-        });
-
-        // Exibe navegação de páginas
-        const pagination = document.getElementById('pagination');
-        pagination.innerHTML = `
-            <button ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(-1)">Anterior</button>
-            <span>Página ${currentPage}</span>
-            <button ${currentPage * reviewsPerPage >= reviews.length ? 'disabled' : ''} onclick="changePage(1)">Próxima</button>
-        `;
-    }
-
-    // Função para alterar a página
-    function changePage(direction) {
-        currentPage += direction;
-        displayPagedReviews();
-    }
-
-    // Função para salvar a avaliação no LocalStorage
-    document.getElementById('review-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const name = document.getElementById('name').value;
-        const text = document.getElementById('text').value;
-        const rating = parseInt(document.getElementById('rating').value);
-
-        const review = { name, text, rating };
-
-        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-        reviews.push(review);
-
-        localStorage.setItem('reviews', JSON.stringify(reviews));
-
-        // Limpa o formulário após o envio
-        document.getElementById('name').value = '';
-        document.getElementById('text').value = '';
-        document.getElementById('rating').value = '1';
-
-        // Atualiza as exibições
-        displayAverageRating();
-        displayPagedReviews();
+    const response = await fetch('/api/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, text, rating })
     });
 
-    // Exibe as informações ao carregar a página
-    displayAverageRating();
-    displayPagedReviews();
+    const result = await response.json();
+    console.log(result);
+
+    // Após enviar, recarrega as avaliações
+    getReviews();
+  });
+
+  // Carregar as avaliações quando a página for carregada
+  getReviews();
