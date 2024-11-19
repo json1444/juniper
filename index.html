@@ -297,24 +297,24 @@
     </div>
     
   
-    <h1>Avaliações dos Clientes</h1>
+    <h1>Avalie nosso site!</h1>
+    
+    <form id="form-avaliacao">
+        <label for="nome_usuario">Nome:</label>
+        <input type="text" id="nome_usuario" name="nome_usuario" required><br><br>
 
-    <!-- Formulário de Avaliação -->
-    <h2>Deixe sua avaliação!</h2>
-    <form action="/avaliar" method="POST">
-      <input type="text" name="nome_usuario" placeholder="Seu nome" required>
-      <textarea name="comentario" placeholder="Deixe seu comentário (opcional)"></textarea>
-      <select name="nota" required>
-        <option value="1">1 - Péssimo</option>
-        <option value="2">2 - Ruim</option>
-        <option value="3">3 - Regular</option>
-        <option value="4">4 - Bom</option>
-        <option value="5">5 - Excelente</option>
-      </select>
-      <button type="submit">Enviar Avaliação</button>
+        <label for="avaliacao">Avaliação (1 a 5):</label>
+        <input type="number" id="avaliacao" name="avaliacao" min="1" max="5" required><br><br>
+
+        <label for="comentario">Comentário:</label><br>
+        <textarea id="comentario" name="comentario" rows="4" cols="50"></textarea><br><br>
+
+        <button type="submit">Enviar Avaliação</button>
     </form>
-  
-    <h2>Avaliações Recentes</h2>
+
+    <h2>Avaliações Recentes:</h2>
+    <div id="avaliacoes"></div>
+    
   
 
 </body>

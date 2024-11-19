@@ -123,53 +123,54 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-const API_URL = 'https://projeto-luckpet.vercel.app'; // URL do seu back-end
-
-// Enviar avaliação
-document.getElementById('form-avaliacao').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const nomeUsuario = document.getElementById('nome_usuario').value;
-  const comentario = document.getElementById('comentario').value;
-  const avaliacao = document.getElementById('avaliacao').value;
-
-  try {
-    const response = await fetch(`${API_URL}/avaliacoes`, {  // Corrigido aqui
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome_usuario: nomeUsuario, comentario: comentario, avaliacao: avaliacao }),
-    });
-    
-    if (response.ok) {
-      alert('Avaliação enviada com sucesso!');
-      document.getElementById('form-avaliacao').reset();
-      carregarAvaliacoes();
-    } else {
-      alert('Erro ao enviar avaliação.');
-    }
-  } catch (error) {
-    console.error('Erro:', error);
-  }
-});
-
-// Função para carregar avaliações
-async function carregarAvaliacoes() {
-  try {
-    const response = await fetch(`${API_URL}/avaliacoes`); // Corrigido aqui
-    const avaliacoes = await response.json();
-    
-    const container = document.getElementById('avaliacoes');
-    container.innerHTML = ''; // Limpa o container
-    
-    avaliacoes.forEach(avaliacao => {
-      const div = document.createElement('div');
-      div.innerHTML = `<strong>${avaliacao.nome_usuario}</strong> (${avaliacao.avaliacao} estrelas): ${avaliacao.comentario}`;
-      container.appendChild(div);
-    });
-  } catch (error) {
-    console.error('Erro ao carregar avaliações:', error);
-  }
+// Atualizar avaliações exibidas
+function carregarAvaliacoes() {
+    fetch('http://localhost:5000/avaliacoes')
+        .then(response => response.json())
+        .then(data => {
+            const avaliacoesDiv = document.getElementById('avaliacoes');
+            avaliacoesDiv.innerHTML = ''; // Limpar o conteúdo anterior
+            data.forEach(avaliacao => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <strong>${avaliacao.nome_usuario}</strong> - Nota: ${avaliacao.avaliacao}<br>
+                    <p>${avaliacao.comentario}</p>
+                    <small>${new Date(avaliacao.data_avaliacao).toLocaleString()}</small>
+                `;
+                avaliacoesDiv.appendChild(div);
+            });
+        })
+        .catch(error => console.error('Erro ao carregar avaliações:', error));
 }
 
-// Carregar as avaliações ao iniciar
+// Evento de envio do formulário
+document.getElementById('form-avaliacao').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const nomeUsuario = document.getElementById('nome_usuario').value;
+    const avaliacao = document.getElementById('avaliacao').value;
+    const comentario = document.getElementById('comentario').value;
+
+    fetch('http://localhost:5000/avaliacoes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            nome_usuario: nomeUsuario,
+            avaliacao: parseInt(avaliacao),
+            comentario: comentario
+        })
+    })
+    .then(response => response.text())
+    .then(message => {
+        alert('Avaliação enviada com sucesso!');
+        document.getElementById('form-avaliacao').reset(); // Limpar o formulário
+        carregarAvaliacoes(); // Atualizar a lista
+    })
+    .catch(error => {
+        console.error('Erro ao enviar avaliação:', error);
+        alert('Erro ao enviar a avaliação.');
+    });
+});
+
+// Carregar avaliações ao iniciar
 carregarAvaliacoes();
