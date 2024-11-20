@@ -7,7 +7,11 @@ const app = express();
 const port = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Permite acesso de qualquer origem (ideal para testes)
+  methods: ['GET', 'POST'], // Métodos permitidos
+  allowedHeaders: ['Content-Type'] // Headers permitidos
+}));
 app.use(bodyParser.json());
 
 // Conexão com o banco de dados
@@ -60,7 +64,6 @@ app.get('/avaliacoes', (req, res) => {
 });
 
 // Inicialização do servidor
-app.listen(5000, '0.0.0.0');
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
