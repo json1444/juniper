@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const port = 5000;
+const port = 4000;
 
 // Middleware
 app.use(cors());
@@ -60,7 +60,7 @@ app.get('/avaliacoes', (req, res) => {
 });
 
 // Inicialização do servidor
-app.listen(5000, '0.0.0.0');
+app.listen(4000, '0.0.0.0');
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
