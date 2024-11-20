@@ -125,7 +125,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 // Atualizar avaliações exibidas
 function carregarAvaliacoes() {
-    fetch('https://4d3e-170-83-36-46.ngrok-free.app')
+    fetch('https://4d3e-170-83-36-46.ngrok-free.app/index.html')
         .then(response => response.json())
         .then(data => {
             const avaliacoesDiv = document.getElementById('avaliacoes');
@@ -151,7 +151,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', function (e
     const avaliacao = document.getElementById('avaliacao').value;
     const comentario = document.getElementById('comentario').value;
 
-    fetch('https://4d3e-170-83-36-46.ngrok-free.app', {
+    fetch('https://4d3e-170-83-36-46.ngrok-free.app/index.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
