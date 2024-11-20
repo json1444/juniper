@@ -123,12 +123,12 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
-// Substitua pela URL gerada pelo ngrok
+// Atualizar avaliações exibidas
+
 const API_URL = 'https://19af-170-83-36-46.ngrok-free.app';
 
-// Atualizar avaliações exibidas
 function carregarAvaliacoes() {
-    fetch(`${API_URL}/avaliacoes`)
+    fetch('http://127.0.0.1:5000/avaliacoes')
         .then(response => response.json())
         .then(data => {
             const avaliacoesDiv = document.getElementById('avaliacoes');
@@ -154,7 +154,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', function (e
     const avaliacao = document.getElementById('avaliacao').value;
     const comentario = document.getElementById('comentario').value;
 
-    fetch(`${API_URL}/avaliacoes`, {
+    fetch('http://127.0.0.1:5000/avaliacoes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
