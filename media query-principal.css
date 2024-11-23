@@ -1532,7 +1532,7 @@ div#cabecasite {
     
       width: 25vw;
       height: 55px;
-      background-color: rgba(153, 0, 255, 0.918);
+      background-color: #40006b;
     }
     
     .carousel-container {
@@ -1791,7 +1791,7 @@ div#cabecasite {
     
     .div05, .div06, .div07 {
         padding-top: 200px;
-        width: 250px; /* Largura fixa para centralizar as imagens */
+        width: 350px; /* Largura fixa para centralizar as imagens */
         height: 250px;
         background-repeat: no-repeat;
         background-position: center;
@@ -1803,17 +1803,20 @@ div#cabecasite {
     
     .div05 {
         background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
-        margin-top: 400px;
+        margin-top: 700px;
         margin-left: 20px;
+        padding-top: 300px;
     }
     
     .div06 {
         background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+        padding-top: 300px;
     }
     
     .div07 {
         background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
         margin-right: 20px;
+        padding-top: 300px;
     }
     
     .div07:hover, .div06:hover, .div05:hover {
@@ -2051,45 +2054,117 @@ footer {
     }
     .opcoes, .opcoes2 {
         top: 20px;
-        z-index: 2010;
         right: -18px;
-        font-size: 17px;
+        z-index: 2010;
+        font-size: 15px;
     }
     #pesquisa {
-        margin-top: 56px;
-        font-size: 20px;
-        width: 99.5%;
+        margin-top: 45px;
+        font-size: 19px;
+        width: 99.4%;
         border-radius: 0px 0px;
-    }
-    #div1 {
-        width: 97.2%;
-        font-size: 18px;
-        margin-top: 24px;
-        border-radius: 0px 0px;
-    }
-
-
-    #loading {
-        position: fixed;
-        top: 33%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 18px;
-        color: #ffffff;
-        background-color: rgba(0, 0, 0, 0.918);
-        padding: 20px;
-        border-radius: 5px;
-        z-index: 1000;
     }
     
+
+    div#cabecasite {
+        background-image: url(img/dog.jpg);
+        background-attachment: fixed;
+        background-size: 700px;
+        background-position: right;
+        background-repeat: no-repeat;
+      
+        
+        height: 260px;
+        width: 100%;
+        margin-top: -30px;
+    }
+    @supports (-webkit-touch-callout: none) and (not (translate: none)) {
+        div#cabecasite {
+            background-attachment: scroll;
+             /* Alternativa para Safari */
+        }
+    }
+
+    main {
+        
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+        padding: 10px;
+        margin-top: 20px;
+        margin-left: -17px;
+    }
+    #div1 {
+        color: #40006b;
+        font-size: 3.3vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div2 {
+        color: #40006b;
+        font-size: 3.3vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div3 {
+        color: #40006b;
+        font-size: 3.3vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    .imgdesc {
+        height: 50px;
+        width: 50vw; 
+        position: relative; 
+        left: 9%; 
+        top: 50px;
+    }
+    .pdesc {
+        width: 60vw;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+
+
     #rolagens {
         display: flex;
         justify-content: center;
-        padding: 20px;
-        margin-left: 30px;
+        padding: 35px;
+        margin-left: 20px;
     }
     .butrolagem {
-        font-size: 2.3vw;
+        font-size: 2.4vw;
+        width: 170px;
         margin-top: 10px;
         color: white;
         font-family: luckpet3;
@@ -2099,17 +2174,23 @@ footer {
     .butrolagem:hover {
         color:#ffd000;
         transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 12px rgb(0, 0, 0, 0.3);
     }
     .pesquisavel {
         
         text-align: center;
         border-radius: 20px;
-      margin-right: 30px;
+      margin-right: 20px;
     
-      width: 24vw;
+      width: 25vw;
       height: 55px;
-      background-color: rgba(153, 0, 255, 0.918);
+      background-color: #40006b;
+    }
+    
+    .carousel-container {
+        width: 100%;
+        display: none;
+        overflow: hidden;
     }
 
     .carousel {
@@ -2123,7 +2204,7 @@ footer {
         width: 100vw;
         margin: auto;
         text-align: center;
-        height: 47vh;
+        height: 258px;
         border-radius: 0px;
         margin-top: 33px;
         cursor: pointer;
@@ -2136,6 +2217,15 @@ footer {
         transition: opacity 0.5s ease;
         text-align: center;
     }
+    #section02 {
+        margin-top: 34px;
+        height: 1250px;
+    }
+    .titu12 {
+        font-size: 30px;
+        padding-top: 35px;
+        padding-bottom: 25px;
+    }
 
 
     div#paidivcamisa {
@@ -2144,9 +2234,9 @@ footer {
         display: flex;
         margin: auto;
         justify-content: center;
-        gap: 10px;
-        padding: 40px;
-        margin-top: -4px;
+        padding: 0px;
+        gap: 7px;
+        margin-top: 20px;
         line-height: 25px;
         font-size: 18px;
         
@@ -2155,59 +2245,53 @@ footer {
     
     .divcam1 {
         padding: 5px;
-        height: 540px;
-        margin-left: 10px;
-        width: 30vw;
+        height: 450px;
+        width: 31vw;
+        margin-left: 13px;
         background-color: #ffffff;
         border-radius: 30px;
         font-family: luckpet3;
         box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
     .camisa1 {
-        border-radius: 30px 30px 0px 0px;
-        width: 30vw;
-        height: 250px;
+        border-radius: 0px 0px 0px 0px;
+        width: 31vw;
+        height: 200px;
     }
     .divcam2 {
         padding: 5px;
-        height: 540px;
-        width: 30vw;
+        height: 450px;
+        width: 31vw;
         background-color: #ffffff;
         border-radius: 30px;
         font-family: luckpet3;
         box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
     .camisa2 {
-        border-radius: 30px 30px 0px 0px;
-        width: 30vw;
-        height: 250px;
+        border-radius: 0px 0px 0px 0px;
+        width: 31vw;
+        height: 200px;
     }
     .divcam3 {
         padding: 5px;
+        height: 450px;
+        width: 31vw;
         margin-right: 10px;
-        height: 540px;
-        width: 30vw;
         font-family: luckpet3;
         background-color: #ffffff;
         border-radius: 30px;
         box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
     .camisa3 {
-        border-radius: 30px 30px 0px 0px;
-        width: 30vw;
-        height: 250px;
+        border-radius: 0px 0px 0px 0px;
+        width: 31vw;
+        height: 200px;
     }
     .pcam {
         line-height: 33px;
-        width: 27vw;
-        font-size: 20px;
-        margin-left: 6px;
-    }
-    .buttamanho {
-        margin-top: -30px;
-        height: 25px;
-        width: 14vw;
-        font-size: 2.4vw;
+        width: 100%;
+        margin-left: 1px;
+        font-size: 15px;
     }
     .buttamanho:focus {
     background-color: #ff7b00;
@@ -2221,7 +2305,7 @@ footer {
         margin-right: 20px;
         position: relative;
         top: 3px;
-        width: 11vw;
+        width: 13.6vw;
         color: #424242;
     }
     .butcomprar:hover {
@@ -2230,73 +2314,50 @@ footer {
     }
     .p10 {
         margin-top: -5px;
-        color:#8a2be2;
+        color:#ff7b00;
     }
-    
-    
     #subtitu {
         text-align: center;
         font-family: luckpet3;
         font-size: 4vw;
         margin: 20px 0;
     }
-    
-    .pcar {
-        font-family: luckpet1;
-        display: block;
-        text-align: center;
-        font-size: 1.2em;
-        padding: 10px;
-        color: black;
-        margin: 20px 0;
-    }
-    .pcar:hover {
-        color: rgb(112, 112, 112);
-    }
 
-    #section02 {
-        margin-top: 40px;
-        height: 1380px;
-    }
-    .titu12 {
-        font-size: 35px;
-        padding-top: 35px;
-        padding-bottom: 25px;
-    }
-    .pcar {
-        font-size: 20px;
-    }
     .raçao1 {
-        width: 220px;
+        width: 205px;
     }
     .raçao2 {
-        width: 220px;
+        width: 205px;
     }
     .raçao3 {
-        width: 220px;
+        width: 205px;
     }
     .raçao4 {
-        width: 220px;
+        width: 205px;
     }
     .raçao5 {
-        width: 220px;
+        width: 205px;
     }
     .raçao6 {
-        width: 220px;
+        width: 205px;
     }
     .raçao7 {
-        width: 220px;
+        width: 205px;
     }
     .raçao8 {
-        width: 220px;
+        width: 205px;
+    }
+    .raçao9 {
+        width: 205px;
     }
 
     .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 20px;
-        height: 417px;
-        font-size: 21px;
+        min-width: 35%;
+        height: 400px;
         text-align: center;
+        font-size: 19px;
         padding: 15px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     }
@@ -2329,16 +2390,15 @@ footer {
         background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
     }
 
-
     #sectioncuri {
-        height: 74%;
+        height: 76%;
     }
     
     .curi-h2 {
         text-align: center;
         font-family: luckpet1;
         font-size: 35px;
-        padding: 30px;
+        padding: 40px;
         padding-bottom: 80px;
     }
     
@@ -2383,8 +2443,8 @@ footer {
     
     .div05, .div06, .div07 {
         padding-top: 200px;
-        width: 290px; /* Largura fixa para centralizar as imagens */
-        height: 350px;
+        width: 350px; /* Largura fixa para centralizar as imagens */
+        height: 250px;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -2395,20 +2455,20 @@ footer {
     
     .div05 {
         background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
-        margin-top: 600px;
+        margin-top: 700px;
         margin-left: 20px;
-        padding-top: 260px;
+        padding-top: 300px;
     }
     
     .div06 {
         background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
-        padding-top: 260px;
+        padding-top: 300px;
     }
     
     .div07 {
         background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
         margin-right: 20px;
-        padding-top: 260px;
+        padding-top: 300px;
     }
     
     .div07:hover, .div06:hover, .div05:hover {
@@ -2416,10 +2476,9 @@ footer {
     }
     
 
-
     #section03 {
         width: 100%;
-        height: 1259px;
+        height: 1299px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -2432,16 +2491,16 @@ footer {
         color: rgba(72, 0, 139, 0.863);
     }
     .planos {
-        display: inline;
+        display: block;
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 21px;
+        font-size: 20px;
+       padding: 37px;
        color: rgba(72, 0, 139, 0.863);
     }
     .plano1 {
         width: 88vw;
         height: 300px;
         padding: 10px;
-        margin-left: 33px;
         padding-bottom: 30px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
@@ -2451,7 +2510,6 @@ footer {
         width: 88vw;
         height: 300px;
         padding: 10px;
-        margin-left: 33px;
         padding-bottom: 30px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
@@ -2461,7 +2519,6 @@ footer {
         width: 88vw;
         height: 300px;
         padding: 10px;
-        margin-left: 33px;
         padding-bottom: 30px;
         background-color: rgb(255, 255, 255);
         border-radius: 15px 15px 15px;
@@ -2469,8 +2526,7 @@ footer {
     .butplano {
         font-family: luckpet2;
         font-size: 16px;
-        margin-top: -3px;
-        width: 170px;
+        width: 140px;
         height: 50px;
         padding: 15px 20px 30px 20px;
         color: white;
@@ -2481,7 +2537,7 @@ footer {
     /* CSS */
 .titulo-avaliacao {
     font-family: luckpet3;
-    font-size: 3em;
+    font-size: 2.5em;
     color: #333;
     text-align: center;
     margin-top: 20px;
@@ -2493,15 +2549,15 @@ footer {
     padding: 20px;
     font-family: luckpet3;
 }
-#nome {
+#nome_usuario {
     font-family: luckpet3;
     text-align: center;
     display: block;
     margin: auto;
     border-radius: 30px;
     
-    width: 18vw;
-    height: 3vh;
+    width: 25vw;
+    height: 20px;
     padding: 5px;
 }
 #comentario {
@@ -2512,8 +2568,8 @@ footer {
     margin-top: 10px;
     border-radius: 30px;
 
-    width: 40vw;
-    height: 8vh;
+    width: 60vw;
+    height: 60px;
     padding: 5px;
 }
 #avaliacao {
@@ -2524,15 +2580,22 @@ footer {
     margin-top: 10px;
     border-radius: 30px;
 
-    width: 14vw;
-    height: 4vh;
+    width: 15vw;
+    height: 20px;
     padding: 5px;
 }
 .butavaliacao {
-    width: 19vw;
+    width: 22vw;
     color: black;
     background-color:rgb(255, 115, 0);
 }
+#mensagem {
+    text-align: center;
+    font-family: luckpet3;
+    color: #8a2be2;
+    padding: 10px;
+}
+
 
 footer {
     background-color: #000000ec; /* Cor de fundo escura */
