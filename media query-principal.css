@@ -568,12 +568,13 @@ div#cabecasite {
     padding: 20px;
     font-family: luckpet3;
 }
-#nome {
+#nome_usuario {
     font-family: luckpet3;
     font-size: 17px;
     text-align: center;
     display: block;
     margin: auto;
+    margin-top: 10px;
     border-radius: 30px;
     
     width: 40vw;
@@ -588,12 +589,13 @@ div#cabecasite {
     margin: auto;
     margin-top: 10px;
     border-radius: 30px;
+    color: #474747;
 
     width: 70vw;
     height: 6vh;
     padding: 5px;
 }
-#nota {
+#avaliacao {
     font-family: luckpet3;
     font-size: 17px;
     text-align: center;
@@ -603,20 +605,14 @@ div#cabecasite {
     border-radius: 30px;
     color: rgb(24, 206, 0);
 
-    width: 36vw;
-    height: 4vh;
+    width: 20vw;
+    height: 10px;
     padding: 5px;
 }
 .butavaliacao {
     width: 45vw;
     color: rgb(255, 255, 255);
     background-color:rgb(255, 115, 0);
-}
-#mensagem {
-    text-align: center;
-    font-family: luckpet3;
-    color: #8a2be2;
-    padding: 10px;
 }
 
 
@@ -689,24 +685,29 @@ div#cabecasite {
         margin: 0px;
         padding: 0px;
     }
-    h1#titu1 {
-        font-size: 50px;
+    body, html {
+        height: 98%;
+        width: 99.8%;
     }
     .p1 {
-        font-size: 2vh;
+        font-size: 14px;
+    }
+    h1#titu1 {
+        font-size: 50px;
+        transition: 2s;
     }
     .h3 {
         font-size: 15px;
-        margin-top: -50px;
+        margin-top: -40px;
     }
     .icone {
         position: absolute;
-        font-family: luckpet2;
-        font-size: 14px;
+        font-family: luckpet3;
+        font-size: 12px;
         right: 80px;
-        top: 15px;
-        width: 35px;
-        height: 35px;
+        top: 12px;
+        width: 30px;
+        height: 30px;
         background-color: #ffffff;
         border-radius: 50%;
         display: flex;
@@ -717,12 +718,12 @@ div#cabecasite {
     }
     .icone2 {
         position: absolute;
-        font-family: luckpet2;
-        font-size: 14px;
+        font-family: luckpet3;
+        font-size: 12px;
         right: 20px;
-        top: 15px;
-        width: 35px;
-        height: 35px;
+        top: 12px;
+        width: 30px;
+        height: 30px;
         background-color: #ffffff;
         border-radius: 55%;
         display: flex;
@@ -735,54 +736,123 @@ div#cabecasite {
         top: 20px;
         z-index: 2010;
         right: -18px;
+        font-size: 17px;
     }
     #pesquisa {
         margin-top: 56px;
-        font-size: 15px;
-        width: 99%;
+        font-size: 13px;
+        width: 98.9vw;
         border-radius: 0px 0px;
-    }
-    #div1 {
-        width: 95vw;
-        font-size: 14px;
-        border-radius: 0px 0px;
-        margin-top: 13px
+        transition: 3s;
     }
 
 
     #rolagens {
-        display: block;
-        margin-left: 14vw;
-        justify-content: center;
-        padding-top: 45px;
-        position: relative;
-        top: 17%;
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+       
+        margin-top: 5px;
+        height: 100px;
+        width: 100vw;
     }
     .butrolagem {
-        font-size: 16.1px;
-        margin-top: 10px;
+        font-size: 4vw;
+        width: 25vw;
+        padding-right: 5px;
         color: white;
         font-family: luckpet3;
-        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
-        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0px 0px 0px rgb(0, 0, 0, 0.2);
     }
-    .butrolagem:hover {
-        color:#bbff00;
+    
+    .butrolagem:hover, .saudepet:hover {
+        color:#ffd000;
         transform: scale(1.05);
         box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
     }
     .pesquisavel {
         text-align: center;
-        border-radius: 30px 20px;
-        box-shadow: 0px 1px 3px 1px orange;
-      margin-left: 180px;
-      margin: 10px;
     
-      width: 60vw;
-      height: 60px;
-      background-image: linear-gradient(to right, #b84effea, #42006e);
+      width: 100vw;
+      height: 70px;
+      background-color: #40006b;
     }
+
+div#cabecasite {
+    background-image: url(img/dog.jpg);
+    background-attachment: fixed;
+    background-size: 700px;
+    background-position: right;
+    background-repeat: no-repeat;
+  
     
+    height: 260px;
+    width: 100%;
+}
+@supports (-webkit-touch-callout: none) and (not (translate: none)) {
+    div#cabecasite {
+        background-attachment: scroll; /* Alternativa para Safari */
+    }
+}
+    main {
+        
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+        padding: 10px;
+        margin-top: 0px;
+        margin-left: -17px;
+    }
+    #div1 {
+        color: #40006b;
+        font-size: 4vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div2 {
+        color: #40006b;
+        font-size: 4vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div3 {
+        color: #40006b;
+        font-size: 4vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    .imgdesc {
+        height: 50px;
+        width: 50vw; 
+        left: 50px;
+    }
+    .pdesc {
+        width: 60vw;
+    }
 
     .carousel {
         display: flex;
@@ -795,11 +865,11 @@ div#cabecasite {
         position: absolute;
         right: 20px;
         left: 0px;
-        top: 40%;
+        top:40%;
         width: 100vw;
-        height: 150px;
+        height: 210px;
         border-radius: 0px;
-        margin-top: -447px;
+        margin-top: 10px;
         margin-left: -40px;
         cursor: pointer;
     }
@@ -819,19 +889,20 @@ div#cabecasite {
     }
     .carousel {
         margin-left: 40px;
-        margin-top: 92px;
+        margin-top: -2px;
     }
     .carousel-btn {
         font-size: 10px;
     }
+    
 
     #section02 {
-        margin-top: 52px;
-        height: 2600px;
+        margin-top: 215px;
+        height: 2555px;
     }
     .titu12 {
         font-size: 5.8vw;
-        padding-top: 35px;
+        padding-top: 50px;
         padding-bottom: 25px;
     }
 
@@ -839,55 +910,54 @@ div#cabecasite {
     div#paidivcamisa {
         font-family: luckpet2;
         text-align: center;
-        display: grid;
-        
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        justify-content: center;
         margin-top: 20px;
         line-height: 25px;
         font-size: 16px;
  }
     
     .divcam1 {
-        margin-left: 1vw;
         height: 520px;
-        width: 65vw;
+        width: 350px;
         background-color: #ffffff;
         border-radius: 30px;
     }
     .camisa1 {
-        width: 65vw;
-        height: 310px;
+        width: 350px;
+        height: 300px;
     }
     .divcam2 {
-        margin-left: 1vw;
         margin-top: 30px;
         height: 520px;
-        width: 65vw;
+        width: 350px;
         background-color: #ffffff;
         border-radius: 30px;
     }
     .camisa2 {
-        width: 65vw;
-        height: 310px;
+        width: 350px;
+        height: 300px;
     }
     .divcam3 {
-        margin-left: 1vw;
         margin-top: 30px;
         height: 520px;
-        width: 65vw;
+        width: 350px;
         background-color: #ffffff;
         border-radius: 30px;
     }
     .camisa3 {
-        width: 65vw;
-        height: 310px;
+        width:350px;
+        height: 300px;
     }
     .pcam {
-        width: 66vw;
-        font-size: 19px;
+        width: 350px;
+        font-size: 17px;
     }
     .buttamanho {
-        height: 30px;
-        width: 26vw;
+        height: 23px;
+        width: 32vw;
         font-size: 4vw;
     }
     .butcomprar {
@@ -895,13 +965,14 @@ div#cabecasite {
         position: relative;
         top: 8px;
         width: 30vw;
-        font-size: 17px;
+        font-size: 15px;
         color: black;
     }
     .p10 {
         margin-top: -5px;
-        color:#8a2be2;
+        color:#ff7b00;
     }
+
     #subtitu {
         font-size: 7.4vw;
         margin-top: 10px;
@@ -910,7 +981,7 @@ div#cabecasite {
     .pcar {
         display: block;
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1em;
         padding: 10px;
         font-family: luckpet1;
         margin: 20px 0;
@@ -920,36 +991,37 @@ div#cabecasite {
     }
 
 
-    .raçao1, .raçao2, .raçao3, .raçao4, .raçao5, .raçao6, .raçao7, .raçao8 {
+    .raçao1 {
         width: 195px;
-        height: auto;
-        border-radius: 15px 15px 0 0;
+    }
+    .raçao2 {
+        width: 195px;
+    }
+    .raçao3 {
+        width: 195px;
+    }
+    .raçao4 {
+        width: 195px;
+    }
+    .raçao5 {
+        width: 195px;
+    }
+    .raçao6 {
+        width: 195px;
+    }
+    .raçao7 {
+        width: 195px;
+    }
+    .raçao8 {
+        width: 195px;
     }
     .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
         background-color: rgba(255, 255, 255, 0.575);
         height: 390px;
-        font-size: 19.5px;
+        font-size: 17.5px;
         border-radius: 20px 20px 20px;
         margin: auto;
         text-align: center;
-    }
-
-    .carousel02 {
-        display: flex;
-        gap: 15px;
-        overflow-y: auto;
-        font-family: luckpet3;
-        font-weight: bold;
-        font-size: 17px;
-    }
-    
-    .carousel02::-webkit-scrollbar {
-        height: 8px;
-        background-color:#ff7b00;
-    }
-    .carousel02::-webkit-scrollbar-thumb {
-       background-color:#8a2be2;
-        border-radius: 10px;
     }
 
     
@@ -1013,15 +1085,15 @@ div#cabecasite {
 
 
     #sectioncuri {
-        height: 77%;
+        height: 100%;
     }
     
     .curi-h2 {
         text-align: center;
         font-family: luckpet1;
         font-size: 35px;
-        margin-top: 20px;
-        padding: 20px;
+        margin-top: 50px;
+        padding: 30px;
         padding-bottom: 80px;
     }
     
@@ -1066,8 +1138,8 @@ div#cabecasite {
     
     .div05, .div06, .div07 {
         padding-top: 200px;
-        width: 230px; /* Largura fixa para centralizar as imagens */
-        height: 280px;
+        width: 180px; /* Largura fixa para centralizar as imagens */
+        height: 250px;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -1080,16 +1152,18 @@ div#cabecasite {
         background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
         margin-top: 400px;
         margin-left: 20px;
+        width: 230px;
     }
     
     .div06 {
         background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+        width: 230px;
     }
     
     .div07 {
         background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
         margin-right: 20px;
-        
+        width: 230px;
     }
     
     .div07:hover, .div06:hover, .div05:hover {
@@ -1107,20 +1181,18 @@ div#cabecasite {
     .titu13 {
         text-align: center;
         font-family:luckpet1;
-        font-size: 29px;
+        font-size: 25px;
         padding-top: 20px;
         padding-bottom: 30px;
-        color: rgba(72, 0, 139, 0.863);
+        color: #40006b;
     }
     .planos {
         display: flex;
         flex-wrap: wrap;
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 17.9px;
-        margin-left: 20px;
-        margin-right: 15px;
+        font-size: 16px;
        padding: 20px;
-       color: rgba(72, 0, 139, 0.863);
+       color: #40006b;
     }
     .plano1 {
         width: 85vw;
@@ -1146,16 +1218,16 @@ div#cabecasite {
         border-radius: 15px 15px 15px;
     }
     .butplano {
-        margin-top: -5px;
+        margin-top: 10px;
         font-family: luckpet2;
         font-size: 20px;
         width: 160px;
         height: 60px;
         padding: 15px 20px 20px 20px;
         color: white;
-        background-color: rgba(72, 0, 139, 0.863);
-        border-radius: 20px 20px 20px 20px;
-        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+        background-color: #40006b;
+        border-radius: 40px 10px;
+        box-shadow: 0px 0px 1px 4px #ff7b00;
     }
 
 
@@ -1174,12 +1246,13 @@ div#cabecasite {
     padding: 20px;
     font-family: luckpet3;
 }
-#nome {
+#nome_usuario {
     font-family: luckpet3;
     font-size: 17px;
     text-align: center;
     display: block;
     margin: auto;
+    margin-top: 10px;
     border-radius: 30px;
     
     width: 40vw;
@@ -1194,12 +1267,13 @@ div#cabecasite {
     margin: auto;
     margin-top: 10px;
     border-radius: 30px;
+    color: #474747;
 
     width: 70vw;
     height: 6vh;
     padding: 5px;
 }
-#nota {
+#avaliacao {
     font-family: luckpet3;
     font-size: 17px;
     text-align: center;
@@ -1209,20 +1283,14 @@ div#cabecasite {
     border-radius: 30px;
     color: rgb(24, 206, 0);
 
-    width: 30vw;
-    height: 4vh;
+    width: 20vw;
+    height: 10px;
     padding: 5px;
 }
 .butavaliacao {
     width: 45vw;
-    color: black;
+    color: rgb(255, 255, 255);
     background-color:rgb(255, 115, 0);
-}
-#mensagem {
-    text-align: center;
-    font-family: luckpet3;
-    color: #8a2be2;
-    padding: 10px;
 }
 
 
@@ -1235,7 +1303,7 @@ div#cabecasite {
       }
       
       .footer-content h3 {
-        font-size: 26px;
+        font-size: 8vw;
         padding: 10px;
       }
       
@@ -1340,23 +1408,107 @@ div#cabecasite {
         font-size: 15px;
     }
     #pesquisa {
-        margin-top: 56px;
+        margin-top: 45px;
         font-size: 19px;
         width: 99.4%;
         border-radius: 0px 0px;
     }
-    #div1 {
-        width: 97.1%;
-        font-size: 17px;
-        margin-top: 24px;
-        border-radius: 0px 0px;
+    
+
+    div#cabecasite {
+        background-image: url(img/dog.jpg);
+        background-attachment: fixed;
+        background-size: 700px;
+        background-position: right;
+        background-repeat: no-repeat;
+      
+        
+        height: 260px;
+        width: 100%;
+        margin-top: -30px;
     }
+    @supports (-webkit-touch-callout: none) and (not (translate: none)) {
+        div#cabecasite {
+            background-attachment: scroll;
+             /* Alternativa para Safari */
+        }
+    }
+
+    main {
+        
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+        padding: 10px;
+        margin-top: 20px;
+        margin-left: -17px;
+    }
+    #div1 {
+        color: #40006b;
+        font-size: 3.3vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div2 {
+        color: #40006b;
+        font-size: 3.3vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div3 {
+        color: #40006b;
+        font-size: 3.3vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    .imgdesc {
+        height: 50px;
+        width: 50vw; 
+        position: relative; 
+        left: 9%; 
+        top: 50px;
+    }
+    .pdesc {
+        width: 60vw;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
 
 
     #rolagens {
         display: flex;
         justify-content: center;
-        padding: 20px;
+        padding: 35px;
         margin-left: 20px;
     }
     .butrolagem {
@@ -1415,7 +1567,7 @@ div#cabecasite {
     }
     #section02 {
         margin-top: 34px;
-        height: 1200px;
+        height: 1250px;
     }
     .titu12 {
         font-size: 30px;
@@ -1430,7 +1582,8 @@ div#cabecasite {
         display: flex;
         margin: auto;
         justify-content: center;
-        gap: 15px;
+        padding: 0px;
+        gap: 7px;
         margin-top: 20px;
         line-height: 25px;
         font-size: 18px;
@@ -1439,8 +1592,8 @@ div#cabecasite {
     }
     
     .divcam1 {
-        padding: 0px;
-        height: 424px;
+        padding: 5px;
+        height: 450px;
         width: 31vw;
         margin-left: 13px;
         background-color: #ffffff;
@@ -1449,13 +1602,13 @@ div#cabecasite {
         box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
     .camisa1 {
-        border-radius: 30px 30px 0px 0px;
+        border-radius: 0px 0px 0px 0px;
         width: 31vw;
         height: 200px;
     }
     .divcam2 {
-        padding: 0px;
-        height: 424px;
+        padding: 5px;
+        height: 450px;
         width: 31vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -1463,13 +1616,13 @@ div#cabecasite {
         box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
     .camisa2 {
-        border-radius: 30px 30px 0px 0px;
+        border-radius: 0px 0px 0px 0px;
         width: 31vw;
         height: 200px;
     }
     .divcam3 {
-        padding: 0px;
-        height: 424px;
+        padding: 5px;
+        height: 450px;
         width: 31vw;
         margin-right: 10px;
         font-family: luckpet3;
@@ -1478,7 +1631,7 @@ div#cabecasite {
         box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
     }
     .camisa3 {
-        border-radius: 30px 30px 0px 0px;
+        border-radius: 0px 0px 0px 0px;
         width: 31vw;
         height: 200px;
     }
@@ -1486,13 +1639,7 @@ div#cabecasite {
         line-height: 33px;
         width: 100%;
         margin-left: 1px;
-        font-size: 17px;
-    }
-    .buttamanho {
-        margin-top: -30px;
-        height: 25px;
-        width: 11vw;
-        font-size: 2.4vw;
+        font-size: 15px;
     }
     .buttamanho:focus {
     background-color: #ff7b00;
@@ -1515,7 +1662,7 @@ div#cabecasite {
     }
     .p10 {
         margin-top: -5px;
-        color:#8a2be2;
+        color:#ff7b00;
     }
     #subtitu {
         text-align: center;
@@ -1592,7 +1739,7 @@ div#cabecasite {
     }
 
     #sectioncuri {
-        height: 73%;
+        height: 76%;
     }
     
     .curi-h2 {
@@ -1747,15 +1894,15 @@ div#cabecasite {
     padding: 20px;
     font-family: luckpet3;
 }
-#nome {
+#nome_usuario {
     font-family: luckpet3;
     text-align: center;
     display: block;
     margin: auto;
     border-radius: 30px;
     
-    width: 19vw;
-    height: 3vh;
+    width: 25vw;
+    height: 20px;
     padding: 5px;
 }
 #comentario {
@@ -1766,11 +1913,11 @@ div#cabecasite {
     margin-top: 10px;
     border-radius: 30px;
 
-    width: 40vw;
-    height: 7vh;
+    width: 60vw;
+    height: 60px;
     padding: 5px;
 }
-#nota {
+#avaliacao {
     font-family: luckpet3;
     text-align: center;
     display: block;
@@ -1779,7 +1926,7 @@ div#cabecasite {
     border-radius: 30px;
 
     width: 15vw;
-    height: 4vh;
+    height: 20px;
     padding: 5px;
 }
 .butavaliacao {
@@ -2369,7 +2516,7 @@ footer {
     height: 8vh;
     padding: 5px;
 }
-#nota {
+#avaliacao {
     font-family: luckpet3;
     text-align: center;
     display: block;
@@ -2386,13 +2533,6 @@ footer {
     color: black;
     background-color:rgb(255, 115, 0);
 }
-#mensagem {
-    text-align: center;
-    font-family: luckpet3;
-    color: #8a2be2;
-    padding: 10px;
-}
-
 
 footer {
     background-color: #000000ec; /* Cor de fundo escura */

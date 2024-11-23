@@ -460,7 +460,7 @@ color: #ffffff;
     background-color:#ff7b00;
 }
 .carousel02::-webkit-scrollbar-thumb {
-   background-color:#8a2be2;
+   background-color:#40006b;
     border-radius: 10px;
 }
 
@@ -734,12 +734,14 @@ z-index: 1;
     padding: 20px;
     font-family: luckpet3;
 }
-#nome {
+#nome_usuario {
     font-family: luckpet3;
     text-align: center;
     display: block;
     margin: auto;
     border-radius: 30px;
+    box-shadow: 0px 0px 2px 1px #40006b;
+    margin-top: 10px;
     
     width: 10vw;
     height: 3vh;
@@ -752,52 +754,30 @@ z-index: 1;
     margin: auto;
     margin-top: 10px;
     border-radius: 30px;
+    box-shadow: 0px 0px 2px 1px #40006b;
 
     width: 20vw;
-    height: 6vh;
+    height: 40px;
     padding: 5px;
 }
-#stars {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-.star:hover {
-    color: rgb(255, 238, 0);
-}
-.star {
-    font-size: 30px;
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.2s;
-}
 
-.star.selected {
-    color: gold;
-}
-
-#nota {
+#avaliacao {
     font-family: luckpet3;
     text-align: center;
     display: block;
     margin: auto;
     margin-top: 10px;
     border-radius: 30px;
+    box-shadow: 0px 0px 2px 1px #40006b;
 
-    width: 10vw;
-    height: 4vh;
+    width: 5vw;
+    height: 15px;
     padding: 5px;
 }
 .butavaliacao {
     width: 15vw;
     color: rgb(255, 255, 255);
     background-color:rgb(255, 115, 0);
-}
-#mensagem {
-    text-align: center;
-    font-family: luckpet3;
-    color: #8a2be2;
-    padding: 10px;
 }
 
 
