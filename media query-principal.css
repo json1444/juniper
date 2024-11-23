@@ -1832,18 +1832,14 @@ div#cabecasite {
     }
     .titu13 {
         text-align: center;
-        font-family:luckpet1;
         font-size: 40px;
-        padding-top: 20px;
+        padding-top: 40px;
         padding-bottom: 30px;
-        color: rgba(72, 0, 139, 0.863);
     }
     .planos {
         display: block;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 19px;
        padding: 33px;
-       color: rgba(72, 0, 139, 0.863);
     }
     .plano1 {
         width: 88vw;
@@ -1852,7 +1848,7 @@ div#cabecasite {
         padding-bottom: 30px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 80px;
     }
     .plano2 {
         width: 88vw;
@@ -1861,7 +1857,7 @@ div#cabecasite {
         padding-bottom: 30px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 80px;
     }
     .plano3 {
         width: 88vw;
@@ -1869,18 +1865,17 @@ div#cabecasite {
         padding: 10px;
         padding-bottom: 30px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 80px;
     }
     .butplano {
         font-family: luckpet2;
-        font-size: 16px;
+        font-size: 20px;
         width: 140px;
         height: 50px;
         padding: 15px 20px 30px 20px;
         color: white;
-        background-color: rgba(72, 0, 139, 0.863);
-        border-radius: 20px 20px 20px 20px;
-        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+        box-shadow: 0px 0px 1px 4px #ff7b00;
+        
     }
     /* CSS */
 .titulo-avaliacao {
@@ -2070,7 +2065,7 @@ footer {
         background-image: url(img/dog.jpg);
         background-attachment: fixed;
         background-size: 700px;
-        background-position: right;
+        background-position: left;
         background-repeat: no-repeat;
       
         
@@ -2164,7 +2159,7 @@ footer {
     }
     .butrolagem {
         font-size: 2.4vw;
-        width: 170px;
+        width: 160px;
         margin-top: 10px;
         color: white;
         font-family: luckpet3;
@@ -2484,18 +2479,17 @@ footer {
     }
     .titu13 {
         text-align: center;
-        font-family:luckpet1;
         font-size: 40px;
-        padding-top: 20px;
+        padding-top: 40px;
         padding-bottom: 30px;
-        color: rgba(72, 0, 139, 0.863);
+       
     }
     .planos {
         display: block;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        
         font-size: 20px;
-       padding: 37px;
-       color: rgba(72, 0, 139, 0.863);
+       padding: 40px;
+
     }
     .plano1 {
         width: 88vw;
@@ -2504,7 +2498,7 @@ footer {
         padding-bottom: 30px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 80px;
     }
     .plano2 {
         width: 88vw;
@@ -2513,7 +2507,7 @@ footer {
         padding-bottom: 30px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 80px;
     }
     .plano3 {
         width: 88vw;
@@ -2521,18 +2515,654 @@ footer {
         padding: 10px;
         padding-bottom: 30px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 80px;
     }
     .butplano {
         font-family: luckpet2;
-        font-size: 16px;
+        font-size: 20px;
         width: 140px;
         height: 50px;
         padding: 15px 20px 30px 20px;
         color: white;
-        background-color: rgba(72, 0, 139, 0.863);
-        border-radius: 20px 20px 20px 20px;
-        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
+        box-shadow: 0px 0px 1px 4px #ff7b00;
+    }
+    /* CSS */
+.titulo-avaliacao {
+    font-family: luckpet3;
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+#form-avaliacao {
+    text-align: center;
+    padding: 20px;
+    font-family: luckpet3;
+}
+#nome_usuario {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    border-radius: 30px;
+    
+    width: 25vw;
+    height: 20px;
+    padding: 5px;
+}
+#comentario {
+    font-family: luckpet3;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 60vw;
+    height: 60px;
+    padding: 5px;
+}
+#avaliacao {
+    font-family: luckpet3;
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 30px;
+
+    width: 15vw;
+    height: 20px;
+    padding: 5px;
+}
+.butavaliacao {
+    width: 22vw;
+    color: black;
+    background-color:rgb(255, 115, 0);
+}
+
+
+footer {
+    background-color: #000000ec; /* Cor de fundo escura */
+    color: #fff; /* Cor do texto */
+    padding: 20px 0;
+    text-align: center;
+    font-family: luckpet3; /* Escolha uma fonte para o texto */
+  }
+  
+  .footer-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-content p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .footer-bottom {
+    margin-top: 3px;
+    font-size: 12px;
+  }
+  
+  .footer-content {
+    max-width: 1200px; /* Largura máxima para centralizar */
+    margin: 0 auto;
+  }
+  
+  .socials {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .socials li {
+    display: inline;
+    margin: 0 10px;
+  }
+  
+  .socials a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+  
+  .socials a:hover {
+    color: #ff6b6b; /* Cor ao passar o mouse */
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #444; /* Linha divisória */
+    padding-top: 10px;
+  }
+
+  .img-redessociais {
+    width: 20px;
+    height: 20px;
+    
+  }
+}
+
+
+@media screen  and (min-width: 800px) and (max-width: 900px){
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    h1#titu1 {
+        font-size: 80px;
+    }
+    .h3 {
+        font-size: 20px;
+        margin-top: -60px;
+    }
+    .icone {
+        position: absolute;
+        
+        font-size: 15px;
+        right: 80px;
+        top: 21px;
+        width: 47px;
+        height: 47px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .icone2 {
+        position: absolute;
+        font-size: 14.2px;
+        right: 20px;
+        top: 21px;
+        width: 47px;
+        height: 47px;
+        background-color: #ffffff;
+        border-radius: 55%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    .opcoes, .opcoes2 {
+        top: 20px;
+        right: -18px;
+        z-index: 2010;
+        font-size: 15px;
+    }
+    #pesquisa {
+        margin-top: 45px;
+        font-size: 19px;
+        width: 99.4%;
+        border-radius: 0px 0px;
+    }
+    
+
+    div#cabecasite {
+        background-image: url(img/dog.jpg);
+        background-attachment: fixed;
+        background-size: 700px;
+        background-position: left;
+        background-repeat: no-repeat;
+      
+        
+        height: 260px;
+        width: 100%;
+        margin-top: -30px;
+    }
+    @supports (-webkit-touch-callout: none) and (not (translate: none)) {
+        div#cabecasite {
+            background-attachment: scroll;
+             /* Alternativa para Safari */
+        }
+    }
+
+    main {
+        
+        display: flex;
+        gap: 0px;
+        overflow-y: auto;
+        padding: 10px;
+        margin-top: 20px;
+        margin-left: -17px;
+    }
+    #div1 {
+        color: #40006b;
+        font-size: 2.7vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div2 {
+        color: #40006b;
+        font-size: 2.7vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    #div3 {
+        color: #40006b;
+        font-size: 2.7vw;
+        text-align: center;
+        margin: auto;
+        padding-left: 50px;
+        border-radius: 10px 10px;
+        box-shadow: 0px 0px 5px 3px #ff7b00;
+        
+        margin-top: 20px;
+        background-color:#ddddddea;
+        
+        font-family: luckpet3;
+    }
+    .imgdesc {
+        height: 50px;
+        width: 50vw; 
+        position: relative; 
+        left: 7%; 
+        top: 40px;
+    }
+    .pdesc {
+        width: 60vw;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+
+
+    #rolagens {
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+        margin-left: 20px;
+    }
+    .butrolagem {
+        font-size: 2.4vw;
+        width: 170px;
+        margin-top: 10px;
+        color: white;
+        font-family: luckpet3;
+        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .butrolagem:hover {
+        color:#ffd000;
+        transform: scale(1.05);
+        box-shadow: 0px 0px 12px rgb(0, 0, 0, 0.3);
+    }
+    .pesquisavel {
+        
+        text-align: center;
+        border-radius: 20px;
+      margin-right: 20px;
+    
+      width: 25vw;
+      height: 55px;
+      background-color: #40006b;
+    }
+    
+    .carousel-container {
+        width: 100%;
+        display: none;
+        overflow: hidden;
+    }
+
+    .carousel {
+        display: flex;
+        width: 310px;
+        transition: transform 0.5s ease;
+        position: relative;
+    }
+
+    .carousel img {
+        width: 100vw;
+        margin: auto;
+        text-align: center;
+        height: 278px;
+        border-radius: 0px;
+        margin-top: 33px;
+        cursor: pointer;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 310px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        text-align: center;
+    }
+    #section02 {
+        margin-top: 34px;
+        height: 1356px;
+    }
+    .titu12 {
+        font-size: 30px;
+        padding-top: 35px;
+        padding-bottom: 25px;
+    }
+
+
+    div#paidivcamisa {
+        font-family: luckpet2;
+        text-align: center;
+        display: flex;
+        margin: auto;
+        justify-content: center;
+        padding: 0px;
+        gap: 7px;
+        margin-top: 20px;
+        line-height: 25px;
+        font-size: 18px;
+        
+        padding-bottom: 60px;
+    }
+    
+    .divcam1 {
+        padding: 5px;
+        height: 495px;
+        width: 31vw;
+        margin-left: 13px;
+        background-color: #ffffff;
+        border-radius: 0px;
+        font-size: 21px;
+        font-family: luckpet3;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
+    }
+    .camisa1 {
+        border-radius: 0px 0px 0px 0px;
+        width: 31vw;
+        height: 250px;
+    }
+    .divcam2 {
+        padding: 5px;
+        height: 495px;
+        width: 31vw;
+        background-color: #ffffff;
+        border-radius: 0px;
+        font-size: 21px;
+        font-family: luckpet3;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
+    }
+    .camisa2 {
+        border-radius: 0px 0px 0px 0px;
+        width: 31vw;
+        height: 250px;
+    }
+    .divcam3 {
+        padding: 5px;
+        height: 495px;
+        width: 31vw;
+        font-size: 21px;
+        margin-right: 10px;
+        font-family: luckpet3;
+        background-color: #ffffff;
+        border-radius: 0px;
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2)
+    }
+    .camisa3 {
+        border-radius: 0px 0px 0px 0px;
+        width: 31vw;
+        height: 250px;
+    }
+    .pcam {
+        line-height: 33px;
+        width: 100%;
+        margin-left: 1px;
+        font-size: 2.3vw;
+    }
+    
+    .butcomprar {
+        margin-right: 20px;
+        position: relative;
+        top: 3px;
+        width: 13.6vw;
+        color: #424242;
+    }
+    .butcomprar:hover {
+        transform: translate(-3px, -3px);
+        color: black;
+    }
+    .p10 {
+        margin-top: -5px;
+        color:#ff7b00;
+    }
+    #subtitu {
+        text-align: center;
+        font-family: luckpet3;
+        font-size: 4vw;
+        margin: 20px 0;
+    }
+
+    .raçao1 {
+        width: 240px;
+    }
+    .raçao2 {
+        width: 240px;
+    }
+    .raçao3 {
+        width: 240px;
+    }
+    .raçao4 {
+        width: 240px;
+    }
+    .raçao5 {
+        width: 240px;
+    }
+    .raçao6 {
+        width: 240px;
+    }
+    .raçao7 {
+        width: 240px;
+    }
+    .raçao8 {
+        width: 240px;
+    }
+    .raçao9 {
+        width: 240px;
+    }
+
+    .divraçao1, .divraçao2, .divraçao3, .divraçao4, .divraçao5, .divraçao6, .divraçao7, .divraçao8 {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        min-width: 29%;
+        height: 440px;
+        text-align: center;
+        font-size: 19px;
+        padding: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    button {
+        font-family: luckpet2;
+        width: 140px;
+        height: 32px;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 25px 25px;
+        color: #48008bdc;
+        background-color: #6b6b6b2c;
+    }
+
+    .notificacao {
+        top: 120px;
+    }
+
+    .modal {
+        margin-top: 30px;
+        display: none; /* Oculto por padrão */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 790px;
+        font-size: 19px;
+        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
+    }
+
+    #sectioncuri {
+        height: 76%;
+    }
+    
+    .curi-h2 {
+        text-align: center;
+        font-family: luckpet1;
+        font-size: 35px;
+        padding: 40px;
+        padding-bottom: 80px;
+    }
+    
+    .paidiv {
+        display: flex;
+        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
+        overflow-y: auto; /* Ativa rolagem vertical */
+        gap: 20px; /* Espaço entre as imagens */
+        height: 400px; /* Define uma altura para o contêiner de rolagem */
+        padding: 10px;
+        margin-top: -40px;
+        margin-left: 12px;
+        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
+        align-items: center; /* Centraliza as imagens horizontalmente */
+    }
+    
+    .paidiv::-webkit-scrollbar {
+        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
+    }
+    
+    .paidiv::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+    
+    .paidiv::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .paidiv2 {
+        text-align: center;
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        font-family: luckpet2;
+        font-size: 17px;
+        width: 0px;
+        height: 0px;
+        opacity: 0.1;
+        visibility: hidden;
+    }
+    
+    .div05, .div06, .div07 {
+        padding-top: 200px;
+        width: 350px; /* Largura fixa para centralizar as imagens */
+        height: 250px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
+    }
+    
+    .div05 {
+        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
+        margin-top: 700px;
+        margin-left: 20px;
+        padding-top: 300px;
+    }
+    
+    .div06 {
+        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
+        padding-top: 300px;
+    }
+    
+    .div07 {
+        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
+        margin-right: 20px;
+        padding-top: 300px;
+    }
+    
+    .div07:hover, .div06:hover, .div05:hover {
+        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+    }
+    
+
+    #section03 {
+        width: 100%;
+        height: 1299px;
+        text-align: center;
+        background-color: rgba(0, 172, 100, 0.637);
+    }
+    .titu13 {
+        text-align: center;
+       
+        font-size: 40px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+       
+    }
+    .planos {
+        display: block;
+        
+        font-size: 20px;
+       padding: 40px;
+    }
+    .plano1 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 80px;
+    }
+    .plano2 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 80px;
+    }
+    .plano3 {
+        width: 88vw;
+        height: 300px;
+        padding: 10px;
+        padding-bottom: 30px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 80px;
+    }
+    .butplano {
+        font-size: 20px;
+        width: 140px;
+        height: 50px;
+        padding: 15px 20px 30px 20px;
+        color: white;
+        border-radius: 40px 10px;
+        box-shadow: 0px 0px 1px 4px #ff7b00;
     }
     /* CSS */
 .titulo-avaliacao {
@@ -2660,365 +3290,7 @@ footer {
 }
 
 
-@media screen  and (min-width: 800px) and (max-width: 1050px){
-    * {
-        margin: 0px;
-        padding: 0px;
-    }
-    h1#titu1 {
-        font-size: 60px;
-    }
-    .h3 {
-        font-size: 20px;
-        margin-top: -60px;
-    }
-    .icone {
-        position: absolute;
-        font-family: luckpet2;
-        font-size: 15px;
-        right: 80px;
-        top: 19px;
-        width: 37px;
-        height: 37px;
-        background-color: #ffffff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: white;
-    }
-    .icone2 {
-        position: absolute;
-        font-family: luckpet2;
-        font-size: 14.2px;
-        right: 20px;
-        top: 19px;
-        width: 37px;
-        height: 37px;
-        background-color: #ffffff;
-        border-radius: 55%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: white;
-    }
-    .opcoes, .opcoes2 {
-        top: 20px;
-        z-index: 2010;
-        right: -18px;
-        font-size: 20px;
-    }
-    #pesquisa {
-        margin-top: 56px;
-        font-size: 23px;
-        width: 99.4%;
-        border-radius: 0px 0px;
-    }
-    #div1 {
-        width: 97.4%;
-        font-size: 21px;
-        margin-top: 24px;
-        border-radius: 0px 0px;
-    }
-
-    .carousel {
-        display: flex;
-        width: 310px;
-        transition: transform 0.5s ease;
-        position: relative;
-    }
-
-    .carousel img {
-        width: 80vw;
-        margin: auto;
-        text-align: center;
-        height: 80vh;
-        border-radius: 0px;
-        margin-top: 33px;
-        margin-left: 76px;
-        cursor: pointer;
-    }
-
-    .carousel-item {
-        position: absolute;
-        width: 310px;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        text-align: center;
-    }
-    .section02 {
-        margin-top: 44px;
-        height: 630px;
-    }
-    .titu12 {
-        font-size: 35px;
-        padding-top: 35px;
-        padding-bottom: 25px;
-    }
-    .raçao1 {
-        width: 195px;
-    }
-    .raçao2 {
-        width: 195px;
-    }
-    .raçao3 {
-        width: 195px;
-    }
-    .raçao4 {
-        width: 195px;
-    }
-    .raçao5 {
-        width: 195px;
-    }
-    .raçao6 {
-        width: 195px;
-    }
-    .raçao7 {
-        width: 195px;
-    }
-    .raçao8 {
-        width: 195px;
-    }
-    .raçao9 {
-        width: 195px;
-    }
-
-    .divraçao1 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao2 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao3 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao4 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao5 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao6 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao7 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao8 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    .divraçao9 {
-        background-color: rgba(255, 255, 255, 0.575);
-        height: 467px;
-        border-radius: 20px 20px 20px;
-        margin: auto;
-        text-align: center;
-    }
-    
-    button {
-        font-family: luckpet2;
-        width: 140px;
-        height: 32px;
-        font-size: 15px;
-        cursor: pointer;
-        border-radius: 25px 25px;
-        color: #48008bdc;
-        background-color: #6b6b6b2c;
-    }
-
-    .modal {
-        margin-top: 30px;
-        display: none; /* Oculto por padrão */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 790px;
-        font-size: 19px;
-        background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com opacidade */
-    }
-
-
-    #sectioncuri {
-        height: 74%;
-    }
-    
-    .curi-h2 {
-        text-align: center;
-        font-family: luckpet1;
-        font-size: 35px;
-        padding: 30px;
-        padding-bottom: 80px;
-    }
-    
-    .paidiv {
-        display: flex;
-        flex-direction: column; /* Alinha itens em coluna para rolagem vertical */
-        overflow-y: auto; /* Ativa rolagem vertical */
-        gap: 20px; /* Espaço entre as imagens */
-        height: 400px; /* Define uma altura para o contêiner de rolagem */
-        padding: 10px;
-        margin-top: -40px;
-        margin-left: 12px;
-        scroll-snap-type: y mandatory; /* Ativa encaixe ao rolar verticalmente */
-        align-items: center; /* Centraliza as imagens horizontalmente */
-    }
-    
-    .paidiv::-webkit-scrollbar {
-        width: 8px; /* Largura da barra de rolagem para rolagem vertical */
-    }
-    
-    .paidiv::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 10px;
-    }
-    
-    .paidiv::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    
-    .paidiv2 {
-        text-align: center;
-        margin-top: 20px;
-        justify-content: center;
-        display: flex;
-        font-family: luckpet2;
-        font-size: 17px;
-        width: 0px;
-        height: 0px;
-        opacity: 0.1;
-        visibility: hidden;
-    }
-    
-    .div05, .div06, .div07 {
-        padding-top: 200px;
-        width: 490px; /* Largura fixa para centralizar as imagens */
-        height: 350px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        border-radius: 8px;
-        transition: transform 0.3s;
-        scroll-snap-align: center; /* Alinha cada imagem ao centro ao parar de rolar */
-    }
-    
-    .div05 {
-        background-image: url(img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg);
-        margin-top: 990px;
-        margin-left: 20px;
-        padding-top: 460px;
-    }
-    
-    .div06 {
-        background-image: url(img/cedric-vt-IuJc2qh2TcA-unsplash.jpg);
-        padding-top: 360px;
-        padding-top: 400px;
-    }
-    
-    .div07 {
-        background-image: url(img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg);
-        margin-right: 20px;
-        padding-top: 400px;
-    }
-    
-    .div07:hover, .div06:hover, .div05:hover {
-        transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
-    }
-
-    .section03 {
-        width: 100%;
-        height: 1299px;
-        text-align: center;
-        background-color: rgba(0, 172, 100, 0.637);
-    }
-    .titu13 {
-        text-align: center;
-        font-family: luckpet1;
-        font-size: 40px;
-        padding-top: 20px;
-        padding-bottom: 30px;
-        color: rgba(72, 0, 139, 0.863);
-    }
-    .planos {
-        display: block;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 19px;
-       padding: 33px;
-       color: rgba(72, 0, 139, 0.863);
-    }
-    .plano1 {
-        width: 88vw;
-        height: 300px;
-        padding: 10px;
-        padding-bottom: 30px;
-        margin-bottom: 20px;
-        background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
-    }
-    .plano2 {
-        width: 88vw;
-        height: 300px;
-        padding: 10px;
-        padding-bottom: 30px;
-        margin-bottom: 20px;
-        background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
-    }
-    .plano3 {
-        width: 88vw;
-        height: 300px;
-        padding: 10px;
-        padding-bottom: 30px;
-        background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
-    }
-    .butplano {
-        font-family: luckpet2;
-        font-size: 16px;
-        width: 140px;
-        height: 50px;
-        padding: 15px 20px 30px 20px;
-        color: white;
-        background-color: rgba(72, 0, 139, 0.863);
-        border-radius: 20px 20px 20px 20px;
-        box-shadow: 1px 2px 5px 0px rgb(255, 0, 0);
-    }
-}
+@media screen  and (min-width: 900px) and (max-width: 1050px)
 
 
 
