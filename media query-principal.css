@@ -511,7 +511,7 @@ div#cabecasite {
         display: flex;
         flex-wrap: wrap;
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 17px;
+        font-size: 16px;
        padding: 20px;
        color: #40006b;
     }
@@ -1076,7 +1076,7 @@ div#cabecasite {
 
 
     #sectioncuri {
-        height: 100%;
+        height: 600px;
     }
     
     .curi-h2 {
@@ -1165,15 +1165,15 @@ div#cabecasite {
 
     #section03 {
         width: 100%;
-        height: 1209px;
+        height: 1289px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
     .titu13 {
         text-align: center;
         font-family:luckpet1;
-        font-size: 25px;
-        padding-top: 20px;
+        font-size: 30px;
+        padding-top: 30px;
         padding-bottom: 30px;
         color: #40006b;
     }
@@ -1182,7 +1182,7 @@ div#cabecasite {
         flex-wrap: wrap;
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 18px;
-       padding: 20px;
+       padding: 60px;
        color: #40006b;
     }
     .plano1 {
