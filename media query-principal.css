@@ -3548,21 +3548,21 @@ div#paidivcamisa {
 .planos {
     display: flex;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.9vw;
+    font-size: 16px;
    padding: 30px;
    gap: 24px;
    color: #40006b;
 }
 .plano1 {
     width: 70vw;
-    height: 300px;
+    height: 280px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px 15px 15px;
 }
 .plano2 {
     width: 70vw;
-    height: 300px;
+    height: 280px;
     padding: 10px;
     
     background-color: rgb(255, 255, 255);
@@ -3570,13 +3570,13 @@ div#paidivcamisa {
 }
 .plano3 {
     width: 70vw;
-    height: 300px;
+    height: 280px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px 15px 15px;
 }
 .butplano {
-    margin-top: -5px;
+    margin-top: 15px;
     font-family: luckpet2;
     font-size: 18px;
     width: 130px;
