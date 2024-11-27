@@ -340,7 +340,7 @@ div#paidivcamisa {
     gap: 20px;
     margin-top: -4px;
     line-height: 25px;
-    font-size: 18px;
+    font-size: 1.6vw;
     
     padding-bottom: 60px;
 }
@@ -392,27 +392,14 @@ div#paidivcamisa {
     width: 25vw;
     font-size: 21px;
 }
-.buttamanho {
-    margin-top: -30px;
-    height: 25px;
-    width: 7vw;
-    font-size: 1.4vw;
-}
-.buttamanho:focus {
-background-color: #ff7b00;
-color: #ffffff;
-}
-.buttamanho:hover {
-    transform: translate(-3px, -3px);
-    color: black;
-}
+
 .butcomprar {
     margin-left: 10px;
     font-family: luckpet3;
     box-shadow: 1px 1px 1px 1px rgb(0, 255, 0);
     position: relative;
     top: 3px;
-    width: 6.6vw;
+    width: 8.6vw;
     color: #424242;
 }
 .butcomprar:hover {
@@ -714,7 +701,7 @@ z-index: 1;
     padding: 15px 20px 20px 20px;
     color: white;
     background-color:#40006b;
-    border-radius: 40px 10px;
+    border-radius: 20px;
     box-shadow: 0px 0px 1px 4px #ff7b00;
 }
 
