@@ -738,7 +738,7 @@ div#cabecasite {
     }
     #pesquisa {
         margin-top: 56px;
-        font-size: 13px;
+        font-size: 16px;
         width: 98.9vw;
         border-radius: 0px 0px;
     }
@@ -777,7 +777,7 @@ div#cabecasite {
     background-repeat: no-repeat;
   
     
-    height: 260px;
+    height: 270px;
     width: 100%;
 }
 @supports (-webkit-touch-callout: none) and (not (translate: none)) {
@@ -796,7 +796,7 @@ div#cabecasite {
     }
     #div1 {
         color: #40006b;
-        font-size: 4vw;
+        font-size: 2.9vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -810,7 +810,7 @@ div#cabecasite {
     }
     #div2 {
         color: #40006b;
-        font-size: 4vw;
+        font-size: 3vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -824,7 +824,7 @@ div#cabecasite {
     }
     #div3 {
         color: #40006b;
-        font-size: 4vw;
+        font-size: 3vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -858,7 +858,7 @@ div#cabecasite {
         left: 0px;
         top:40%;
         width: 100vw;
-        height: 200px;
+        height: 250px;
         border-radius: 0px;
         margin-top: 10px;
         margin-left: -40px;
@@ -1083,7 +1083,7 @@ div#cabecasite {
         text-align: center;
         font-family: luckpet1;
         font-size: 35px;
-        margin-top: 50px;
+        margin-top: 70px;
         padding: 30px;
         padding-bottom: 80px;
     }
