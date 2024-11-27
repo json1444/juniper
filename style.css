@@ -52,7 +52,7 @@ h1#titu1 {
     transition: 2s;
 }
 .atitu:hover {
-    color: #9900ffea;
+    color: #3f0069ea;
     transform: translateY(20px);
 }
 
