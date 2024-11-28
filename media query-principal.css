@@ -70,6 +70,7 @@
         display: flex;
         justify-content: center;
         margin-top: -11px;
+        padding-bottom: 0px;
     }
     .butrolagem {
         font-size: 4.2vw;
@@ -95,8 +96,8 @@
 div#cabecasite {
     background-image: url(img/dog.jpg);
     background-attachment: fixed;
-    background-size: 700px;
-    background-position: left;
+    background-size: 600px;
+    background-position: center;
     background-repeat: no-repeat;
   
     
