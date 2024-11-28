@@ -205,8 +205,8 @@ div.input {
     margin-top: -11px;
 }
 .butrolagem {
-    font-size: 1.3vw;
-    margin-top: 10px;
+    font-size: 1.6vw;
+    
     color: white;
     font-family: luckpet3;
     box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
@@ -219,9 +219,9 @@ div.input {
 }
 .pesquisavel {
     text-align: center;
-
+padding-top: 15px;
   width: 100vw;
-  height: 55px;
+  height: 50px;
   background-color: #40006b;
 }
 
