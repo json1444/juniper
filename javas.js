@@ -125,7 +125,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 // Atualizar avaliações exibidas
 
-const API_URL = 'https://19af-170-83-36-46.ngrok-free.app';
+const API_URL = 'https://pablog-7.github.io/projeto-luckpet/';
 
 function carregarAvaliacoes() {
     fetch('http://127.0.0.1:5000/avaliacoes')
