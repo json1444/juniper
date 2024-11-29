@@ -154,7 +154,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', function (e
     const avaliacao = document.getElementById('avaliacao').value;
     const comentario = document.getElementById('comentario').value;
 
-    fetch('https://pablog-7.github.io/projeto-luckpet/', {
+    fetch('http://127.0.0.1:5000/avaliacoes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
