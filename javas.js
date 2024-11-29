@@ -128,7 +128,7 @@ setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 const API_URL = 'https://pablog-7.github.io/projeto-luckpet/';
 
 function carregarAvaliacoes() {
-    fetch('http://127.0.0.1:5000/avaliacoes')
+    fetch('https://pablog-7.github.io/projeto-luckpet/')
         .then(response => response.json())
         .then(data => {
             const avaliacoesDiv = document.getElementById('avaliacoes');
@@ -154,7 +154,7 @@ document.getElementById('form-avaliacao').addEventListener('submit', function (e
     const avaliacao = document.getElementById('avaliacao').value;
     const comentario = document.getElementById('comentario').value;
 
-    fetch('http://127.0.0.1:5000/avaliacoes', {
+    fetch('https://pablog-7.github.io/projeto-luckpet/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
