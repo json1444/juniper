@@ -69,7 +69,7 @@
     #rolagens {
         display: flex;
         justify-content: center;
-        margin-top: -18px;
+        margin-top: -23px;
         padding-bottom: 0px;
     }
     .butrolagem {
@@ -89,7 +89,7 @@
         text-align: center;
     padding-top: 15px;
       width: 100vw;
-      height: 50px;
+      height: 55px;
       background-color: #40006b;
     }
 
