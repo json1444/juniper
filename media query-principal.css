@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-@media screen  and (min-width: 350px) and (max-width: 400px){
+
+
+@media screen  and (min-width: 320px) and (max-width: 400px){
     * {
         margin: 0px;
         padding: 0px;
@@ -77,13 +79,11 @@
         
         color: white;
         font-family: luckpet3;
-        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
-        transition: transform 0.2s, box-shadow 0.2s;
+        
     }
     .butrolagem:hover {
         color:#ffd000;
-        transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+       
     }
     .pesquisavel {
         text-align: center;
@@ -186,7 +186,7 @@ div#cabecasite {
         width: 100vw;
         height: 170px;
         border-radius: 0px;
-        margin-top: 10px;
+        margin-top: -15px;
         margin-left: -40px;
         cursor: pointer;
     }
@@ -405,7 +405,7 @@ div#cabecasite {
 
 
     #sectioncuri {
-        height: 100%;
+        height: 600px;
     }
     
     .curi-h2 {
@@ -770,7 +770,7 @@ div#cabecasite {
 div#cabecasite {
     background-image: url(img/dog.jpg);
     background-attachment: fixed;
-    background-size: 800px;
+    background-size: 700px;
     background-position: left;
     background-repeat: no-repeat;
   
@@ -1412,9 +1412,9 @@ div#cabecasite {
         background-repeat: no-repeat;
       
         
-        height: 300px;
-        width: 100%;
-        margin-top: -30px;
+        height: 400px;
+        width: 100vw;
+        margin-top: -90px;
     }
     @supports (-webkit-touch-callout: none) and (not (translate: none)) {
         div#cabecasite {
@@ -1441,7 +1441,7 @@ div#cabecasite {
         border-radius: 10px 10px;
         box-shadow: 0px 0px 5px 3px #ff7b00;
         
-        margin-top: 20px;
+        margin-top: 100px;
         background-color:#ddddddea;
         
         font-family: luckpet3;
@@ -1455,7 +1455,7 @@ div#cabecasite {
         border-radius: 10px 10px;
         box-shadow: 0px 0px 5px 3px #ff7b00;
         
-        margin-top: 20px;
+        margin-top: 100px;
         background-color:#ddddddea;
         
         font-family: luckpet3;
@@ -1469,7 +1469,7 @@ div#cabecasite {
         border-radius: 10px 10px;
         box-shadow: 0px 0px 5px 3px #ff7b00;
         
-        margin-top: 20px;
+        margin-top: 100px;
         background-color:#ddddddea;
         
         font-family: luckpet3;
@@ -1479,7 +1479,7 @@ div#cabecasite {
         width: 50vw; 
         position: relative; 
         left: 9%; 
-        top: 50px;
+        top: 120px;
     }
     .pdesc {
         width: 60vw;
@@ -1497,8 +1497,8 @@ div#cabecasite {
     #rolagens {
         display: flex;
         justify-content: center;
-        margin-top: 11px;
-        padding-bottom: 40px;
+        margin-top: -1px;
+        padding-bottom: 0px;
     }
     .butrolagem {
         font-size: 3.2vw;
@@ -1726,7 +1726,7 @@ div#cabecasite {
     }
 
     #sectioncuri {
-        height: 76%;
+        height: 600px;
     }
     
     .curi-h2 {
@@ -2052,14 +2052,14 @@ footer {
     div#cabecasite {
         background-image: url(img/dog.jpg);
         background-attachment: fixed;
-        background-size: 700px;
+        background-size: 760px;
         background-position: left;
         background-repeat: no-repeat;
       
         
         height: 260px;
         width: 100%;
-        margin-top: -30px;
+        margin-top: -10px;
     }
     @supports (-webkit-touch-callout: none) and (not (translate: none)) {
         div#cabecasite {
@@ -2143,7 +2143,7 @@ footer {
         display: flex;
         justify-content: center;
         margin-top: 11px;
-        padding-bottom: 40px;
+        padding-bottom: 0px;
     }
     .butrolagem {
         font-size: 3.1vw;
@@ -2371,7 +2371,7 @@ footer {
     }
 
     #sectioncuri {
-        height: 76%;
+        height: 600px;
     }
     
     .curi-h2 {
@@ -2457,8 +2457,8 @@ footer {
     
 
     #section03 {
-        width: 100%;
-        height: 1299px;
+        width: 100vw;
+        height: 130vh;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -2638,7 +2638,7 @@ footer {
         padding: 0px;
     }
     h1#titu1 {
-        font-size: 80px;
+        font-size: 70px;
     }
     .h3 {
         font-size: 20px;
@@ -2692,14 +2692,14 @@ footer {
     div#cabecasite {
         background-image: url(img/dog.jpg);
         background-attachment: fixed;
-        background-size: 700px;
+        background-size: 760px;
         background-position: left;
         background-repeat: no-repeat;
       
         
         height: 260px;
         width: 100%;
-        margin-top: -30px;
+        margin-top: 30px;
     }
     @supports (-webkit-touch-callout: none) and (not (translate: none)) {
         div#cabecasite {
@@ -2782,8 +2782,8 @@ footer {
     #rolagens {
         display: flex;
         justify-content: center;
-        margin-top: 28px;
-        padding-bottom: 40px;
+        margin-top: 10px;
+        padding-bottom: 0px;
     }
     .butrolagem {
         font-size: 2.7vw;
@@ -3006,7 +3006,7 @@ footer {
     }
 
     #sectioncuri {
-        height: 76%;
+        height: 600px;
     }
     
     .curi-h2 {
@@ -3326,14 +3326,14 @@ footer {
     div#cabecasite {
         background-image: url(img/dog.jpg);
         background-attachment: fixed;
-        background-size: 700px;
+        background-size: 800px;
         background-position: left;
         background-repeat: no-repeat;
       
         
         height: 260px;
         width: 100%;
-        margin-top: -30px;
+        margin-top: 0px;
     }
     @supports (-webkit-touch-callout: none) and (not (translate: none)) {
         div#cabecasite {
@@ -3353,7 +3353,7 @@ footer {
     }
     #div1 {
         color: #40006b;
-        font-size: 2.3vw;
+        font-size: 2.8vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -3367,7 +3367,7 @@ footer {
     }
     #div2 {
         color: #40006b;
-        font-size: 2.3vw;
+        font-size: 2.7vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -3381,7 +3381,7 @@ footer {
     }
     #div3 {
         color: #40006b;
-        font-size: 2.3vw;
+        font-size: 2.7vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -3407,8 +3407,8 @@ footer {
     #rolagens {
         display: flex;
         justify-content: center;
-        margin-top: 11px;
-        padding-bottom: 40px;
+        margin-top: -2px;
+        padding-bottom: 0px;
     }
     .butrolagem {
         font-size: 2.1vw;
