@@ -4,7 +4,7 @@
 
 @media screen and (min-width: 350px) and (max-width: 767px) {
     body {
-        background-image: linear-gradient(to top, rgb(67, 0, 122), rgb(255, 238, 0));
+        background-image: linear-gradient(to top, #40006b, rgb(255, 238, 0));
     }
     h1.h1 {
         margin-top: 9px;
@@ -51,7 +51,7 @@ input.input2 {
 
 @media screen and (min-width: 992px) and (max-width: 1400px) {
     body {
-        background-image: linear-gradient(to left, rgb(67, 0, 122), rgb(255, 238, 0));
+        background-image: linear-gradient(to left, #40006b, rgb(255, 238, 0));
 }
 h1.h1 {
     font-size: 2.5em;
