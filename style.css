@@ -207,15 +207,12 @@ div.input {
 .butrolagem {
     font-size: 1.6vw;
     
-    color: white;
+    color: rgb(255, 255, 255);
     font-family: luckpet3;
-    box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 .butrolagem:hover {
-    color:#ffd000;
-    transform: scale(1.05);
-    box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+    color:#ff9500;
+    font-size: 1.7vw;
 }
 .pesquisavel {
     text-align: center;
