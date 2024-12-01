@@ -83,8 +83,9 @@ input.input2 {
 }
 input.input3 {
     display: grid;
-    color: #40006b;
-    border-radius: 15px;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 9px;
     margin: 5px 0px 0px 35px;
     padding: 5px;
     font-family: luckpet3;
@@ -97,8 +98,9 @@ input.input3:hover {
 .input4 {
     display: grid;
     width: 38px;
-    color:#40006b;
-    border-radius: 15px;
+    color:#000000;
+    background-color: #ffffff;
+    border-radius: 9px;
     margin: 5px 0px 0px 35px;
     padding: 5px;
     font-family: luckpet3;

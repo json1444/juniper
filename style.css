@@ -647,7 +647,7 @@ z-index: 1;
 
 #section03 {
     width: 100%;
-    height: 550px;
+    height: 590px;
     text-align: center;
     background-color: #00ac64a2;
 }
@@ -661,32 +661,32 @@ z-index: 1;
 }
 .planos {
     display: flex;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.4vw;
+    font-family: luckpet3;
+    font-size: 19px;
    padding: 30px;
    gap: 30px;
    color: #40006b;
 }
 .plano1 {
     width: 30vw;
-    height: 50vh;
+    height: 55vh;
     padding: 10px;
     background-color: rgb(255, 255, 255);
-    border-radius: 15px 15px 15px;
+    border-radius: 40px;
 }
 .plano2 {
     width: 30vw;
-    height: 50vh;
+    height: 55vh;
     padding: 10px;
     background-color: rgb(255, 255, 255);
-    border-radius: 15px 15px 15px;
+    border-radius: 40px;
 }
 .plano3 {
     width: 30vw;
-    height: 50vh;
+    height: 55vh;
     padding: 10px;
     background-color: rgb(255, 255, 255);
-    border-radius: 15px 15px 15px;
+    border-radius: 40px;
 }
 .butplano {
     margin-top: 10px;

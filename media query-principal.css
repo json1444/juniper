@@ -517,7 +517,7 @@ div#cabecasite {
         padding: 10px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 40px;
     }
     .plano2 {
         width: 85vw;
@@ -525,14 +525,14 @@ div#cabecasite {
         padding: 10px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 40px;
     }
     .plano3 {
         width: 85vw;
         height: 300px;
         padding: 10px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 40px;
     }
     .butplano {
         margin-top: 10px;
@@ -1178,8 +1178,8 @@ div#cabecasite {
     .planos {
         display: flex;
         flex-wrap: wrap;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 18px;
+        font-family:luckpet3;
+        font-size: 17px;
        padding: 60px;
        color: #40006b;
     }
@@ -1189,7 +1189,7 @@ div#cabecasite {
         padding: 10px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 40px;
     }
     .plano2 {
         width: 85vw;
@@ -1197,14 +1197,14 @@ div#cabecasite {
         padding: 10px;
         margin-bottom: 20px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 40px;
     }
     .plano3 {
         width: 85vw;
         height: 330px;
         padding: 10px;
         background-color: rgb(255, 255, 255);
-        border-radius: 15px 15px 15px;
+        border-radius: 40px;
     }
     .butplano {
         margin-top: 10px;
@@ -1813,7 +1813,7 @@ div#cabecasite {
 
     #section03 {
         width: 100%;
-        height: 1299px;
+        height: 1339px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -1830,7 +1830,7 @@ div#cabecasite {
     }
     .plano1 {
         width: 88vw;
-        height: 300px;
+        height: 320px;
         padding: 10px;
         padding-bottom: 30px;
         margin-bottom: 20px;
@@ -1839,7 +1839,7 @@ div#cabecasite {
     }
     .plano2 {
         width: 88vw;
-        height: 300px;
+        height: 320px;
         padding: 10px;
         padding-bottom: 30px;
         margin-bottom: 20px;
@@ -1848,7 +1848,7 @@ div#cabecasite {
     }
     .plano3 {
         width: 88vw;
-        height: 300px;
+        height: 320px;
         padding: 10px;
         padding-bottom: 30px;
         background-color: rgb(255, 255, 255);
@@ -2458,7 +2458,7 @@ footer {
 
     #section03 {
         width: 100vw;
-        height: 1330px;
+        height: 1390px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -2478,7 +2478,7 @@ footer {
     }
     .plano1 {
         width: 88vw;
-        height: 300px;
+        height: 330px;
         padding: 10px;
         padding-bottom: 30px;
         margin-bottom: 20px;
@@ -2487,7 +2487,7 @@ footer {
     }
     .plano2 {
         width: 88vw;
-        height: 300px;
+        height: 330px;
         padding: 10px;
         padding-bottom: 30px;
         margin-bottom: 20px;
@@ -2496,7 +2496,7 @@ footer {
     }
     .plano3 {
         width: 88vw;
-        height: 300px;
+        height: 330px;
         padding: 10px;
         padding-bottom: 30px;
         background-color: rgb(255, 255, 255);
@@ -3093,7 +3093,7 @@ footer {
 
     #section03 {
         width: 100%;
-        height: 1299px;
+        height: 1338px;
         text-align: center;
         background-color: rgba(0, 172, 100, 0.637);
     }
@@ -3113,7 +3113,7 @@ footer {
     }
     .plano1 {
         width: 88vw;
-        height: 300px;
+        height: 320px;
         padding: 10px;
         padding-bottom: 30px;
         margin-bottom: 20px;
@@ -3122,7 +3122,7 @@ footer {
     }
     .plano2 {
         width: 88vw;
-        height: 300px;
+        height: 320px;
         padding: 10px;
         padding-bottom: 30px;
         margin-bottom: 20px;
@@ -3131,7 +3131,7 @@ footer {
     }
     .plano3 {
         width: 88vw;
-        height: 300px;
+        height: 320px;
         padding: 10px;
         padding-bottom: 30px;
         background-color: rgb(255, 255, 255);
@@ -3567,7 +3567,7 @@ div#paidivcamisa {
 }
 .planos {
     display: flex;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: luckpet3;
     font-size: 16px;
    padding: 30px;
    gap: 24px;
@@ -3575,25 +3575,25 @@ div#paidivcamisa {
 }
 .plano1 {
     width: 70vw;
-    height: 280px;
+    height: 299px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
-    border-radius: 15px 15px 15px;
+    border-radius: 40px;
 }
 .plano2 {
     width: 70vw;
-    height: 280px;
+    height: 299px;
     padding: 10px;
     
     background-color: rgb(255, 255, 255);
-    border-radius: 15px 15px 15px;
+    border-radius: 40px;
 }
 .plano3 {
     width: 70vw;
-    height: 280px;
+    height: 299px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
-    border-radius: 15px 15px 15px;
+    border-radius: 40px;
 }
 .butplano {
     margin-top: 15px;
