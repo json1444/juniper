@@ -647,14 +647,14 @@ z-index: 1;
 
 #section03 {
     width: 100%;
-    height: 540px;
+    height: 550px;
     text-align: center;
     background-color: #00ac64a2;
 }
 .titu13 {
     text-align: center;
     font-family: luckpet1;
-    font-size: 35px;
+    font-size: 2.5vw;
     padding-top: 50px;
     padding-bottom: 30px;
     color: #40006b;
@@ -662,28 +662,28 @@ z-index: 1;
 .planos {
     display: flex;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 19px;
+    font-size: 1.4vw;
    padding: 30px;
    gap: 30px;
    color: #40006b;
 }
 .plano1 {
-    width: 500px;
-    height: 310px;
+    width: 30vw;
+    height: 50vh;
     padding: 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px 15px 15px;
 }
 .plano2 {
-    width: 500px;
-    height: 310px;
+    width: 30vw;
+    height: 50vh;
     padding: 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px 15px 15px;
 }
 .plano3 {
-    width: 500px;
-    height: 310px;
+    width: 30vw;
+    height: 50vh;
     padding: 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px 15px 15px;
@@ -692,8 +692,8 @@ z-index: 1;
     margin-top: 10px;
     font-family: luckpet2;
     font-size: 20px;
-    width: 130px;
-    height: 50px;
+    width: 10vw;
+    height: 8vh;
     color: white;
     background-color:#40006b;
     border-radius: 20px;
