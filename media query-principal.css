@@ -94,9 +94,9 @@
     }
 
 div#cabecasite {
-    background-image: url(img/dog.jpg);
+    background-image: url(img/fundo-telas.jpg);
     background-attachment: fixed;
-    background-size: 600px;
+    background-size: 1000px;
     background-position: center;
     background-repeat: no-repeat;
   
@@ -238,7 +238,7 @@ div#cabecasite {
     
     .divcam1 {
         margin-left: 1vw;
-        height: 510px;
+        height: 520px;
         width: 80vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -250,7 +250,7 @@ div#cabecasite {
     .divcam2 {
         margin-left: 1vw;
         margin-top: 30px;
-        height: 510px;
+        height: 520px;
         width: 80vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -262,7 +262,7 @@ div#cabecasite {
     .divcam3 {
         margin-left: 1vw;
         margin-top: 30px;
-        height: 510px;
+        height: 520px;
         width: 80vw;
         background-color: #ffffff;
         border-radius: 30px;
@@ -273,7 +273,7 @@ div#cabecasite {
     }
     .pcam {
         width: 80vw;
-        font-size: 17px;
+        font-size: 20px;
     }
     .buttamanho {
         height: 23px;
@@ -768,10 +768,11 @@ div#cabecasite {
 
 
 div#cabecasite {
-    background-image: url(img/dog.jpg);
+    background-image: url(img/fundo-telas.jpg);
     background-attachment: fixed;
-    background-size: 700px;
-    background-position: left;
+    background-size: 1100px;
+    margin-top: 5px;
+    background-position: center;
     background-repeat: no-repeat;
   
     
@@ -905,7 +906,7 @@ div#cabecasite {
         justify-content: center;
         margin-top: 20px;
         line-height: 25px;
-        font-size: 16px;
+        font-size: 18px;
  }
     
     .divcam1 {
@@ -942,7 +943,7 @@ div#cabecasite {
     }
     .pcam {
         width: 350px;
-        font-size: 17px;
+        font-size: 21px;
     }
     .buttamanho {
         height: 23px;
@@ -1573,7 +1574,7 @@ div#cabecasite {
         gap: 7px;
         margin-top: 20px;
         line-height: 25px;
-        font-size: 18px;
+        font-size: 16px;
         
         padding-bottom: 60px;
     }
@@ -2199,7 +2200,7 @@ footer {
     }
     #section02 {
         margin-top: 84px;
-        height: 1250px;
+        height: 1370px;
     }
     .titu12 {
         font-size: 30px;
@@ -2217,16 +2218,16 @@ footer {
         padding: 0px;
         gap: 7px;
         margin-top: 20px;
-        line-height: 25px;
-        font-size: 18px;
+        line-height: 29px;
+        font-size: 19px;
         
         padding-bottom: 60px;
     }
     
     .divcam1 {
         padding: 5px;
-        height: 450px;
-        width: 31vw;
+        height: 549px;
+        width: 32vw;
         margin-left: 13px;
         background-color: #ffffff;
         border-radius: 20px;
@@ -2235,13 +2236,13 @@ footer {
     }
     .camisa1 {
         border-radius: 15px;
-        width: 31vw;
-        height: 200px;
+        width: 32vw;
+        height: 250px;
     }
     .divcam2 {
         padding: 5px;
-        height: 450px;
-        width: 31vw;
+        height: 549px;
+        width: 32vw;
         background-color: #ffffff;
         border-radius: 20px;
         font-family: luckpet3;
@@ -2249,13 +2250,13 @@ footer {
     }
     .camisa2 {
         border-radius: 15px;
-        width: 31vw;
-        height: 200px;
+        width: 32vw;
+        height: 250px;
     }
     .divcam3 {
         padding: 5px;
-        height: 450px;
-        width: 31vw;
+        height: 549px;
+        width: 30vw;
         margin-right: 10px;
         font-family: luckpet3;
         background-color: #ffffff;
@@ -2264,14 +2265,14 @@ footer {
     }
     .camisa3 {
         border-radius: 15px;
-        width: 31vw;
-        height: 200px;
+        width: 29.3vw;
+        height: 250px;
     }
     .pcam {
         line-height: 33px;
         width: 100%;
         margin-left: 1px;
-        font-size: 15px;
+        font-size: 3.3vw;
     }
     .buttamanho:focus {
     background-color: #ff7b00;
