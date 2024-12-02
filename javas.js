@@ -30,9 +30,9 @@ let produtos = {
     mirtilo: { quantidade: 0, total: 0, tipo: "alimento" },
     laranja: { quantidade: 0, total: 0, tipo: "alimento" },
 
-    blusa: { quantidade: 0, total: 0, tipo: "vestimenta" },
-    colete: { quantidade: 0, total: 0, tipo: "vestimenta" },
-    moletom: { quantidade: 0, total: 0, tipo: "vestimenta" }
+    Fantasia: { quantidade: 0, total: 0, tipo: "vestimenta" },
+    Lenço: { quantidade: 0, total: 0, tipo: "vestimenta" },
+    Charme: { quantidade: 0, total: 0, tipo: "vestimenta" }
 };
 
 function atualizarProduto(produto, preco, acao) {
