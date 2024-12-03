@@ -19,9 +19,6 @@ Bem-vindo ao **LuckPet**, um e-commerce moderno e responsivo desenvolvido para a
    - Usuários podem avaliar os produtos e deixar comentários, contribuindo para a experiência de outros clientes. 
    - Implementado com **Node.js** no back-end e **MySQL** para armazenamento dos dados.
 
-5. **Navegação Dinâmica**  
-   - Botões laterais para navegar entre os produtos, com transições suaves.
-
 ## 🛠️ Tecnologias Utilizadas
 
 - **Front-End**: HTML, CSS e JavaScript.  
@@ -34,6 +31,7 @@ Bem-vindo ao **LuckPet**, um e-commerce moderno e responsivo desenvolvido para a
 ## 🚀 Link para Acesso
 
 - **Acesse o site aqui**: [LuckPet - Vercel](https://projeto-luckpet.vercel.app/)
+- **Acesse o site aqui**: [LuckPet - github](https://pablog-7.github.io/projeto-luckpet/)
 
 ## 📌 Observações
 
