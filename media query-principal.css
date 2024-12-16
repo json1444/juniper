@@ -101,7 +101,7 @@ div#cabecasite {
     background-repeat: no-repeat;
   
     
-    height: 260px;
+    height: 380px;
     width: 100%;
 }
 @supports (-webkit-touch-callout: none) and (not (translate: none)) {
@@ -120,7 +120,7 @@ div#cabecasite {
     }
     #div1 {
         color: #40006b;
-        font-size: 4vw;
+        font-size: 4.2vw;
         text-align: center;
         margin: auto;
         padding-left: 50px;
@@ -776,7 +776,7 @@ div#cabecasite {
     background-repeat: no-repeat;
   
     
-    height: 270px;
+    height: 370px;
     width: 100%;
 }
 @supports (-webkit-touch-callout: none) and (not (translate: none)) {
@@ -859,7 +859,7 @@ div#cabecasite {
         width: 100vw;
         height: 230px;
         border-radius: 0px;
-        margin-top: 10px;
+        margin-top: 2px;
         margin-left: -40px;
         cursor: pointer;
     }
