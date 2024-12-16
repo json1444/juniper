@@ -1,0 +1,232 @@
+<head>
+    <html lang="pt-br">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <link rel="shortcut icon" href="img/favicon-pagamento.png" type="image/x-icon">
+
+    <style>
+        /* Resetando alguns estilos padrão */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ececec;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #444;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            font-family: luckpet3;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: center;
+            margin-top: 10px;
+
+            font-family: luckpet3;
+        }
+
+        #conteudo-carrinho {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+            font-family: luckpet3;
+        }
+
+        #conteudo-carrinho ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #conteudo-carrinho li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.2rem;
+        }
+
+        #conteudo-carrinho li:last-child {
+            border-bottom: none;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            width: 256px;
+            height: 256px;
+        }
+
+        #valor-pix {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a8917;
+            margin-top: 10px;
+        }
+
+        /* Cor personalizada para o subtotal */
+        #subtotal {
+            color: green; /* Aqui você define a cor desejada */
+            font-weight: bold;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            #conteudo-carrinho {
+                padding: 15px;
+            }
+
+            #conteudo-carrinho li {
+                font-size: 1rem;
+            }
+
+            #valor-pix {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            #conteudo-carrinho {
+                padding: 10px;
+            }
+
+            #conteudo-carrinho li {
+                font-size: 0.9rem;
+            }
+
+            #valor-pix {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Resumo do Carrinho</h1>
+    <h3>🟠Alimentos - 🔵Vestimento</h3>
+    <div id="conteudo-carrinho"></div>
+    <h2 id="subtotal"></h2>
+
+    <h1>Pagamento via Pix</h1>
+    <p>Escaneie o QR Code abaixo para realizar o pagamento:</p>
+
+    <!-- QR Code do Pix -->
+    <div id="qrcode"></div>
+
+    <!-- Valor do pagamento -->
+    <p id="valor-pix"></p>
+
+    <!-- Coloque o script aqui, no final do body -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Recupera o carrinho salvo
+            let produtos = JSON.parse(localStorage.getItem('carrinho')) || {};
+
+            // Exibe os produtos do carrinho na interface
+            const carrinhoDiv = document.getElementById("conteudo-carrinho");
+            let conteudo = "<ul>";
+            let subtotal = 0;
+
+            for (let produto in produtos) {
+                if (produtos[produto].quantidade > 0) {
+                    // Define a cor baseada no tipo do produto
+                    let cor = produtos[produto].tipo === "alimento" ? "darkorange" : "darkblue";
+                    conteudo += `<li style="color: ${cor};">${produto.charAt(0).toUpperCase() + produto.slice(1)}: 
+                    ${produtos[produto].quantidade} unidades - Total: R$ ${produtos[produto].total.toFixed(2)}</li>`;
+                    subtotal += produtos[produto].total;
+                }
+            }
+            conteudo += "</ul>";
+
+            if (subtotal === 0) {
+                carrinhoDiv.innerHTML = "<p>O carrinho está vazio.</p>";
+            } else {
+                carrinhoDiv.innerHTML = conteudo;
+                document.getElementById("subtotal").textContent = "Subtotal: R$ " + subtotal.toFixed(2);
+            }
+
+            // Informações para o Pix
+            const chavePix = "suachavepix@email.com"; // Sua chave Pix (pode ser e-mail, CPF, CNPJ)
+            const nomeRecebedor = "Nome do Recebedor"; // Nome do recebedor
+            const cidadeRecebedor = "Sua Cidade"; // Cidade do recebedor
+            const valorPagamento = subtotal; // Valor do pagamento (substitua pelo valor do seu carrinho)
+            const mensagem = "Pagamento do Carrinho"; // Mensagem opcional para o pagamento
+
+            // Função para gerar o payload do Pix
+            function gerarPayloadPix(chave, nome, cidade, valor, mensagem) {
+                return `000201
+                010211
+                26${chave.length + 14}0014br.gov.bcb.pix
+                01${chave.length.toString().padStart(2, '0')}${chave}
+                52040000
+                5303986
+                54${valor.toFixed(2).replace('.', '')}
+                5802BR
+                59${nome.length.toString().padStart(2, '0')}${nome}
+                60${cidade.length.toString().padStart(2, '0')}${cidade}
+                62${mensagem.length.toString().padStart(2, '0')}${mensagem}
+                6304`;
+            }
+
+            // Gerar o payload do Pix com as informações fornecidas
+            const payloadPix = gerarPayloadPix(chavePix, nomeRecebedor, cidadeRecebedor, valorPagamento, mensagem);
+
+            // Gera o QR Code
+            const qrcodeDiv = document.getElementById("qrcode");
+            const qrCode = new QRCode(qrcodeDiv, {
+                text: payloadPix, // Texto do QR Code
+                width: 256,        // Largura do QR Code
+                height: 256,       // Altura do QR Code
+                colorDark: "#000000", // Cor do QR Code
+                colorLight: "#ffffff", // Cor de fundo
+                correctLevel: QRCode.CorrectLevel.H // Nível de correção do QR Code
+            });
+        });
+    </script>
+</body>

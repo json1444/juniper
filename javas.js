@@ -96,7 +96,7 @@ function abrirCarrinho() {
     document.getElementById("conteudo-carrinho").innerHTML = conteudoCarrinho;
     document.getElementById("subtotal").textContent = "Subtotal: R$ " + subtotal.toFixed(2);
     document.getElementById("modal-carrinho").style.display = "block";
-}
+};
 
 function fecharCarrinho() {
     document.getElementById("modal-carrinho").style.display = "none";
@@ -177,3 +177,29 @@ document.getElementById('form-avaliacao').addEventListener('submit', function (e
 
 // Carregar avaliações ao iniciar
 carregarAvaliacoes();
+
+
+
+function carregarPagamento() {
+    // Salva o estado atual do carrinho no localStorage
+    localStorage.setItem('carrinho', JSON.stringify(produtos));
+
+    // Exibe a tela de carregamento
+    const body = document.querySelector('body');
+    body.innerHTML = `
+        <div style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        ">
+            <h2 style="color: #333;">Carregando pagamento...</h2>
+        </div>
+    `;
+
+    setTimeout(() => {
+        window.location.href = "pagamento.html";
+    }, 2000);
+}
