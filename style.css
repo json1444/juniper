@@ -92,9 +92,6 @@ header {
     cursor: pointer;
     color: white;
 }
-:hover.icone {
-    background-color: rgb(63, 255, 245);
-}
 
 /* Estiliza o menu de opções que estará oculto inicialmente */
 .opcoes {
@@ -137,8 +134,10 @@ header {
     cursor: pointer;
     color: white;
 }
-:hover.icone2 {
-    background-color: rgb(63, 255, 245);
+.icone:hover, .icone2:hover {
+    transform: translateY(5px);
+    z-index: 2222;
+    background-color:rgb(0, 0, 0);
 }
 
 .opcoes2 {
@@ -212,6 +211,7 @@ div.input {
 }
 .butrolagem:hover {
     color:#ff9500;
+    font-size: 1.9vw;
 }
 .pesquisavel {
     text-align: center;

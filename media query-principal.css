@@ -54,6 +54,11 @@
         cursor: pointer;
         color: white;
     }
+
+    .icone:hover, .icone2:hover {
+        transform: translateY(5px);
+        z-index: 2222;
+    }
     .opcoes, .opcoes2 {
         top: 20px;
         z-index: 2010;
@@ -82,8 +87,8 @@
         
     }
     .butrolagem:hover {
-        color:#ffd000;
-       
+        color:#ff9500;
+        font-size: 4.4vw;
     }
     .pesquisavel {
         text-align: center;
@@ -727,7 +732,7 @@ div#cabecasite {
         color: white;
     }
     .opcoes, .opcoes2 {
-        top: 20px;
+        top: 25px;
         right: -18px;
         z-index: 2010;
         font-size: 19px;
@@ -754,9 +759,8 @@ div#cabecasite {
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .butrolagem:hover {
-        color:#ffd000;
-        transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+        color:#ff9500;
+        font-size: 3.3vw;
     }
     .pesquisavel {
         text-align: center;
@@ -1361,7 +1365,7 @@ div#cabecasite {
     }
     .icone {
         position: absolute;
-        font-family: luckpet2;
+        font-family: luckpet3;
         font-size: 15px;
         right: 80px;
         top: 19px;
@@ -1377,7 +1381,7 @@ div#cabecasite {
     }
     .icone2 {
         position: absolute;
-        font-family: luckpet2;
+        font-family: luckpet3;
         font-size: 14.2px;
         right: 20px;
         top: 19px;
@@ -1392,10 +1396,10 @@ div#cabecasite {
         color: white;
     }
     .opcoes, .opcoes2 {
-        top: 20px;
+        top: 25px;
         right: -18px;
         z-index: 2010;
-        font-size: 15px;
+        font-size: 20px;
     }
     #pesquisa {
         margin-top: 45px;
@@ -1510,9 +1514,8 @@ div#cabecasite {
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .butrolagem:hover {
-        color:#ffd000;
-        transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+        color:#ff9500;
+        font-size: 3.3vw;
     }
     .pesquisavel {
         text-align: center;
@@ -2006,7 +2009,7 @@ footer {
     }
     .icone {
         position: absolute;
-        font-family: luckpet2;
+        font-family: luckpet3;
         font-size: 15px;
         right: 80px;
         top: 19px;
@@ -2022,7 +2025,7 @@ footer {
     }
     .icone2 {
         position: absolute;
-        font-family: luckpet2;
+        font-family: luckpet3;
         font-size: 14.2px;
         right: 20px;
         top: 19px;
@@ -2040,7 +2043,7 @@ footer {
         top: 20px;
         right: -18px;
         z-index: 2010;
-        font-size: 15px;
+        font-size: 20px;
     }
     #pesquisa {
         margin-top: 45px;
@@ -2155,9 +2158,8 @@ footer {
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .butrolagem:hover {
-        color:#ffd000;
-        transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+        color:#ff9500;
+        font-size: 3.3vw;
     }
     .pesquisavel {
         text-align: center;
@@ -2677,10 +2679,10 @@ footer {
         color: white;
     }
     .opcoes, .opcoes2 {
-        top: 20px;
+        top: 30px;
         right: -18px;
         z-index: 2010;
-        font-size: 15px;
+        font-size: 20px;
     }
     #pesquisa {
         margin-top: 45px;
@@ -2795,9 +2797,8 @@ footer {
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .butrolagem:hover {
-        color:#ffd000;
-        transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+        color:#ff9500;
+        font-size: 2.9vw;
     }
     .pesquisavel {
         text-align: center;
@@ -3420,9 +3421,8 @@ footer {
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .butrolagem:hover {
-        color:#ffd000;
-        transform: scale(1.05);
-        box-shadow: 4px 4px 12px rgb(0, 0, 0, 0.3);
+        color:#ff9500;
+        font-size: 2.5vw;
     }
     .pesquisavel {
         text-align: center;
@@ -3865,9 +3865,7 @@ div#paidivcamisa {
         color: rgb(255, 255, 255);
         font-family: luckpet3;
     }
-    .butrolagem:hover {
-        color:#ff9500;
-    }
+   
     .pesquisavel {
         text-align: center;
     padding-top: 15px;
