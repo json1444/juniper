@@ -10,14 +10,25 @@ window.addEventListener("scroll", () => {
 
 
 
-// Define o tempo em milissegundos para o carregamento (aqui 3 segundos)
-const tempoDeCarregamento = 3000;
 
-setTimeout(() => {
-    document.getElementById("loading").style.display = "none"; // Esconde a mensagem de carregamento
-    document.querySelector(".carousel-container").style.display = "block"; // Exibe o carousel
-}, tempoDeCarregamento);
-
+document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".carousel-item");
+    let currentIndex = 0;
+  
+    function showNextImage() {
+      // Remove a classe "active" da imagem atual
+      items[currentIndex].classList.remove("active");
+  
+      // Atualiza o índice para a próxima imagem (ou volta para o início)
+      currentIndex = (currentIndex + 1) % items.length;
+  
+      // Adiciona a classe "active" à nova imagem
+      items[currentIndex].classList.add("active");
+    }
+  
+    // Troca de imagem a cada 3 segundos
+    setInterval(showNextImage, 3000);
+  });
 
 
 let produtos = {
@@ -108,17 +119,6 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 };
-
-let currentIndex = 0;
-const items = document.querySelectorAll('.carousel-item');
-
-function showNextImage() {
-    items[currentIndex].classList.remove('active'); // Oculta a imagem atual
-    currentIndex = (currentIndex + 1) % items.length; // Avança para o próximo índice
-    items[currentIndex].classList.add('active'); // Exibe a nova imagem
-}
-
-setInterval(showNextImage, 3000); // Muda a imagem a cada 3 segundos
 
 
 
