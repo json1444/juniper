@@ -31,7 +31,7 @@ Bem-vindo ao **LuckPet**, um e-commerce moderno e responsivo desenvolvido para a
 ## 🚀 Link para Acesso
 
 - **Acesse o site aqui**: [LuckPet - Vercel](https://projeto-luckpet.vercel.app/)
-- **Acesse o site aqui**: [LuckPet - github](https://pablog-7.github.io/projeto-luckpet/)
+- **Acesse o site aqui**: [LuckPet - github](https://pablog-7.github.io/ecommerce-luckpet/)
 
 ## 📌 Observações
 
