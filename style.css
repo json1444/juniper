@@ -921,8 +921,11 @@ body, html {
         margin-bottom: 4px;
         display: block;
     }
+    .product-card  {
+        height: 520px;
+    }
     .product-card img {
-        height: 63%;
+        height: 58%;
     }
     .product-section h2 {
         padding-top: 20px;
