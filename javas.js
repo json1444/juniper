@@ -1,37 +1,54 @@
-window.onload = function () {
-    window.scrollTo(0, 0); // Força a página para o topo ao carregar
+/**
+ * =============================================
+ * FUNÇÕES DE INICIALIZAÇÃO E COMPORTAMENTO GERAL
+ * =============================================
+ */
+
+// Inicializa a página no topo
+window.onload = function() {
+    window.scrollTo(0, 0);
 };
 
-const cabecaSite = document.querySelector("#cabecasite");
+// Efeito de parallax no cabeçalho
+const cabecaSite = document.querySelector(".promo-banners");
 window.addEventListener("scroll", () => {
     let scrollPosition = window.scrollY;
-    cabecaSite.style.backgroundPositionY = `${scrollPosition * 0.5}px`; // Ajusta o fator de deslocamento
+    if (cabecaSite) {
+        cabecaSite.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+    }
 });
 
+/**
+ * =============================================
+ * CARROSSEL DE IMAGENS
+ * =============================================
+ */
+document.addEventListener("DOMContentLoaded", function() {
+    // Inicializa o carrossel principal
+    const carouselItems = document.querySelectorAll(".carousel-item");
+    if (carouselItems.length > 0) {
+        let currentIndex = 0;
+        carouselItems[0].classList.add("active");
 
+        function rotateCarousel() {
+            carouselItems[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            carouselItems[currentIndex].classList.add("active");
+        }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    const items = document.querySelectorAll(".carousel-item");
-    let currentIndex = 0;
-  
-    function showNextImage() {
-      // Remove a classe "active" da imagem atual
-      items[currentIndex].classList.remove("active");
-  
-      // Atualiza o índice para a próxima imagem (ou volta para o início)
-      currentIndex = (currentIndex + 1) % items.length;
-  
-      // Adiciona a classe "active" à nova imagem
-      items[currentIndex].classList.add("active");
+        setInterval(rotateCarousel, 3000);
     }
-  
-    // Troca de imagem a cada 3 segundos
-    setInterval(showNextImage, 3000);
-  });
+});
 
+/**
+ * =============================================
+ * GERENCIAMENTO DO CARRINHO DE COMPRAS
+ * =============================================
+ */
 
-let produtos = {
+// Objeto que armazena todos os produtos e seus dados
+const produtos = {
+    // Alimentos
     morango: { quantidade: 0, total: 0, tipo: "alimento" },
     uva: { quantidade: 0, total: 0, tipo: "alimento" },
     coco: { quantidade: 0, total: 0, tipo: "alimento" },
@@ -41,165 +58,233 @@ let produtos = {
     mirtilo: { quantidade: 0, total: 0, tipo: "alimento" },
     laranja: { quantidade: 0, total: 0, tipo: "alimento" },
 
-    Fantasia: { quantidade: 0, total: 0, tipo: "vestimenta" },
-    Lenço: { quantidade: 0, total: 0, tipo: "vestimenta" },
-    Charme: { quantidade: 0, total: 0, tipo: "vestimenta" }
+    // Vestimentas
+    charme: { quantidade: 0, total: 0, tipo: "vestimenta" },
+    lenço: { quantidade: 0, total: 0, tipo: "vestimenta" },
+    fantasia: { quantidade: 0, total: 0, tipo: "vestimenta" }
 };
 
+/**
+ * Atualiza a quantidade e total de um produto no carrinho
+ * @param {string} produto - Nome do produto
+ * @param {number} preco - Preço unitário do produto
+ * @param {string} acao - 'adicionar' ou 'remover'
+ */
 function atualizarProduto(produto, preco, acao) {
-    const notificacao = document.getElementById("notificacao"); // Corrigido o ID
+    const notificacao = document.getElementById("notification");
+    
+    // Verifica se o produto existe
     if (!produtos[produto]) {
         console.error("Produto não encontrado:", produto);
         return;
     }
 
-    let produtoData = produtos[produto];
+    const produtoData = produtos[produto];
+    const nomeFormatado = produto.charAt(0).toUpperCase() + produto.slice(1);
 
+    // Executa a ação solicitada
     if (acao === 'adicionar') {
-        notificacao.textContent = `${produto.charAt(0).toUpperCase() + produto.slice(1)} adicionado ao carrinho`;
+        notificacao.textContent = `${nomeFormatado} adicionado ao carrinho`;
+        notificacao.classList.remove("error");
         produtoData.quantidade++;
         produtoData.total += parseFloat(preco);
-    } else if (acao === 'remover' && produtoData.quantidade > 0) {
-        notificacao.textContent = `${produto.charAt(0).toUpperCase() + produto.slice(1)} removido do carrinho`;
-        produtoData.quantidade--;
-        produtoData.total -= parseFloat(preco);
+    } else if (acao === 'remover') {
+        if (produtoData.quantidade > 0) {
+            notificacao.textContent = `${nomeFormatado} removido do carrinho`;
+            notificacao.classList.remove("error");
+            produtoData.quantidade--;
+            produtoData.total -= parseFloat(preco);
+        } else {
+            notificacao.textContent = `Não há ${nomeFormatado} no carrinho`;
+            notificacao.classList.add("error");
+            notificacao.classList.add("show");
+            setTimeout(() => {
+                notificacao.classList.remove("show");
+            }, 3000);
+            return;
+        }
     }
 
-       // Evita que o total fique negativo próximo de zero
-       if (produtoData.total < 0.01 && produtoData.total > -0.01) {
-        produtoData.total = 0;}
+    // Corrige possíveis valores negativos próximos de zero
+    if (Math.abs(produtoData.total) < 0.01) {
+        produtoData.total = 0;
+    }
 
+    // Atualiza a interface
+    updateProductUI(produto, produtoData);
+    showNotification(notificacao);
+}
 
-        
-    // Exibe a notificação
+/**
+ * Atualiza a interface do usuário para um produto específico
+ * @param {string} produto - Nome do produto
+ * @param {object} produtoData - Dados do produto
+ */
+function updateProductUI(produto, produtoData) {
+    const quantidadeElement = document.getElementById(`${produto}-quantidade`);
+    const totalElement = document.getElementById(`${produto}-total-valor`);
+
+    if (quantidadeElement) {
+        quantidadeElement.textContent = `Unid: ${produtoData.quantidade}`;
+    }
+    if (totalElement) {
+        totalElement.textContent = `R$ ${produtoData.total.toFixed(2)}`;
+    }
+}
+
+/**
+ * Mostra a notificação na tela
+ * @param {HTMLElement} notificacao - Elemento da notificação
+ */
+function showNotification(notificacao) {
     notificacao.classList.add("show");
-
-    // Oculta a notificação após 3 segundos
     setTimeout(() => {
         notificacao.classList.remove("show");
     }, 3000);
-
-    // Atualize a quantidade e o total na interface para o produto específico
-    document.getElementById(produto + '-quantidade').textContent = "Unid: " + produtoData.quantidade;
-    document.getElementById(produto + '-total-valor').textContent = "R$ " + produtoData.total.toFixed(2);
 }
 
+/**
+ * Abre o modal do carrinho e exibe os itens
+ */
 function abrirCarrinho() {
-    let conteudoCarrinho = "<ul>";
+    const conteudoCarrinho = document.getElementById("cart-content");
+    const subtotalElement = document.getElementById("cart-subtotal");
+    let htmlContent = "<ul>";
     let subtotal = 0;
 
-    for (let produto in produtos) {
-        let produtoData = produtos[produto];
+    // Itera sobre todos os produtos no carrinho
+    for (const [produto, produtoData] of Object.entries(produtos)) {
         if (produtoData.quantidade > 0) {
             // Define a cor baseada no tipo do produto
-            let cor = produtoData.tipo === "alimento" ? "darkorange" : "darkblue";
-            conteudoCarrinho += `<li style="color: ${cor};">${produto.charAt(0).toUpperCase() + produto.slice(1)}: 
-            ${produtoData.quantidade} unidades - Total: R$ ${produtoData.total.toFixed(2)}</li>`;
+            const cor = produtoData.tipo === "alimento" ? "darkorange" : "darkblue";
+            const nomeFormatado = produto.charAt(0).toUpperCase() + produto.slice(1);
+            
+            htmlContent += `
+                <li style="color: ${cor}">
+                    ${nomeFormatado}: ${produtoData.quantidade} un - R$ ${produtoData.total.toFixed(2)}
+                </li>`;
+            
             subtotal += produtoData.total;
         }
     }
-    conteudoCarrinho += "</ul>";
 
-    if (conteudoCarrinho === "<ul></ul>") {
-        conteudoCarrinho = "<p>O carrinho está vazio.</p>";
+    htmlContent += "</ul>";
+
+    // Verifica se o carrinho está vazio
+    if (subtotal === 0) {
+        htmlContent = '<p class="empty-cart">O carrinho está vazio</p>';
     }
 
-    document.getElementById("conteudo-carrinho").innerHTML = conteudoCarrinho;
-    document.getElementById("subtotal").textContent = "Subtotal: R$ " + subtotal.toFixed(2);
-    document.getElementById("modal-carrinho").style.display = "block";
-};
+    // Atualiza o conteúdo do modal
+    conteudoCarrinho.innerHTML = htmlContent;
+    subtotalElement.textContent = `Subtotal: R$ ${subtotal.toFixed(2)}`;
+    
+    // Exibe o modal
+    document.getElementById("cart-modal").style.display = "block";
+}
 
+/**
+ * Fecha o modal do carrinho
+ */
 function fecharCarrinho() {
-    document.getElementById("modal-carrinho").style.display = "none";
+    document.getElementById("cart-modal").style.display = "none";
 }
 
-window.onclick = function(event) {
-    let modal = document.getElementById("modal-carrinho");
-    if (event.target == modal) {
-        modal.style.display = "none";
+// Fecha o modal ao clicar fora dele
+window.addEventListener("click", function(event) {
+    const modal = document.getElementById("cart-modal");
+    if (event.target === modal) {
+        fecharCarrinho();
     }
-};
-
-
-
-
-// Atualizar avaliações exibidas
-
-const API_URL = 'https://pablog-7.github.io/projeto-luckpet/';
-
-function carregarAvaliacoes() {
-    fetch('http://127.0.0.1:5000/avaliacoes')
-        .then(response => response.json())
-        .then(data => {
-            const avaliacoesDiv = document.getElementById('avaliacoes');
-            avaliacoesDiv.innerHTML = ''; // Limpar o conteúdo anterior
-            data.forEach(avaliacao => {
-                const div = document.createElement('div');
-                div.innerHTML = `
-                    <strong>${avaliacao.nome_usuario}</strong> - Nota: ${avaliacao.avaliacao}<br>
-                    <p>${avaliacao.comentario}</p>
-                    <small>${new Date(avaliacao.data_avaliacao).toLocaleString()}</small>
-                `;
-                avaliacoesDiv.appendChild(div);
-            });
-        })
-        .catch(error => console.error('Erro ao carregar avaliações:', error));
-}
-
-// Evento de envio do formulário
-document.getElementById('form-avaliacao').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const nomeUsuario = document.getElementById('nome_usuario').value;
-    const avaliacao = document.getElementById('avaliacao').value;
-    const comentario = document.getElementById('comentario').value;
-
-    fetch('http://127.0.0.1:5000/avaliacoes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            nome_usuario: nomeUsuario,
-            avaliacao: parseInt(avaliacao),
-            comentario: comentario
-        })
-    })
-    .then(response => response.text())
-    .then(message => {
-        alert('Avaliação enviada com sucesso!');
-        document.getElementById('form-avaliacao').reset(); // Limpar o formulário
-        carregarAvaliacoes(); // Atualizar a lista
-    })
-    .catch(error => {
-        console.error('Erro ao enviar avaliação:', error);
-        alert('Erro ao enviar a avaliação.');
-    });
 });
 
-// Carregar avaliações ao iniciar
-carregarAvaliacoes();
 
+/**
+ * =============================================
+ * PROCESSAMENTO DE PAGAMENTO
+ * =============================================
+ */
 
-
+/**
+ * Prepara e redireciona para a página de pagamento
+ */
 function carregarPagamento() {
-    // Salva o estado atual do carrinho no localStorage
+    // Verifica se há itens no carrinho
+    const subtotal = Object.values(produtos).reduce(
+        (total, produto) => total + produto.total, 0
+    );
+
+    if (subtotal <= 0) {
+        const notificacao = document.getElementById("notification");
+        notificacao.textContent = "Adicione itens ao carrinho antes de prosseguir";
+        notificacao.classList.add("error");
+        notificacao.classList.add("show");
+        
+        setTimeout(() => {
+            notificacao.classList.remove("show");
+        }, 3000);
+        return;
+    }
+
+    // Salva o carrinho no localStorage
     localStorage.setItem('carrinho', JSON.stringify(produtos));
 
     // Exibe a tela de carregamento
-    const body = document.querySelector('body');
-    body.innerHTML = `
-        <div style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        ">
-            <h2 style="color: #333;">Carregando pagamento...</h2>
-        </div>
-    `;
-
+    showLoadingScreen();
+    
+    // Redireciona após 2 segundos (simulando processamento)
     setTimeout(() => {
         window.location.href = "pagamento.html";
     }, 2000);
 }
+
+/**
+ * Mostra a tela de carregamento
+ */
+function showLoadingScreen() {
+    const body = document.body;
+    body.innerHTML = `
+        <div class="loading-screen">
+            <div class="loading-content">
+                <h2>Processando seu pedido...</h2>
+                <div class="loading-spinner"></div>
+                <p>Aguarde enquanto redirecionamos para o pagamento</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * =============================================
+ * INICIALIZAÇÃO DO FORMULÁRIO DE AVALIAÇÃO
+ * =============================================
+ */
+document.addEventListener("DOMContentLoaded", function() {
+    const feedbackForm = document.getElementById("feedback-form");
+    
+    if (feedbackForm) {
+        feedbackForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById("user-name").value;
+            const comentario = document.getElementById("user-comment").value;
+            const avaliacao = document.getElementById("user-rating").value;
+            
+            // Aqui você pode adicionar o código para enviar os dados
+            console.log("Avaliação enviada:", { nome, comentario, avaliacao });
+            
+            // Mostra mensagem de sucesso
+            const notificacao = document.getElementById("notification");
+            notificacao.textContent = "Avaliação enviada com sucesso! Obrigado.";
+            notificacao.classList.remove("error");
+            notificacao.classList.add("show");
+            
+            setTimeout(() => {
+                notificacao.classList.remove("show");
+            }, 3000);
+            
+            // Limpa o formulário
+            feedbackForm.reset();
+        });
+    }
+});

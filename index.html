@@ -1,343 +1,358 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Metadados básicos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuckPet</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pagamento.html">
+    <title>LuckPet - Pet Shop Online</title>
+    
+    <!-- Favicon -->
     <link rel="shortcut icon" href="img/PetLuck.png" type="image/x-icon">
-    <link rel="stylesheet" href="media query-principal.css">
-    <link rel="shortcut icon" href="PetLuck.png" type="image/x-icon">
+    
+    <!-- Folhas de estilo -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media-query.css">
 </head>
-<body>
-    <p class="p1"><strong>🎁LuckPet Já!</strong> seu pedido entregue em até 1h*<a href="*" style="color: #40006b;">Saiba mais</a></p>
-    <header style="height: 38px;">
 
-        <h1 id="titu1" class="titu11"><a class="atitu" href="#">LuckPet</a></h1>
+<body>
+    <!-- Barra de promoção no topo -->
+    <div class="promo-bar">
+        <p><strong>🎁 LuckPet Já!</strong> Seu pedido entregue em até 1h* <a href="#" class="saiba-mais">Saiba mais</a></p>
+    </div>
+
+    <!-- Cabeçalho principal -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo -->
+            <h1 class="logo"><a href="index.html">LuckPet</a></h1>
+            
+            <!-- Barra de pesquisa -->
+            <div class="search-container">
+                <input type="text" placeholder="Para seu pet, procure aqui 🔎" class="search-bar">
+            </div>
+            
+            <!-- Ícones de navegação -->
+            <div class="nav-icons">
+                <!-- Carrinho -->
+                <div class="cart-icon" onclick="abrirCarrinho()">
+                    <img src="img/comprar-online.png" alt="Carrinho de compras">
+                    <span>Carrinho</span>
+                </div>
+                
+                <!-- Perfil/Login -->
+                <div class="profile-icon">
+                    <a href="login.html"><img src="img/perfil.png" alt="Perfil do usuário"></a>
+                    <span>Entrar</span>
+                    </div>
+                </div>
+        </div>
+    </header>
+
+    <!-- Seção de banners promocionais -->
+    <section class="promo-banners">
+        <div class="banner">
+            <img src="img/bolsa-de-compras.png" alt="Ícone de desconto">
+            <p>Descontos de 15% a 25% OFF + Frete Grátis! <a href="#">Clique aqui</a></p>
+        </div>
+        <div class="banner">
+            <img src="img/cupom.png" alt="Ícone de cupom">
+            <p>Ganhe 10% na Primeira Compra! Código: <strong>BEMVINDO10</strong> <a href="#">Clique aqui</a></p>
+        </div>
+        <div class="banner">
+            <img src="img/tosa-de-animais-de-estimacao.png" alt="Ícone de serviços">
+            <p>Agende Já! Banho e Tosa com 15% de Desconto! <a href="#">Clique aqui</a></p>
+        </div>
+    </section>
+
+    <!-- Carrossel principal -->
+    <section class="main-carousel">
+        <div class="carousel-item active">
+            <img src="img/img4-anuncio.png" alt="Promoção de ração">
+        </div>
+        <div class="carousel-item">
+            <img src="img/img2-anuncio.png" alt="Promoção de acessórios">
+        </div>
+        <div class="carousel-item">
+            <img src="img/img5-anuncio.png" alt="Promoção de acessórios">
+        </div>
+        <div class="carousel-item">
+            <img src="img/img1-anuncio.png" alt="Promoção de acessórios">
+        </div>
+        <div class="carousel-item">
+            <img src="img/img3-anuncio.png" alt="Promoção de brinquedos">
+        </div>
+    </section>
+
+    <!-- Navegação por categorias -->
+    <nav class="category-nav">
+        <a href="#saude-pet" class="category-link">💊 Saúde Pet</a>
+        <a href="#moda-pet" class="category-link">🐈 Moda Pet</a>
+        <a href="#nutricao-pet" class="category-link">🍏 Nutrição Pet</a>
+        <a href="#curiosidades" class="category-link">🐶 Curiosidades</a>
+    </nav>
+
+    <!-- Seção de Moda Pet -->
+    <section id="moda-pet" class="product-section">
+        <h2 class="section-title">Produtos que seu pet vai <span>amar!</span></h2>
         
-        <div class="icone">
-        <img class="img11" src="img/comprar-online.png" alt="">
-            <div class="opcoes">
-                <a href="#" onclick="abrirCarrinho()">
-                    <p>Carrinho</p>
+        <div class="product-grid">
+            <!-- Produto 1 -->
+            <div class="product-card">
+                <img src="img/CamisaPetluck.png" alt="Charme de Natal para Gatos">
+                <h3>Gato com Charme de Natal</h3>
+                <p class="product-description">Charme natalino para seu felino</p>
+                <p class="price">R$ 14,99 <span class="member-price">R$ 9,99 para assinantes</span></p>
+                <button class="add-to-cart" onclick="atualizarProduto('charme', 14.99, 'adicionar')">Adicionar</button>
+            </div>
+            
+            <!-- Produto 2 -->
+            <div class="product-card">
+                <img src="img/CamisaPetluck2.png" alt="Lenço Xadrez para Pets">
+                <h3>Lenço Xadrez Clássico</h3>
+                <p class="product-description">Confortável e elegante</p>
+                <p class="price">R$ 59,99 <span class="member-price">R$ 52,00 para assinantes</span></p>
+                <button class="add-to-cart" onclick="atualizarProduto('lenço', 59.99, 'adicionar')">Adicionar</button>
+            </div>
+            
+            <!-- Produto 3 -->
+            <div class="product-card">
+                <img src="img/CamisaPetluck3.png" alt="Fantasia Natalina para Pets">
+                <h3>Fantasia Natalina Pet</h3>
+                <p class="product-description">Espírito natalino para seu pet</p>
+                <p class="price">R$ 45,00 <span class="member-price">R$ 39,99 para assinantes</span></p>
+                <button class="add-to-cart" onclick="atualizarProduto('fantasia', 45.00, 'adicionar')">Adicionar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Nutrição Pet -->
+<section id="nutricao-pet" class="product-section">
+    <h2 class="section-title">Nutrição Balanceada para uma Vida Saudável</h2>
+    
+    <a href="#" class="cart-link" onclick="abrirCarrinho()">> Clique aqui e Confira o seu Carrinho 🛍 <</a>
+    
+    <div class="nutrition-carousel">
+        <!-- Ração de Morango -->
+        <div class="nutrition-product">
+            <img src="img/img-raçao/MorangoPet.png" alt="Ração de Morango">
+            <h3>Ração de Morango🍓</h3>
+            <p class="price">R$ 6,99</p>
+            <div class="quantity-controls">
+                <span id="morango-quantidade">Unid: 0</span>
+                <span id="morango-total-valor">R$ 0,00</span>
+                <button class="btn-add" onclick="atualizarProduto('morango', 6.99, 'adicionar')">Adicionar</button>
+                <button class="btn-remove" onclick="atualizarProduto('morango', 6.99, 'remover')">Remover</button>
+            </div>
+        </div>
+        
+        <!-- Ração de Uva -->
+        <div class="nutrition-product">
+            <img src="img/img-raçao/UvaPet.png" alt="Ração de Uva">
+            <h3>Ração de Uva🍇</h3>
+            <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
+            <div class="quantity-controls">
+                <span id="uva-quantidade">Unid: 0</span>
+                <span id="uva-total-valor">R$ 0,00</span>
+                <button class="btn-add" onclick="atualizarProduto('uva', 4.50, 'adicionar')">Adicionar</button>
+                <button class="btn-remove" onclick="atualizarProduto('uva', 4.50, 'remover')">Remover</button>
+            </div>
+        </div>
+        
+        <!-- Ração de Coco -->
+        <div class="nutrition-product">
+            <img src="img/img-raçao/CocoPet.png" alt="Ração de Coco">
+            <h3>Ração de Coco🥥</h3>
+            <p class="price">R$ 6,99</p>
+            <div class="quantity-controls">
+                <span id="coco-quantidade">Unid: 0</span>
+                <span id="coco-total-valor">R$ 0,00</span>
+                <button class="btn-add" onclick="atualizarProduto('coco', 6.99, 'adicionar')">Adicionar</button>
+                <button class="btn-remove" onclick="atualizarProduto('coco', 6.99, 'remover')">Remover</button>
+            </div>
+        </div>
+        
+        <!-- Ração de Limão -->
+        <div class="nutrition-product">
+            <img src="img/img-raçao/LimaoPet.png" alt="Ração de Limão">
+            <h3>Ração de Limão🍋‍🟩</h3>
+            <p class="price">R$ 6,99</p>
+            <div class="quantity-controls">
+                <span id="limao-quantidade">Unid: 0</span>
+                <span id="limao-total-valor">R$ 0,00</span>
+                <button class="btn-add" onclick="atualizarProduto('limao', 6.99, 'adicionar')">Adicionar</button>
+                <button class="btn-remove" onclick="atualizarProduto('limao', 6.99, 'remover')">Remover</button>
+            </div>
+        </div>
+        
+       <!-- Ração de Banana -->
+<div class="nutrition-product">
+    <img src="img/img-raçao/BananaPet.png" alt="Ração de Banana">
+    <h3>Ração de Banana🍌</h3>
+    <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
+    <div class="quantity-controls">
+        <span id="banana-quantidade">Unid: 0</span>
+        <span id="banana-total-valor">R$ 0,00</span>
+        <button class="btn-add" onclick="atualizarProduto('banana', 4.50, 'adicionar')">Adicionar</button>
+        <button class="btn-remove" onclick="atualizarProduto('banana', 4.50, 'remover')">Remover</button>
+    </div>
+</div>
+
+<!-- Ração de Mirtilo -->
+<div class="nutrition-product">
+    <img src="img/img-raçao/MirtiloPet.png" alt="Ração de Mirtilo">
+    <h3>Ração de Mirtilo🫐</h3>
+    <p class="price">R$ 6,99</p>
+    <div class="quantity-controls">
+        <span id="mirtilo-quantidade">Unid: 0</span>
+        <span id="mirtilo-total-valor">R$ 0,00</span>
+        <button class="btn-add" onclick="atualizarProduto('mirtilo', 6.99, 'adicionar')">Adicionar</button>
+        <button class="btn-remove" onclick="atualizarProduto('mirtilo', 6.99, 'remover')">Remover</button>
+    </div>
+</div>
+        
+        <!-- Ração de Laranja -->
+        <div class="nutrition-product">
+            <img src="img/img-raçao/LaranjaPet.png" alt="Ração de Laranja">
+            <h3>Ração de Laranja🍊</h3>
+            <p class="price">R$ 6,99</p>
+            <div class="quantity-controls">
+                <span id="laranja-quantidade">Unid: 0</span>
+                <span id="laranja-total-valor">R$ 0,00</span>
+                <button class="btn-add" onclick="atualizarProduto('laranja', 6.99, 'adicionar')">Adicionar</button>
+                <button class="btn-remove" onclick="atualizarProduto('laranja', 6.99, 'remover')">Remover</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Seção de Curiosidades -->
+    <section id="curiosidades" class="fun-facts">
+        <h2 class="section-title">Descubra mais sobre seu <span>amigo!</span></h2>
+        
+        <div class="facts-container">
+            <div class="fact-card">
+                <div class="fact-image" style="background-image: url('img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg')"></div>
+                <p><span>Sabia?</span> Gatos podem correr até 50km/h enquanto cães chegam a 45km/h</p>
+            </div>
+            
+            <div class="fact-card">
+                <div class="fact-image" style="background-image: url('img/cedric-vt-IuJc2qh2TcA-unsplash.jpg')"></div>
+                <p><span>Sabia?</span> Gatos podem pular até seis vezes a altura do seu corpo</p>
+            </div>
+            
+            <div class="fact-card">
+                <div class="fact-image" style="background-image: url('img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg')"></div>
+                <p><span>Sabia?</span> Cachorros têm olfato até 10.000 vezes mais forte que o nosso!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Planos de Saúde -->
+    <section id="saude-pet" class="health-plans">
+        <h2 class="section-title">Bem-Estar Completo para seu Companheiro</h2>
+        
+        <div class="plans-container">
+            <!-- Plano Básico -->
+            <div class="plan-card">
+                <h3>LuckPet</h3>
+                <h4>Plano Básico</h4>
+                <p>☻ Cuidados essenciais para o dia a dia do seu pet</p>
+                <p class="plan-price">R$ 99,90/Mês</p>
+                <button class="plan-btn"><a href="login.html">Consultar</a></button>
+            </div>
+            
+            <!-- Plano Essencial -->
+            <div class="plan-card">
+                <h3>LuckPet</h3>
+                <h4>Plano Essencial</h4>
+                <p>❤ Cobertura completa com ótimo custo-benefício</p>
+                <p class="plan-price">R$ 179,90/Mês</p>
+                <button class="plan-btn"><a href="login.html">Consultar</a></button>
+            </div>
+            
+            <!-- Plano Premium -->
+            <div class="plan-card">
+                <h3>LuckPet</h3>
+                <h4>Plano Premium</h4>
+                <p>★ Máxima cobertura para necessidade do seu pet</p>
+                <p class="plan-price">R$ 299,90/Mês</p>
+                <button class="plan-btn"><a href="login.html">Consultar</a></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Avaliação -->
+    <section class="feedback-section">
+        <h2 class="section-title">Avalie o Site ou Produtos LuckPet!</h2>
+        
+        <form id="feedback-form">
+            <label for="user-name">Nome:</label>
+            <input type="text" id="user-name" name="user-name" required>
+            
+            <label for="user-comment">Comentário:</label>
+            <textarea id="user-comment" name="user-comment" rows="4"></textarea>
+            
+            <label for="user-rating">Avaliação (1 a 10):</label>
+            <input type="number" id="user-rating" name="user-rating" min="1" max="10" required>
+            
+            <button type="submit" class="submit-btn">Enviar Avaliação</button>
+        </form>
+    </section>
+
+    <!-- Modal do Carrinho -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharCarrinho()">&times;</span>
+            <h2>Confira sua compra</h2>
+            <p class="cart-subtitle">🟠 Alimentos 🔵 Vestimento</p>
+            
+            <div id="cart-content"></div>
+            
+            <p class="cart-total" id="cart-subtotal">Subtotal: R$ 0,00</p>
+            
+            <button class="checkout-btn" onclick="carregarPagamento()">
+                <a href="pagamento.html">Ir para sacola</a>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notificação -->
+    <div id="notification" class="notification">
+        Produto adicionado ao carrinho!
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <h3>LuckPet</h3>
+            <p>Cuide do seu pet com os melhores produtos e serviços!</p>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=100024656091863">
+                    <img src="img/redes-sociais/facebook (1).png" alt="Facebook">
+                    <span>Pablo Gomes</span>
+                </a>
+                <a href="https://www.instagram.com/ypablitoo/">
+                    <img src="img/redes-sociais/instagram.png" alt="Instagram">
+                    <span>ypablitoo</span>
+                </a>
+                <a href="https://www.linkedin.com/in/pablo-gomes-8b574321a/">
+                    <img src="img/redes-sociais/linkedin (1).png" alt="LinkedIn">
+                    <span>Pablo Gomes</span>
+                </a>
+                <a href="https://github.com/PabloG-7">
+                    <img src="img/redes-sociais/github.png" alt="GitHub">
+                    <span>PabloG-7</span>
                 </a>
             </div>
         </div>
-
-        <div class="icone2">
-            <img class="img12" src="img/perfil.png" alt="">
-                <div class="opcoes2">
-                    <a href="login.html">
-                        <p>Entrar</p><br>
-                    </a>
-                    ---OU--- 
-                    <a href="login.html">
-                     <br>   <br><p>Cadastrar</p>
-                    </a>
-                </div>
-            </div>
-
-    
-    <section class="section01">
-        <div class="input"><input type="text" placeholder="Para seu pet, Procure aqui 🔎" name="" id="pesquisa"></div>
-
-    </header>
-
-<br><br><br>
-
-       <!-- <h2 class="h10"><span style="color: orangered;">D</span>estaques</h2> --> 
-
-        <div class="carousel-container"></div>
-
-    <div id="rolagens">
-        <div class="pesquisavel" data-nome="plano de saude"><a class="butrolagem" href="#section03">💊 Saúde Pet</a></div>
-
-        <div  class="pesquisavel" data-nome="moda pet"><a class="butrolagem" href="#section02">🐈 Moda Pet</a></div>
-
-        <div  class="pesquisavel" data-nome="nutrição pet"><a class="butrolagem" href="#subtitu">🍏 Nutrição Pet</a></div>
-
-        <div class="pesquisavel"><a class="butrolagem" href="#sectioncuri" data-nome="curiosidades">🐶 Curiar Pet</a></div>
-    </div>
-
-
-    <div id="cabecasite">
-        <main>
-            <img class="imgdesc" src="img/bolsa-de-compras.png" alt=""><div id="div1"><p class="pdesc">Descontos de 15% a 25% OFF e frete grátis!
-                Venha conhecer o nosso Club LuckPet! <a style="color: black;" href="#">Clique aqui e saiba como funciona</a></p>
-                </div>
-                <img class="imgdesc" src="img/cupom.png" alt=""><div id="div2"><p class="pdesc">Ganhe um cupom de 10% na sua primeira compra! Use o código: <u><span style="cursor: pointer;">BEMVINDO10</span></u>. <a style="color: black;" href="#">Clique aqui e saiba como funciona</a></p></div>
-                <img class="imgdesc" src="img/tosa-de-animais-de-estimacao.png" alt=""><div id="div3"><p class="pdesc">Banho e Tosa com 15% de desconto! Cuide do seu pet com carinho e economia.  <a style="color: black;" href="#">Clique aqui e saiba como funciona</a></p></div>
-        </main>
-    </div>
-    
-
-    <div class="carousel">
         
-      
-        <div class="carousel-item active">
-          <img class="img04" src="img/img4-anuncio.png" alt="Anúncio 1">
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuckPet - Todos os direitos reservados</p>
         </div>
-        <div class="carousel-item">
-          <img class="img02" src="img/img2-anuncio.png" alt="Anúncio 2">
-        </div>
-        <div class="carousel-item">
-          <img class="img03" src="img/img3-anuncio.png" alt="Anúncio 3">
-        </div>
-        <div class="carousel-item">
-          <img class="img01" src="img/img1-anuncio.png" alt="Anúncio 4">
-        </div>
-      </div>
+    </footer>
 
-    </div>
-    </section>
-        
-    <section id="section02">
-        
-
-        <h1 class="titu12"><span style="color: rgb(72, 0, 139);">P</span>rodutos que seu pet vai <span style="color: red;">amar!</span></h1>
-
-        <div id="paidivcamisa">
-            <div class="divcam1"><img class="camisa1" src="img/CamisaPetluck.png" alt=""><p class="pcam">Gato com Charme de Natal <p style="color: #4d4d4d;">Charme natalino para seu felino</p><br>A partir de R$ 14,99<br><span style="color: #ff7b00;">R$ 9,99 <p class="p10">para assinantes <br><button class="butcomprar"  onclick="atualizarProduto('Charme', 14.99, 'adicionar')">Adicionar</button></p></p></div>
-
-
-            <div class="divcam2"><img class="camisa2" src="img/CamisaPetluck2.png" alt=""><p class="pcam">Lenço Xadrez Clássico <p style="color: #4d4d4d;">Um lenço confortavel e elegante</p><br> A partir de R$ 59,99 <br><span style="color: #ff7b00;"> R$ 52,00 <p class="p10">para assinantes<br> <button class="butcomprar"  onclick="atualizarProduto('Lenço', 59.99, 'adicionar')">Adicionar</button></p></p></div>
-
-
-            <div class="divcam3"><img class="camisa3" src="img/CamisaPetluck3.png" alt=""><p class="pcam">Fantasia Natalina Pet <p style="color: #4d4d4d;">Seu pet com espírito natalino</p><br>A partir de R$ 45,00<br><span style="color: #ff7b00;">R$ 39,99</span> <p class="p10">para assinantes <br><button class="butcomprar" onclick="atualizarProduto('Fantasia', 45.00, 'adicionar')">Adicionar</button></p></p></div>
-        </div>
-
-          <h1 id="subtitu">Nutrição Balanceada para uma Vida Saudável</h1>
-
-
-          <a href="#">
-            <p class="pcar" onclick="abrirCarrinho()">> Clique aqui e Confira o seu Carrinho🛍️ <</p>
-        </a>
-
-        <div class="carousel02">
-            <div class="divraçao1"><img class="raçao1" src="img/img-raçao/MorangoPet.png" alt=""><p>Ração de <span style="color: #ff0000;">Morango</span>
-<br>
-                <span style="line-height: 55px;">R$ 6,99</span>
-<br>               
-                <span class="p3" id="morango-quantidade">Unid: 0</span><span id="morango-total-valor"> R$ 0,00</span>
-
-                <button class="botao" onclick="atualizarProduto('morango', 6.99, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('morango', 6.99, 'remover')">Remover</button>
-            </div>
-
-            <div class="divraçao2"><img class="raçao2" src="img/img-raçao/UvaPet.png" alt=""><p>Ração de <span style="color: #8a2be2;">Uva</span>
-<br>
-                <span style="line-height: 55px;"><s style="color: red;">R$ 6,99</s> <span style="color: #00ac00;">R$ 4,50</span></span>
-<br>               
-                   <span class="p3" id="uva-quantidade">Unid: 0</span><span id="uva-total-valor"> R$ 0,00</span>
-
-                <button class="botao" onclick="atualizarProduto('uva', 4.50, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('uva', 4.50, 'remover')">Remover</button>
-        </div>
-
-            <div class="divraçao3"><img class="raçao3" src="img/img-raçao/CocoPet.png" alt=""><p>Ração de <span style="color: saddlebrown;">Coco</span>
-<br>
-                <span style="line-height: 55px;">R$ 6,99</span>
-<br>
-                  
-                <span class="p3" id="coco-quantidade">Unid: 0</span><span id="coco-total-valor"> R$ 0,00</span>
-
-
-                <button class="botao" onclick="atualizarProduto('coco', 6.99, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('coco', 6.99, 'remover')">Remover</button>
-            </div>
-
-            <div class="divraçao4"><img class="raçao4" src="img/img-raçao/LimaoPet.png" alt=""><p>Ração de <span style="color: #7bce00;">Limão</span>
-<br>
-                <span style="line-height: 55px;">R$ 6,99</span>
-<br>
-
-                <span class="p3" id="limao-quantidade">Unid: 0</span><span id="limao-total-valor"> R$ 0,00</span>
-
-
-                <button class="botao" onclick="atualizarProduto('limao', 6.99, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('limao', 6.99, 'remover')">Remover</button>
-            </div>
-
-            <div class="divraçao5"><img class="raçao5" src="img/img-raçao/BananaPet.png" alt=""><p>Ração de <span style="color: #dab900;">Banana</span>
-<br>
-                <span style="line-height: 55px;"><s style="color: red;">R$ 6,99</s> <span style="color: #00ac00;">R$ 4,50</span></span>
-<br>
-
-                <span class="p3" id="banana-quantidade">Unid: 0</span><span id="banana-total-valor"> R$ 0,00</span>
-
-
-                <button class="botao" onclick="atualizarProduto('banana', 4.50, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('banana', 4.50, 'remover')">Remover</button>
-            </div>
-
-            <div class="divraçao6"><img class="raçao6" src="img/img-raçao/CerejaPet.png" alt=""><p>Ração de <span style="color: #fa243d;">Cereja</span>
-<br>
-                <span style="line-height: 55px;">R$ 6,99</span>
-<br>
-
-                <span class="p3" id="cereja-quantidade">Unid: 0</span><span id="cereja-total-valor"> R$ 0,00</span>
-
-
-                <button class="botao" onclick="atualizarProduto('cereja', 6.99, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('cereja', 6.99, 'remover')">Remover</button>
-            </div>
-
-            <div class="divraçao7"><img class="raçao7" src="img/img-raçao/MirtiloPet.png" alt=""><p>Ração de <span style="color: #4682b4;">Mirtilo</span>
-<br>
-                <span style="line-height: 55px;">R$ 6,99</span>
-<br>
-
-                <span class="p3" id="mirtilo-quantidade">Unid: 0</span><span id="mirtilo-total-valor"> R$ 0,00</span>
-
-
-                <button class="botao" onclick="atualizarProduto('mirtilo', 6.99, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('mirtilo', 6.99, 'remover')">Remover</button>
-            </div>
-
-            <div class="divraçao8"><img class="raçao8" src="img/img-raçao/LaranjaPet.png" alt=""><p>Ração de <span style="color:  #db9000;">Laranja</span>
-<br>
-                <span style="line-height: 55px;">R$ 6,99</span>
-<br>
-
-                <span class="p3" id="laranja-quantidade">Unid: 0</span><span id="laranja-total-valor"> R$ 0,00</span>
-
-
-                <button class="botao" onclick="atualizarProduto('laranja', 6.99, 'adicionar')">Adicionar</button>
-                
-                <button class="botao-remover" onclick="atualizarProduto('laranja', 6.99, 'remover')">Remover</button>
-            </div>
-
-
-        <div id="notificacao" class="notificacao">
-            Produto adicionado ao carrinho!
-        </div>
-
-           <!-- Botão para abrir o modal do carrinho -->
-
-
-<!-- Modal do carrinho -->
-<div id="modal-carrinho" class="modal">
-    <div class="modal-content">
-        <span class="fechar" onclick="fecharCarrinho()">&times;</span>
-        <h2>Confira sua compra <br><span style="font-size: 20px;">🟠Alimentos 🔵Vestimento</span></h2> <br><br>
-
-        <div id="conteudo-carrinho"></div>
-
-        
-<br><br>
-
-
-        <p style="color: green; font-size: 25px;" id="subtotal">Subtotal: R$ 0,00</p>
-
-        <button class="botao-sacola" onclick="carregarPagamento()"><a href="pagamento.html">Ir para sacola</a></button>
-    </div>
-</div>
-    </section>
-
-   <section id="sectioncuri">
-    <h2 class="curi-h2"><span style="color: red;">D</span>escubra <span style="color: rgb(0, 153, 255);;">m</span>ais sobre seu <span style="color: #0c6600;">amigo!</span></h2>
-
-    <div class="paidiv">
-        <div class="div05"></div>
-
-        <div class="div06"></div>
-
-        <div class="div07"></div>
-    </div>
-    
-     <div class="paidiv2">
-        <div style="width: 250px; margin-left: 26px;"><p class="p5"><span style="color: #0c6600; font-size: 28px;">Sabia?</span> <br>Gatos podem correr até 50km/h enquanto <br> Cães chegam a 45km/h</p></div>
-
-        <div class="p6"><p class="p6"><span style="color: rgb(0, 153, 255); font-size: 28px;">Sabia?</span><br>Gatos podem pular até <br> seis vezes a altura <br> do seu corpo</p></div>
-
-        <div><p class="p7"><span style="color: red; font-size: 28px;">Sabia?</span> <br>Cachorros tem um olfato até<br> 10.000 vezes mais fortes<br> que o nosso!</p></div>
-     </div> 
-</section>
-
-    <section id="section03">
-        <h2 class="titu13">Bem-Estar Completo para <br> seu Companheiro</h2>
-        
-        <div class="planos">
-            <div class="plano1"><h3><span style="font-family: luckpet2;">LuckPet</span></h3>
-             <br>
-                <h1><span style="font-family: luckpet3; color: #ff7b00">Plano Básico</span></h1>
-             <br>
-                <h3>☻ Cuidados essenciais para
-                <br>
-                    o dia dia do seu pet</h3>
-                <br>
-                <h1>R$ 99,90/Mês</h1><br><button class="butplano"><a href="login.html"><span style="color: white;">Consultar</span></a></button></div>
-
-         <div class="plano2"><h3><span style="font-family: luckpet2;">LuckPet</span><h3>
-                <br>
-                <h1><span style="font-family: luckpet3; color: #ff7b00">Plano Essencial</span></h1>
-             <br>
-                <h3>❤ Cobertura completa com <br> ótimo custo-benefício</h3>
-             <br>
-                <h1>R$ 179,90/Mês</h1>
-             <br>
-                <button class="butplano"><a href="login.html"><span style="color: white;">Consultar</span></a></button></div>
-
-         <div class="plano3"><h3><span style="font-family: luckpet2;">LuckPet</span></h3>
-                <br>
-                <h1><span style="font-family: luckpet3; color: #ff7b00;">Plano Premium</span></h1>
-             <br>
-                <h3>★ Máxima cobertura para
-                <br>
-                necessidade do seu pet</h3>
-             <br>
-                <h1>R$ 299,90/Mês</h1>
-            <br>
-                <button class="butplano"><a href="login.html"><span style="color: white;">Consultar</span></a></button></div>
-        </div>
-    </section>
-    </div>
-    
-  
-    <h1 class="titulo-avaliacao">Avalie o Site ou Produtos LuckPet!</h1>
-    
-    <form id="form-avaliacao">
-        <label for="nome_usuario">Nome:</label>
-        <input type="text" id="nome_usuario" name="nome_usuario" required><br>
-
-        <label for="comentario">Comentário:</label>
-        <textarea id="comentario" name="comentario" rows="4" cols="50"></textarea><br>
-
-        <label for="avaliacao">Avaliação (1 a 10):</label>
-        <input type="number" id="avaliacao" name="avaliacao" min="1" max="10" required><br>
-
-        <button class="butavaliacao" type="submit">Enviar Avaliação</button>
-    </form>    
-  
-
+    <!-- Scripts -->
+    <script src="javas.js"></script>
 </body>
-
-<footer>
-    <div class="footer-content">
-      <h3>LuckPet</h3>
-      <p>Cuide do seu pet com os melhores produtos e serviços!</p>
-      <ul class="socials">
-        <li><a href="https://www.facebook.com/profile.php?id=100024656091863"><img class="img-redessociais" src="img/redes-sociais/facebook (1).png" alt=""><i class="fa fa-telefone">Pablo Gomes</i></a></li>
-
-        <li><a href="https://www.instagram.com/ypablitoo/"><img class="img-redessociais" src="img/redes-sociais/instagram.png" alt=""><i class="fa fa-instagram">ypablitoo</i></a></li>
-
-        <li><a href="https://www.linkedin.com/in/pablo-gomes-8b574321a/"><img class="img-redessociais" src="img/redes-sociais/linkedin (1).png" alt=""><i class="fa fa-linkedin">Pablo Gomes</i></a></li>
-
-        <li><a href="https://github.com/PabloG-7"><img class="img-redessociais" src="img/redes-sociais/github.png" alt=""><i class="fa fa-github">PabloG-7</i></a></li>
-      </ul>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 LuckPet - Todos os direitos reservados</p>
-    </div>
-  </footer>
-
-<script src="javas.js"></script>
 </html>
