@@ -932,6 +932,13 @@ body, html {
         font-size: 1.7rem;
     }
 
+    .nutrition-product span, p{
+        font-size: 1rem;
+    }
+    .nutrition-product h3 {
+        font-size: 1rem;
+    }
+
         /* Plano de Saúde */
     .health-plans h2{
         font-size: 7vw;
