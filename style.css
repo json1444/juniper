@@ -750,51 +750,87 @@ body, html {
 
 
 /* ============================================= */
-/* MEDIA QUERY CLEAN - 350px ATÉ 451px */
+/* HEADER MOBILE ULTRA-CLEAN (350px-451px) */
 /* ============================================= */
 @media (min-width: 350px) and (max-width: 451px) {
-    /* Reset de espaçamentos */
-    body {
-        font-size: 14px;
-    }
-    
-    /* Barra de promoção minimalista */
+    /* Barra de promoção micro */
     .promo-bar {
-        font-size: 0.75rem;
-        padding: 5px;
-        background-color: #e67a00; /* Ligeiramente mais escuro */
+        font-size: 0.7rem;
+        padding: 4px;
+        background-color: #ff8c00;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
-    /* Cabeçalho ultra simplificado */
+    .promo-bar a {
+        background-color: rgba(0,0,0,0.1);
+        padding: 0 4px;
+        border-radius: 3px;
+        margin-left: 3px;
+    }
+    
+    /* Header reorganizado */
+    .main-header {
+        padding: 5px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
     .header-container {
-        flex-direction: column;
-        padding: 8px;
-        gap: 8px;
+        display: grid;
+        grid-template-areas:
+            "logo icons"
+            "search search";
+        grid-template-columns: 1fr auto;
+        padding: 0 10px;
+        gap: 5px;
+        align-items: center;
+    }
+    
+    .logo {
+        grid-area: logo;
+        margin: 0;
     }
     
     .logo a {
-        font-size: 1.5rem;
-        padding: 6px 12px;
-        display: inline-block;
+        font-size: 2.1rem;
+        padding: 5px 10px;
+        background-color: transparent;
+        color: #ff8c00;
+        font-weight: 700;
+    }
+    
+    .search-container {
+        grid-area: search;
+        margin: 0;
     }
     
     .search-bar {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+        width: 100%;
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
     }
     
     .nav-icons {
-        width: 100%;
-        justify-content: space-evenly;
+        grid-area: icons;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
     }
     
     .cart-icon, .profile-icon {
-        font-size: 0.8rem;
+        flex-direction: row;
+        gap: 3px;
+        align-items: center;
+        font-size: 0.9rem;
     }
     
     .cart-icon img, .profile-icon img {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
     }
     
     /* Banners como cards compactos */
@@ -886,10 +922,10 @@ body, html {
         display: block;
     }
     .product-card img {
-        height: 60%;
+        height: 63%;
     }
     .product-section h2 {
-        padding-top: 40px;
+        padding-top: 20px;
         font-size: 1.7rem;
     }
 
@@ -898,9 +934,66 @@ body, html {
         font-size: 7vw;
     }
     .plans-container p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .plan-card .plan-price {
         font-size: 1.5rem;
     }
+}
+
+/* ============================================= */
+/* MEDIA QUERY CLEAN - 350px ATÉ 451px */
+/* ============================================= */
+@media (min-width: 451px) and (max-width: 610px) {
+    .search-container input{
+        width: 100%;
+    }
+    .banner {
+        text-align: center;
+    }
+    .main-carousel img {
+        height: 16rem;
+    }
+    .category-nav {
+        position: relative;
+        top: -20%;
+        display: grid;
+        grid-template-columns: repeat(2, 2fr); /* 2 colunas */
+        gap: 10px;
+        margin-bottom: -70px;
+        background-color: var(--secondary-color);
+    }
+
+    .category-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 1.2rem;
+        padding: 10px 5px;
+        margin: 10;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.08);
+        transition: all 0.2s ease;
+        text-align: center;
+        line-height: 1.4;
+    }
+   
+    .product-card img {
+        height: 63%;
+    }
+    .product-card h3 {
+        font-size: 1.5rem;
+    }
+        .product-card p {
+            font-size: 1.2rem;
+        }
+        .product-card span {
+            font-size: 1.2rem;
+        }
+        .plans-container p {
+            font-size: 1.4rem;
+        }
 }
