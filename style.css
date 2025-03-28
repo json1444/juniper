@@ -872,11 +872,12 @@ body, html {
     
     /* Carrossel mais discreto */
     .main-carousel {
-        height: 160px; /* Altura menor para telas pequenas */
+        height: 190px; /* Altura menor para telas pequenas */
     }
     
     .carousel-item img {
-        max-height: 160px; /* Limita a altura para evitar cortes */
+        max-height: 190px; /* Limita a altura para evitar cortes */
+        border-radius: 40px;
     }
 
     
@@ -912,6 +913,7 @@ body, html {
         font-size: 1rem;
         padding: 10px 5px;
         margin: 0;
+        border: 1px solid #cccaca;
         border-radius: 8px;
         background-color: rgba(255, 255, 255, 0.08);
         transition: all 0.2s ease;
@@ -953,7 +955,7 @@ body, html {
     }
 
     #nutricao-pet h2 {
-        font-size: 1.4rem;
+        font-size: 1.8rem;
     }
 
     .cart-link {
@@ -979,14 +981,26 @@ body, html {
 /* MEDIA QUERY CLEAN - 451px ATÉ 610px */
 /* ============================================= */
 @media (min-width: 451px) and (max-width: 610px) {
+    .promo-bar p {
+        font-size: 0.9rem;
+    }
     .search-container input{
         width: 100%;
     }
     .banner {
+        margin: auto;
+        font-size: 1.1rem;
+        width: 100%;
+        justify-content: center;
         text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: none;
+        border: 1px solid #e0e0e0;
     }
     .main-carousel img {
-        height: 16rem;
+        height: 14rem;
     }
     .category-nav {
         position: relative;
@@ -995,7 +1009,7 @@ body, html {
         grid-template-columns: repeat(2, 2fr); /* 2 colunas */
         gap: 10px;
         margin-bottom: -70px;
-        background-color: var(--secondary-color);
+        background-color: white;
     }
 
     .category-link {
@@ -1003,20 +1017,31 @@ body, html {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: var(--white);
+        color: black;
         text-decoration: none;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         padding: 10px 5px;
         margin: 10;
         border-radius: 8px;
+        border: 1px solid #cccaca;
         background-color: rgba(255, 255, 255, 0.08);
         transition: all 0.2s ease;
         text-align: center;
         line-height: 1.4;
     }
-    .product-card {
-       padding: 20px;
+    .category-link:hover {
+        background-color: var(--primary-color);
+        transform: none;
+        color: var(--white);
     }
+    .product-card img {
+        width: 100%;
+        height: 350px;
+        object-fit: contain; /* Garante que a imagem inteira apareça */
+        background-color: #f5f5f5; /* Fundo neutro caso haja espaços vazios */
+        padding: 10px;
+    }
+    
     .product-card img {
         height: 96vw;
         width: 100vw;
@@ -1032,5 +1057,11 @@ body, html {
         }
         .plans-container p {
             font-size: 1.4rem;
+        }
+        #nutricao-pet h2 {
+            margin-top: 100px;
+        }
+        .cart-link {
+            font-size: 1.3rem;
         }
 }
