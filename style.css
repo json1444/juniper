@@ -900,8 +900,7 @@ body, html {
         gap: 10px;
         padding: 12px;
         margin-bottom: 20px;
-        background-color: white;
-        border-radius: 710px;
+        background-color: var(--light-bg);
     }
 
     .category-link {
@@ -944,6 +943,7 @@ body, html {
 
 .product-section h2  {
     margin-top: 80px;
+    font-size: 1.7rem;
 }
 
     .nutrition-product span, p{
@@ -954,7 +954,7 @@ body, html {
     }
 
     #nutricao-pet h2 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
 
     .cart-link {
