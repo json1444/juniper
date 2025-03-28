@@ -760,7 +760,6 @@ body, html {
 @media (min-width: 350px) and (max-width: 451px) {
     /* Barra de promoção micro */
     .promo-bar {
-        font-size: 0.7rem;
         padding: 4px;
         background-color: #ff8c00;
         white-space: nowrap;
@@ -768,7 +767,7 @@ body, html {
         text-overflow: ellipsis;
     }
     .promo-bar p {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .promo-bar a {
@@ -856,7 +855,7 @@ body, html {
         text-align: center;
         padding: 10px;
         border-radius: 8px;
-        background-color: #f5f5f5;
+        background-color: white;
         box-shadow: none;
         border: 1px solid #e0e0e0;
     }
@@ -900,7 +899,7 @@ body, html {
         gap: 10px;
         padding: 12px;
         margin-bottom: 20px;
-        background-color: var(--light-bg);
+        background-color: white;
     }
 
     .category-link {
@@ -970,6 +969,9 @@ body, html {
     }
     .plan-card .plan-price {
         font-size: 1.5rem;
+    }
+    .feedback-section h2 {
+        font-size: 1.6rem;
     }
 }
 
