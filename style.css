@@ -1,6 +1,11 @@
 /* ============================================= */
 /* VARIÁVEIS E CONFIGURAÇÕES GLOBAIS */
 /* ============================================= */
+@font-face {
+    font-family: luckpet1;
+    src: url(fontes/MADE\ TOMMY\ Medium_PERSONAL\ USE.otf);
+}
+
 :root {
     --primary-color: #ff7b00;
     --secondary-color: #40006b;
@@ -17,7 +22,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: luckpet1;
 }
 
 body, html {
@@ -762,6 +767,9 @@ body, html {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .promo-bar p {
+        font-size: 0.8rem;
+    }
     
     .promo-bar a {
         background-color: rgba(0,0,0,0.1);
@@ -865,9 +873,13 @@ body, html {
     
     /* Carrossel mais discreto */
     .main-carousel {
-        height: 160px;
-        margin-bottom: 15px;
+        height: 160px; /* Altura menor para telas pequenas */
     }
+    
+    .carousel-item img {
+        max-height: 160px; /* Limita a altura para evitar cortes */
+    }
+
     
     /* Navegação minimalista */
     .category-nav {
@@ -888,7 +900,8 @@ body, html {
         gap: 10px;
         padding: 12px;
         margin-bottom: 20px;
-        background-color: var(--secondary-color);
+        background-color: white;
+        border-radius: 710px;
     }
 
     .category-link {
@@ -896,7 +909,7 @@ body, html {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: var(--white);
+        color: black;
         text-decoration: none;
         font-size: 1rem;
         padding: 10px 5px;
@@ -921,22 +934,31 @@ body, html {
         margin-bottom: 4px;
         display: block;
     }
-    .product-card  {
-        height: 520px;
-    }
-    .product-card img {
-        height: 58%;
-    }
-    .product-section h2 {
-        padding-top: 20px;
-        font-size: 1.7rem;
-    }
+  .product-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: contain; /* Garante que a imagem inteira apareça */
+    background-color: #f5f5f5; /* Fundo neutro caso haja espaços vazios */
+    padding: 10px;
+}
+
+.product-section h2  {
+    margin-top: 80px;
+}
 
     .nutrition-product span, p{
         font-size: 1rem;
     }
     .nutrition-product h3 {
         font-size: 1rem;
+    }
+
+    #nutricao-pet h2 {
+        font-size: 1.6rem;
+    }
+
+    .cart-link {
+        font-size: 0.9rem;
     }
 
         /* Plano de Saúde */
@@ -952,7 +974,7 @@ body, html {
 }
 
 /* ============================================= */
-/* MEDIA QUERY CLEAN - 350px ATÉ 451px */
+/* MEDIA QUERY CLEAN - 451px ATÉ 610px */
 /* ============================================= */
 @media (min-width: 451px) and (max-width: 610px) {
     .search-container input{
