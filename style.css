@@ -154,11 +154,13 @@ body, html {
 .banner {
     display: flex;
     align-items: center;
-    background-color: rgb(219, 219, 219);
-    border-radius: 10px;
     padding: 15px;
     max-width: 350px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: none;
+    border: 3px solid #e0e0e0;
 }
 
 .banner img {
@@ -484,17 +486,18 @@ body, html {
 
 .plan-card h4 {
     color: var(--primary-color);
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     margin-bottom: 20px;
 }
 
 .plan-card p {
     margin-bottom: 25px;
     line-height: 1.6;
+    font-size: 1.3rem;
 }
 
 .plan-price {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
     font-weight: bold;
     color: var(--secondary-color);
     margin-bottom: 25px;
@@ -877,7 +880,6 @@ body, html {
     
     .carousel-item img {
         max-height: 190px; /* Limita a altura para evitar cortes */
-        border-radius: 40px;
     }
 
     
@@ -1065,3 +1067,91 @@ body, html {
             font-size: 1.3rem;
         }
 }
+
+
+@media (min-width: 610px) and (max-width: 682px) {
+    .banner {
+        margin: auto;
+        font-size: 1.1rem;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: none;
+        border: 1px solid #e0e0e0;
+    }
+    
+    .main-carousel {
+        height: 380px;  /* Altura intermediária */
+    }
+    .carousel-item img {
+        max-height: 380px;
+        object-fit: contain; /* Garante imagem completa */
+        object-position: center top; /* Prioriza o topo (onde geralmente está o logo) */
+    }
+
+.category-nav {
+    position: relative;
+    top: -20%;
+    display: grid;
+    grid-template-columns: repeat(2, 2fr); /* 2 colunas */
+    gap: 10px;
+    margin-bottom: -70px;
+    background-color: white;
+}
+
+.category-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    text-decoration: none;
+    font-size: 1.4rem;
+    padding: 10px 5px;
+    margin: 10;
+    border-radius: 8px;
+    border: 1px solid #cccaca;
+    background-color: rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+    text-align: center;
+    line-height: 1.4;
+}
+.category-link:hover {
+    background-color: var(--primary-color);
+    transform: none;
+    color: var(--white);
+}
+
+    /* --- Ajustes nos Produtos --- */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* Mantém 2 colunas */
+        gap: 20px; /* Espaçamento reduzido */
+    }
+    .price {
+        font-size: 1.2rem;
+    }
+    .product-card span {
+        font-size: 1.2rem;
+    }
+    .product-card img {
+        height: 280px; /* Altura maior que na query anterior */
+        object-fit: contain;
+        padding: 10px; /* Espaço para o logo */
+    }
+
+    /* Ajuste opcional para textos */
+    .product-card h3 {
+        font-size: 1.4em; /* Reduz fonte se necessário */
+        margin-top: -20px;
+    }
+
+    #nutricao-pet h2 {
+        font-size: 2.2rem;
+        margin-top: 100px;
+    }
+    .cart-link {
+        font-size: 1.2rem;
+    }}
