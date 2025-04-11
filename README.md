@@ -15,15 +15,9 @@ Bem-vindo ao **LuckPet**, um e-commerce moderno e responsivo desenvolvido para a
 3. **Descubra Mais Sobre Seu Amigo**  
    - Área interativa para curiosidades sobre o mundo pet, exibidas dinamicamente quando o usuário passa o mouse.
 
-4. **Sistema de Avaliação e Comentários**  
-   - Usuários podem avaliar os produtos e deixar comentários, contribuindo para a experiência de outros clientes. 
-   - Implementado com **Node.js** no back-end e **MySQL** para armazenamento dos dados.
-
 ## 🛠️ Tecnologias Utilizadas
 
-- **Front-End**: HTML, CSS e JavaScript.  
-- **Back-End**: Node.js.  
-- **Banco de Dados**: MySQL.  
+- **Front-End**: HTML, CSS e JavaScript.   
 - **Hospedagem**:  
   - Código hospedado no GitHub.  
   - Aplicação publicada no [Vercel](https://projeto-luckpet.vercel.app/).
