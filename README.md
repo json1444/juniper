@@ -42,3 +42,20 @@ cd ecommerce-luckpet
 # Abra no navegador (ou use um servidor local)
 open index.html  # macOS
 start index.html # Windows
+
+```
+
+## 🤝 Como Contribuir
+Faça um Fork do projeto
+
+Crie uma branch (git checkout -b feature/nova-feature)
+
+Commit suas mudanças (git commit -m 'Adiciona recurso X')
+
+Push para a branch (git push origin feature/nova-feature)
+
+Abra um Pull Request
+
+## 📄 Licença
+Distribuído sob licença MIT. Veja LICENSE para mais informações.
+
