@@ -1,36 +1,44 @@
-# 🐾 LuckPet - Seu E-commerce de Produtos para Pets
+# <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" width="30" height="30"> LuckPet - E-commerce para Pets
 
-Bem-vindo ao **LuckPet**, um e-commerce moderno e responsivo desenvolvido para atender as necessidades de donos de pets. O projeto foi idealizado com o objetivo de proporcionar uma experiência única de navegação e interação com o site, unindo funcionalidade e design.
+Um e-commerce moderno e responsivo para produtos pet, desenvolvido com HTML, CSS e JavaScript. Oferece navegação intuitiva, produtos exclusivos e curiosidades interativas.
 
-## 🌟 Funcionalidades
+![Demonstração LuckPet](./luckpet.png)
 
-1. **Interface Intuitiva e Moderna**  
-   - Categorias organizadas em: **Saúde Pet**, **Moda Pet**, **Nutrição Pet** e **Curiosidades**.
-   - Layout responsivo que se adapta perfeitamente a diferentes dispositivos, como smartphones, tablets e desktops.
+## ✨ Funcionalidades
 
-2. **Produtos Exclusivos**  
-   - Destaque para o item *"Gato com Charme de Natal"*, um produto único com óculos e cachecol natalino. 
-   - Vários outros produtos na categoria de **Moda Pet**, garantindo estilo e conforto para seu amigo.
+### 🛍️ Navegação e Produtos
+- **Categorias organizadas**: Saúde, Moda, Nutrição e Curiosidades
+- **Destaques**: 
+  - Produto exclusivo *"Gato com Charme de Natal"* (óculos e cachecol)
+  - Cards de produtos com hover effects
+- **Design responsivo**: Adaptado para mobile, tablet e desktop
 
-3. **Descubra Mais Sobre Seu Amigo**  
-   - Área interativa para curiosidades sobre o mundo pet, exibidas dinamicamente quando o usuário passa o mouse.
+### 🐶 Interatividade
+- **Área de curiosidades**: Informações dinâmicas ao passar o mouse
+- **Interface intuitiva**: Transições suaves e feedback visual
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Stack Tecnológica
 
-- **Front-End**: HTML, CSS e JavaScript.   
-- **Hospedagem**:  
-  - Código hospedado no GitHub.  
-  - Aplicação publicada no [Vercel](https://projeto-luckpet.vercel.app/).
+| Tecnologia | Função |
+|------------|--------|
+| <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" width="20"> HTML | Estrutura do site |
+| <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width="20"> CSS | Estilização e responsividade |
+| <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" width="20"> JavaScript | Lógica e interatividade |
 
-## 🚀 Link para Acesso
+## 🌐 Acesso Online
+Escolha seu deploy preferido:
+- **Vercel (recomendado)**: [projeto-luckpet.vercel.app](https://projeto-luckpet.vercel.app/)
+- **GitHub Pages**: [pablog-7.github.io/ecommerce-luckpet](https://pablog-7.github.io/ecommerce-luckpet/)
 
-- **Acesse o site aqui**: [LuckPet - Vercel](https://projeto-luckpet.vercel.app/)
-- **Acesse o site aqui**: [LuckPet - github](https://pablog-7.github.io/ecommerce-luckpet/)
+## 🚀 Como Executar Localmente
 
-## 📌 Observações
+```bash
+# Clone o repositório
+git clone https://github.com/pablog-7/ecommerce-luckpet.git
 
-- O site ainda **não está 100% completo**, e melhorias estão sendo planejadas para as próximas versões.  
-- Algumas das melhorias futuras incluem:
-  - Melhor desempenho na área de avaliações.
-  - Adicionar mais produtos e categorias.
-  - Implementação de um sistema de carrinho de compras.
+# Acesse a pasta do projeto
+cd ecommerce-luckpet
+
+# Abra no navegador (ou use um servidor local)
+open index.html  # macOS
+start index.html # Windows
