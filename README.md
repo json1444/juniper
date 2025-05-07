@@ -2,7 +2,7 @@
 
 Um e-commerce moderno e responsivo para produtos pet, desenvolvido com HTML, CSS e JavaScript. Oferece navegação intuitiva, produtos exclusivos e curiosidades interativas.
 
-![Demonstração LuckPet](./luckpet.png)
+![Demonstração LuckPet](https://raw.githubusercontent.com/PabloG-7/ecommerce-luckpet/refs/heads/main/luckpet.png)
 
 ## ✨ Funcionalidades
 
