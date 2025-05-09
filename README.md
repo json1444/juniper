@@ -1,34 +1,52 @@
-# <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" width="30" height="30"> LuckPet - E-commerce para Pets
+# <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" width="30"> **LuckPet - E-commerce para Pets**
 
-Um e-commerce moderno e responsivo para produtos pet, desenvolvido com HTML, CSS e JavaScript. Oferece navegação intuitiva, produtos exclusivos e curiosidades interativas.
+🎉 Um e-commerce moderno, responsivo e cheio de estilo para quem ama cuidar dos seus pets!
 
-![Demonstração LuckPet](https://raw.githubusercontent.com/PabloG-7/ecommerce-luckpet/refs/heads/main/luckpet.png)
+![Demonstração LuckPet](https://raw.githubusercontent.com/PabloG-7/ecommerce-luckpet/refs/heads/main/luckpet-apresenta%C3%A7ao.png)
+
+---
+
+## 🐾 Sobre o Projeto
+
+O **LuckPet** é um e-commerce desenvolvido com foco em **usabilidade**, **design responsivo** e **interatividade**. Ideal para quem deseja uma experiência agradável na compra de produtos para pets.
+
+> 💡 Navegação fluida, categorias bem definidas e uma pitada de diversão tornam o LuckPet uma vitrine perfeita para donos de pets.
+
+---
 
 ## ✨ Funcionalidades
 
-### 🛍️ Navegação e Produtos
-- **Categorias organizadas**: Saúde, Moda, Nutrição e Curiosidades
-- **Destaques**: 
-  - Produto exclusivo *"Gato com Charme de Natal"* (óculos e cachecol)
-  - Cards de produtos com hover effects
-- **Design responsivo**: Adaptado para mobile, tablet e desktop
+### 🛍️ Produtos e Categorias
+- Categorias bem organizadas: **Saúde**, **Moda**, **Nutrição**, **Curiosidades**
+- Produto exclusivo: *Gato com Charme de Natal* 🐱🎄
+- Cards com **efeitos de hover** animados
+- Layout **100% responsivo**: mobile, tablet e desktop
 
-### 🐶 Interatividade
-- **Área de curiosidades**: Informações dinâmicas ao passar o mouse
-- **Interface intuitiva**: Transições suaves e feedback visual
+### 🐶 Experiência do Usuário
+- Área de **curiosidades interativas** com informações ao passar o mouse
+- Interface com **feedback visual** e transições suaves
+- Navegação simplificada com foco em conversão
 
-## 🛠️ Stack Tecnológica
+---
 
-| Tecnologia | Função |
-|------------|--------|
-| <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" width="20"> HTML | Estrutura do site |
-| <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width="20"> CSS | Estilização e responsividade |
-| <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" width="20"> JavaScript | Lógica e interatividade |
+## 🛠️ Tecnologias Utilizadas
 
-## 🌐 Acesso Online
-Escolha seu deploy preferido:
-- **Vercel (recomendado)**: [projeto-luckpet.vercel.app](https://projeto-luckpet.vercel.app/)
-- **GitHub Pages**: [pablog-7.github.io/ecommerce-luckpet](https://pablog-7.github.io/ecommerce-luckpet/)
+| Tecnologia | Descrição |
+|------------|-----------|
+| <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" width="20"> **HTML5** | Estrutura e semântica do site |
+| <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width="20"> **CSS3** | Estilização moderna e responsividade |
+| <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" width="20"> **JavaScript** | Lógica, interatividade e dinamismo |
+
+---
+
+## 🌐 Deploy Online
+
+📍 Acesse agora em:
+
+- 🔗 **[Vercel (recomendado)](https://projeto-luckpet.vercel.app/)**
+- 🔗 **[GitHub Pages](https://pablog-7.github.io/ecommerce-luckpet/)**
+
+---
 
 ## 🚀 Como Executar Localmente
 
@@ -39,22 +57,10 @@ git clone https://github.com/pablog-7/ecommerce-luckpet.git
 # Acesse a pasta do projeto
 cd ecommerce-luckpet
 
-# Abra no navegador (ou use um servidor local)
-open index.html  # macOS
-start index.html # Windows
-
+# Abra o arquivo no navegador
+start index.html  # Windows
+open index.html   # macOS
 ```
-
-## 🤝 Como Contribuir
-Faça um Fork do projeto
-
-Crie uma branch (git checkout -b feature/nova-feature)
-
-Commit suas mudanças (git commit -m 'Adiciona recurso X')
-
-Push para a branch (git push origin feature/nova-feature)
-
-Abra um Pull Request
 
 ## 📄 Licença
 Distribuído sob licença MIT. Veja LICENSE para mais informações.
