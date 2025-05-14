@@ -7,6 +7,7 @@
 // Inicializa a página no topo
 window.onload = function() {
     window.scrollTo(0, 0);
+    atualizarContadores();
 };
 
 // Efeito de parallax no cabeçalho
@@ -42,27 +43,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /**
  * =============================================
- * GERENCIAMENTO DO CARRINHO DE COMPRAS
+ * GERENCIAMENTO DO CARRINHO DE COMPRAS E FAVORITOS
  * =============================================
  */
 
 // Objeto que armazena todos os produtos e seus dados
 const produtos = {
     // Alimentos
-    morango: { quantidade: 0, total: 0, tipo: "alimento" },
-    uva: { quantidade: 0, total: 0, tipo: "alimento" },
-    coco: { quantidade: 0, total: 0, tipo: "alimento" },
-    limao: { quantidade: 0, total: 0, tipo: "alimento" },
-    banana: { quantidade: 0, total: 0, tipo: "alimento" },
-    cereja: { quantidade: 0, total: 0, tipo: "alimento" },
-    mirtilo: { quantidade: 0, total: 0, tipo: "alimento" },
-    laranja: { quantidade: 0, total: 0, tipo: "alimento" },
+    morango: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Morango", preco: 6.99, img: "img/img-raçao/MorangoPet.png" },
+    uva: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Uva", preco: 4.50, img: "img/img-raçao/UvaPet.png" },
+    coco: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Coco", preco: 6.99, img: "img/img-raçao/CocoPet.png" },
+    limao: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Limao", preco: 6.99, img: "img/img-raçao/LimaoPet.png" },
+    banana: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Banana", preco: 4.50, img: "img/img-raçao/BananaPet.png" },
+    mirtilo: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Mirtilo", preco: 6.99, img: "img/img-raçao/MirtiloPet.png" },
+    laranja: { quantidade: 0, total: 0, tipo: "alimento", favorito: false, nome: "Raçao de Laranja", preco: 6.99, img: "img/img-raçao/LaranjaPet.png" },
 
     // Vestimentas
-    charme: { quantidade: 0, total: 0, tipo: "vestimenta" },
-    lenço: { quantidade: 0, total: 0, tipo: "vestimenta" },
-    fantasia: { quantidade: 0, total: 0, tipo: "vestimenta" }
+    charme: { quantidade: 0, total: 0, tipo: "vestimenta", favorito: false, nome: "Gato Charme de Natal", preco: 14.99, img: "img/CamisaPetluck.png" },
+    lenço: { quantidade: 0, total: 0, tipo: "vestimenta", favorito: false, nome: "Lenço Xadrez Clássico", preco: 59.99, img: "img/CamisaPetluck2.png" },
+    fantasia: { quantidade: 0, total: 0, tipo: "vestimenta", favorito: false, nome: "Fantasia Natalina Pet", preco: 45.00, img: "img/CamisaPetluck3.png" }
 };
+
+// Atualiza os contadores de carrinho e favoritos
+function atualizarContadores() {
+    const cartCount = Object.values(produtos).reduce((total, produto) => total + produto.quantidade, 0);
+    const favoriteCount = Object.values(produtos).filter(produto => produto.favorito).length;
+    
+    document.getElementById('cart-count').textContent = cartCount;
+    document.getElementById('favorite-count').textContent = favoriteCount;
+}
 
 /**
  * Atualiza a quantidade e total de um produto no carrinho
@@ -80,7 +89,7 @@ function atualizarProduto(produto, preco, acao) {
     }
 
     const produtoData = produtos[produto];
-    const nomeFormatado = produto.charAt(0).toUpperCase() + produto.slice(1);
+    const nomeFormatado = produtoData.nome;
 
     // Executa a ação solicitada
     if (acao === 'adicionar') {
@@ -113,6 +122,38 @@ function atualizarProduto(produto, preco, acao) {
     // Atualiza a interface
     updateProductUI(produto, produtoData);
     showNotification(notificacao);
+    atualizarContadores();
+}
+
+/**
+ * Alterna o status de favorito de um produto
+ * @param {string} produto - Nome do produto
+ */
+function toggleFavorite(produto) {
+    const notificacao = document.getElementById("notification");
+    
+    if (!produtos[produto]) {
+        console.error("Produto não encontrado:", produto);
+        return;
+    }
+
+    const produtoData = produtos[produto];
+    produtoData.favorito = !produtoData.favorito;
+    
+    // Atualiza o botão de favorito
+    const favoriteButtons = document.querySelectorAll(`[onclick="toggleFavorite('${produto}')"]`);
+    favoriteButtons.forEach(button => {
+        button.classList.toggle('favorited', produtoData.favorito);
+    });
+    
+    // Mostra notificação
+    notificacao.textContent = produtoData.favorito 
+        ? `${produtoData.nome} adicionado aos favoritos` 
+        : `${produtoData.nome} removido dos favoritos`;
+    notificacao.classList.remove("error");
+    showNotification(notificacao);
+    
+    atualizarContadores();
 }
 
 /**
@@ -157,7 +198,7 @@ function abrirCarrinho() {
         if (produtoData.quantidade > 0) {
             // Define a cor baseada no tipo do produto
             const cor = produtoData.tipo === "alimento" ? "darkorange" : "darkblue";
-            const nomeFormatado = produto.charAt(0).toUpperCase() + produto.slice(1);
+            const nomeFormatado = produtoData.nome;
             
             htmlContent += `
                 <li style="color: ${cor}">
@@ -190,14 +231,66 @@ function fecharCarrinho() {
     document.getElementById("cart-modal").style.display = "none";
 }
 
-// Fecha o modal ao clicar fora dele
+/**
+ * Abre o modal de favoritos e exibe os itens
+ */
+function abrirFavoritos() {
+    const conteudoFavoritos = document.getElementById("favorites-content");
+    let htmlContent = "<ul>";
+    let hasFavorites = false;
+
+    // Itera sobre todos os produtos favoritados
+    for (const [produto, produtoData] of Object.entries(produtos)) {
+        if (produtoData.favorito) {
+            hasFavorites = true;
+            htmlContent += `
+                <li class="favorite-item">
+                    <img src="${produtoData.img}" alt="${produtoData.nome}">
+                    <div class="favorite-item-info">
+                        <strong>${produtoData.nome}</strong>
+                        <p>R$ ${produtoData.preco.toFixed(2)}</p>
+                    </div>
+                    <button class="remove-favorite" onclick="toggleFavorite('${produto}'); abrirFavoritos()">
+                        Remover
+                    </button>
+                </li>`;
+        }
+    }
+
+    htmlContent += "</ul>";
+
+    // Verifica se há favoritos
+    if (!hasFavorites) {
+        htmlContent = '<p class="empty-favorites">Você ainda não tem favoritos</p>';
+    }
+
+    // Atualiza o conteúdo do modal
+    conteudoFavoritos.innerHTML = htmlContent;
+    
+    // Exibe o modal
+    document.getElementById("favorites-modal").style.display = "block";
+}
+
+/**
+ * Fecha o modal de favoritos
+ */
+function fecharFavoritos() {
+    document.getElementById("favorites-modal").style.display = "none";
+}
+
+// Fecha os modais ao clicar fora deles
 window.addEventListener("click", function(event) {
-    const modal = document.getElementById("cart-modal");
-    if (event.target === modal) {
+    const cartModal = document.getElementById("cart-modal");
+    const favoritesModal = document.getElementById("favorites-modal");
+    
+    if (event.target === cartModal) {
         fecharCarrinho();
     }
+    
+    if (event.target === favoritesModal) {
+        fecharFavoritos();
+    }
 });
-
 
 // Menu Hamburguer
 const menuToggle = document.createElement('button');
@@ -252,7 +345,6 @@ document.getElementById('booking-form').addEventListener('submit', function(e) {
         fecharAgendamento();
     }, 3000);
 });
-
 
 /**
  * =============================================

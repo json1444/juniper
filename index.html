@@ -11,7 +11,6 @@
     
     <!-- Folhas de estilo -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="media-query.css">
 </head>
 
 <body>
@@ -33,18 +32,24 @@
             
             <!-- Ícones de navegação -->
             <div class="nav-icons">
+                <!-- Favoritos -->
+                <div class="favorite-icon" onclick="abrirFavoritos()">
+                    <img src="img/favorito.png" alt="">
+                    <span id="favorite-count">0</span>
+                </div>
+                
                 <!-- Carrinho -->
                 <div class="cart-icon" onclick="abrirCarrinho()">
                     <img src="img/comprar-online.png" alt="Carrinho de compras">
-                    <span>Carrinho</span>
+                    <span id="cart-count">0</span>
                 </div>
                 
                 <!-- Perfil/Login -->
                 <div class="profile-icon">
                     <a href="formulario/login.html"><img src="img/perfil.png" alt="Perfil do usuário"></a>
-                    <span>Entrar</span>
-                    </div>
+                   
                 </div>
+            </div>
         </div>
     </header>
 
@@ -102,7 +107,10 @@
                 <h3>Gato Charme de Natal</h3>
                 <p class="product-description">Charme natalino para seu felino</p>
                 <p class="price">R$ 14,99 <span class="member-price">R$ 9,99 para assinantes</span></p>
-                <button class="add-to-cart" onclick="atualizarProduto('charme', 14.99, 'adicionar')">Adicionar</button>
+                <div class="product-actions">
+                    <button class="add-to-favorites" onclick="toggleFavorite('charme')">❤️ Favoritar</button>
+                    <button class="add-to-cart" onclick="atualizarProduto('charme', 14.99, 'adicionar')">Adicionar</button>
+                </div>
             </div>
             
             <!-- Produto 2 -->
@@ -111,7 +119,10 @@
                 <h3>Lenço Xadrez Clássico</h3>
                 <p class="product-description">Confortável e elegante</p>
                 <p class="price">R$ 59,99 <span class="member-price">R$ 52,00 para assinantes</span></p>
-                <button class="add-to-cart" onclick="atualizarProduto('lenço', 59.99, 'adicionar')">Adicionar</button>
+                <div class="product-actions">
+                    <button class="add-to-favorites" onclick="toggleFavorite('lenço')">❤️ Favoritar</button>
+                    <button class="add-to-cart" onclick="atualizarProduto('lenço', 59.99, 'adicionar')">Adicionar</button>
+                </div>
             </div>
             
             <!-- Produto 3 -->
@@ -120,197 +131,207 @@
                 <h3>Fantasia Natalina Pet</h3>
                 <p class="product-description">Espírito natalino para seu pet</p>
                 <p class="price">R$ 45,00 <span class="member-price">R$ 39,99 para assinantes</span></p>
-                <button class="add-to-cart" onclick="atualizarProduto('fantasia', 45.00, 'adicionar')">Adicionar</button>
+                <div class="product-actions">
+                    <button class="add-to-favorites" onclick="toggleFavorite('fantasia')">❤️ Favoritar</button>
+                    <button class="add-to-cart" onclick="atualizarProduto('fantasia', 45.00, 'adicionar')">Adicionar</button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Seção de Nutrição Pet -->
-<section id="nutricao-pet" class="product-section">
-    <h2 class="section-title">Nutrição Balanceada para uma Vida Saudável</h2>
-    
-    <a href="#" class="cart-link" onclick="abrirCarrinho()">> Clique aqui e Confira o seu Carrinho 🛍 <</a>
-    
-    <div class="nutrition-carousel">
-        <!-- Ração de Morango -->
-        <div class="nutrition-product">
-            <img src="img/img-raçao/MorangoPet.png" alt="Ração de Morango">
-            <h3>Ração de Morango🍓</h3>
-            <p class="price">R$ 6,99</p>
-            <div class="quantity-controls">
-                <span id="morango-quantidade">Unid: 0</span>
-                <span id="morango-total-valor">R$ 0,00</span>
-                <button class="btn-add" onclick="atualizarProduto('morango', 6.99, 'adicionar')">Adicionar</button>
-                <button class="btn-remove" onclick="atualizarProduto('morango', 6.99, 'remover')">Remover</button>
-            </div>
-        </div>
+    <section id="nutricao-pet" class="product-section">
+        <h2 class="section-title">Nutrição Balanceada para uma Vida Saudável</h2>
         
-        <!-- Ração de Uva -->
-        <div class="nutrition-product">
-            <img src="img/img-raçao/UvaPet.png" alt="Ração de Uva">
-            <h3>Ração de Uva🍇</h3>
-            <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
-            <div class="quantity-controls">
-                <span id="uva-quantidade">Unid: 0</span>
-                <span id="uva-total-valor">R$ 0,00</span>
-                <button class="btn-add" onclick="atualizarProduto('uva', 4.50, 'adicionar')">Adicionar</button>
-                <button class="btn-remove" onclick="atualizarProduto('uva', 4.50, 'remover')">Remover</button>
-            </div>
-        </div>
+        <a href="#" class="cart-link" onclick="abrirCarrinho()">> Clique aqui e Confira o seu Carrinho 🛍 <</a>
         
-        <!-- Ração de Coco -->
-        <div class="nutrition-product">
-            <img src="img/img-raçao/CocoPet.png" alt="Ração de Coco">
-            <h3>Ração de Coco🥥</h3>
-            <p class="price">R$ 6,99</p>
-            <div class="quantity-controls">
-                <span id="coco-quantidade">Unid: 0</span>
-                <span id="coco-total-valor">R$ 0,00</span>
-                <button class="btn-add" onclick="atualizarProduto('coco', 6.99, 'adicionar')">Adicionar</button>
-                <button class="btn-remove" onclick="atualizarProduto('coco', 6.99, 'remover')">Remover</button>
-            </div>
-        </div>
-        
-        <!-- Ração de Limão -->
-        <div class="nutrition-product">
-            <img src="img/img-raçao/LimaoPet.png" alt="Ração de Limão">
-            <h3>Ração de Limão🍋‍🟩</h3>
-            <p class="price">R$ 6,99</p>
-            <div class="quantity-controls">
-                <span id="limao-quantidade">Unid: 0</span>
-                <span id="limao-total-valor">R$ 0,00</span>
-                <button class="btn-add" onclick="atualizarProduto('limao', 6.99, 'adicionar')">Adicionar</button>
-                <button class="btn-remove" onclick="atualizarProduto('limao', 6.99, 'remover')">Remover</button>
-            </div>
-        </div>
-        
-       <!-- Ração de Banana -->
-<div class="nutrition-product">
-    <img src="img/img-raçao/BananaPet.png" alt="Ração de Banana">
-    <h3>Ração de Banana🍌</h3>
-    <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
-    <div class="quantity-controls">
-        <span id="banana-quantidade">Unid: 0</span>
-        <span id="banana-total-valor">R$ 0,00</span>
-        <button class="btn-add" onclick="atualizarProduto('banana', 4.50, 'adicionar')">Adicionar</button>
-        <button class="btn-remove" onclick="atualizarProduto('banana', 4.50, 'remover')">Remover</button>
-    </div>
-</div>
-
-<!-- Ração de Mirtilo -->
-<div class="nutrition-product">
-    <img src="img/img-raçao/MirtiloPet.png" alt="Ração de Mirtilo">
-    <h3>Ração de Mirtilo🫐</h3>
-    <p class="price">R$ 6,99</p>
-    <div class="quantity-controls">
-        <span id="mirtilo-quantidade">Unid: 0</span>
-        <span id="mirtilo-total-valor">R$ 0,00</span>
-        <button class="btn-add" onclick="atualizarProduto('mirtilo', 6.99, 'adicionar')">Adicionar</button>
-        <button class="btn-remove" onclick="atualizarProduto('mirtilo', 6.99, 'remover')">Remover</button>
-    </div>
-</div>
-        
-        <!-- Ração de Laranja -->
-        <div class="nutrition-product">
-            <img src="img/img-raçao/LaranjaPet.png" alt="Ração de Laranja">
-            <h3>Ração de Laranja🍊</h3>
-            <p class="price">R$ 6,99</p>
-            <div class="quantity-controls">
-                <span id="laranja-quantidade">Unid: 0</span>
-                <span id="laranja-total-valor">R$ 0,00</span>
-                <button class="btn-add" onclick="atualizarProduto('laranja', 6.99, 'adicionar')">Adicionar</button>
-                <button class="btn-remove" onclick="atualizarProduto('laranja', 6.99, 'remover')">Remover</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-  <!-- Seção de Agendamento de Serviços -->
-<section class="service-booking">
-    <h2 class="section-title">Agende Seu Serviço <span>★</span></h2>
-    
-    <div class="service-container">
-        <div class="service-card">
-            <div class="service-icon">
-                <img src="img/img-servicos/banho-de-banheira.png" alt="Banho e Tosa">
-            </div>
-            <h3>Banho Completo</h3>
-            <ul class="service-benefits">
-                <li>✔ Banho higiênico</li>
-                <li>✔ Secagem profissional</li>
-                <li>✔ Corte de unhas</li>
-            </ul>
-            <button class="service-btn" onclick="abrirAgendamento('banho')">Agendar</button>
-        </div>
-
-        <div class="service-card">
-            <div class="service-icon">
-                <img src="img/img-servicos/tosa-de-animais.png" alt="Tosa">
-            </div>
-            <h3>Tosa Premium</h3>
-            <ul class="service-benefits">
-                <li>✔ Tosa na máquina</li>
-                <li>✔ Modelagem personalizada</li>
-                <li>✔ Estética completa</li>
-            </ul>
-            <button class="service-btn" onclick="abrirAgendamento('tosa')">Agendar</button>
-        </div>
-
-        <div class="service-card">
-            <div class="service-icon">
-                <img src="img/img-servicos/sinal-de-primeiros-socorros.png" alt="Veterinário">
-            </div>
-            <h3>Consulta Veterinária</h3>
-            <ul class="service-benefits">
-                <li>✔ Check-up completo</li>
-                <li>✔ Vacinação</li>
-                <li>✔ Exames laboratoriais</li>
-            </ul>
-            <button class="service-btn" onclick="abrirAgendamento('consulta')">Agendar</button>
-        </div>
-    </div>
-</section>
-
-<!-- Modal de Agendamento -->
-<div id="booking-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="fecharAgendamento()">&times;</span>
-        <h2>Agendar Serviço</h2>
-        <form id="booking-form">
-            <div class="form-group">
-                <label for="service-type">Serviço:</label>
-                <select id="service-type" required>
-                    <option value="">Selecione...</option>
-                    <option value="banho">Banho Completo</option>
-                    <option value="tosa">Tosa Premium</option>
-                    <option value="consulta">Consulta Veterinária</option>
-                </select>
+        <div class="nutrition-carousel">
+            <!-- Ração de Morango -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/MorangoPet.png" alt="Ração de Morango">
+                <h3>Ração de Morango🍓</h3>
+                <p class="price">R$ 6,99</p>
+                <div class="quantity-controls">
+                    <span id="morango-quantidade">Unid: 0</span>
+                    <span id="morango-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('morango')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('morango', 6.99, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('morango', 6.99, 'remover')">Remover</button>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="pet-type">Tipo de Pet:</label>
-                <select id="pet-type" required>
-                    <option value="">Selecione...</option>
-                    <option value="cachorro">Cachorro</option>
-                    <option value="gato">Gato</option>
-                    <option value="outro">Outro</option>
-                </select>
+            <!-- Ração de Uva -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/UvaPet.png" alt="Ração de Uva">
+                <h3>Ração de Uva🍇</h3>
+                <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
+                <div class="quantity-controls">
+                    <span id="uva-quantidade">Unid: 0</span>
+                    <span id="uva-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('uva')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('uva', 4.50, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('uva', 4.50, 'remover')">Remover</button>
+                </div>
+            </div>
+            
+            <!-- Ração de Coco -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/CocoPet.png" alt="Ração de Coco">
+                <h3>Ração de Coco🥥</h3>
+                <p class="price">R$ 6,99</p>
+                <div class="quantity-controls">
+                    <span id="coco-quantidade">Unid: 0</span>
+                    <span id="coco-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('coco')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('coco', 6.99, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('coco', 6.99, 'remover')">Remover</button>
+                </div>
+            </div>
+            
+            <!-- Ração de Limão -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/LimaoPet.png" alt="Ração de Limão">
+                <h3>Ração de Limão🍋‍🟩</h3>
+                <p class="price">R$ 6,99</p>
+                <div class="quantity-controls">
+                    <span id="limao-quantidade">Unid: 0</span>
+                    <span id="limao-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('limao')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('limao', 6.99, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('limao', 6.99, 'remover')">Remover</button>
+                </div>
+            </div>
+            
+            <!-- Ração de Banana -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/BananaPet.png" alt="Ração de Banana">
+                <h3>Ração de Banana🍌</h3>
+                <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
+                <div class="quantity-controls">
+                    <span id="banana-quantidade">Unid: 0</span>
+                    <span id="banana-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('banana')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('banana', 4.50, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('banana', 4.50, 'remover')">Remover</button>
+                </div>
+            </div>
+            
+            <!-- Ração de Mirtilo -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/MirtiloPet.png" alt="Ração de Mirtilo">
+                <h3>Ração de Mirtilo🫐</h3>
+                <p class="price">R$ 6,99</p>
+                <div class="quantity-controls">
+                    <span id="mirtilo-quantidade">Unid: 0</span>
+                    <span id="mirtilo-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('mirtilo')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('mirtilo', 6.99, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('mirtilo', 6.99, 'remover')">Remover</button>
+                </div>
+            </div>
+            
+            <!-- Ração de Laranja -->
+            <div class="nutrition-product">
+                <img src="img/img-raçao/LaranjaPet.png" alt="Ração de Laranja">
+                <h3>Ração de Laranja🍊</h3>
+                <p class="price">R$ 6,99</p>
+                <div class="quantity-controls">
+                    <span id="laranja-quantidade">Unid: 0</span>
+                    <span id="laranja-total-valor">R$ 0,00</span>
+                    <button class="btn-favorite" onclick="toggleFavorite('laranja')">❤️</button>
+                    <button class="btn-add" onclick="atualizarProduto('laranja', 6.99, 'adicionar')">Adicionar</button>
+                    <button class="btn-remove" onclick="atualizarProduto('laranja', 6.99, 'remover')">Remover</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Agendamento de Serviços -->
+    <section class="service-booking">
+        <h2 class="section-title">Agende Seu Serviço <span>★</span></h2>
+        
+        <div class="service-container">
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="img/img-servicos/banho-de-banheira.png" alt="Banho e Tosa">
+                </div>
+                <h3>Banho Completo</h3>
+                <ul class="service-benefits">
+                    <li>✔ Banho higiênico</li>
+                    <li>✔ Secagem profissional</li>
+                    <li>✔ Corte de unhas</li>
+                </ul>
+                <button class="service-btn" onclick="abrirAgendamento('banho')">Agendar</button>
             </div>
 
-            <div class="form-group">
-                <label for="booking-date">Data:</label>
-                <input type="date" id="booking-date" required>
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="img/img-servicos/tosa-de-animais.png" alt="Tosa">
+                </div>
+                <h3>Tosa Premium</h3>
+                <ul class="service-benefits">
+                    <li>✔ Tosa na máquina</li>
+                    <li>✔ Modelagem personalizada</li>
+                    <li>✔ Estética completa</li>
+                </ul>
+                <button class="service-btn" onclick="abrirAgendamento('tosa')">Agendar</button>
             </div>
 
-            <div class="form-group">
-                <label for="booking-time">Horário:</label>
-                <input type="time" id="booking-time" min="09:00" max="18:00" required>
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="img/img-servicos/sinal-de-primeiros-socorros.png" alt="Veterinário">
+                </div>
+                <h3>Consulta Veterinária</h3>
+                <ul class="service-benefits">
+                    <li>✔ Check-up completo</li>
+                    <li>✔ Vacinação</li>
+                    <li>✔ Exames laboratoriais</li>
+                </ul>
+                <button class="service-btn" onclick="abrirAgendamento('consulta')">Agendar</button>
             </div>
+        </div>
+    </section>
 
-            <button type="submit" class="submit-btn">Confirmar Agendamento</button>
-        </form>
+    <!-- Modal de Agendamento -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharAgendamento()">&times;</span>
+            <h2>Agendar Serviço</h2>
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="service-type">Serviço:</label>
+                    <select id="service-type" required>
+                        <option value="">Selecione...</option>
+                        <option value="banho">Banho Completo</option>
+                        <option value="tosa">Tosa Premium</option>
+                        <option value="consulta">Consulta Veterinária</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pet-type">Tipo de Pet:</label>
+                    <select id="pet-type" required>
+                        <option value="">Selecione...</option>
+                        <option value="cachorro">Cachorro</option>
+                        <option value="gato">Gato</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="booking-date">Data:</label>
+                    <input type="date" id="booking-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="booking-time">Horário:</label>
+                    <input type="time" id="booking-time" min="09:00" max="18:00" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Confirmar Agendamento</button>
+            </form>
+        </div>
     </div>
-</div>
 
     <!-- Seção de Curiosidades -->
     <section id="curiosidades" class="fun-facts">
@@ -333,7 +354,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Seção de Planos de Saúde -->
     <section id="saude-pet" class="health-plans">
@@ -401,6 +421,15 @@
             <button class="checkout-btn" onclick="carregarPagamento()">
                 <a href="pagamento.html">Ir para sacola</a>
             </button>
+        </div>
+    </div>
+
+    <!-- Modal de Favoritos -->
+    <div id="favorites-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharFavoritos()">&times;</span>
+            <h2>Seus Favoritos</h2>
+            <div id="favorites-content"></div>
         </div>
     </div>
 

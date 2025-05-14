@@ -16,6 +16,7 @@
     --dark-blue: #4682b4;
     --success-color: #4CAF50;
     --error-color: #f44336;
+    --favorite-color: #ff4081;
 }
 
 * {
@@ -108,29 +109,45 @@ body, html {
     gap: 20px;
 }
 
-.cart-icon, .profile-icon {
+.cart-icon, .profile-icon, .favorite-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
     color: black;
+    position: relative;
 }
 
-.cart-icon:hover, .profile-icon:hover {
+.cart-icon:hover, .profile-icon:hover, .favorite-icon:hover {
     transform: translateY(-3px);
 }
 
-.cart-icon img, .profile-icon img {
+.cart-icon img, .profile-icon img, .favorite-icon img {
     width: 30px;
     height: 30px;
 }
 
-.cart-icon span {
+.cart-icon span, .profile-icon span, .favorite-icon span {
     padding: 4px;
 }
 
-.profile-icon, a {
+.cart-icon span, .favorite-icon span {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.profile-icon a {
     text-decoration: none;
     color: black;
     cursor: pointer;
@@ -156,7 +173,6 @@ body, html {
     align-items: center;
     padding: 15px;
     max-width: 350px;
-
     border-radius: 8px;
     background-color: white;
     box-shadow: none;
@@ -169,8 +185,8 @@ body, html {
     margin-right: 15px;
 }
 
-.banner a{
-    color:var(--dark-orange);
+.banner a {
+    color: var(--dark-orange);
 }
 
 /* Carrossel principal */
@@ -291,10 +307,15 @@ body, html {
     margin-top: 5px;
 }
 
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 15px 15px;
+}
+
 .add-to-cart {
-    display: block;
-    width: calc(100% - 30px);
-    margin: 0 auto 15px;
+    width: 100%;
     padding: 10px;
     background-color: var(--primary-color);
     color: var(--white);
@@ -309,11 +330,24 @@ body, html {
     background-color: var(--dark-orange);
 }
 
-/* Carrossel de nutrição */
-.section-title {
+.add-to-favorites {
+    width: 100%;
     padding: 10px;
+    background-color: var(--white);
+    color: var(--favorite-color);
+    border: 2px solid var(--favorite-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
+.add-to-favorites:hover, .add-to-favorites.favorited {
+    background-color: var(--favorite-color);
+    color: var(--white);
+}
+
+/* Carrossel de nutrição */
 .nutrition-carousel {
     display: flex;
     gap: 20px;
@@ -362,7 +396,13 @@ body, html {
 .cart-link {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
 }
+
 .cart-link:hover {
     color: var(--dark-orange);
 }
@@ -370,20 +410,30 @@ body, html {
 .quantity-controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 10px;
     align-items: center;
     text-align: center;
     justify-content: center;
     margin-top: 15px;
 }
 
-.btn-add, .btn-remove {
+.btn-add, .btn-remove, .btn-favorite {
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: all 0.3s ease;
+}
+
+.btn-favorite {
+    background-color: #ffe0e8;
+    color: var(--favorite-color);
+}
+
+.btn-favorite.favorited {
+    background-color: var(--favorite-color);
+    color: white;
 }
 
 .btn-add {
@@ -402,6 +452,10 @@ body, html {
 
 .btn-remove:hover {
     background-color: #ffcdd2;
+}
+
+.btn-favorite:hover {
+    background-color: #ffc0d5;
 }
 
 /* Seção de curiosidades */
@@ -452,7 +506,7 @@ body, html {
     font-size: 1.3rem;
 }
 
-/* ============ NOVAS SEÇÕES ============ */
+/* Seção de serviços */
 .service-booking {
     padding: 50px 20px;
     background: linear-gradient(135deg, #fff8f0 0%, #fff0e6 100%);
@@ -542,82 +596,6 @@ body, html {
     border-radius: 8px;
     width: 100%;
     font-size: 1rem;
-}
-
-/* Menu Hamburguer Mobile */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: var(--primary-color);
-    margin: 5px 0;
-    transition: 0.4s;
-}
-
-/* Responsividade Melhorada */
-@media (max-width: 768px) {
-    .header-container {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    
-    .menu-toggle {
-        display: block;
-        order: 1;
-    }
-    
-    .category-nav {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: white;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    }
-    
-    .category-nav.active {
-        display: flex;
-    }
-    
-    .search-container {
-        order: 2;
-        width: 100%;
-    }
-    
-    .product-card img {
-        height: 250px;
-    }
-    
-    .service-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .promo-banners {
-        flex-direction: column;
-    }
-    
-    .logo a {
-        font-size: 1.8rem;
-    }
-    
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .nutrition-product {
-        min-width: 85%;
-    }
 }
 
 /* Planos de saúde */
@@ -750,7 +728,7 @@ body, html {
 /* COMPONENTES DE INTERFACE */
 /* ============================================= */
 
-/* Modal do carrinho */
+/* Modal do carrinho e favoritos */
 .modal {
     display: none;
     position: fixed;
@@ -794,20 +772,44 @@ body, html {
     margin-bottom: 20px;
 }
 
-#cart-content {
+#cart-content, #favorites-content {
     max-height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
     padding-right: 10px;
 }
 
-#cart-content ul {
+#cart-content ul, #favorites-content ul {
     list-style-type: none;
 }
 
-#cart-content li {
+#cart-content li, #favorites-content li {
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.favorite-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.favorite-item-info {
+    flex-grow: 1;
+}
+
+.remove-favorite {
+    background-color: #ffebee;
+    color: #c62828;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 .cart-total {
@@ -921,13 +923,27 @@ body, html {
 }
 
 /* ============================================= */
-/* RESPONSIVIDADE - SERÁ ADICIONADO NO MEDIAQUERY */
+/* RESPONSIVIDADE */
 /* ============================================= */
 
+/* Menu Hamburguer Mobile */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
 
-/* ============================================= */
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
 /* HEADER MOBILE ULTRA-CLEAN (350px-451px) */
-/* ============================================= */
 @media (min-width: 350px) and (max-width: 451px) {
     /* Barra de promoção micro */
     .promo-bar {
@@ -999,14 +1015,14 @@ body, html {
         justify-content: flex-end;
     }
     
-    .cart-icon, .profile-icon {
+    .cart-icon, .profile-icon, .favorite-icon {
         flex-direction: row;
         gap: 3px;
         align-items: center;
         font-size: 0.9rem;
     }
     
-    .cart-icon img, .profile-icon img {
+    .cart-icon img, .profile-icon img, .favorite-icon img {
         width: 20px;
         height: 20px;
     }
@@ -1050,20 +1066,7 @@ body, html {
         max-height: 190px; /* Limita a altura para evitar cortes */
     }
 
-    
     /* Navegação minimalista */
-    .category-nav {
-        padding: 8px 0;
-        margin-bottom: 15px;
-    }
-    
-    .category-link {
-        font-size: 0.8rem;
-        margin: 0 6px;
-        padding: 4px 0;
-    }
-    
-    /* Remove emojis para limpar visual */
     .category-nav {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 colunas */
@@ -1104,20 +1107,21 @@ body, html {
         margin-bottom: 4px;
         display: block;
     }
-  .product-card img {
-    width: 100%;
-    height: 350px;
-    object-fit: contain; /* Garante que a imagem inteira apareça */
-    background-color: #f5f5f5; /* Fundo neutro caso haja espaços vazios */
-    padding: 10px;
-}
+    
+    .product-card img {
+        width: 100%;
+        height: 350px;
+        object-fit: contain; /* Garante que a imagem inteira apareça */
+        background-color: #f5f5f5; /* Fundo neutro caso haja espaços vazios */
+        padding: 10px;
+    }
 
-.product-section h2  {
-    margin-top: 80px;
-    font-size: 1.7rem;
-}
+    .product-section h2  {
+        margin-top: 80px;
+        font-size: 1.7rem;
+    }
 
-    .nutrition-product span, p{
+    .nutrition-product span, p {
         font-size: 1rem;
     }
     .nutrition-product h3 {
@@ -1132,8 +1136,8 @@ body, html {
         font-size: 0.9rem;
     }
 
-        /* Plano de Saúde */
-    .health-plans h2{
+    /* Plano de Saúde */
+    .health-plans h2 {
         font-size: 7vw;
     }
     .plans-container p {
@@ -1146,180 +1150,3 @@ body, html {
         font-size: 1.6rem;
     }
 }
-
-/* ============================================= */
-/* MEDIA QUERY CLEAN - 451px ATÉ 610px */
-/* ============================================= */
-@media (min-width: 451px) and (max-width: 610px) {
-    .promo-bar p {
-        font-size: 0.9rem;
-    }
-    .search-container input{
-        width: 100%;
-    }
-    .banner {
-        margin: auto;
-        font-size: 1.1rem;
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: white;
-        box-shadow: none;
-        border: 1px solid #e0e0e0;
-    }
-    .main-carousel img {
-        height: 14rem;
-    }
-    .category-nav {
-        position: relative;
-        top: -20%;
-        display: grid;
-        grid-template-columns: repeat(2, 2fr); /* 2 colunas */
-        gap: 10px;
-        margin-bottom: -70px;
-        background-color: white;
-    }
-
-    .category-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: black;
-        text-decoration: none;
-        font-size: 1.4rem;
-        padding: 10px 5px;
-        margin: 10;
-        border-radius: 8px;
-        border: 1px solid #cccaca;
-        background-color: rgba(255, 255, 255, 0.08);
-        transition: all 0.2s ease;
-        text-align: center;
-        line-height: 1.4;
-    }
-    .category-link:hover {
-        background-color: var(--primary-color);
-        transform: none;
-        color: var(--white);
-    }
-    .product-card img {
-        width: 100%;
-        height: 350px;
-        object-fit: contain; /* Garante que a imagem inteira apareça */
-        background-color: #f5f5f5; /* Fundo neutro caso haja espaços vazios */
-        padding: 10px;
-    }
-    
-    .product-card img {
-        height: 96vw;
-        width: 100vw;
-    }
-    .product-card h3 {
-        font-size: 1.5rem;
-    }
-        .product-card p {
-            font-size: 1.2rem;
-        }
-        .product-card span {
-            font-size: 1.2rem;
-        }
-        .plans-container p {
-            font-size: 1.4rem;
-        }
-        #nutricao-pet h2 {
-            margin-top: 100px;
-        }
-        .cart-link {
-            font-size: 1.3rem;
-        }
-}
-
-
-@media (min-width: 610px) and (max-width: 682px) {
-    .banner {
-        margin: auto;
-        font-size: 1.1rem;
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: white;
-        box-shadow: none;
-        border: 1px solid #e0e0e0;
-    }
-    
-    .main-carousel {
-        height: 380px;  /* Altura intermediária */
-    }
-    .carousel-item img {
-        max-height: 380px;
-        object-fit: contain; /* Garante imagem completa */
-        object-position: center top; /* Prioriza o topo (onde geralmente está o logo) */
-    }
-
-.category-nav {
-    position: relative;
-    top: -20%;
-    display: grid;
-    grid-template-columns: repeat(2, 2fr); /* 2 colunas */
-    gap: 10px;
-    margin-bottom: -70px;
-    background-color: white;
-}
-
-.category-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    text-decoration: none;
-    font-size: 1.4rem;
-    padding: 10px 5px;
-    margin: 10;
-    border-radius: 8px;
-    border: 1px solid #cccaca;
-    background-color: rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
-    text-align: center;
-    line-height: 1.4;
-}
-.category-link:hover {
-    background-color: var(--primary-color);
-    transform: none;
-    color: var(--white);
-}
-
-    /* --- Ajustes nos Produtos --- */
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* Mantém 2 colunas */
-        gap: 20px; /* Espaçamento reduzido */
-    }
-    .price {
-        font-size: 1.2rem;
-    }
-    .product-card span {
-        font-size: 1.2rem;
-    }
-    .product-card img {
-        height: 280px; /* Altura maior que na query anterior */
-        object-fit: contain;
-        padding: 10px; /* Espaço para o logo */
-    }
-
-    /* Ajuste opcional para textos */
-    .product-card h3 {
-        font-size: 1.4em; /* Reduz fonte se necessário */
-        margin-top: -20px;
-    }
-
-    #nutricao-pet h2 {
-        font-size: 2.2rem;
-        margin-top: 100px;
-    }
-    .cart-link {
-        font-size: 1.2rem;
-    }}
