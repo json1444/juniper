@@ -452,6 +452,174 @@ body, html {
     font-size: 1.3rem;
 }
 
+/* ============ NOVAS SEÇÕES ============ */
+.service-booking {
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #fff8f0 0%, #fff0e6 100%);
+}
+
+.service-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.service-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.service-benefits {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.service-benefits li {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+}
+
+.service-benefits li::before {
+    content: '✓';
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.service-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.service-btn:hover {
+    background: var(--dark-orange);
+}
+
+/* Modal de Agendamento */
+#booking-form {
+    display: grid;
+    gap: 20px;
+}
+
+.form-group {
+    display: grid;
+    gap: 8px;
+}
+
+.form-group select, 
+.form-group input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* Menu Hamburguer Mobile */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+/* Responsividade Melhorada */
+@media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .menu-toggle {
+        display: block;
+        order: 1;
+    }
+    
+    .category-nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .category-nav.active {
+        display: flex;
+    }
+    
+    .search-container {
+        order: 2;
+        width: 100%;
+    }
+    
+    .product-card img {
+        height: 250px;
+    }
+    
+    .service-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-banners {
+        flex-direction: column;
+    }
+    
+    .logo a {
+        font-size: 1.8rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nutrition-product {
+        min-width: 85%;
+    }
+}
+
 /* Planos de saúde */
 .health-plans {
     background-color: rgba(0, 172, 100, 0.2);

@@ -199,6 +199,61 @@ window.addEventListener("click", function(event) {
 });
 
 
+// Menu Hamburguer
+const menuToggle = document.createElement('button');
+menuToggle.className = 'menu-toggle';
+menuToggle.innerHTML = `
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+`;
+
+document.querySelector('.header-container').prepend(menuToggle);
+const categoryNav = document.querySelector('.category-nav');
+
+menuToggle.addEventListener('click', () => {
+    categoryNav.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+});
+
+// Sistema de Agendamento
+let currentService = '';
+
+function abrirAgendamento(service) {
+    currentService = service;
+    document.getElementById('service-type').value = service;
+    document.getElementById('booking-modal').style.display = 'block';
+}
+
+function fecharAgendamento() {
+    document.getElementById('booking-modal').style.display = 'none';
+    document.getElementById('booking-form').reset();
+}
+
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const serviceType = document.getElementById('service-type').value;
+    const petType = document.getElementById('pet-type').value;
+    const date = document.getElementById('booking-date').value;
+    const time = document.getElementById('booking-time').value;
+    
+    if (!serviceType || !petType || !date || !time) {
+        alert('Por favor, preencha todos os campos!');
+        return;
+    }
+    
+    const notification = document.getElementById('notification');
+    notification.textContent = `✅ Agendamento para ${serviceType} (${petType}) confirmado em ${date} às ${time}`;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        fecharAgendamento();
+    }, 3000);
+});
+
+
 /**
  * =============================================
  * PROCESSAMENTO DE PAGAMENTO

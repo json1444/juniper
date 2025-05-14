@@ -225,6 +225,93 @@
     </div>
 </section>
 
+  <!-- Seção de Agendamento de Serviços -->
+<section class="service-booking">
+    <h2 class="section-title">Agende Seu Serviço <span>★</span></h2>
+    
+    <div class="service-container">
+        <div class="service-card">
+            <div class="service-icon">
+                <img src="img/img-servicos/banho-de-banheira.png" alt="Banho e Tosa">
+            </div>
+            <h3>Banho Completo</h3>
+            <ul class="service-benefits">
+                <li>✔ Banho higiênico</li>
+                <li>✔ Secagem profissional</li>
+                <li>✔ Corte de unhas</li>
+            </ul>
+            <button class="service-btn" onclick="abrirAgendamento('banho')">Agendar</button>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">
+                <img src="img/img-servicos/tosa-de-animais.png" alt="Tosa">
+            </div>
+            <h3>Tosa Premium</h3>
+            <ul class="service-benefits">
+                <li>✔ Tosa na máquina</li>
+                <li>✔ Modelagem personalizada</li>
+                <li>✔ Estética completa</li>
+            </ul>
+            <button class="service-btn" onclick="abrirAgendamento('tosa')">Agendar</button>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">
+                <img src="img/img-servicos/sinal-de-primeiros-socorros.png" alt="Veterinário">
+            </div>
+            <h3>Consulta Veterinária</h3>
+            <ul class="service-benefits">
+                <li>✔ Check-up completo</li>
+                <li>✔ Vacinação</li>
+                <li>✔ Exames laboratoriais</li>
+            </ul>
+            <button class="service-btn" onclick="abrirAgendamento('consulta')">Agendar</button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal de Agendamento -->
+<div id="booking-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="fecharAgendamento()">&times;</span>
+        <h2>Agendar Serviço</h2>
+        <form id="booking-form">
+            <div class="form-group">
+                <label for="service-type">Serviço:</label>
+                <select id="service-type" required>
+                    <option value="">Selecione...</option>
+                    <option value="banho">Banho Completo</option>
+                    <option value="tosa">Tosa Premium</option>
+                    <option value="consulta">Consulta Veterinária</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="pet-type">Tipo de Pet:</label>
+                <select id="pet-type" required>
+                    <option value="">Selecione...</option>
+                    <option value="cachorro">Cachorro</option>
+                    <option value="gato">Gato</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="booking-date">Data:</label>
+                <input type="date" id="booking-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="booking-time">Horário:</label>
+                <input type="time" id="booking-time" min="09:00" max="18:00" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Confirmar Agendamento</button>
+        </form>
+    </div>
+</div>
+
     <!-- Seção de Curiosidades -->
     <section id="curiosidades" class="fun-facts">
         <h2 class="section-title">Descubra mais sobre seu <span>amigo!</span></h2>
@@ -246,6 +333,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Seção de Planos de Saúde -->
     <section id="saude-pet" class="health-plans">
