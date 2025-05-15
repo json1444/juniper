@@ -194,7 +194,7 @@ body, html {
     position: relative;
     height: 400px;
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .carousel-item {
@@ -220,7 +220,7 @@ body, html {
     justify-content: center;
     background-color: var(--secondary-color);
     padding: 15px 0;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
 }
 
 .category-link {
@@ -251,14 +251,17 @@ body, html {
 }
 
 .section-title span {
-    color: var(--primary-color);
+    background: linear-gradient(45deg, #ff7b00, #ff00a6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
 }
 
 .product-card {
@@ -372,11 +375,30 @@ body, html {
 }
 
 .nutrition-product {
+    position: relative;
+    overflow: hidden;
     min-width: 220px;
     background-color: var(--white);
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nutrition-product::after {
+    content: "★ Premium";
+    position: absolute;
+    top: 10px;
+    right: -25px;
+    background: #ff7b00;
+    color: white;
+    padding: 3px 25px;
+    transform: rotate(45deg);
+    font-size: 0.7rem;
+}
+
+.nutrition-product:hover {
+    transform: translateY(-5px) scale(1.02);
+    transition: all 0.3s ease;
 }
 
 .nutrition-product img {
