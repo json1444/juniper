@@ -19,26 +19,99 @@ window.addEventListener("scroll", () => {
     }
 });
 
-/**
- * =============================================
- * CARROSSEL DE IMAGENS
- * =============================================
- */
-document.addEventListener("DOMContentLoaded", function() {
-    // Inicializa o carrossel principal
-    const carouselItems = document.querySelectorAll(".carousel-item");
-    if (carouselItems.length > 0) {
-        let currentIndex = 0;
-        carouselItems[0].classList.add("active");
-
-        function rotateCarousel() {
-            carouselItems[currentIndex].classList.remove("active");
-            currentIndex = (currentIndex + 1) % carouselItems.length;
-            carouselItems[currentIndex].classList.add("active");
-        }
-
-        setInterval(rotateCarousel, 3000);
+// Carrossel Automático
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.carousel-container');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.querySelector('.carousel-dots');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    
+    let currentIndex = 0;
+    let slideInterval;
+    const slideTime = 5000; // 5 segundos
+    
+    // Criar dots de navegação
+    slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('carousel-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+    
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    // Iniciar carrossel automático
+    function startCarousel() {
+        slideInterval = setInterval(() => {
+            nextSlide();
+        }, slideTime);
     }
+    
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+        resetInterval();
+    }
+    
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+    }
+    
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateCarousel();
+    }
+    
+    function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Atualizar slides
+        slides.forEach((slide, index) => {
+            if (index === currentIndex) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+        
+        // Atualizar dots
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+    
+    function resetInterval() {
+        clearInterval(slideInterval);
+        startCarousel();
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+    });
+    
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+    });
+    
+    // Iniciar
+    startCarousel();
+    
+    // Pausar ao passar o mouse
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+    });
+    
+    carousel.addEventListener('mouseleave', startCarousel);
 });
 
 /**
