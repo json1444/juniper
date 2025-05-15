@@ -1,41 +1,474 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - LuckPet</title>
-    <link rel="stylesheet" href="login.css">
+    <title>LuckPet - Login/Cadastro</title>
+    <link rel="shortcut icon" href="img/PetLuck.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="perfil.png" type="image/x-icon">
+    <style>
+        /* Reset e estilos base */
+        :root {
+            --primary: #FF7B00;
+            --primary-dark: #E56B00;
+            --secondary: #40006B;
+            --light: #F8F8F8;
+            --dark: #333333;
+            --gray: #DDDDDD;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'luckpet1', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Container principal */
+        .auth-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Cabeçalho */
+        .auth-header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .auth-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .auth-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .auth-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Corpo do formulário */
+        .auth-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.2);
+            outline: none;
+        }
+        
+        /* Botão principal */
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .auth-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .auth-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* Alternar entre formulários */
+        .switch-form {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .switch-form a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Divisor social */
+        .social-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        .social-divider::before,
+        .social-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray);
+            margin: 0 10px;
+        }
+        
+        /* Botões sociais */
+        .social-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            padding: 12px;
+            border: 2px solid var(--gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        
+        .social-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .social-btn img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Ícones de pets decorativos */
+        .pet-icon {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.1;
+            width: 120px;
+            transition: all 0.5s ease;
+        }
+        
+        .pet-1 {
+            top: 10%;
+            left: 5%;
+        }
+        
+        .pet-2 {
+            bottom: 10%;
+            right: 5%;
+            transform: rotate(180deg);
+        }
+        
+        /* Formulário de cadastro */
+        #register-form {
+            display: none;
+        }
+        
+        /* Efeitos de animação */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Responsividade para mobile */
+        @media (max-width: 576px) {
+            body {
+                padding: 15px;
+                background: var(--white);
+            }
+            
+            .auth-container {
+                border-radius: 15px;
+                box-shadow: none;
+            }
+            
+            .auth-header {
+                padding: 25px 15px;
+            }
+            
+            .auth-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .auth-body {
+                padding: 25px 20px;
+            }
+            
+            .pet-icon {
+                width: 80px;
+                opacity: 0.08;
+            }
+            
+            .form-group input {
+                padding: 13px 15px;
+            }
+            
+            .auth-btn {
+                padding: 14px;
+            }
+            
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Ajustes para iPhone (375px) */
+        @media (max-width: 375px) {
+            .auth-header {
+                padding: 20px 15px;
+            }
+            
+            .auth-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .auth-header p {
+                font-size: 0.85rem;
+            }
+            
+            .auth-body {
+                padding: 20px 15px;
+            }
+            
+            .pet-icon {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
+    <!-- Ícones decorativos de pets -->
+    <img src="patas.png" alt="Pata de cachorro" class="pet-icon pet-1 floating">
+    <img src="patas.png" alt="Pata de gato" class="pet-icon pet-2 floating">
+    
+    <div class="auth-container">
+        <div class="auth-header">
             <h1>LuckPet</h1>
+            <p>Seu pet merece o melhor cuidado</p>
         </div>
-    </header>
-    <main>
-        <section class="register-section">
-            <h2>Crie sua conta na LuckPet!</h2>
+        
+        <div class="auth-body">
+            <!-- Formulário de Login -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" placeholder="exemplo@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" placeholder="Digite sua senha" required>
+                </div>
+                
+                <button type="submit" class="auth-btn">
+                    <i>🐾</i> Entrar
+                </button>
+                
+                <div class="switch-form">
+                    Novo por aqui? <a href="#" onclick="switchForm('register')">Crie sua conta</a>
+                </div>
+                
+                <div class="social-divider">
+                    Ou entre com
+                </div>
+                
+                <div class="social-buttons">
+                    <button type="button" class="social-btn">
+                        <img src="google.png" alt="Google">
+                        Google
+                    </button>
+                    <button type="button" class="social-btn">
+                        <img src="facebook (1).png" alt="Facebook">
+                        Facebook
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Formulário de Cadastro -->
             <form id="register-form">
                 <div class="form-group">
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" placeholder="Seu nome completo" required>
                 </div>
+                
                 <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="register-email">E-mail</label>
+                    <input type="email" id="register-email" placeholder="exemplo@email.com" required>
                 </div>
+                
                 <div class="form-group">
-                    <label for="password">Senha:</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" placeholder="Mínimo 8 caracteres" required>
                 </div>
-                <button type="submit">Cadastrar</button>
+                
+                <div class="form-group">
+                    <label for="register-confirm">Confirme a Senha</label>
+                    <input type="password" id="register-confirm" placeholder="Digite novamente" required>
+                </div>
+                
+                <button type="submit" class="auth-btn">
+                    <i>🐶</i> Cadastrar
+                </button>
+                
+                <div class="switch-form">
+                    Já tem conta? <a href="#" onclick="switchForm('login')">Faça login</a>
+                </div>
             </form>
-            <p id="message"></p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 LuckPet - Todos os direitos reservados</p>
-    </footer>
-    <script src="login.js"></script>
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre formulários
+        function switchForm(formType) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            if (formType === 'register') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            } else {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            }
+            
+            // Rolagem suave para o topo
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Validação do cadastro
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+            
+            if (password.length < 8) {
+                alert('A senha deve ter no mínimo 8 caracteres');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+            
+            // Simulação de cadastro bem-sucedido
+            alert('Cadastro realizado com sucesso! Redirecionando...');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+        
+        // Validação do login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulação de login bem-sucedido
+            alert('Login realizado com sucesso! Redirecionando...');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+        
+        // Ajustar altura do input no iOS
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.style.minHeight = '44px'; // Tamanho mínimo recomendado para iOS
+            });
+        }
+    </script>
 </body>
 </html>

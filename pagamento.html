@@ -1,241 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <html lang="pt-br">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento</title>
-    <link rel="shortcut icon" href="img/favicon-pagamento.png" type="image/x-icon">
-
+    <title>Pagamento - LuckPet</title>
+    <link rel="shortcut icon" href="img/comprar-online.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <style>
-        @font-face {
-    font-family: 'luckpet3';
-    src: url(fontes/MADE\ TOMMY\ Medium_PERSONAL\ USE.otf) format(opentype);
-}
-        
-        /* Resetando alguns estilos padrão */
+        /* Variáveis de cores */
+        :root {
+            --primary: #FF7B00;
+            --primary-dark: #E56B00;
+            --secondary: #40006B;
+            --light: #F8F8F8;
+            --dark: #333333;
+            --gray: #DDDDDD;
+            --white: #FFFFFF;
+            --success: #28A745;
+            --food-color: #FF8C00;
+            --clothing-color: #4682B4;
+        }
+
+        /* Reset e estilos base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'luckpet1', sans-serif;
         }
 
         body {
-            font-family: luckpet3, sans-serif;
-            background-color: #ececec;
-            color: #333;
-            padding: 20px;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: #444;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        h3 {
-            font-family: luckpet3;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: #555;
-            text-align: center;
-            margin-top: 10px;
-
-            font-family: luckpet3;
-        }
-
-        #conteudo-carrinho {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px 0;
-            background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-            font-family: luckpet3;
         }
 
-        #conteudo-carrinho ul {
+        /* Container principal */
+        .payment-container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        /* Cabeçalho */
+        .payment-header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .payment-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Corpo do pagamento */
+        .payment-body {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* Seção do carrinho */
+        .cart-section {
+            grid-column: 1 / -1;
+        }
+
+        .cart-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-title h2 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .cart-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .food-badge {
+            background-color: var(--food-color);
+            color: white;
+        }
+
+        .clothing-badge {
+            background-color: var(--clothing-color);
+            color: white;
+        }
+
+        .cart-items {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cart-items ul {
             list-style-type: none;
-            margin: 0;
-            padding: 0;
         }
 
-        #conteudo-carrinho li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-            font-size: 1.2rem;
+        .cart-items li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        #conteudo-carrinho li:last-child {
+        .cart-items li:last-child {
             border-bottom: none;
         }
 
-        #qrcode {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-            width: 256px;
-            height: 256px;
+        .item-name {
+            font-weight: bold;
         }
 
-        #valor-pix {
+        .food-item {
+            color: var(--food-color);
+        }
+
+        .clothing-item {
+            color: var(--clothing-color);
+        }
+
+        .item-price {
+            font-weight: bold;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--success);
+            margin-top: 15px;
+        }
+
+        /* Seção de pagamento */
+        .payment-section {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .payment-section h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .payment-section p {
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        /* QR Code */
+        .qrcode-container {
+            background-color: var(--white);
+            border: 2px solid var(--gray);
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        #qrcode {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .payment-value {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #1a8917;
-            margin-top: 10px;
+            color: var(--success);
+            margin: 15px 0;
         }
 
-        /* Cor personalizada para o subtotal */
-        #subtotal {
-            color: green; /* Aqui você define a cor desejada */
+        .payment-instructions {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .payment-instructions h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .payment-instructions ol {
+            padding-left: 20px;
+        }
+
+        .payment-instructions li {
+            margin-bottom: 8px;
+        }
+
+        /* Botão de voltar */
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
             font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #5c00b3;
+            transform: translateY(-2px);
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                font-family: luckpet3;
+            .payment-body {
+                grid-template-columns: 1fr;
+                padding: 20px;
             }
-
-            h1 {
-                font-size: 2rem;
+            
+            .payment-header h1 {
+                font-size: 1.8rem;
             }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            #conteudo-carrinho {
+            
+            .cart-items {
                 padding: 15px;
             }
-
-            #conteudo-carrinho li {
-                font-size: 1rem;
-            }
-
-            #valor-pix {
-                font-size: 1.3rem;
+            
+            #qrcode {
+                width: 180px;
+                height: 180px;
             }
         }
 
         @media (max-width: 480px) {
             body {
-                font-family: luckpet3;
+                padding: 15px;
             }
-            h1 {
-                font-size: 1.8rem;
+            
+            .payment-container {
+                margin-top: 15px;
             }
+            
+            .payment-header {
+                padding: 20px 15px;
+            }
+            
+            .payment-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .cart-title h2 {
+                font-size: 1.3rem;
+            }
+            
+            .cart-items li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .payment-value {
+                font-size: 1.3rem;
+            }
+            
+            #qrcode {
+                width: 160px;
+                height: 160px;
+            }
+        }
 
-            #conteudo-carrinho {
-                padding: 10px;
+        /* Ajustes para iPhone (375px) */
+        @media (max-width: 375px) {
+            .payment-header h1 {
+                font-size: 1.5rem;
             }
-
-            #conteudo-carrinho li {
-                font-size: 0.9rem;
+            
+            .cart-title {
+                flex-direction: column;
+                gap: 8px;
             }
-
-            #valor-pix {
-                font-size: 1.1rem;
+            
+            .payment-instructions {
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Resumo do Carrinho</h1>
-    <h3>🟠Alimentos 🔵Vestimento</h3>
-    <div id="conteudo-carrinho"></div>
-    <h2 id="subtotal"></h2>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>Finalize seu Pedido</h1>
+            <p>LuckPet - O melhor para seu pet</p>
+        </div>
+        
+        <div class="payment-body">
+            <section class="cart-section">
+                <div class="cart-title">
+                    <h2>Seu Carrinho</h2>
+                    <span class="cart-badge food-badge">🟠 Alimentos</span>
+                    <span class="cart-badge clothing-badge">🔵 Vestuário</span>
+                </div>
+                
+                <div class="cart-items">
+                    <ul id="conteudo-carrinho"></ul>
+                    <div class="cart-total" id="subtotal"></div>
+                </div>
+            </section>
+            
+            <section class="payment-section">
+                <h2>Pagamento via PIX</h2>
+                <p>Escaneie o QR Code abaixo para pagamento instantâneo</p>
+                
+                <div class="qrcode-container">
+                    <div id="qrcode"></div>
+                </div>
+                
+                <div class="payment-value" id="valor-pix"></div>
+                
+                <div class="payment-instructions">
+                    <h3>Como pagar:</h3>
+                    <ol>
+                        <li>Abra o app do seu banco</li>
+                        <li>Selecione a opção PIX</li>
+                        <li>Escaneie o QR Code acima</li>
+                        <li>Confirme o pagamento</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-btn">Voltar à Loja</a>
 
-    <h1>Pagamento via Pix</h1>
-    <p>Escaneie o QR Code abaixo para realizar o pagamento:</p>
-
-    <!-- QR Code do Pix -->
-    <div id="qrcode"></div>
-
-    <!-- Valor do pagamento -->
-    <p id="valor-pix"></p>
-
-    <!-- Coloque o script aqui, no final do body -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Recupera o carrinho salvo
+        document.addEventListener("DOMContentLoaded", function() {
+            // Recupera o carrinho do localStorage
             let produtos = JSON.parse(localStorage.getItem('carrinho')) || {};
-
-            // Exibe os produtos do carrinho na interface
+            
+            // Exibe os itens do carrinho
             const carrinhoDiv = document.getElementById("conteudo-carrinho");
-            let conteudo = "<ul>";
+            let conteudo = "";
             let subtotal = 0;
-
+            
             for (let produto in produtos) {
                 if (produtos[produto].quantidade > 0) {
-                    // Define a cor baseada no tipo do produto
-                    let cor = produtos[produto].tipo === "alimento" ? "darkorange" : "darkblue";
-                    conteudo += `<li style="color: ${cor};">${produto.charAt(0).toUpperCase() + produto.slice(1)}: 
-                    ${produtos[produto].quantidade} unidades - Total: R$ ${produtos[produto].total.toFixed(2)}</li>`;
+                    const tipoClasse = produtos[produto].tipo === "alimento" ? "food-item" : "clothing-item";
+                    const icone = produtos[produto].tipo === "alimento" ? "🟠" : "🔵";
+                    
+                    conteudo += `
+                        <li>
+                            <span class="item-name ${tipoClasse}">${icone} ${produtos[produto].nome}</span>
+                            <span class="item-price">
+                                ${produtos[produto].quantidade}x R$ ${produtos[produto].preco.toFixed(2)} = 
+                                <strong>R$ ${produtos[produto].total.toFixed(2)}</strong>
+                            </span>
+                        </li>`;
+                    
                     subtotal += produtos[produto].total;
                 }
             }
-            conteudo += "</ul>";
-
+            
             if (subtotal === 0) {
-                carrinhoDiv.innerHTML = "<p>O carrinho está vazio.</p>";
+                carrinhoDiv.innerHTML = "<li>Seu carrinho está vazio</li>";
             } else {
                 carrinhoDiv.innerHTML = conteudo;
-                document.getElementById("subtotal").textContent = "Subtotal: R$ " + subtotal.toFixed(2);
+                document.getElementById("subtotal").textContent = `Total: R$ ${subtotal.toFixed(2)}`;
             }
-
-            // Informações para o Pix
-            const chavePix = "suachavepix@email.com"; // Sua chave Pix (pode ser e-mail, CPF, CNPJ)
-            const nomeRecebedor = "Nome do Recebedor"; // Nome do recebedor
-            const cidadeRecebedor = "Sua Cidade"; // Cidade do recebedor
-            const valorPagamento = subtotal; // Valor do pagamento (substitua pelo valor do seu carrinho)
-            const mensagem = "Pagamento do Carrinho"; // Mensagem opcional para o pagamento
-
-            // Função para gerar o payload do Pix
+            
+            // Configuração do PIX
+            const chavePix = "contato@luckpet.com"; // Substitua pela sua chave PIX
+            const nomeRecebedor = "LuckPet Comércio de Produtos para Pets";
+            const cidadeRecebedor = "São Paulo";
+            const valorPagamento = subtotal;
+            const mensagem = "Compra LuckPet";
+            
+            // Exibe o valor do PIX
+            document.getElementById("valor-pix").textContent = `Valor: R$ ${subtotal.toFixed(2)}`;
+            
+            // Gera o payload do PIX
             function gerarPayloadPix(chave, nome, cidade, valor, mensagem) {
                 return `000201
-                010211
-                26${chave.length + 14}0014br.gov.bcb.pix
-                01${chave.length.toString().padStart(2, '0')}${chave}
-                52040000
-                5303986
-                54${valor.toFixed(2).replace('.', '')}
-                5802BR
-                59${nome.length.toString().padStart(2, '0')}${nome}
-                60${cidade.length.toString().padStart(2, '0')}${cidade}
-                62${mensagem.length.toString().padStart(2, '0')}${mensagem}
-                6304`;
+                    010211
+                    26${chave.length + 14}0014br.gov.bcb.pix
+                    01${chave.length.toString().padStart(2, '0')}${chave}
+                    52040000
+                    5303986
+                    54${valor.toFixed(2).replace('.', '')}
+                    5802BR
+                    59${nome.length.toString().padStart(2, '0')}${nome}
+                    60${cidade.length.toString().padStart(2, '0')}${cidade}
+                    62${mensagem.length.toString().padStart(2, '0')}${mensagem}
+                    6304`;
             }
-
-            // Gerar o payload do Pix com as informações fornecidas
-            const payloadPix = gerarPayloadPix(chavePix, nomeRecebedor, cidadeRecebedor, valorPagamento, mensagem);
-
+            
             // Gera o QR Code
-            const qrcodeDiv = document.getElementById("qrcode");
-            const qrCode = new QRCode(qrcodeDiv, {
-                text: payloadPix, // Texto do QR Code
-                width: 256,        // Largura do QR Code
-                height: 256,       // Altura do QR Code
-                colorDark: "#000000", // Cor do QR Code
-                colorLight: "#ffffff", // Cor de fundo
-                correctLevel: QRCode.CorrectLevel.H // Nível de correção do QR Code
+            const payloadPix = gerarPayloadPix(chavePix, nomeRecebedor, cidadeRecebedor, valorPagamento, mensagem);
+            
+            new QRCode(document.getElementById("qrcode"), {
+                text: payloadPix,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
             });
+            
+            // Ajuste para iOS (tamanho mínimo de toque)
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                const buttons = document.querySelectorAll('button, a');
+                buttons.forEach(button => {
+                    button.style.minHeight = '44px';
+                    button.style.minWidth = '44px';
+                });
+            }
         });
     </script>
 </body>
+</html>
