@@ -1,331 +1,1644 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <!-- Metadados básicos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuckPet - Pet Shop Online</title>
-    
-    <!-- Favicon -->
+    <title>LuckPet - Pet Shop Premium</title>
     <link rel="shortcut icon" href="img/petshop.png" type="image/x-icon">
-    
-    <!-- Folhas de estilo -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIÁVEIS E RESET ===== */
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2EC4B6;
+            --accent: #FF9F1C;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+            --success: #28A745;
+            --danger: #DC3545;
+            --warning: #FFC107;
+            --info: #17A2B8;
+            --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FF9F1C 100%);
+            --gradient-secondary: linear-gradient(135deg, #2EC4B6 0%, #4EA8DE 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --font-primary: 'Poppins', 'Inter', Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button, .btn {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section-title span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== COMPONENTES ===== */
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ===== HEADER ===== */
+        .promo-bar {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
+        .promo-bar a {
+            color: white;
+            text-decoration: underline;
+            margin-left: 5px;
+            font-weight: 600;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-right: 45px;
+            border-radius: 30px;
+            border: 2px solid #eaeaea;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.2rem;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .nav-icon:hover {
+            color: var(--primary);
+        }
+
+        .nav-icon i {
+            font-size: 1.4rem;
+        }
+
+        .nav-icon span {
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== BANNERS PROMOCIONAIS ===== */
+        .promo-banners {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            padding: 20px 0;
+            background: white;
+        }
+
+        .promo-banner {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: var(--radius);
+            background: rgba(46, 196, 182, 0.1);
+        }
+
+        .promo-banner i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-right: 15px;
+        }
+
+        .promo-banner p {
+            font-size: 0.9rem;
+        }
+
+        .promo-banner a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ===== CARROSSEL HERO ===== */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: var(--radius);
+            margin: 20px 0;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            max-width: 500px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-caption h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .carousel-caption p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .carousel-prev, .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--dark);
+            z-index: 10;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-prev {
+            left: 15px;
+        }
+
+        .carousel-next {
+            right: 15px;
+        }
+
+        .carousel-prev:hover, .carousel-next:hover {
+            background: white;
+        }
+
+        /* ===== CATEGORIAS ===== */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .category-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(46, 196, 182, 0.1);
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .category-item span {
+            font-weight: 600;
+        }
+
+        /* ===== PRODUTOS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--danger);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-wishlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .product-wishlist:hover, .product-wishlist.active {
+            color: var(--danger);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-current {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .price-original {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .price-discount {
+            font-size: 0.9rem;
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-cart {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-cart:hover {
+            opacity: 0.9;
+        }
+
+        .btn-wishlist {
+            background: #f8f9fa;
+            color: var(--gray);
+        }
+
+        .btn-wishlist:hover, .btn-wishlist.active {
+            background: #fff0f0;
+            color: var(--danger);
+        }
+
+        /* ===== SERVIÇOS ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            padding: 30px;
+            text-align: center;
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(46, 196, 182, 0.1);
+            color: var(--secondary);
+            font-size: 2rem;
+            border-radius: 50%;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .service-features {
+            margin-bottom: 20px;
+        }
+
+        .service-features li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--gray);
+        }
+
+        .service-features li i {
+            color: var(--success);
+        }
+
+        /* ===== CURIOSIDADES ===== */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .fact-card {
+            position: relative;
+            height: 300px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .fact-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .fact-card:hover .fact-image {
+            transform: scale(1.05);
+        }
+
+        .fact-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 20px;
+            color: white;
+        }
+
+        .fact-overlay p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+
+        .fact-overlay span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== PLANOS DE SAÚDE ===== */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .plan-card {
+            padding: 30px;
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .plan-card.popular::before {
+            content: 'Mais Popular';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .plan-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .plan-subtitle {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .plan-features {
+            margin-bottom: 25px;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== AVALIAÇÃO ===== */
+        .feedback-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .rating {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .rating input:checked ~ label {
+            color: #ddd;
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked + label,
+        .rating input:checked ~ label {
+            color: var(--warning);
+        }
+
+        /* ===== MODAIS ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal-title {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cart-items, .wishlist-items {
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item, .wishlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child, .wishlist-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image, .wishlist-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .cart-item-image img, .wishlist-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info, .wishlist-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title, .wishlist-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price, .wishlist-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-item-actions, .wishlist-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .remove-btn {
+            color: var(--danger);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .remove-btn:hover {
+            color: #a71e2a;
+        }
+
+        .cart-total, .wishlist-empty {
+            padding: 15px 0;
+            border-top: 2px solid #eee;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: right;
+            color: var(--primary);
+        }
+
+        .wishlist-empty {
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* ===== NOTIFICAÇÃO ===== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            background: var(--success);
+            color: white;
+            box-shadow: var(--shadow);
+            z-index: 2100;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .notification.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification.error {
+            background: var(--danger);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+        }
+
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                order: 1;
+            }
+            
+            .nav-icons {
+                order: 2;
+            }
+            
+            .search-container {
+                order: 3;
+                flex: 0 0 100%;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .mobile-toggle {
+                display: block;
+                order: 2;
+                margin-left: 15px;
+            }
+            
+            .hero-carousel {
+                height: 400px;
+            }
+            
+            .carousel-caption {
+                left: 30px;
+                bottom: 30px;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-carousel {
+                height: 350px;
+            }
+            
+            .carousel-caption {
+                left: 20px;
+                bottom: 20px;
+                max-width: 80%;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+            
+            .categories {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .promo-banners {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-carousel {
+                height: 300px;
+            }
+            
+            .carousel-caption {
+                left: 15px;
+                bottom: 15px;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+            
+            .carousel-caption p {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+            
+            .products-grid,
+            .services-grid,
+            .facts-grid,
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .animate-slideInUp {
+            animation: slideInUp 0.5s ease forwards;
+        }
+
+        /* ===== UTILITÁRIOS ===== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Barra de promoção no topo -->
+    <!-- Barra de promoção -->
     <div class="promo-bar">
         <p><strong>🎁 LuckPet Já!</strong> Seu pedido entregue em até 1h* <a href="#" class="saiba-mais">Saiba mais</a></p>
     </div>
 
-    <!-- Cabeçalho principal -->
-    <header class="main-header">
-        <div class="header-container">
-            <!-- Logo -->
-            <h1 class="logo"><a href="index.html">LuckPet</a></h1>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Luck<span>Pet</span></a>
             
-            <!-- Barra de pesquisa -->
             <div class="search-container">
-                <input type="text" placeholder="Para seu pet, procure aqui 🔎" class="search-bar">
+                <input type="text" class="search-input" placeholder="Para seu pet, procure aqui..." id="searchInput">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
             
-            <!-- Ícones de navegação -->
             <div class="nav-icons">
-                <!-- Favoritos -->
-                <div class="favorite-icon" onclick="abrirFavoritos()">
-                    <img src="img/favorito.png" alt="">
-                    <span id="favorite-count">0</span>
+                <div class="nav-icon" id="wishlistIcon">
+                    <i class="fas fa-heart"></i>
+                    <span>Favoritos</span>
+                    <span class="badge" id="wishlistCount">0</span>
                 </div>
                 
-                <!-- Carrinho -->
-                <div class="cart-icon" onclick="abrirCarrinho()">
-                    <img src="img/comprar-online.png" alt="Carrinho de compras">
-                    <span id="cart-count">0</span>
+                <div class="nav-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Carrinho</span>
+                    <span class="badge" id="cartCount">0</span>
                 </div>
                 
-                <!-- Perfil/Login -->
-                <div class="profile-icon">
-                    <a href="formulario/login.html"><img src="img/perfil.png" alt="Perfil do usuário"></a>
-                   
+                <div class="nav-icon">
+                    <a href="formulario/login.html">
+                        <i class="fas fa-user"></i>
+                        <span>Entrar</span>
+                    </a>
+                </div>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Seção de banners promocionais -->
-    <section class="promo-banners">
-        <div class="banner">
-            <img src="img/bolsa-de-compras.png" alt="Ícone de desconto">
-            <p>Descontos de 15% a 25% OFF + Frete Grátis! <a href="#">Clique aqui</a></p>
+    <!-- Banners promocionais -->
+    <div class="container">
+        <div class="promo-banners">
+            <div class="promo-banner">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Descontos de 15% a 25% OFF + Frete Grátis! <a href="#">Clique aqui</a></p>
+            </div>
+            <div class="promo-banner">
+                <i class="fas fa-tag"></i>
+                <p>Ganhe 10% na Primeira Compra! Código: <strong>BEMVINDO10!</strong> <a href="#">Clique aqui</a></p>
+            </div>
+            <div class="promo-banner">
+                <i class="fas fa-spa"></i>
+                <p>Agende Já! Banho e Tosa com 15% de Desconto! <a href="#">Clique aqui</a></p>
+            </div>
         </div>
-        <div class="banner">
-            <img src="img/cupom.png" alt="Ícone de cupom">
-            <p>Ganhe 10% na Primeira Compra! Código: <strong>BEMVINDO10!</strong> <a href="#">Clique aqui</a></p>
-        </div>
-        <div class="banner">
-            <img src="img/tosa-de-animais-de-estimacao.png" alt="Ícone de serviços">
-            <p>Agende Já! Banho e Tosa com 15% de Desconto! <a href="#">Clique aqui</a></p>
-        </div>
-    </section>
+    </div>
 
- <!-- Carrossel principal melhorado -->
-<section class="hero-carousel">
-    <div class="carousel-container">
-        <div class="carousel-slide active">
-            <img src="img/img4-anuncio.png" alt="Promoção de ração" class="hero-image">
-        </div>
-        <div class="carousel-slide">
-            <img src="img/img3-anuncio.png" alt="Promoção de acessórios" class="hero-image">
-        </div>
-        <div class="carousel-slide">
-            <img src="img/img2-anuncio.png" alt="Promoção de acessórios" class="hero-image">
-        </div>
-          <div class="carousel-slide">
-            <img src="img/img1-anuncio.png" alt="Promoção de acessórios" class="hero-image">
-        </div>
-          <div class="carousel-slide">
-            <img src="img/img5-anuncio.png" alt="Promoção de Acessórios" class="hero-image">
+    <!-- Carrossel principal -->
+    <div class="container">
+        <div class="hero-carousel">
+            <div class="carousel-inner" id="carouselInner">
+                <div class="carousel-item">
+                    <img src="img/anuncios/racao-anuncio.jpg" alt="Promoção de ração">
+                    <div class="carousel-caption">
+                        <h2>Ração Premium para Seu Pet</h2>
+                        <p>Descontos especiais em alimentos de alta qualidade</p>
+                        <button class="btn-primary">Ver Ofertas</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/anuncios/acessorio-anuncio.jpg" alt="Promoção de acessórios">
+                    <div class="carousel-caption">
+                        <h2>Acessórios Incríveis</h2>
+                        <p>Encontre os melhores produtos para seu companheiro</p>
+                        <button class="btn-primary">Comprar Agora</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/anuncios/banhoetosa-anuncio.jpg" alt="Promoção de serviços">
+                    <div class="carousel-caption">
+                        <h2>Serviços de Qualidade</h2>
+                        <p>Banho, tosa e consultas com profissionais especializados</p>
+                        <button class="btn-primary">Agendar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-prev" id="carouselPrev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="carousel-next" id="carouselNext">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="carousel-controls" id="carouselDots"></div>
         </div>
     </div>
-    <div class="carousel-controls">
-        <button class="carousel-prev">❮</button>
-        <div class="carousel-dots"></div>
-        <button class="carousel-next">❯</button>
-    </div>
-</section>
 
-<!-- Navegação por categorias melhorada -->
-<nav class="pet-categories">
-    <div class="categories-container">
-        <a href="#saude-pet" class="category-card">
-            <div class="category-icon">💊</div>
-            <span>Saúde Pet</span>
-        </a>
-        <a href="#moda-pet" class="category-card">
-            <div class="category-icon">🐈</div>
-            <span>Moda Pet</span>
-        </a>
-        <a href="#nutricao-pet" class="category-card">
-            <div class="category-icon">🍏</div>
-            <span>Nutrição</span>
-        </a>
-        <a href="#curiosidades" class="category-card">
-            <div class="category-icon">🐶</div>
-            <span>Curiosidades</span>
-        </a>
-        <a href="#servicos" class="category-card">
-            <div class="category-icon">✂️</div>
-            <span>Serviços</span>
-        </a>
+    <!-- Categorias -->
+    <div class="container">
+        <div class="categories">
+            <a href="#saude-pet" class="category-item">
+                <div class="category-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <span>Saúde Pet</span>
+            </a>
+            <a href="#moda-pet" class="category-item">
+                <div class="category-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <span>Moda Pet</span>
+            </a>
+            <a href="#nutricao-pet" class="category-item">
+                <div class="category-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <span>Nutrição</span>
+            </a>
+            <a href="#curiosidades" class="category-item">
+                <div class="category-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <span>Curiosidades</span>
+            </a>
+            <a href="#servicos" class="category-item">
+                <div class="category-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <span>Serviços</span>
+            </a>
+        </div>
     </div>
-</nav>
 
     <!-- Seção de Moda Pet -->
-    <section id="moda-pet" class="product-section">
-        <h2 class="section-title">Estilo Premium Para Seu <span>Melhor Amigo!</span> 🧣</span></h2>
-        
-        <div class="product-grid">
-            <!-- Produto 1 -->
-            <div class="product-card">
-                <img src="img/CamisaPetluck.png" alt="Charme de Natal para Gatos">
-                <h3>Gato Charme de Natal</h3>
-                <p class="product-description">Charme natalino para seu felino</p>
-                <p class="price">R$ 14,99 <span class="member-price">R$ 9,99 para assinantes</span></p>
-                <div class="product-actions">
-                    <button class="add-to-favorites" onclick="toggleFavorite('charme')">❤️ Favoritar</button>
-                    <button class="add-to-cart" onclick="atualizarProduto('charme', 14.99, 'adicionar')">Adicionar</button>
-                </div>
-            </div>
+    <section class="section" id="moda-pet">
+        <div class="container">
+            <h2 class="section-title">Estilo Premium Para Seu <span>Melhor Amigo!</span></h2>
             
-            <!-- Produto 2 -->
-            <div class="product-card">
-                <img src="img/CamisaPetluck2.png" alt="Lenço Xadrez para Pets">
-                <h3>Lenço Xadrez Clássico</h3>
-                <p class="product-description">Confortável e elegante</p>
-                <p class="price">R$ 59,99 <span class="member-price">R$ 52,00 para assinantes</span></p>
-                <div class="product-actions">
-                    <button class="add-to-favorites" onclick="toggleFavorite('lenço')">❤️ Favoritar</button>
-                    <button class="add-to-cart" onclick="atualizarProduto('lenço', 59.99, 'adicionar')">Adicionar</button>
-                </div>
-            </div>
-            
-            <!-- Produto 3 -->
-            <div class="product-card">
-                <img src="img/CamisaPetluck3.png" alt="Fantasia Natalina para Pets">
-                <h3>Fantasia Natalina Pet</h3>
-                <p class="product-description">Espírito natalino para seu pet</p>
-                <p class="price">R$ 45,00 <span class="member-price">R$ 39,99 para assinantes</span></p>
-                <div class="product-actions">
-                    <button class="add-to-favorites" onclick="toggleFavorite('fantasia')">❤️ Favoritar</button>
-                    <button class="add-to-cart" onclick="atualizarProduto('fantasia', 45.00, 'adicionar')">Adicionar</button>
-                </div>
+            <div class="products-grid">
+    <!-- Ração 1 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="img/racao/racao1.jpg" alt="Ração Premium Canina">
+            <div class="product-wishlist" data-product="racao1">
+                <i class="far fa-heart"></i>
             </div>
         </div>
-    </section>
+        <div class="product-info">
+            <h3 class="product-title">Ração Premium Canina</h3>
+            <p class="product-desc">Nutrição completa e balanceada para cães de todas as raças</p>
+            <div class="product-price">
+                <span class="price-current">R$ 129,99</span>
+            </div>
+            <div class="product-actions">
+                <button class="btn-cart" data-product="racao1" data-price="129.99">
+                    <i class="fas fa-shopping-cart"></i> Adicionar
+                </button>
+                <button class="btn-wishlist" data-product="racao1">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ração 2 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="img/racao/racao3.jpg" alt="Ração Premium Felina">
+            <div class="product-badge">Oferta</div>
+            <div class="product-wishlist" data-product="racao2">
+                <i class="far fa-heart"></i>
+            </div>
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">Ração Premium Felina</h3>
+            <p class="product-desc">Fórmula especial com proteínas selecionadas para saúde e vitalidade dos gatos</p>
+            <div class="product-price">
+                <span class="price-current">R$ 89,90</span>
+                <span class="price-original">R$ 119,90</span>
+                <span class="price-discount">25% OFF</span>
+            </div>
+            <div class="product-actions">
+                <button class="btn-cart" data-product="racao2" data-price="89.90">
+                    <i class="fas fa-shopping-cart"></i> Adicionar
+                </button>
+                <button class="btn-wishlist" data-product="racao2">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ração 3 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="img/racao/racao2.jpg" alt="Ração Crescimento Saudável">
+            <div class="product-wishlist" data-product="racao3">
+                <i class="far fa-heart"></i>
+            </div>
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">Ração Crescimento Saudável</h3>
+            <p class="product-desc">Especialmente desenvolvida para filhotes em fase de crescimento</p>
+            <div class="product-price">
+                <span class="price-current">R$ 99,99</span>
+            </div>
+            <div class="product-actions">
+                <button class="btn-cart" data-product="racao3" data-price="99.99">
+                    <i class="fas fa-shopping-cart"></i> Adicionar
+                </button>
+                <button class="btn-wishlist" data-product="racao3">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ração 4 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="img/racao/racao4.jpg" alt="Ração Light Balance">
+            <div class="product-wishlist" data-product="racao4">
+                <i class="far fa-heart"></i>
+            </div>
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">Ração Light Balance</h3>
+            <p class="product-desc">Ideal para pets que precisam controlar o peso sem perder nutrientes essenciais</p>
+            <div class="product-price">
+                <span class="price-current">R$ 139,99</span>
+            </div>
+            <div class="product-actions">
+                <button class="btn-cart" data-product="racao4" data-price="139.99">
+                    <i class="fas fa-shopping-cart"></i> Adicionar
+                </button>
+                <button class="btn-wishlist" data-product="racao4">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <!-- Seção de Nutrição Pet -->
-    <section id="nutricao-pet" class="product-section">
-        <h2 class="section-title">Nutrição Balanceada Para Uma <span>Vida Saudável</span> 🍏</h2>
-        
-        <a href="#" class="cart-link" onclick="abrirCarrinho()">> Clique aqui e Confira o seu Carrinho 🛍 <</a>
-        
-        <div class="nutrition-carousel">
-            <!-- Ração de Morango -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/MorangoPet.png" alt="Ração de Morango">
-                <h3>Ração de Morango🍓</h3>
-                <p class="price">R$ 6,99</p>
-                <div class="quantity-controls">
-                    <span id="morango-quantidade">Unid: 0</span>
-                    <span id="morango-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('morango')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('morango', 6.99, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('morango', 6.99, 'remover')">Remover</button>
-                </div>
+    <!-- Ração 5 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="img/racao/racao5.jpg" alt="Ração Júnior Ossinho">
+            <div class="product-wishlist" data-product="racao5">
+                <i class="far fa-heart"></i>
             </div>
-            
-            <!-- Ração de Uva -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/UvaPet.png" alt="Ração de Uva">
-                <h3>Ração de Uva🍇</h3>
-                <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
-                <div class="quantity-controls">
-                    <span id="uva-quantidade">Unid: 0</span>
-                    <span id="uva-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('uva')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('uva', 4.50, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('uva', 4.50, 'remover')">Remover</button>
-                </div>
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">Ração Júnior Ossinho</h3>
+            <p class="product-desc">Deliciosa e nutritiva, perfeita para o crescimento saudável de filhotes</p>
+            <div class="product-price">
+                <span class="price-current">R$ 99,99</span>
             </div>
-            
-            <!-- Ração de Coco -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/CocoPet.png" alt="Ração de Coco">
-                <h3>Ração de Coco🥥</h3>
-                <p class="price">R$ 6,99</p>
-                <div class="quantity-controls">
-                    <span id="coco-quantidade">Unid: 0</span>
-                    <span id="coco-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('coco')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('coco', 6.99, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('coco', 6.99, 'remover')">Remover</button>
-                </div>
+            <div class="product-actions">
+                <button class="btn-cart" data-product="racao5" data-price="99.99">
+                    <i class="fas fa-shopping-cart"></i> Adicionar
+                </button>
+                <button class="btn-wishlist" data-product="racao5">
+                    <i class="far fa-heart"></i>
+                </button>
             </div>
-            
-            <!-- Ração de Limão -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/LimaoPet.png" alt="Ração de Limão">
-                <h3>Ração de Limão🍋‍🟩</h3>
-                <p class="price">R$ 6,99</p>
-                <div class="quantity-controls">
-                    <span id="limao-quantidade">Unid: 0</span>
-                    <span id="limao-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('limao')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('limao', 6.99, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('limao', 6.99, 'remover')">Remover</button>
-                </div>
+        </div>
+    </div>
+
+    <!-- Ração 6 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="img/racao/racao6.jpg" alt="Ração Júnior Vitality">
+            <div class="product-wishlist" data-product="racao6">
+                <i class="far fa-heart"></i>
             </div>
-            
-            <!-- Ração de Banana -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/BananaPet.png" alt="Ração de Banana">
-                <h3>Ração de Banana🍌</h3>
-                <p class="price"><s style="color: red;">R$ 6,99</s> <span class="discount">R$ 4,50</span></p>
-                <div class="quantity-controls">
-                    <span id="banana-quantidade">Unid: 0</span>
-                    <span id="banana-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('banana')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('banana', 4.50, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('banana', 4.50, 'remover')">Remover</button>
-                </div>
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">Ração Júnior Vitality</h3>
+            <p class="product-desc">Energia e nutrição completa para acompanhar os primeiros passos do seu filhote</p>
+            <div class="product-price">
+                <span class="price-current">R$ 99,99</span>
             </div>
-            
-            <!-- Ração de Mirtilo -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/MirtiloPet.png" alt="Ração de Mirtilo">
-                <h3>Ração de Mirtilo🫐</h3>
-                <p class="price">R$ 6,99</p>
-                <div class="quantity-controls">
-                    <span id="mirtilo-quantidade">Unid: 0</span>
-                    <span id="mirtilo-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('mirtilo')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('mirtilo', 6.99, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('mirtilo', 6.99, 'remover')">Remover</button>
-                </div>
+            <div class="product-actions">
+                <button class="btn-cart" data-product="racao6" data-price="99.99">
+                    <i class="fas fa-shopping-cart"></i> Adicionar
+                </button>
+                <button class="btn-wishlist" data-product="racao6">
+                    <i class="far fa-heart"></i>
+                </button>
             </div>
-            
-            <!-- Ração de Laranja -->
-            <div class="nutrition-product">
-                <img src="img/img-raçao/LaranjaPet.png" alt="Ração de Laranja">
-                <h3>Ração de Laranja🍊</h3>
-                <p class="price">R$ 6,99</p>
-                <div class="quantity-controls">
-                    <span id="laranja-quantidade">Unid: 0</span>
-                    <span id="laranja-total-valor">R$ 0,00</span>
-                    <button class="btn-favorite" onclick="toggleFavorite('laranja')">❤️</button>
-                    <button class="btn-add" onclick="atualizarProduto('laranja', 6.99, 'adicionar')">Adicionar</button>
-                    <button class="btn-remove" onclick="atualizarProduto('laranja', 6.99, 'remover')">Remover</button>
-                </div>
-            </div>
+        </div>
+    </div>
+</div>
         </div>
     </section>
 
     <!-- Seção de Agendamento de Serviços -->
-    <section class="service-booking">
-        <h2 class="section-title">Agende Seu <span>Serviço ★</span></h2>
-        
-        <div class="service-container">
-            <div class="service-card">
-                <div class="service-icon">
-                    <img src="img/img-servicos/banho-de-banheira.png" alt="Banho e Tosa">
+    <section class="section" id="servicos">
+        <div class="container">
+            <h2 class="section-title">Agende Seu <span>Serviço</span></h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bath"></i>
+                    </div>
+                    <h3 class="service-title">Banho Completo</h3>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Banho higiênico</li>
+                        <li><i class="fas fa-check"></i> Secagem profissional</li>
+                        <li><i class="fas fa-check"></i> Corte de unhas</li>
+                    </ul>
+                    <button class="btn-primary" data-service="banho">Agendar</button>
                 </div>
-                <h3>Banho Completo</h3>
-                <ul class="service-benefits">
-                    <li>✔ Banho higiênico</li>
-                    <li>✔ Secagem profissional</li>
-                    <li>✔ Corte de unhas</li>
-                </ul>
-                <button class="service-btn" onclick="abrirAgendamento('banho')">Agendar</button>
-            </div>
 
-            <div class="service-card">
-                <div class="service-icon">
-                    <img src="img/img-servicos/tosa-de-animais.png" alt="Tosa">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3 class="service-title">Tosa Premium</h3>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Tosa na máquina</li>
+                        <li><i class="fas fa-check"></i> Modelagem personalizada</li>
+                        <li><i class="fas fa-check"></i> Estética completa</li>
+                    </ul>
+                    <button class="btn-primary" data-service="tosa">Agendar</button>
                 </div>
-                <h3>Tosa Premium</h3>
-                <ul class="service-benefits">
-                    <li>✔ Tosa na máquina</li>
-                    <li>✔ Modelagem personalizada</li>
-                    <li>✔ Estética completa</li>
-                </ul>
-                <button class="service-btn" onclick="abrirAgendamento('tosa')">Agendar</button>
-            </div>
 
-            <div class="service-card">
-                <div class="service-icon">
-                    <img src="img/img-servicos/sinal-de-primeiros-socorros.png" alt="Veterinário">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="service-title">Consulta Veterinária</h3>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Check-up completo</li>
+                        <li><i class="fas fa-check"></i> Vacinação</li>
+                        <li><i class="fas fa-check"></i> Exames laboratoriais</li>
+                    </ul>
+                    <button class="btn-primary" data-service="consulta">Agendar</button>
                 </div>
-                <h3>Consulta Veterinária</h3>
-                <ul class="service-benefits">
-                    <li>✔ Check-up completo</li>
-                    <li>✔ Vacinação</li>
-                    <li>✔ Exames laboratoriais</li>
-                </ul>
-                <button class="service-btn" onclick="abrirAgendamento('consulta')">Agendar</button>
             </div>
         </div>
     </section>
 
     <!-- Modal de Agendamento -->
-    <div id="booking-modal" class="modal">
+    <div class="modal" id="bookingModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="fecharAgendamento()">&times;</span>
-            <h2>Agendar Serviço</h2>
-            <form id="booking-form">
+            <span class="modal-close" id="closeBookingModal">&times;</span>
+            <h2 class="modal-title">Agendar Serviço</h2>
+            <form id="bookingForm">
                 <div class="form-group">
-                    <label for="service-type">Serviço:</label>
-                    <select id="service-type" required>
+                    <label for="serviceType">Serviço:</label>
+                    <select id="serviceType" required>
                         <option value="">Selecione...</option>
                         <option value="banho">Banho Completo</option>
                         <option value="tosa">Tosa Premium</option>
@@ -334,8 +1647,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="pet-type">Tipo de Pet:</label>
-                    <select id="pet-type" required>
+                    <label for="petType">Tipo de Pet:</label>
+                    <select id="petType" required>
                         <option value="">Selecione...</option>
                         <option value="cachorro">Cachorro</option>
                         <option value="gato">Gato</option>
@@ -344,157 +1657,703 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="booking-date">Data:</label>
-                    <input type="date" id="booking-date" required>
+                    <label for="bookingDate">Data:</label>
+                    <input type="date" id="bookingDate" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="booking-time">Horário:</label>
-                    <input type="time" id="booking-time" min="09:00" max="18:00" required>
+                    <label for="bookingTime">Horário:</label>
+                    <input type="time" id="bookingTime" min="09:00" max="18:00" required>
                 </div>
 
-                <button type="submit" class="submit-btn">Confirmar Agendamento</button>
+                <button type="submit" class="btn-primary">Confirmar Agendamento</button>
             </form>
         </div>
     </div>
 
     <!-- Seção de Curiosidades -->
-    <section id="curiosidades" class="fun-facts">
-        <h2 class="section-title">Descubra Mais Sobre Seu <span>Amigo!</span> 🐈🐕‍🦺</h2>
+<section class="section" id="curiosidades">
+    <div class="container">
+        <h2 class="section-title">Descubra Mais Sobre Seu <span>Amigo!</span></h2>
         
-        <div class="facts-container">
-            <div class="fact-card">
-                <div class="fact-image" style="background-image: url('img/anusha-barwa-ppKcYi1CXcI-unsplash.jpg')"></div>
-                <p><span>Sabia?</span> Gatos podem correr até 50km/h enquanto cães chegam a 45km/h</p>
-            </div>
-            
-            <div class="fact-card">
-                <div class="fact-image" style="background-image: url('img/cedric-vt-IuJc2qh2TcA-unsplash.jpg')"></div>
-                <p><span>Sabia?</span> Gatos podem pular até seis vezes a altura do seu corpo</p>
-            </div>
-            
-            <div class="fact-card">
-                <div class="fact-image" style="background-image: url('img/charlesdeluvio-DziZIYOGAHc-unsplash.jpg')"></div>
-                <p><span>Sabia?</span> Cachorros têm olfato até 10.000 vezes mais forte que o nosso!</p>
+        <div class="facts-grid">
+            <!-- Curiosidade 1 -->
+        <div class="fact-card">
+            <img src="curi1.jpeg" alt="Cachorro preto olhando atento para a câmera" class="fact-image">
+            <div class="fact-overlay">
+                <p><span>Sabia?</span> Cães conseguem ouvir sons até <strong>4 vezes</strong> mais distantes do que os humanos</p>
             </div>
         </div>
-    </section>
+            
+            <!-- Curiosidade 2 -->
+            <div class="fact-card">
+                <img src="curi3.jpeg" alt="Gato descansando próximo a uma grade" class="fact-image">
+                <div class="fact-overlay">
+                    <p><span>Sabia?</span> Gatos podem pular até <strong>seis vezes</strong> a altura do seu corpo</p>
+                </div>
+            </div>
+            
+            <!-- Curiosidade 3 -->
+            <div class="fact-card">
+                <img src="curi2.jpeg" alt="Cachorro pequeno de pelo claro usando roupinha rosa" class="fact-image">
+                <div class="fact-overlay">
+                    <p><span>Sabia?</span> Cachorros têm olfato até <strong>10.000 vezes</strong> mais forte que o nosso!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- Seção de Planos de Saúde -->
-    <section id="saude-pet" class="health-plans">
-        <h2 class="section-title">Bem-Estar Completo Para Seu <span>Companheiro ➕</span></h2>
-        
-        <div class="plans-container">
-            <!-- Plano Básico -->
-            <div class="plan-card">
-                <h3>LuckPet</h3>
-                <h4>Plano Básico</h4>
-                <p>☻ Cuidados Essenciais para o Dia a Dia do seu Pet</p>
-                <p class="plan-price">R$ 99,90/Mês</p>
-                <button class="plan-btn"><a href="formulario/login.html">Consultar</a></button>
-            </div>
+    <section class="section" id="saude-pet">
+        <div class="container">
+            <h2 class="section-title">Bem-Estar Completo Para Seu <span>Companheiro</span></h2>
             
-            <!-- Plano Essencial -->
-            <div class="plan-card">
-                <h3>LuckPet</h3>
-                <h4>Plano Essencial</h4>
-                <p>❤ Cobertura Completa com Ótimo Custo-Benefício</p>
-                <p class="plan-price">R$ 179,90/Mês</p>
-                <button class="plan-btn"><a href="formulario/login.html">Consultar</a></button>
-            </div>
-            
-            <!-- Plano Premium -->
-            <div class="plan-card">
-                <h3>LuckPet</h3>
-                <h4>Plano Premium</h4>
-                <p>★ Máxima Cobertura para Necessidade do Seu Pet</p>
-                <p class="plan-price">R$ 299,90/Mês</p>
-                <button class="plan-btn"><a href="formulario/login.html">Consultar</a></button>
+            <div class="plans-grid">
+                <!-- Plano Básico -->
+                <div class="plan-card">
+                    <h3 class="plan-title">LuckPet</h3>
+                    <p class="plan-subtitle">Plano Básico</p>
+                    <div class="plan-price">R$ 99,90 <span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Consulta veterinária mensal</li>
+                        <li>Vacinação anual</li>
+                        <li>Desconto em medicamentos</li>
+                        <li>Teleorientação 24h</li>
+                    </ul>
+                    <a href="formulario/login.html" class="btn-primary">Assinar Agora</a>
+                </div>
+                
+                <!-- Plano Essencial -->
+                <div class="plan-card popular">
+                    <h3 class="plan-title">LuckPet</h3>
+                    <p class="plan-subtitle">Plano Essencial</p>
+                    <div class="plan-price">R$ 179,90 <span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Consulta veterinária mensal</li>
+                        <li>Vacinação anual</li>
+                        <li>Desconto em medicamentos</li>
+                        <li>Teleorientação 24h</li>
+                        <li>Exames laboratoriais</li>
+                        <li>Internação com desconto</li>
+                    </ul>
+                    <a href="formulario/login.html" class="btn-primary">Assinar Agora</a>
+                </div>
+                
+                <!-- Plano Premium -->
+                <div class="plan-card">
+                    <h3 class="plan-title">LuckPet</h3>
+                    <p class="plan-subtitle">Plano Premium</p>
+                    <div class="plan-price">R$ 299,90 <span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Consulta veterinária mensal</li>
+                        <li>Vacinação anual</li>
+                        <li>Desconto em medicamentos</li>
+                        <li>Teleorientação 24h</li>
+                        <li>Exames laboratoriais</li>
+                        <li>Internação com desconto</li>
+                        <li>Banho e tosa mensal</li>
+                        <li>Transporte veterinário</li>
+                    </ul>
+                    <a href="formulario/login.html" class="btn-primary">Assinar Agora</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Seção de Avaliação -->
-    <section class="feedback-section">
-        <h2 class="section-title">Avalie o Site ou Produtos <span>LuckPet!</span></h2>
-        
-        <form id="feedback-form">
-            <label for="user-name">Nome:</label>
-            <input type="text" id="user-name" name="user-name" required>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Avalie o Site ou Produtos <span>LuckPet!</span></h2>
             
-            <label for="user-comment">Comentário:</label>
-            <textarea id="user-comment" name="user-comment" rows="4"></textarea>
-            
-            <label for="user-rating">Avaliação (1 a 10):</label>
-            <input type="number" id="user-rating" name="user-rating" min="1" max="10" required>
-            
-            <button type="submit" class="submit-btn">Enviar Avaliação</button>
-        </form>
+            <div class="feedback-form">
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="userName">Nome:</label>
+                        <input type="text" id="userName" name="userName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userComment">Comentário:</label>
+                        <textarea id="userComment" name="userComment" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Avaliação (1 a 5 estrelas):</label>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Enviar Avaliação</button>
+                </form>
+            </div>
+        </div>
     </section>
 
     <!-- Modal do Carrinho -->
-    <div id="cart-modal" class="modal">
+    <div class="modal" id="cartModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="fecharCarrinho()">&times;</span>
-            <h2>Confira sua compra</h2>
-            <p class="cart-subtitle">🟠 Alimentos 🔵 Vestimento</p>
+            <span class="modal-close" id="closeCartModal">&times;</span>
+            <h2 class="modal-title">Seu Carrinho</h2>
+            <p class="text-center">🟠 Alimentos 🔵 Vestimento</p>
             
-            <div id="cart-content"></div>
+            <div class="cart-items" id="cartItems">
+                <!-- Itens do carrinho serão inseridos aqui via JavaScript -->
+            </div>
             
-            <p class="cart-total" id="cart-subtotal">Subtotal: R$ 0,00</p>
+            <div class="cart-total" id="cartTotal">
+                Subtotal: R$ 0,00
+            </div>
             
-            <button class="checkout-btn" onclick="carregarPagamento()">
-                <a href="pagamento.html">Ir para sacola</a>
+            <button class="checkout-btn" id="checkoutBtn">
+                <a href="pagamento.html">Finalizar Compra</a>
             </button>
         </div>
     </div>
 
     <!-- Modal de Favoritos -->
-    <div id="favorites-modal" class="modal">
+    <div class="modal" id="wishlistModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="fecharFavoritos()">&times;</span>
-            <h2>Seus Favoritos</h2>
-            <div id="favorites-content"></div>
+            <span class="modal-close" id="closeWishlistModal">&times;</span>
+            <h2 class="modal-title">Seus Favoritos</h2>
+            
+            <div class="wishlist-items" id="wishlistItems">
+                <!-- Itens dos favoritos serão inseridos aqui via JavaScript -->
+            </div>
+            
+            <div class="wishlist-empty" id="wishlistEmpty">
+                Você ainda não tem favoritos
+            </div>
         </div>
     </div>
 
     <!-- Notificação -->
-    <div id="notification" class="notification">
+    <div class="notification" id="notification">
         Produto adicionado ao carrinho!
     </div>
 
     <!-- Rodapé -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <h3>LuckPet</h3>
-            <p>Cuide do seu pet com os melhores produtos e serviços!</p>
-            
-            <div class="social-links">
-                <a href="https://www.facebook.com/profile.php?id=100024656091863">
-                    <img src="img/redes-sociais/facebook (1).png" alt="Facebook">
-                    <span>Pablo Gomes</span>
-                </a>
-                <a href="https://www.instagram.com/pablogomesss__/">
-                    <img src="img/redes-sociais/instagram.png" alt="Instagram">
-                    <span>pablogomesss__</span>
-                </a>
-                <a href="https://www.linkedin.com/in/pablo-gomes-8b574321a/">
-                    <img src="img/redes-sociais/linkedin (1).png" alt="LinkedIn">
-                    <span>Pablo Gomes</span>
-                </a>
-                <a href="https://github.com/PabloG-7">
-                    <img src="img/redes-sociais/github.png" alt="GitHub">
-                    <span>PabloG-7</span>
-                </a>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>LuckPet</h3>
+                    <p>Cuide do seu pet com os melhores produtos e serviços!</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/profile.php?id=100024656091863">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/pablogomesss__/">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/pablo-gomes-8b574321a/">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/PabloG-7">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Sobre Nós</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Nossos Serviços</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Produtos</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Blog</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">FAQ</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Política de Privacidade</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Termos de Uso</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Central de Ajuda</a></li>
+                        <li><i class="fas fa-chevron-right"></i> <a href="#">Pagamentos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Rua dos Animais, 123</li>
+                        <li><i class="fas fa-phone"></i> (11) 99999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@luckpet.com</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 LuckPet - Todos os direitos reservados</p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 LuckPet - Todos os direitos reservados</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="javas.js"></script>
+    <script>
+        // ===== DADOS E INICIALIZAÇÃO =====
+        const produtos = {
+            racao1: { nome: "Ração Premium para Cães", preco: 129.99, tipo: "alimento", img: "https://images.unsplash.com/photo-1591946614720-90a587da4a36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" },
+            racao2: { nome: "Ração Premium para Gatos", preco: 89.90, tipo: "alimento", img: "https://images.unsplash.com/photo-1570913149827-b2de6c4c4cc0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" },
+            racao3: { nome: "Ração para Filhotes", preco: 99.99, tipo: "alimento", img: "https://images.unsplash.com/photo-1597848212624-e9f912c6c1a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" },
+            racao4: { nome: "Ração Light", preco: 139.99, tipo: "alimento", img: "https://images.unsplash.com/photo-1591946614720-90a587da4a36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" },
+            roupa1: { nome: "Conjunto Esportivo", preco: 79.99, tipo: "vestimenta", img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" },
+            roupa2: { nome: "Casaco Acolchoado", preco: 89.99, tipo: "vestimenta", img: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" },
+            roupa3: { nome: "Fantasia Divertida", preco: 65.00, tipo: "vestimenta", img: "https://images.unsplash.com/photo-1591946614720-90a587da4a36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" }
+        };
+
+        let carrinho = {};
+        let favoritos = {};
+        let currentSlide = 0;
+
+        // ===== FUNÇÕES DE INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar carrinho e favoritos do localStorage
+            carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
+            favoritos = JSON.parse(localStorage.getItem('favoritos')) || {};
+            
+            // Inicializar componentes
+            initCarousel();
+            initModals();
+            initEventListeners();
+            updateCounters();
+            renderCart();
+            renderWishlist();
+            
+            // Scroll para o topo
+            window.scrollTo(0, 0);
+        });
+
+        // ===== SISTEMA DE CARRINHO =====
+        function addToCart(productId, price) {
+            if (!carrinho[productId]) {
+                carrinho[productId] = {
+                    quantidade: 1,
+                    total: price,
+                    ...produtos[productId]
+                };
+            } else {
+                carrinho[productId].quantidade++;
+                carrinho[productId].total = carrinho[productId].quantidade * price;
+            }
+            
+            // Atualizar localStorage
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            
+            // Atualizar interface
+            updateCounters();
+            renderCart();
+            
+            // Mostrar notificação
+            showNotification(`${produtos[productId].nome} adicionado ao carrinho!`);
+        }
+
+        function removeFromCart(productId, price) {
+            if (carrinho[productId]) {
+                if (carrinho[productId].quantidade > 1) {
+                    carrinho[productId].quantidade--;
+                    carrinho[productId].total = carrinho[productId].quantidade * price;
+                } else {
+                    delete carrinho[productId];
+                }
+                
+                // Atualizar localStorage
+                localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                
+                // Atualizar interface
+                updateCounters();
+                renderCart();
+                
+                // Mostrar notificação
+                showNotification(`${produtos[productId].nome} removido do carrinho!`, true);
+            }
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (Object.keys(carrinho).length === 0) {
+                cartItems.innerHTML = '<p class="wishlist-empty">Seu carrinho está vazio</p>';
+                cartTotal.textContent = 'Subtotal: R$ 0,00';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            for (const [id, item] of Object.entries(carrinho)) {
+                total += item.total;
+                
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="${item.img}" alt="${item.nome}">
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.nome}</div>
+                            <div class="cart-item-price">R$ ${item.total.toFixed(2)}</div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="quantity-control">
+                                <button class="quantity-btn" onclick="removeFromCart('${id}', ${item.preco})">-</button>
+                                <span>${item.quantidade}</span>
+                                <button class="quantity-btn" onclick="addToCart('${id}', ${item.preco})">+</button>
+                            </div>
+                            <div class="remove-btn" onclick="removeAllFromCart('${id}')">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            cartItems.innerHTML = html;
+            cartTotal.textContent = `Subtotal: R$ ${total.toFixed(2)}`;
+        }
+
+        function removeAllFromCart(productId) {
+            if (carrinho[productId]) {
+                delete carrinho[productId];
+                
+                // Atualizar localStorage
+                localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                
+                // Atualizar interface
+                updateCounters();
+                renderCart();
+                
+                // Mostrar notificação
+                showNotification(`${produtos[productId].nome} removido do carrinho!`, true);
+            }
+        }
+
+        // ===== SISTEMA DE FAVORITOS =====
+        function toggleWishlist(productId) {
+            if (favoritos[productId]) {
+                delete favoritos[productId];
+                showNotification(`${produtos[productId].nome} removido dos favoritos!`, true);
+            } else {
+                favoritos[productId] = produtos[productId];
+                showNotification(`${produtos[productId].nome} adicionado aos favoritos!`);
+            }
+            
+            // Atualizar localStorage
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+            
+            // Atualizar interface
+            updateCounters();
+            renderWishlist();
+            updateWishlistButtons();
+        }
+
+        function renderWishlist() {
+            const wishlistItems = document.getElementById('wishlistItems');
+            const wishlistEmpty = document.getElementById('wishlistEmpty');
+            
+            if (Object.keys(favoritos).length === 0) {
+                wishlistItems.innerHTML = '';
+                wishlistEmpty.classList.remove('hidden');
+                return;
+            }
+            
+            wishlistEmpty.classList.add('hidden');
+            
+            let html = '';
+            
+            for (const [id, item] of Object.entries(favoritos)) {
+                html += `
+                    <div class="wishlist-item">
+                        <div class="wishlist-item-image">
+                            <img src="${item.img}" alt="${item.nome}">
+                        </div>
+                        <div class="wishlist-item-info">
+                            <div class="wishlist-item-title">${item.nome}</div>
+                            <div class="wishlist-item-price">R$ ${item.preco.toFixed(2)}</div>
+                        </div>
+                        <div class="wishlist-item-actions">
+                            <button class="btn-cart" onclick="addToCart('${id}', ${item.preco})">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <div class="remove-btn" onclick="toggleWishlist('${id}')">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            wishlistItems.innerHTML = html;
+        }
+
+        function updateWishlistButtons() {
+            document.querySelectorAll('.product-wishlist, .btn-wishlist').forEach(btn => {
+                const productId = btn.dataset.product;
+                if (favoritos[productId]) {
+                    btn.classList.add('active');
+                    btn.querySelector('i').className = 'fas fa-heart';
+                } else {
+                    btn.classList.remove('active');
+                    btn.querySelector('i').className = 'far fa-heart';
+                }
+            });
+        }
+
+        // ===== CONTADORES =====
+        function updateCounters() {
+            // Contador do carrinho
+            const cartCount = Object.values(carrinho).reduce((total, item) => total + item.quantidade, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Contador de favoritos
+            const wishlistCount = Object.keys(favoritos).length;
+            document.getElementById('wishlistCount').textContent = wishlistCount;
+        }
+
+        // ===== NOTIFICAÇÕES =====
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            
+            if (isError) {
+                notification.classList.add('error');
+            } else {
+                notification.classList.remove('error');
+            }
+            
+            notification.classList.add('active');
+            
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 3000);
+        }
+
+        // ===== CARROSSEL =====
+        function initCarousel() {
+            const carouselInner = document.getElementById('carouselInner');
+            const carouselItems = carouselInner.querySelectorAll('.carousel-item');
+            const carouselDots = document.getElementById('carouselDots');
+            
+            // Criar dots de navegação
+            carouselItems.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                carouselDots.appendChild(dot);
+            });
+            
+            // Iniciar autoplay
+            setInterval(nextSlide, 5000);
+        }
+
+        function goToSlide(index) {
+            const carouselInner = document.getElementById('carouselInner');
+            const carouselItems = carouselInner.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            if (index >= carouselItems.length) index = 0;
+            if (index < 0) index = carouselItems.length - 1;
+            
+            carouselInner.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Atualizar dots
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // ===== MODAIS =====
+        function initModals() {
+            // Modal do carrinho
+            document.getElementById('cartIcon').addEventListener('click', () => {
+                document.getElementById('cartModal').classList.add('active');
+            });
+            
+            document.getElementById('closeCartModal').addEventListener('click', () => {
+                document.getElementById('cartModal').classList.remove('active');
+            });
+            
+            document.getElementById('viewCartBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('cartModal').classList.add('active');
+            });
+            
+            // Modal de favoritos
+            document.getElementById('wishlistIcon').addEventListener('click', () => {
+                document.getElementById('wishlistModal').classList.add('active');
+            });
+            
+            document.getElementById('closeWishlistModal').addEventListener('click', () => {
+                document.getElementById('wishlistModal').classList.remove('active');
+            });
+            
+            // Modal de agendamento
+            document.querySelectorAll('[data-service]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const service = btn.dataset.service;
+                    document.getElementById('serviceType').value = service;
+                    document.getElementById('bookingModal').classList.add('active');
+                });
+            });
+            
+            document.getElementById('closeBookingModal').addEventListener('click', () => {
+                document.getElementById('bookingModal').classList.remove('active');
+            });
+            
+            // Fechar modais ao clicar fora
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // ===== SISTEMA DE PESQUISA =====
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            const performSearch = () => {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    showNotification('Digite pelo menos 2 caracteres para pesquisar', true);
+                    return;
+                }
+                
+                // Filtrar produtos
+                const results = Object.entries(produtos).filter(([id, product]) => {
+                    return product.nome.toLowerCase().includes(searchTerm) || 
+                           product.tipo.toLowerCase().includes(searchTerm);
+                });
+                
+                if (results.length === 0) {
+                    showNotification('Nenhum produto encontrado para: ' + searchTerm, true);
+                    return;
+                }
+                
+                // Aqui você pode implementar a exibição dos resultados
+                // Por exemplo, filtrar a exibição dos produtos na página
+                showNotification(`Encontrados ${results.length} produtos para: ${searchTerm}`);
+                
+                // Scroll para a seção de produtos
+                document.getElementById('moda-pet').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            };
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            searchBtn.addEventListener('click', performSearch);
+        }
+
+        // ===== FORMULÁRIOS =====
+        function initForms() {
+            // Formulário de agendamento
+            document.getElementById('bookingForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const serviceType = document.getElementById('serviceType').value;
+                const petType = document.getElementById('petType').value;
+                const date = document.getElementById('bookingDate').value;
+                const time = document.getElementById('bookingTime').value;
+                
+                if (!serviceType || !petType || !date || !time) {
+                    showNotification('Por favor, preencha todos os campos', true);
+                    return;
+                }
+                
+                showNotification(`Agendamento confirmado para ${serviceType} (${petType}) em ${date} às ${time}`);
+                document.getElementById('bookingModal').classList.remove('active');
+                document.getElementById('bookingForm').reset();
+            });
+            
+            // Formulário de feedback
+            document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const userName = document.getElementById('userName').value;
+                const userComment = document.getElementById('userComment').value;
+                const rating = document.querySelector('input[name="rating"]:checked');
+                
+                if (!userName || !rating) {
+                    showNotification('Por favor, preencha pelo menos o nome e a avaliação', true);
+                    return;
+                }
+                
+                showNotification('Obrigado pela sua avaliação!');
+                document.getElementById('feedbackForm').reset();
+                
+                // Reset stars
+                document.querySelectorAll('input[name="rating"]').forEach(input => {
+                    input.checked = false;
+                });
+            });
+        }
+
+        // ===== EVENT LISTENERS =====
+        function initEventListeners() {
+            // Botões de carrinho
+            document.querySelectorAll('.btn-cart').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = btn.dataset.product;
+                    const price = parseFloat(btn.dataset.price);
+                    addToCart(productId, price);
+                });
+            });
+            
+            // Botões de favoritos
+            document.querySelectorAll('.product-wishlist, .btn-wishlist').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = btn.dataset.product;
+                    toggleWishlist(productId);
+                });
+            });
+            
+            // Controles do carrossel
+            document.getElementById('carouselPrev').addEventListener('click', prevSlide);
+            document.getElementById('carouselNext').addEventListener('click', nextSlide);
+            
+            // Inicializar sistemas
+            initSearch();
+            initForms();
+            updateWishlistButtons();
+        }
+    </script>
 </body>
 </html>
