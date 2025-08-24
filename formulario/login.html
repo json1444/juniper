@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuckPet - Login/Cadastro</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="perfil.png" type="image/x-icon">
     <style>
         /* Reset e estilos base */
@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'luckpet1', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
@@ -32,6 +32,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF7B00' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         
         /* Container principal */
@@ -97,7 +98,7 @@
             padding: 30px;
         }
 
-         .auth-message {
+        .auth-message {
             padding: 10px;
             margin: 15px 0;
             border-radius: 8px;
@@ -337,6 +338,29 @@
             animation: float 4s ease-in-out infinite;
         }
         
+        /* Botão de logout */
+        .logout-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
         /* Responsividade para mobile */
         @media (max-width: 576px) {
             body {
@@ -414,8 +438,8 @@
 </head>
 <body>
     <!-- Ícones decorativos de pets -->
-    <img src="patas.png" alt="Pata de cachorro" class="pet-icon pet-1 floating">
-    <img src="patas.png" alt="Pata de gato" class="pet-icon pet-2 floating">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24'%3E%3Cpath fill='%2340006B' d='M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm6.5 6c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5s1.5.67 1.5 1.5S19.33 8 18.5 8zm-13 0C4.67 8 4 7.33 4 6.5S4.67 5 5.5 5S7 5.67 7 6.5S6.33 8 5.5 8zm3.5 8.5c0-1.67 2.08-2.5 5-2.5s5 .83 5 2.5V19H9v-2.5z'/%3E%3C/svg%3E" alt="Pata de cachorro" class="pet-icon pet-1 floating">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24'%3E%3Cpath fill='%2340006B' d='M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm6.5 6c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5s1.5.67 1.5 1.5S19.33 8 18.5 8zm-13 0C4.67 8 4 7.33 4 6.5S4.67 5 5.5 5S7 5.67 7 6.5S6.33 8 5.5 8zm3.5 8.5c0-1.67 2.08-2.5 5-2.5s5 .83 5 2.5V19H9v-2.5z'/%3E%3C/svg%3E" alt="Pata de gato" class="pet-icon pet-2 floating">
     
     <!-- Modal de perfil do pet -->
     <div id="pet-profile-modal" class="modal">
@@ -429,16 +453,16 @@
             <label>Escolha um avatar:</label>
             <div class="avatar-options">
                 <div class="avatar-option" data-avatar="cachorro.png">
-                    <img src="cachorro.png" alt="Cachorro">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24'%3E%3Cpath fill='%2340006B' d='M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm6.5 6c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5s1.5.67 1.5 1.5S19.33 8 18.5 8zm-13 0C4.67 8 4 7.33 4 6.5S4.67 5 5.5 5S7 5.67 7 6.5S6.33 8 5.5 8zm3.5 8.5c0-1.67 2.08-2.5 5-2.5s5 .83 5 2.5V19H9v-2.5z'/%3E%3C/svg%3E" alt="Cachorro">
                 </div>
                 <div class="avatar-option" data-avatar="gato.png">
-                    <img src="gato.png" alt="Gato">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24'%3E%3Cpath fill='%2340006B' d='M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm6.5 6c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5s1.5.67 1.5 1.5S19.33 8 18.5 8zm-13 0C4.67 8 4 7.33 4 6.5S4.67 5 5.5 5S7 5.67 7 6.5S6.33 8 5.5 8zm3.5 8.5c0-1.67 2.08-2.5 5-2.5s5 .83 5 2.5V19H9v-2.5z'/%3E%3C/svg%3E" alt="Gato">
                 </div>
                 <div class="avatar-option" data-avatar="coelho.png">
-                    <img src="coelho.png" alt="Coelho">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24'%3E%3Cpath fill='%2340006B' d='M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm6.5 6c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5s1.5.67 1.5 1.5S19.33 8 18.5 8zm-13 0C4.67 8 4 7.33 4 6.5S4.67 5 5.5 5S7 5.67 7 6.5S6.33 8 5.5 8zm3.5 8.5c0-1.67 2.08-2.5 5-2.5s5 .83 5 2.5V19H9v-2.5z'/%3E%3C/svg%3E" alt="Coelho">
                 </div>
                 <div class="avatar-option" data-avatar="passaro.png">
-                    <img src="passaro.png" alt="Pássaro">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24'%3E%3Cpath fill='%2340006B' d='M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm6.5 6c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5s1.5.67 1.5 1.5S19.33 8 18.5 8zm-13 0C4.67 8 4 7.33 4 6.5S4.67 5 5.5 5S7 5.67 7 6.5S6.33 8 5.5 8zm3.5 8.5c0-1.67 2.08-2.5 5-2.5s5 .83 5 2.5V19H9v-2.5z'/%3E%3C/svg%3E" alt="Pássaro">
                 </div>
             </div>
             
@@ -452,6 +476,9 @@
         <div class="auth-header">
             <h1>LuckPet</h1>
             <p>Seu pet merece o melhor cuidado</p>
+            <button class="logout-btn" id="logout-btn" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
         </div>
         
         <div class="auth-body">
@@ -484,11 +511,11 @@
                 
                 <div class="social-buttons">
                     <button type="button" class="social-btn" onclick="signInWithProvider('google')">
-                        <img src="https://www.google.com/favicon.ico" alt="Google">
+                        <i class="fab fa-google"></i>
                         Google
                     </button>
                     <button type="button" class="social-btn" onclick="signInWithProvider('facebook')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                        <i class="fab fa-facebook-f"></i>
                         Facebook
                     </button>
                 </div>
@@ -527,247 +554,272 @@
         </div>
     </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // ===== CONFIGURAÇÃO SUPABASE =====
-  const SUPABASE_URL = 'https://oxhbzvjbskgdjthkquvn.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94aGJ6dmpic2tnZGp0aGtxdXZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMzA2ODcsImV4cCI6MjA3MTYwNjY4N30.SxB_4DXb6zPmeiY5-JOzR1oQVNIdi34ZEMy8qyUN0RE';
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ===== CONFIGURAÇÃO SUPABASE =====
+        const SUPABASE_URL = 'https://oxhbzvjbskgdjthkquvn.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94aGJ6dmpic2tnZGp0aGtxdXZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMzA2ODcsImV4cCI6MjA3MTYwNjY4N30.SxB_4DXb6zPmeiY5-JOzR1oQVNIdi34ZEMy8qyUN0RE';
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  let selectedAvatar = 'cachorro.png';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let selectedAvatar = 'cachorro.png';
 
-  // ===== FUNÇÕES DE UI =====
-  function switchForm(formType) {
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const messageDiv = document.getElementById('auth-message');
-    messageDiv.style.display = 'none';
+        // ===== FUNÇÕES DE UI =====
+        function switchForm(formType) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const messageDiv = document.getElementById('auth-message');
+            messageDiv.style.display = 'none';
 
-    if (formType === 'register') {
-      loginForm.style.display = 'none';
-      registerForm.style.display = 'block';
-    } else {
-      loginForm.style.display = 'block';
-      registerForm.style.display = 'none';
-    }
+            if (formType === 'register') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            } else {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            }
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function showMessage(message, isSuccess) {
-    const messageDiv = document.getElementById('auth-message');
-    messageDiv.textContent = message;
-    messageDiv.className = isSuccess ? 'auth-message success' : 'auth-message error';
-    messageDiv.style.display = 'block';
-  }
-
-  // ===== AUTENTICAÇÃO =====
-  async function signUp(email, password, name) {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { full_name: name } }
-      });
-      if (error) throw error;
-
-      if (data.user) await createProfile(data.user.id, name, email);
-
-      const emailConfirmed = data.user && data.user.email_confirmed_at;
-
-      return { 
-        success: true,
-        message: emailConfirmed ? "Conta criada com sucesso!" : "Conta criada! Confirme seu email.",
-        emailConfirmed
-      };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
-  }
-
-  async function signIn(email, password) {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        if (error.message.includes('confirm')) {
-          return { success: false, message: "Email não confirmado. Verifique sua caixa de entrada." };
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        throw error;
-      }
-      return { success: true, message: "Login realizado com sucesso!" };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
-  }
 
-  async function signInWithProvider(provider) {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: { redirectTo: window.location.origin + '/index.html' }
-      });
-      if (error) throw error;
-    } catch (error) {
-      alert('Erro ao fazer login com ' + provider + ': ' + error.message);
-    }
-  }
+        function showMessage(message, isSuccess) {
+            const messageDiv = document.getElementById('auth-message');
+            messageDiv.textContent = message;
+            messageDiv.className = isSuccess ? 'auth-message success' : 'auth-message error';
+            messageDiv.style.display = 'block';
+        }
 
-  async function createProfile(userId, name, email) {
-    try {
-      const { data, error } = await supabase.from('profiles').insert([{
-        id: userId,
-        full_name: name,
-        email: email,
-        pet_name: null,
-        pet_avatar: null
-      }]);
-      if (error && error.code !== '23505') throw error;
-      return { success: true };
-    } catch (error) {
-      console.error('Erro ao criar perfil:', error);
-      return { success: false };
-    }
-  }
+        // ===== AUTENTICAÇÃO =====
+        async function signUp(email, password, name) {
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: { data: { full_name: name } }
+                });
+                if (error) throw error;
 
-  async function getProfile() {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return { success: false, message: "Usuário não autenticado" };
+                if (data.user) await createProfile(data.user.id, name, email);
 
-      const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-      if (error) throw error;
-      return { success: true, profile: data };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
-  }
+                const emailConfirmed = data.user && data.user.email_confirmed_at;
 
-  async function updatePetProfile(petName, petAvatar) {
-    try {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      if (sessionError) throw sessionError;
-      if (!session) throw new Error('Usuário não autenticado');
+                return { 
+                    success: true,
+                    message: emailConfirmed ? "Conta criada com sucesso!" : "Conta criada! Confirme seu email.",
+                    emailConfirmed
+                };
+            } catch (error) {
+                return { success: false, message: error.message };
+            }
+        }
 
-      const user = session.user;
+        async function signIn(email, password) {
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                if (error) {
+                    if (error.message.includes('confirm')) {
+                        return { success: false, message: "Email não confirmado. Verifique sua caixa de entrada." };
+                    }
+                    throw error;
+                }
+                return { success: true, message: "Login realizado com sucesso!" };
+            } catch (error) {
+                return { success: false, message: error.message };
+            }
+        }
 
-      const { data, error } = await supabase.from('profiles').update({
-        pet_name: petName,
-        pet_avatar: petAvatar,
-        updated_at: new Date().toISOString()
-      }).eq('id', user.id);
-      if (error) throw error;
+        async function signInWithProvider(provider) {
+            try {
+                const { data, error } = await supabase.auth.signInWithOAuth({
+                    provider,
+                    options: { redirectTo: window.location.origin + '/index.html' }
+                });
+                if (error) throw error;
+            } catch (error) {
+                alert('Erro ao fazer login com ' + provider + ': ' + error.message);
+            }
+        }
 
-      return { success: true, message: "Perfil atualizado com sucesso!" };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
-  }
+        async function createProfile(userId, name, email) {
+            try {
+                const { data, error } = await supabase.from('profiles').insert([{
+                    id: userId,
+                    full_name: name,
+                    email: email,
+                    pet_name: null,
+                    pet_avatar: null,
+                    level: 1,
+                    points: 0
+                }]);
+                if (error && error.code !== '23505') throw error;
+                return { success: true };
+            } catch (error) {
+                console.error('Erro ao criar perfil:', error);
+                return { success: false };
+            }
+        }
 
-  async function checkAuth() {
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) throw error;
-      return !!session;
-    } catch (error) {
-      console.error('Erro ao verificar autenticação:', error);
-      return false;
-    }
-  }
+        async function getProfile() {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) return { success: false, message: "Usuário não autenticado" };
 
-  // ===== EVENTOS =====
-  document.getElementById('register-form')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const name = document.getElementById('register-name').value;
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-    const confirm = document.getElementById('register-confirm').value;
+                const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+                if (error) throw error;
+                return { success: true, profile: data };
+            } catch (error) {
+                return { success: false, message: error.message };
+            }
+        }
 
-    if (password.length < 8) return showMessage('A senha deve ter no mínimo 8 caracteres', false);
-    if (password !== confirm) return showMessage('As senhas não coincidem!', false);
+        async function updatePetProfile(petName, petAvatar) {
+            try {
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+                if (sessionError) throw sessionError;
+                if (!session) throw new Error('Usuário não autenticado');
 
-    const result = await signUp(email, password, name);
-    showMessage(result.message, result.success);
+                const user = session.user;
 
-    if (result.success && result.emailConfirmed) {
-      const loginResult = await signIn(email, password);
-      if (loginResult.success) {
-        // Mostrar modal de personalização do pet após cadastro
-        document.getElementById('pet-profile-modal').style.display = 'flex';
-      }
-    } else if (result.success) {
-      switchForm('login');
-    }
-  });
+                const { data, error } = await supabase.from('profiles').update({
+                    pet_name: petName,
+                    pet_avatar: petAvatar,
+                    updated_at: new Date().toISOString()
+                }).eq('id', user.id);
+                if (error) throw error;
 
-  document.getElementById('login-form')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+                return { success: true, message: "Perfil atualizado com sucesso!" };
+            } catch (error) {
+                return { success: false, message: error.message };
+            }
+        }
 
-    const result = await signIn(email, password);
-    showMessage(result.message, result.success);
+        async function checkAuth() {
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                if (error) throw error;
+                return !!session;
+            } catch (error) {
+                console.error('Erro ao verificar autenticação:', error);
+                return false;
+            }
+        }
 
-    if (result.success) {
-      const profileResult = await getProfile();
-      if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
-        // Se já tem perfil do pet, redireciona para a página principal
-        window.location.href = '../index.html';
-      } else {
-        // Se não tem perfil do pet, mostra o modal
-        document.getElementById('pet-profile-modal').style.display = 'flex';
-      }
-    }
-  });
+        async function signOut() {
+            try {
+                const { error } = await supabase.auth.signOut();
+                if (error) throw error;
+                
+                // Recarregar a página para atualizar o estado
+                window.location.reload();
+                return { success: true, message: "Logout realizado com sucesso!" };
+            } catch (error) {
+                return { success: false, message: error.message };
+            }
+        }
 
-  document.getElementById('save-pet-profile')?.addEventListener('click', async function() {
-    const petName = document.getElementById('pet-name').value;
-    if (!petName) return alert('Por favor, dê um nome ao seu pet!');
+        // ===== EVENTOS =====
+        document.getElementById('register-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
 
-    const isAuthenticated = await checkAuth();
-    if (!isAuthenticated) {
-      alert('Sessão expirada. Faça login novamente.');
-      window.location.reload();
-      return;
-    }
+            if (password.length < 8) return showMessage('A senha deve ter no mínimo 8 caracteres', false);
+            if (password !== confirm) return showMessage('As senhas não coincidem!', false);
 
-    const result = await updatePetProfile(petName, selectedAvatar);
-    if (result.success) window.location.href = '../index.html';
-    else alert('Erro ao salvar perfil: ' + result.message);
-  });
+            const result = await signUp(email, password, name);
+            showMessage(result.message, result.success);
 
-  document.querySelectorAll('.avatar-option').forEach(option => {
-    option.addEventListener('click', function() {
-      document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
-      this.classList.add('selected');
-      selectedAvatar = this.getAttribute('data-avatar');
-    });
-  });
+            if (result.success && result.emailConfirmed) {
+                const loginResult = await signIn(email, password);
+                if (loginResult.success) {
+                    // Mostrar modal de personalização do pet após cadastro
+                    document.getElementById('pet-profile-modal').style.display = 'flex';
+                }
+            } else if (result.success) {
+                switchForm('login');
+            }
+        });
 
-  // ===== CHECAGEM DE SESSÃO =====
-  async function checkSession() {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      const profileResult = await getProfile();
-      if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
-        // Se já tem sessão e perfil completo, redireciona para a página principal
-        window.location.href = '../index.html';
-      } else if (profileResult.success) {
-        // Se tem sessão mas não tem perfil completo, mostra o modal
-        document.getElementById('pet-profile-modal').style.display = 'flex';
-      }
-    }
-  }
+        document.getElementById('login-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
 
-  // Inicialização
-  document.addEventListener('DOMContentLoaded', function() {
-    checkSession();
-    
-    // Ajuste de input no iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      document.querySelectorAll('input').forEach(input => input.style.minHeight = '44px');
-    }
-  });
-</script>
+            const result = await signIn(email, password);
+            showMessage(result.message, result.success);
+
+            if (result.success) {
+                const profileResult = await getProfile();
+                if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
+                    // Se já tem perfil do pet, redireciona para a página principal
+                    window.location.href = '../index.html';
+                } else {
+                    // Se não tem perfil do pet, mostra o modal
+                    document.getElementById('pet-profile-modal').style.display = 'flex';
+                }
+            }
+        });
+
+        document.getElementById('save-pet-profile')?.addEventListener('click', async function() {
+            const petName = document.getElementById('pet-name').value;
+            if (!petName) return alert('Por favor, dê um nome ao seu pet!');
+
+            const isAuthenticated = await checkAuth();
+            if (!isAuthenticated) {
+                alert('Sessão expirada. Faça login novamente.');
+                window.location.reload();
+                return;
+            }
+
+            const result = await updatePetProfile(petName, selectedAvatar);
+            if (result.success) window.location.href = '../index.html';
+            else alert('Erro ao salvar perfil: ' + result.message);
+        });
+
+        document.querySelectorAll('.avatar-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedAvatar = this.getAttribute('data-avatar');
+            });
+        });
+
+        document.getElementById('logout-btn')?.addEventListener('click', async function() {
+            const result = await signOut();
+            if (!result.success) {
+                alert('Erro ao fazer logout: ' + result.message);
+            }
+        });
+
+        // ===== CHECAGEM DE SESSÃO =====
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                // Mostrar botão de logout
+                document.getElementById('logout-btn').style.display = 'flex';
+                
+                const profileResult = await getProfile();
+                if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
+                    // Se já tem sessão e perfil completo, redireciona para a página principal
+                    window.location.href = '../index.html';
+                } else if (profileResult.success) {
+                    // Se tem sessão mas não tem perfil completo, mostra o modal
+                    document.getElementById('pet-profile-modal').style.display = 'flex';
+                }
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSession();
+            
+            // Ajuste de input no iOS
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                document.querySelectorAll('input').forEach(input => input.style.minHeight = '44px');
+            }
+        });
+    </script>
     
 </body>
 </html>
