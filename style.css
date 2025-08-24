@@ -250,6 +250,35 @@ button, .btn {
     justify-content: center;
 }
 
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow-hover);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.search-suggestions.active {
+    display: block;
+}
+
+.search-suggestion {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-suggestion:hover {
+    background-color: #f8f9fa;
+}
+
 .nav-icons {
     display: flex;
     align-items: center;
@@ -280,6 +309,27 @@ button, .btn {
     font-size: 0.8rem;
 }
 
+.login-btn a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark);
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.login-btn a:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.login-btn i {
+    font-size: 1.4rem;
+    margin-bottom: 3px;
+}
+
+
 .badge {
     position: absolute;
     top: -5px;
@@ -294,13 +344,6 @@ button, .btn {
     justify-content: center;
     font-size: 0.7rem;
     font-weight: bold;
-}
-
-.mobile-toggle {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 5px;
 }
 
 /* ===== BANNERS PROMOCIONAIS ===== */
@@ -456,6 +499,7 @@ button, .btn {
     box-shadow: var(--shadow);
     transition: var(--transition);
     text-align: center;
+    cursor: pointer;
 }
 
 .category-item:hover {
@@ -1050,13 +1094,15 @@ button, .btn {
     right: 20px;
     padding: 15px 25px;
     border-radius: 5px;
-    background: var(--accent); /* Cor de acordo com o tema */
+    background: var(--accent);
     color: white;
     box-shadow: var(--shadow);
     z-index: 2100;
     transform: translateX(100%);
     opacity: 0;
     transition: var(--transition);
+    max-width: calc(100% - 40px);
+    text-align: center;
 }
 
 .notification.active {
@@ -1178,12 +1224,6 @@ button, .btn {
         max-width: 100%;
     }
     
-    .mobile-toggle {
-        display: block;
-        order: 2;
-        margin-left: 15px;
-    }
-    
     .hero-carousel {
         height: 400px;
     }
@@ -1234,7 +1274,11 @@ button, .btn {
     }
     
     .nav-icon span {
-        display: none;
+        font-size: 0.7rem;
+    }
+
+    .login-btn span {
+        font-size: 0.65rem;
     }
 
     .promo-bar {
@@ -1248,6 +1292,7 @@ button, .btn {
     
     .nav-icon {
         font-size: 1.4rem;
+        left: -10%;
         padding: 5px;
     }
     
@@ -1303,11 +1348,26 @@ button, .btn {
     }
     
     .nav-icons {
-        gap: 10px;
+        gap: 8px;
     }
     
     .nav-icon i {
         font-size: 1.2rem;
+    }
+
+    .nav-icon span {
+        font-size: 0.6rem;
+    }
+
+    .login-btn span {
+        font-size: 0.55rem;
+    }
+
+    .notification {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        max-width: calc(100% - 30px);
+        right: 15px;
     }
 }
 

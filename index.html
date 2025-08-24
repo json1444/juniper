@@ -23,6 +23,7 @@
             
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Para seu pet, procure aqui..." id="searchInput">
+                <div class="search-suggestions" id="searchSuggestions"></div>
                 <button class="search-btn" id="searchBtn">
                     <i class="fas fa-search"></i>
                 </button>
@@ -41,15 +42,11 @@
                     <span class="badge" id="cartCount">0</span>
                 </div>
                 
-                <div class="nav-icon">
+                <div class="nav-icon login-btn">
                     <a href="formulario/login.html">
                         <i class="fas fa-user-circle"></i>
                         <span>Entrar</span>
                     </a>
-                </div>
-                
-                <div class="mobile-toggle" id="mobileToggle">
-                    <i class="fas fa-bars"></i>
                 </div>
             </div>
         </div>
@@ -117,31 +114,31 @@
     <!-- Categorias -->
     <div class="container">
         <div class="categories">
-            <a href="#saude-pet" class="category-item">
+            <a href="#saude-pet" class="category-item" data-section="saude-pet">
                 <div class="category-icon">
                     <i class="fas fa-pills"></i>
                 </div>
                 <span>Saúde Pet</span>
             </a>
-            <a href="#moda-pet" class="category-item">
+            <a href="#moda-pet" class="category-item" data-section="moda-pet">
                 <div class="category-icon">
                     <i class="fas fa-tshirt"></i>
                 </div>
                 <span>Moda Pet</span>
             </a>
-            <a href="#nutricao-pet" class="category-item">
+            <a href="#nutricao-pet" class="category-item" data-section="nutricao-pet">
                 <div class="category-icon">
                     <i class="fas fa-apple-alt"></i>
                 </div>
                 <span>Nutrição</span>
             </a>
-            <a href="#curiosidades" class="category-item">
+            <a href="#curiosidades" class="category-item" data-section="curiosidades">
                 <div class="category-icon">
                     <i class="fas fa-lightbulb"></i>
                 </div>
                 <span>Curiosidades</span>
             </a>
-            <a href="#servicos" class="category-item">
+            <a href="#servicos" class="category-item" data-section="servicos">
                 <div class="category-icon">
                     <i class="fas fa-concierge-bell"></i>
                 </div>
@@ -509,7 +506,7 @@
                 <div class="fact-card">
                      <img src="curi1.jpeg" alt="Cachorro preto olhando atento para a câmera" class="fact-image" loading="lazy">
                 <div class="fact-overlay">
-                    <p><span>Sabia?</span> Cães conseguem ouvir sons até <strong>4 vezes</strong> mais distantes do que os humanos</p>
+                    <p><span>Sabia?</span> Cães conseguem ouvir sons até <strong>4 vezes</strong> more distantes do que os humanos</p>
                     </div>
                 </div>
                 

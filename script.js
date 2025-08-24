@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModals();
     initEventListeners();
     initScrollAnimations();
+    initSearch();
     updateCounters();
     renderCart();
     renderWishlist();
@@ -62,6 +63,28 @@ function initScrollAnimations() {
             }
         });
     }
+}
+
+// ===== SCROLL SUAVE PARA SEÇÕES =====
+function initSmoothScroll() {
+    // Adicionar evento de clique para as categorias
+    document.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionId = this.getAttribute('data-section');
+            const targetSection = document.getElementById(sectionId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 }
 
 // ===== SISTEMA DE CARRINHO =====
@@ -371,6 +394,134 @@ function prevSlide() {
     goToSlide(currentSlide - 1);
 }
 
+// ===== SISTEMA DE PESQUISA =====
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+    
+    if (!searchInput || !searchBtn || !searchSuggestions) return;
+    
+    // Função para mostrar sugestões
+    function showSuggestions() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (searchTerm.length < 2) {
+            searchSuggestions.classList.remove('active');
+            return;
+        }
+        
+        // Filtrar produtos
+        const results = Object.entries(produtos).filter(([id, product]) => {
+            return product.nome.toLowerCase().includes(searchTerm) || 
+                   product.tipo.toLowerCase().includes(searchTerm);
+        });
+        
+        if (results.length === 0) {
+            searchSuggestions.innerHTML = '<div class="search-suggestion">Nenhum produto encontrado</div>';
+            searchSuggestions.classList.add('active');
+            return;
+        }
+        
+        // Limitar a 5 sugestões
+        const limitedResults = results.slice(0, 5);
+        
+        let html = '';
+        limitedResults.forEach(([id, product]) => {
+            html += `
+                <div class="search-suggestion" data-product="${id}">
+                    <div>${product.nome}</div>
+                    <small>R$ ${product.preco.toFixed(2)}</small>
+                </div>
+            `;
+        });
+        
+        searchSuggestions.innerHTML = html;
+        searchSuggestions.classList.add('active');
+        
+        // Adicionar eventos de clique nas sugestões
+        document.querySelectorAll('.search-suggestion').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product');
+                if (productId && produtos[productId]) {
+                    searchInput.value = produtos[productId].nome;
+                    searchSuggestions.classList.remove('active');
+                    
+                    // Scroll para a seção de produtos
+                    const modaPetSection = document.getElementById('moda-pet');
+                    if (modaPetSection) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = modaPetSection.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    }
+    
+    // Event listeners
+    searchInput.addEventListener('input', showSuggestions);
+    
+    searchInput.addEventListener('focus', function() {
+        if (this.value.length >= 2) {
+            showSuggestions();
+        }
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+            searchSuggestions.classList.remove('active');
+        }
+    });
+    
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    searchBtn.addEventListener('click', performSearch);
+    
+    function performSearch() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (searchTerm.length < 2) {
+            showNotification('Digite pelo menos 2 caracteres para pesquisar', true);
+            return;
+        }
+        
+        // Filtrar produtos
+        const results = Object.entries(produtos).filter(([id, product]) => {
+            return product.nome.toLowerCase().includes(searchTerm) || 
+                   product.tipo.toLowerCase().includes(searchTerm);
+        });
+        
+        if (results.length === 0) {
+            showNotification('Nenhum produto encontrado para: ' + searchTerm, true);
+            return;
+        }
+        
+        showNotification(`Encontrados ${results.length} produtos para: ${searchTerm}`);
+        searchSuggestions.classList.remove('active');
+        
+        // Scroll para a seção de produtos
+        const modaPetSection = document.getElementById('moda-pet');
+        if (modaPetSection) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const targetPosition = modaPetSection.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+}
+
 // ===== MODAIS =====
 function initModals() {
     // Modal do carrinho
@@ -435,52 +586,6 @@ function initModals() {
             }
         });
     });
-}
-
-// ===== SISTEMA DE PESQUISA =====
-function initSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
-    
-    if (!searchInput || !searchBtn) return;
-    
-    const performSearch = () => {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (searchTerm.length < 2) {
-            showNotification('Digite pelo menos 2 caracteres para pesquisar', true);
-            return;
-        }
-        
-        // Filtrar produtos
-        const results = Object.entries(produtos).filter(([id, product]) => {
-            return product.nome.toLowerCase().includes(searchTerm) || 
-                   product.tipo.toLowerCase().includes(searchTerm);
-        });
-        
-        if (results.length === 0) {
-            showNotification('Nenhum produto encontrado para: ' + searchTerm, true);
-            return;
-        }
-        
-        showNotification(`Encontrados ${results.length} produtos para: ${searchTerm}`);
-        
-        // Scroll para a seção de produtos
-        const modaPetSection = document.getElementById('moda-pet');
-        if (modaPetSection) {
-            modaPetSection.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    };
-    
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-    
-    searchBtn.addEventListener('click', performSearch);
 }
 
 // ===== FORMULÁRIOS =====
@@ -570,17 +675,8 @@ function initEventListeners() {
         heroCarousel.addEventListener('mouseleave', startCarousel);
     }
     
-    // Menu mobile
-    const mobileToggle = document.getElementById('mobileToggle');
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', () => {
-            const navIcons = document.querySelector('.nav-icons');
-            navIcons.classList.toggle('active');
-        });
-    }
-    
     // Inicializar sistemas
-    initSearch();
+    initSmoothScroll();
     initForms();
     updateWishlistButtons();
 }
