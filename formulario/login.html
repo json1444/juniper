@@ -96,6 +96,85 @@
         .auth-body {
             padding: 30px;
         }
+
+         .auth-message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .auth-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .auth-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Modal de perfil do pet */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .avatar-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .avatar-option {
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .avatar-option:hover {
+            border-color: #FF7B00;
+        }
+        
+        .avatar-option.selected {
+            border-color: #FF7B00;
+            background-color: #FFF0E0;
+        }
+        
+        .avatar-option img {
+            width: 100%;
+            max-width: 60px;
+            height: auto;
+        }
         
         .form-group {
             margin-bottom: 20px;
@@ -298,6 +377,11 @@
             .social-buttons {
                 grid-template-columns: 1fr;
             }
+            
+            .avatar-option {
+                width: 60px;
+                height: 60px;
+            }
         }
         
         /* Ajustes para iPhone (375px) */
@@ -321,6 +405,10 @@
             .pet-icon {
                 display: none;
             }
+            
+            .avatar-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -329,6 +417,37 @@
     <img src="patas.png" alt="Pata de cachorro" class="pet-icon pet-1 floating">
     <img src="patas.png" alt="Pata de gato" class="pet-icon pet-2 floating">
     
+    <!-- Modal de perfil do pet -->
+    <div id="pet-profile-modal" class="modal">
+        <div class="modal-content">
+            <h2>Personalize seu Pet</h2>
+            <div class="form-group">
+                <label for="pet-name">Nome do Pet</label>
+                <input type="text" id="pet-name" placeholder="Ex: Rex, Luna, etc." required>
+            </div>
+            
+            <label>Escolha um avatar:</label>
+            <div class="avatar-options">
+                <div class="avatar-option" data-avatar="cachorro.png">
+                    <img src="cachorro.png" alt="Cachorro">
+                </div>
+                <div class="avatar-option" data-avatar="gato.png">
+                    <img src="gato.png" alt="Gato">
+                </div>
+                <div class="avatar-option" data-avatar="coelho.png">
+                    <img src="coelho.png" alt="Coelho">
+                </div>
+                <div class="avatar-option" data-avatar="passaro.png">
+                    <img src="passaro.png" alt="Pássaro">
+                </div>
+            </div>
+            
+            <button id="save-pet-profile" class="auth-btn">
+                <i>🐾</i> Salvar Perfil
+            </button>
+        </div>
+    </div>
+    
     <div class="auth-container">
         <div class="auth-header">
             <h1>LuckPet</h1>
@@ -336,6 +455,9 @@
         </div>
         
         <div class="auth-body">
+            <!-- Mensagens de feedback -->
+            <div id="auth-message" class="auth-message" style="display: none;"></div>
+            
             <!-- Formulário de Login -->
             <form id="login-form">
                 <div class="form-group">
@@ -361,12 +483,12 @@
                 </div>
                 
                 <div class="social-buttons">
-                    <button type="button" class="social-btn">
-                        <img src="google.png" alt="Google">
+                    <button type="button" class="social-btn" onclick="signInWithProvider('google')">
+                        <img src="https://www.google.com/favicon.ico" alt="Google">
                         Google
                     </button>
-                    <button type="button" class="social-btn">
-                        <img src="facebook (1).png" alt="Facebook">
+                    <button type="button" class="social-btn" onclick="signInWithProvider('facebook')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
                         Facebook
                     </button>
                 </div>
@@ -405,69 +527,235 @@
         </div>
     </div>
 
-    <script>
-        // Alternar entre formulários
-        function switchForm(formType) {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            
-            if (formType === 'register') {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-            } else {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-            }
-            
-            // Rolagem suave para o topo
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ===== CONFIGURAÇÃO SUPABASE =====
+  const SUPABASE_URL = 'https://oxhbzvjbskgdjthkquvn.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94aGJ6dmpic2tnZGp0aGtxdXZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMzA2ODcsImV4cCI6MjA3MTYwNjY4N30.SxB_4DXb6zPmeiY5-JOzR1oQVNIdi34ZEMy8qyUN0RE';
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  let selectedAvatar = 'cachorro.png';
+
+  // ===== FUNÇÕES DE UI =====
+  function switchForm(formType) {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const messageDiv = document.getElementById('auth-message');
+    messageDiv.style.display = 'none';
+
+    if (formType === 'register') {
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    } else {
+      loginForm.style.display = 'block';
+      registerForm.style.display = 'none';
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showMessage(message, isSuccess) {
+    const messageDiv = document.getElementById('auth-message');
+    messageDiv.textContent = message;
+    messageDiv.className = isSuccess ? 'auth-message success' : 'auth-message error';
+    messageDiv.style.display = 'block';
+  }
+
+  // ===== AUTENTICAÇÃO =====
+  async function signUp(email, password, name) {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: name } }
+      });
+      if (error) throw error;
+
+      if (data.user) await createProfile(data.user.id, name, email);
+
+      const emailConfirmed = data.user && data.user.email_confirmed_at;
+
+      return { 
+        success: true,
+        message: emailConfirmed ? "Conta criada com sucesso!" : "Conta criada! Confirme seu email.",
+        emailConfirmed
+      };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
+  async function signIn(email, password) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        if (error.message.includes('confirm')) {
+          return { success: false, message: "Email não confirmado. Verifique sua caixa de entrada." };
         }
-        
-        // Validação do cadastro
-        document.getElementById('register-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('register-password').value;
-            const confirm = document.getElementById('register-confirm').value;
-            
-            if (password.length < 8) {
-                alert('A senha deve ter no mínimo 8 caracteres');
-                return;
-            }
-            
-            if (password !== confirm) {
-                alert('As senhas não coincidem!');
-                return;
-            }
-            
-            // Simulação de cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Redirecionando...');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
-        });
-        
-        // Validação do login
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Simulação de login bem-sucedido
-            alert('Login realizado com sucesso! Redirecionando...');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
-        });
-        
-        // Ajustar altura do input no iOS
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.style.minHeight = '44px'; // Tamanho mínimo recomendado para iOS
-            });
-        }
-    </script>
+        throw error;
+      }
+      return { success: true, message: "Login realizado com sucesso!" };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
+  async function signInWithProvider(provider) {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: { redirectTo: window.location.origin + '/index.html' }
+      });
+      if (error) throw error;
+    } catch (error) {
+      alert('Erro ao fazer login com ' + provider + ': ' + error.message);
+    }
+  }
+
+  async function createProfile(userId, name, email) {
+    try {
+      const { data, error } = await supabase.from('profiles').insert([{
+        id: userId,
+        full_name: name,
+        email: email,
+        pet_name: name + "'s Pet",
+        pet_avatar: 'cachorro.png'
+      }]);
+      if (error && error.code !== '23505') throw error;
+      return { success: true };
+    } catch (error) {
+      console.error('Erro ao criar perfil:', error);
+      return { success: false };
+    }
+  }
+
+  async function getProfile() {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return { success: false, message: "Usuário não autenticado" };
+
+      const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+      if (error) throw error;
+      return { success: true, profile: data };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
+  async function updatePetProfile(petName, petAvatar) {
+    try {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!session) throw new Error('Usuário não autenticado');
+
+      const user = session.user;
+
+      const { data, error } = await supabase.from('profiles').update({
+        pet_name: petName,
+        pet_avatar: petAvatar,
+        updated_at: new Date().toISOString()
+      }).eq('id', user.id);
+      if (error) throw error;
+
+      return { success: true, message: "Perfil atualizado com sucesso!" };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
+  async function checkAuth() {
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      return !!session;
+    } catch (error) {
+      console.error('Erro ao verificar autenticação:', error);
+      return false;
+    }
+  }
+
+  // ===== EVENTOS =====
+  document.getElementById('register-form')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const confirm = document.getElementById('register-confirm').value;
+
+    if (password.length < 8) return showMessage('A senha deve ter no mínimo 8 caracteres', false);
+    if (password !== confirm) return showMessage('As senhas não coincidem!', false);
+
+    const result = await signUp(email, password, name);
+    showMessage(result.message, result.success);
+
+    if (result.success && result.emailConfirmed) {
+      const loginResult = await signIn(email, password);
+      if (loginResult.success) window.location.href = '../index.html';
+    } else if (result.success) switchForm('login');
+  });
+
+  document.getElementById('login-form')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    const result = await signIn(email, password);
+    showMessage(result.message, result.success);
+
+    if (result.success) {
+      const profileResult = await getProfile();
+      if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
+        window.location.href = '../index.html';
+      } else {
+        document.getElementById('pet-profile-modal').style.display = 'flex';
+      }
+    }
+  });
+
+  document.getElementById('save-pet-profile')?.addEventListener('click', async function() {
+    const petName = document.getElementById('pet-name').value;
+    if (!petName) return alert('Por favor, dê um nome ao seu pet!');
+
+    const isAuthenticated = await checkAuth();
+    if (!isAuthenticated) {
+      alert('Sessão expirada. Faça login novamente.');
+      window.location.reload();
+      return;
+    }
+
+    const result = await updatePetProfile(petName, selectedAvatar);
+    if (result.success) window.location.href = '../index.html';
+    else alert('Erro ao salvar perfil: ' + result.message);
+  });
+
+  document.querySelectorAll('.avatar-option').forEach(option => {
+    option.addEventListener('click', function() {
+      document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedAvatar = this.getAttribute('data-avatar');
+    });
+  });
+
+  // ===== CHECAGEM DE SESSÃO =====
+  async function checkSession() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      const profileResult = await getProfile();
+      if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
+        window.location.href = '../index.html';
+      } else {
+        document.getElementById('pet-profile-modal').style.display = 'flex';
+      }
+    }
+  }
+
+  if (document.getElementById('login-form')) checkSession();
+
+  // Ajuste de input no iOS
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.querySelectorAll('input').forEach(input => input.style.minHeight = '44px');
+  }
+</script>
+    
 </body>
 </html>
