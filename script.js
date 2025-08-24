@@ -1,3 +1,13 @@
+// ===== INICIALIZAÇÃO DO AUTH MANAGER =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar o gerenciador de autenticação
+    if (typeof AuthManager !== 'undefined') {
+        window.authManager = new AuthManager();
+    }
+    
+    // ... resto do seu código de inicialização
+});
+
 // ===== DADOS E INICIALIZAÇÃO =====
 const produtos = {
     racao1: { nome: "Ração Premium Canina", preco: 129.99, tipo: "alimento", img: "img/racao/racao1.jpg" },

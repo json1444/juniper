@@ -57,6 +57,8 @@ class AuthManager {
         }
         
         this.profile = profile;
+        console.log('Perfil carregado:', profile);
+        console.log('Avatar selecionado:', profile.avatar);
         this.updateUI();
     }
 
@@ -92,16 +94,34 @@ class AuthManager {
                 const profileName = userMenu.querySelector('.profile-name');
                 const profileLevel = userMenu.querySelector('.profile-level');
                 
+                // Mapeamento dos avatares baseado nos valores do formulário
+                const avatarMap = {
+                    'cachorro': 'ava-dog1.jpg',
+                    'gato': 'ava-gato.jpg',
+                    'coelho': 'ava-dog2.jpg',
+                    'pássaro': 'ava-gato2.jpg'
+                };
+                
+                const avatarFileName = avatarMap[this.profile.avatar] || 'ava-dog1.jpg';
+                
                 if (avatarImg) {
-                    avatarImg.src = `../img/avatars/${this.profile.avatar}.png`;
+                    avatarImg.src = `../img/avatares/${avatarFileName}`;
                     avatarImg.alt = this.profile.nome;
+                    avatarImg.onerror = function() {
+                        console.error('Erro ao carregar avatar:', this.src);
+                        this.src = '../img/avatares/ava-dog1.jpg';
+                    }
                 }
                 
                 if (userName) userName.textContent = this.profile.nome;
                 
                 if (profileAvatar) {
-                    profileAvatar.src = `../img/avatars/${this.profile.avatar}.png`;
+                    profileAvatar.src = `../img/avatares/${avatarFileName}`;
                     profileAvatar.alt = this.profile.nome;
+                    profileAvatar.onerror = function() {
+                        console.error('Erro ao carregar avatar do perfil:', this.src);
+                        this.src = '../img/avatares/ava-dog1.jpg';
+                    }
                 }
                 
                 if (profileName) profileName.textContent = this.profile.nome;

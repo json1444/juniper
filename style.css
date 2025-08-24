@@ -367,6 +367,151 @@ button, .btn {
     margin-bottom: 3px;
 }
 
+/* Estilos para o menu de usuário */
+.user-menu {
+    display: none;
+    position: relative;
+    align-items: center;
+}
+
+.user-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.user-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+    border: 2px solid var(--primary);
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 8px;
+    color: var(--dark);
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 250px;
+    z-index: 1000;
+    margin-top: 8px;
+}
+
+.user-dropdown.show {
+    display: block;
+}
+
+.user-profile-preview {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 8px 8px 0 0;
+    color: white;
+}
+
+.profile-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    margin-right: 12px;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.profile-level {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.user-dropdown-divider {
+    height: 1px;
+    background: #eaeaea;
+    margin: 8px 0;
+}
+
+.user-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.user-dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.user-dropdown-item i {
+    margin-right: 12px;
+    width: 16px;
+    color: var(--primary);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .user-name {
+        display: none;
+    }
+    
+    .user-dropdown {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 16px 16px 0 0;
+        margin-top: 0;
+    }
+    
+    .user-profile-preview {
+        border-radius: 16px 16px 0 0;
+    }
+    
+    .nav-icons {
+        gap: 10px;
+    }
+    
+    .nav-icon span {
+        font-size: 0.7rem;
+    }
+    
+    .login-btn a span {
+        font-size: 0.7rem;
+    }
+}
+
 
 .badge {
     position: absolute;
