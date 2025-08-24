@@ -44,11 +44,35 @@
                 </div>
                 
                 <div class="nav-icon login-btn" id="loginBtn">
-                    <a href="formulario/login.html">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Entrar</span>
-                    </a>
-                </div>
+    <a href="formulario/login.html">
+        <i class="fas fa-user-circle"></i>
+        <span>Entrar</span>
+    </a>
+</div>
+
+<div class="user-menu" id="userMenu" style="display: none;">
+    <div class="user-toggle" id="userToggle">
+        <img class="user-avatar" src="" alt="Avatar">
+        <span class="user-name"></span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-profile-preview">
+            <img class="profile-avatar" src="" alt="Avatar">
+            <div class="profile-info">
+                <div class="profile-name"></div>
+                <div class="profile-level"></div>
+            </div>
+        </div>
+        <div class="user-dropdown-divider"></div>
+        <a href="#" class="user-dropdown-item">
+            <i class="fas fa-user"></i> Meu Perfil
+        </a>
+        <a href="#" id="logoutBtn" class="user-dropdown-item">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </a>
+    </div>
+</div>
             </div>
         </div>
     </header>
@@ -724,50 +748,9 @@
     
 
     <script src="script.js"></script>
-      <script>
-  // Inicializar Supabase
-  const SUPABASE_URL = 'https://oxhbzvjbskgdjthkquvn.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94aGJ6dmpic2tnZGp0aGtxdXZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMzA2ODcsImV4cCI6MjA3MTYwNjY4N30.SxB_4DXb6zPmeiY5-JOzR1oQVNIdi34ZEMy8qyUN0RE';
+<script src="auth-manager.js"></script>
+   
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  
-  // Função para carregar e exibir o perfil do usuário
-  async function loadUserProfile() {
-    try {
-      // Verificar se o usuário está logado
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session) {
-        // Buscar o perfil do usuário
-        const { data: profile, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-          
-        if (!error && profile && profile.pet_avatar) {
-          // Atualizar o botão de login para mostrar o avatar do pet
-          const loginBtn = document.getElementById('loginBtn');
-          if (loginBtn) {
-            loginBtn.innerHTML = `
-              <a href="formulario/login.html" style="display: flex; align-items: center; gap: 8px;">
-                <img src="${profile.pet_avatar}" alt="${profile.pet_name}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
-                <span>${profile.pet_name}</span>
-              </a>
-            `;
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Erro ao carregar perfil:', error);
-    }
-  }
-  
-  // Carregar o perfil quando a página for carregada
-  document.addEventListener('DOMContentLoaded', function() {
-    loadUserProfile();
-  });
-</script>
  
 </body>
 </html>
