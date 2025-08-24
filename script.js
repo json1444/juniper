@@ -11,10 +11,409 @@ const produtos = {
     roupa3: { nome: "Fantasia Divertida", preco: 65.00, tipo: "vestimenta", img: "img/roupas/img-cat.jpg" }
 };
 
+// Conteúdos do site para a busca
+const conteudosSite = {
+    // Seções e páginas
+    secoes: [
+        { id: "saude-pet", nome: "Saúde Pet", tipo: "secao", descricao: "Planos de saúde e cuidados veterinários" },
+        { id: "moda-pet", nome: "Moda Pet", tipo: "secao", descricao: "Roupas e acessórios para seu pet" },
+        { id: "nutricao-pet", nome: "Nutrição", tipo: "secao", descricao: "Alimentos e rações de qualidade" },
+        { id: "curiosidades", nome: "Curiosidades", tipo: "secao", descricao: "Fatos interessantes sobre pets" },
+        { id: "servicos", nome: "Serviços", tipo: "secao", descricao: "Banho, tosa e consultas veterinárias" }
+    ],
+    
+    // Serviços oferecidos
+    servicos: [
+        { id: "banho", nome: "Banho Completo", tipo: "servico", descricao: "Banho higiênico e secagem profissional" },
+        { id: "tosa", nome: "Tosa Premium", tipo: "servico", descricao: "Tosa na máquina e modelagem personalizada" },
+        { id: "consulta", nome: "Consulta Veterinária", tipo: "servico", descricao: "Check-up completo e vacinação" }
+    ],
+    
+    // Planos de saúde
+    planos: [
+        { id: "plano-basico", nome: "Plano Básico", tipo: "plano", descricao: "Consulta mensal e vacinação anual", preco: "R$ 99,90/mês" },
+        { id: "plano-essencial", nome: "Plano Essencial", tipo: "plano", descricao: "Exames laboratoriais incluídos", preco: "R$ 179,90/mês" },
+        { id: "plano-premium", nome: "Plano Premium", tipo: "plano", descricao: "Banho e tosa mensal gratuitos", preco: "R$ 299,90/mês" }
+    ],
+    
+    // Curiosidades
+    curiosidades: [
+        { id: "curiosidade1", nome: "Audição Canina", tipo: "curiosidade", descricao: "Cães ouvem sons 4 vezes mais distantes que humanos" },
+        { id: "curiosidade2", nome: "Salto Felino", tipo: "curiosidade", descricao: "Gatos pulam até 6 vezes a altura do corpo" },
+        { id: "curiosidade3", nome: "Olfato Canino", tipo: "curiosidade", descricao: "Cachorros têm olfato 10.000 vezes mais forte" }
+    ]
+};
+
+// Categorias para sugestões de pesquisa
+const categorias = {
+    alimento: "Alimentos",
+    vestimenta: "Roupas e Acessórios",
+    servico: "Serviços",
+    plano: "Planos de Saúde",
+    curiosidade: "Curiosidades"
+};
+
 let carrinho = {};
 let favoritos = {};
 let currentSlide = 0;
 let carouselInterval;
+
+// ===== SISTEMA DE PESQUISA =====
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+    
+    if (!searchInput || !searchBtn || !searchSuggestions) return;
+    
+    // Função para mostrar sugestões
+    function showSuggestions() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (searchTerm.length === 0) {
+            searchSuggestions.classList.remove('active');
+            return;
+        }
+        
+        // Buscar produtos
+        const productResults = Object.entries(produtos).filter(([id, product]) => {
+            return product.nome.toLowerCase().includes(searchTerm) || 
+                   product.tipo.toLowerCase().includes(searchTerm);
+        });
+        
+        // Buscar seções do site
+        const sectionResults = conteudosSite.secoes.filter(section => {
+            return section.nome.toLowerCase().includes(searchTerm) || 
+                   section.descricao.toLowerCase().includes(searchTerm);
+        });
+        
+        // Buscar serviços
+        const serviceResults = conteudosSite.servicos.filter(service => {
+            return service.nome.toLowerCase().includes(searchTerm) || 
+                   service.descricao.toLowerCase().includes(searchTerm);
+        });
+        
+        // Buscar planos
+        const planResults = conteudosSite.planos.filter(plan => {
+            return plan.nome.toLowerCase().includes(searchTerm) || 
+                   plan.descricao.toLowerCase().includes(searchTerm);
+        });
+        
+        // Buscar curiosidades
+        const curiosityResults = conteudosSite.curiosidades.filter(curiosity => {
+            return curiosity.nome.toLowerCase().includes(searchTerm) || 
+                   curiosity.descricao.toLowerCase().includes(searchTerm);
+        });
+        
+        // Combinar todos os resultados
+        const allResults = [
+            ...sectionResults.map(item => ({ ...item, categoria: 'secao' })),
+            ...serviceResults.map(item => ({ ...item, categoria: 'servico' })),
+            ...planResults.map(item => ({ ...item, categoria: 'plano' })),
+            ...curiosityResults.map(item => ({ ...item, categoria: 'curiosidade' })),
+            ...productResults.map(([id, product]) => ({ 
+                id, 
+                nome: product.nome, 
+                tipo: product.tipo, 
+                descricao: product.descricao, 
+                preco: `R$ ${product.preco.toFixed(2)}`,
+                categoria: 'produto'
+            }))
+        ];
+        
+        if (allResults.length === 0) {
+            searchSuggestions.innerHTML = '<div class="search-suggestion">Nenhum resultado encontrado</div>';
+            searchSuggestions.classList.add('active');
+            return;
+        }
+        
+        // Agrupar resultados por categoria
+        const groupedResults = {};
+        allResults.forEach(result => {
+            if (!groupedResults[result.categoria]) {
+                groupedResults[result.categoria] = [];
+            }
+            groupedResults[result.categoria].push(result);
+        });
+        
+        // Limitar a 3 resultados por categoria
+        Object.keys(groupedResults).forEach(key => {
+            groupedResults[key] = groupedResults[key].slice(0, 3);
+        });
+        
+        let html = '';
+        
+        // Seções do site
+        if (groupedResults['secao'] && groupedResults['secao'].length > 0) {
+            html += '<div class="search-category-title">Seções do Site</div>';
+            groupedResults['secao'].forEach(item => {
+                html += `
+                    <div class="search-suggestion" data-section="${item.id}">
+                        <div><i class="fas fa-folder"></i> ${item.nome}</div>
+                        <small>${item.descricao}</small>
+                    </div>
+                `;
+            });
+        }
+        
+        // Serviços
+        if (groupedResults['servico'] && groupedResults['servico'].length > 0) {
+            html += '<div class="search-category-title">Serviços</div>';
+            groupedResults['servico'].forEach(item => {
+                html += `
+                    <div class="search-suggestion" data-service="${item.id}">
+                        <div><i class="fas fa-concierge-bell"></i> ${item.nome}</div>
+                        <small>${item.descricao}</small>
+                    </div>
+                `;
+            });
+        }
+        
+        // Planos de saúde
+        if (groupedResults['plano'] && groupedResults['plano'].length > 0) {
+            html += '<div class="search-category-title">Planos de Saúde</div>';
+            groupedResults['plano'].forEach(item => {
+                html += `
+                    <div class="search-suggestion" data-plano="${item.id}">
+                        <div><i class="fas fa-heartbeat"></i> ${item.nome}</div>
+                        <small>${item.descricao} - ${item.preco}</small>
+                    </div>
+                `;
+            });
+        }
+        
+        // Curiosidades
+        if (groupedResults['curiosidade'] && groupedResults['curiosidade'].length > 0) {
+            html += '<div class="search-category-title">Curiosidades</div>';
+            groupedResults['curiosidade'].forEach(item => {
+                html += `
+                    <div class="search-suggestion" data-curiosidade="${item.id}">
+                        <div><i class="fas fa-lightbulb"></i> ${item.nome}</div>
+                        <small>${item.descricao}</small>
+                    </div>
+                `;
+            });
+        }
+        
+        // Produtos
+        if (groupedResults['produto'] && groupedResults['produto'].length > 0) {
+            html += '<div class="search-category-title">Produtos</div>';
+            groupedResults['produto'].forEach(item => {
+                html += `
+                    <div class="search-suggestion" data-product="${item.id}">
+                        <div><i class="fas fa-shopping-bag"></i> ${item.nome}</div>
+                        <small>${item.preco} • ${categorias[item.tipo] || item.tipo}</small>
+                    </div>
+                `;
+            });
+        }
+        
+        searchSuggestions.innerHTML = html;
+        searchSuggestions.classList.add('active');
+        
+        // Adicionar eventos de clique nas sugestões
+        document.querySelectorAll('.search-suggestion[data-product]').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product');
+                if (productId && produtos[productId]) {
+                    searchInput.value = produtos[productId].nome;
+                    searchSuggestions.classList.remove('active');
+                    
+                    // Scroll para a seção de produtos
+                    scrollParaSecao('nutricao-pet');
+                    
+                    // Destacar o produto após um pequeno delay
+                    setTimeout(() => {
+                        highlightProduct(productId);
+                    }, 800);
+                }
+            });
+        });
+        
+        // Adicionar eventos para seções
+        document.querySelectorAll('.search-suggestion[data-section]').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                searchInput.value = this.querySelector('div').textContent;
+                searchSuggestions.classList.remove('active');
+                scrollParaSecao(sectionId);
+            });
+        });
+        
+        // Adicionar eventos para serviços
+        document.querySelectorAll('.search-suggestion[data-service]').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                const serviceId = this.getAttribute('data-service');
+                searchInput.value = this.querySelector('div').textContent;
+                searchSuggestions.classList.remove('active');
+                
+                // Abrir modal de agendamento
+                document.getElementById('serviceType').value = serviceId;
+                document.getElementById('bookingModal').classList.add('active');
+            });
+        });
+        
+        // Adicionar eventos para planos
+        document.querySelectorAll('.search-suggestion[data-plano]').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                searchInput.value = this.querySelector('div').textContent;
+                searchSuggestions.classList.remove('active');
+                scrollParaSecao('saude-pet');
+            });
+        });
+        
+        // Adicionar eventos para curiosidades
+        document.querySelectorAll('.search-suggestion[data-curiosidade]').forEach(suggestion => {
+            suggestion.addEventListener('click', function() {
+                searchInput.value = this.querySelector('div').textContent;
+                searchSuggestions.classList.remove('active');
+                scrollParaSecao('curiosidades');
+            });
+        });
+    }
+    
+    // Função para scroll suave até uma seção
+    function scrollParaSecao(sectionId) {
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const targetPosition = targetSection.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+    
+    // Função para destacar um produto
+    function highlightProduct(productId) {
+        const productElement = document.querySelector(`[data-product="${productId}"]`);
+        if (productElement) {
+            // Encontrar o card pai do produto
+            const productCard = productElement.closest('.product-card');
+            if (productCard) {
+                productCard.classList.add('highlight-product');
+                
+                // Scroll para o produto
+                productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Remover o destaque após 3 segundos
+                setTimeout(() => {
+                    productCard.classList.remove('highlight-product');
+                }, 3000);
+            }
+        }
+    }
+    
+    // Event listeners
+    searchInput.addEventListener('input', showSuggestions);
+    
+    searchInput.addEventListener('focus', function() {
+        if (this.value.length > 0) {
+            showSuggestions();
+        }
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+            searchSuggestions.classList.remove('active');
+        }
+    });
+    
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    searchBtn.addEventListener('click', performSearch);
+    
+    function performSearch() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (searchTerm.length < 1) {
+            showNotification('Digite algo para pesquisar', true);
+            return;
+        }
+        
+        // Buscar em todos os conteúdos
+        const allResults = [
+            ...conteudosSite.secoes,
+            ...conteudosSite.servicos,
+            ...conteudosSite.planos,
+            ...conteudosSite.curiosidades,
+            ...Object.entries(produtos).map(([id, product]) => ({ 
+                id,
+                nome: product.nome, 
+                tipo: product.tipo, 
+                descricao: product.descricao,
+                categoria: 'produto'
+            }))
+        ];
+        
+        const results = allResults.filter(item => {
+            return item.nome.toLowerCase().includes(searchTerm) || 
+                   (item.descricao && item.descricao.toLowerCase().includes(searchTerm)) ||
+                   item.tipo.toLowerCase().includes(searchTerm);
+        });
+        
+        if (results.length === 0) {
+            showNotification('Nenhum resultado encontrado para: ' + searchTerm, true);
+            return;
+        }
+        
+        showNotification(`Encontrados ${results.length} resultados para: ${searchTerm}`);
+        searchSuggestions.classList.remove('active');
+        
+        // Encontrar o melhor resultado para navegação
+        let bestMatch = null;
+        
+        // Priorizar produtos primeiro
+        const productResults = results.filter(result => result.categoria === 'produto');
+        if (productResults.length > 0) {
+            bestMatch = productResults[0];
+        } 
+        // Depois seções
+        else {
+            const sectionResults = results.filter(result => 
+                result.id && document.getElementById(result.id)
+            );
+            if (sectionResults.length > 0) {
+                bestMatch = sectionResults[0];
+            }
+            // Se não encontrar nada específico, ir para a seção de produtos
+            else {
+                bestMatch = { id: 'nutricao-pet' };
+            }
+        }
+        
+        // Navegar para o melhor resultado
+        if (bestMatch.id) {
+            // Se for um produto, mostrar na seção de produtos
+            if (bestMatch.categoria === 'produto') {
+                scrollParaSecao('nutricao-pet');
+                
+                // Destacar o produto após um pequeno delay
+                setTimeout(() => {
+                    highlightProduct(bestMatch.id);
+                }, 800);
+            } 
+            // Se for uma seção, serviço, plano ou curiosidade
+            else {
+                scrollParaSecao(bestMatch.id);
+                
+                // Se for um serviço, abrir o modal de agendamento
+                if (bestMatch.tipo === 'servico') {
+                    setTimeout(() => {
+                        document.getElementById('serviceType').value = bestMatch.id;
+                        document.getElementById('bookingModal').classList.add('active');
+                    }, 1000);
+                }
+            }
+        }
+    }
+}
 
 // ===== FUNÇÕES DE INICIALIZAÇÃO =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -33,7 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModals();
     initEventListeners();
     initScrollAnimations();
-    initSearch();
+    initSearch(); // Sistema de busca melhorado
     updateCounters();
     renderCart();
     renderWishlist();
@@ -344,7 +743,7 @@ function initCarousel() {
         });
     }
     
-    // Iniciar autoplay
+    // Iniciar autoplay (sem botões de navegação)
     startCarousel();
 }
 
@@ -392,134 +791,6 @@ function nextSlide() {
 
 function prevSlide() {
     goToSlide(currentSlide - 1);
-}
-
-// ===== SISTEMA DE PESQUISA =====
-function initSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
-    const searchSuggestions = document.getElementById('searchSuggestions');
-    
-    if (!searchInput || !searchBtn || !searchSuggestions) return;
-    
-    // Função para mostrar sugestões
-    function showSuggestions() {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (searchTerm.length < 2) {
-            searchSuggestions.classList.remove('active');
-            return;
-        }
-        
-        // Filtrar produtos
-        const results = Object.entries(produtos).filter(([id, product]) => {
-            return product.nome.toLowerCase().includes(searchTerm) || 
-                   product.tipo.toLowerCase().includes(searchTerm);
-        });
-        
-        if (results.length === 0) {
-            searchSuggestions.innerHTML = '<div class="search-suggestion">Nenhum produto encontrado</div>';
-            searchSuggestions.classList.add('active');
-            return;
-        }
-        
-        // Limitar a 5 sugestões
-        const limitedResults = results.slice(0, 5);
-        
-        let html = '';
-        limitedResults.forEach(([id, product]) => {
-            html += `
-                <div class="search-suggestion" data-product="${id}">
-                    <div>${product.nome}</div>
-                    <small>R$ ${product.preco.toFixed(2)}</small>
-                </div>
-            `;
-        });
-        
-        searchSuggestions.innerHTML = html;
-        searchSuggestions.classList.add('active');
-        
-        // Adicionar eventos de clique nas sugestões
-        document.querySelectorAll('.search-suggestion').forEach(suggestion => {
-            suggestion.addEventListener('click', function() {
-                const productId = this.getAttribute('data-product');
-                if (productId && produtos[productId]) {
-                    searchInput.value = produtos[productId].nome;
-                    searchSuggestions.classList.remove('active');
-                    
-                    // Scroll para a seção de produtos
-                    const modaPetSection = document.getElementById('moda-pet');
-                    if (modaPetSection) {
-                        const headerHeight = document.querySelector('.header').offsetHeight;
-                        const targetPosition = modaPetSection.offsetTop - headerHeight - 20;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-    }
-    
-    // Event listeners
-    searchInput.addEventListener('input', showSuggestions);
-    
-    searchInput.addEventListener('focus', function() {
-        if (this.value.length >= 2) {
-            showSuggestions();
-        }
-    });
-    
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
-            searchSuggestions.classList.remove('active');
-        }
-    });
-    
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-    
-    searchBtn.addEventListener('click', performSearch);
-    
-    function performSearch() {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (searchTerm.length < 2) {
-            showNotification('Digite pelo menos 2 caracteres para pesquisar', true);
-            return;
-        }
-        
-        // Filtrar produtos
-        const results = Object.entries(produtos).filter(([id, product]) => {
-            return product.nome.toLowerCase().includes(searchTerm) || 
-                   product.tipo.toLowerCase().includes(searchTerm);
-        });
-        
-        if (results.length === 0) {
-            showNotification('Nenhum produto encontrado para: ' + searchTerm, true);
-            return;
-        }
-        
-        showNotification(`Encontrados ${results.length} produtos para: ${searchTerm}`);
-        searchSuggestions.classList.remove('active');
-        
-        // Scroll para a seção de produtos
-        const modaPetSection = document.getElementById('moda-pet');
-        if (modaPetSection) {
-            const headerHeight = document.querySelector('.header').offsetHeight;
-            const targetPosition = modaPetSection.offsetTop - headerHeight - 20;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
-    }
 }
 
 // ===== MODAIS =====
@@ -656,17 +927,6 @@ function initEventListeners() {
             toggleWishlist(productId);
         });
     });
-    
-    // Controles do carrossel
-    const carouselPrev = document.getElementById('carouselPrev');
-    if (carouselPrev) {
-        carouselPrev.addEventListener('click', prevSlide);
-    }
-    
-    const carouselNext = document.getElementById('carouselNext');
-    if (carouselNext) {
-        carouselNext.addEventListener('click', nextSlide);
-    }
     
     // Pausar carrossel ao passar o mouse
     const heroCarousel = document.querySelector('.hero-carousel');

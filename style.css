@@ -258,7 +258,7 @@ button, .btn {
     background: white;
     border-radius: 0 0 var(--radius) var(--radius);
     box-shadow: var(--shadow-hover);
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
     z-index: 1000;
     display: none;
@@ -269,7 +269,7 @@ button, .btn {
 }
 
 .search-suggestion {
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     transition: var(--transition);
@@ -278,6 +278,44 @@ button, .btn {
 .search-suggestion:hover {
     background-color: #f8f9fa;
 }
+
+.search-suggestion div {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.search-suggestion i {
+    margin-right: 10px;
+    width: 16px;
+}
+
+.search-suggestion small {
+    color: var(--gray);
+    font-size: 0.85rem;
+    display: block;
+    margin-left: 26px;
+}
+
+.search-category-title {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: var(--primary);
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+/* Ícones para diferentes tipos de conteúdo */
+.search-suggestion .fa-folder { color: var(--secondary); }
+.search-suggestion .fa-concierge-bell { color: var(--accent); }
+.search-suggestion .fa-heartbeat { color: var(--danger); }
+.search-suggestion .fa-lightbulb { color: var(--warning); }
+.search-suggestion .fa-shopping-bag { color: var(--info); }
+.search-suggestion .fa-paw { color: var(--primary); }
+.search-suggestion .fa-apple-alt { color: var(--success); }
+.search-suggestion .fa-stethoscope { color: var(--info); }
 
 .nav-icons {
     display: flex;
@@ -451,34 +489,9 @@ button, .btn {
     transform: scale(1.2);
 }
 
+/* Botões de navegação removidos conforme solicitado */
 .carousel-prev, .carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.8);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: var(--dark);
-    z-index: 10;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.carousel-prev {
-    left: 15px;
-}
-
-.carousel-next {
-    right: 15px;
-}
-
-.carousel-prev:hover, .carousel-next:hover {
-    background: white;
+    display: none;
 }
 
 /* ===== CATEGORIAS ===== */
