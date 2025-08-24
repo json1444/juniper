@@ -618,8 +618,8 @@
         id: userId,
         full_name: name,
         email: email,
-        pet_name: name + "'s Pet",
-        pet_avatar: 'cachorro.png'
+        pet_name: null,
+        pet_avatar: null
       }]);
       if (error && error.code !== '23505') throw error;
       return { success: true };
@@ -690,8 +690,13 @@
 
     if (result.success && result.emailConfirmed) {
       const loginResult = await signIn(email, password);
-      if (loginResult.success) window.location.href = '../index.html';
-    } else if (result.success) switchForm('login');
+      if (loginResult.success) {
+        // Mostrar modal de personalização do pet após cadastro
+        document.getElementById('pet-profile-modal').style.display = 'flex';
+      }
+    } else if (result.success) {
+      switchForm('login');
+    }
   });
 
   document.getElementById('login-form')?.addEventListener('submit', async function(e) {
@@ -705,8 +710,10 @@
     if (result.success) {
       const profileResult = await getProfile();
       if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
+        // Se já tem perfil do pet, redireciona para a página principal
         window.location.href = '../index.html';
       } else {
+        // Se não tem perfil do pet, mostra o modal
         document.getElementById('pet-profile-modal').style.display = 'flex';
       }
     }
@@ -742,19 +749,24 @@
     if (session) {
       const profileResult = await getProfile();
       if (profileResult.success && profileResult.profile.pet_name && profileResult.profile.pet_avatar) {
+        // Se já tem sessão e perfil completo, redireciona para a página principal
         window.location.href = '../index.html';
-      } else {
+      } else if (profileResult.success) {
+        // Se tem sessão mas não tem perfil completo, mostra o modal
         document.getElementById('pet-profile-modal').style.display = 'flex';
       }
     }
   }
 
-  if (document.getElementById('login-form')) checkSession();
-
-  // Ajuste de input no iOS
-  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    document.querySelectorAll('input').forEach(input => input.style.minHeight = '44px');
-  }
+  // Inicialização
+  document.addEventListener('DOMContentLoaded', function() {
+    checkSession();
+    
+    // Ajuste de input no iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      document.querySelectorAll('input').forEach(input => input.style.minHeight = '44px');
+    }
+  });
 </script>
     
 </body>
