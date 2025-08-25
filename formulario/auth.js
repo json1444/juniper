@@ -21,7 +21,7 @@ tabButtons.forEach(button => {
     });
 });
 
-// Cadastro de usuário
+// Cadastro de usuário com login automático
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -32,39 +32,32 @@ signupForm.addEventListener('submit', async (e) => {
 
     try {
         // Criar usuário no Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({ 
-            email, 
-            password,
-            options: {
-                data: {
-                    name: name,
-                    avatar: avatar
-                }
-            }
-        });
-        
+        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
         if (authError) throw authError;
 
-        showMessage('Cadastro realizado! Verifique seu email para confirmar a conta. Após confirmar, você poderá fazer login.', 'success');
+        // Logar automaticamente após cadastro
+        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+        if (loginError) throw loginError;
 
-        // Limpar formulário
-        signupForm.reset();
+        const userId = loginData.user.id;
+
+        // Criar perfil do usuário na tabela profiles
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .insert([{ id: userId, nome: name, avatar: avatar, nivel: 1 }]);
+        if (profileError) throw profileError;
+
+        showMessage('Conta criada com sucesso! Redirecionando...', 'success');
+
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 2000);
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
         showMessage(error.message, 'error');
     }
 });
-
-// Função para verificar manualmente se o email foi confirmado
-async function checkEmailVerification() {
-    const { data, error } = await supabase.auth.getSession();
-    
-    if (data.session && !data.session.user.email_confirmed_at) {
-        // Se o usuário está logado mas o email não foi confirmado
-        showMessage('Por favor, verifique seu email para confirmar sua conta.', 'info');
-    }
-}
 
 // Login de usuário
 loginForm.addEventListener('submit', async (e) => {
@@ -76,13 +69,6 @@ loginForm.addEventListener('submit', async (e) => {
     try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-
-        // Verificar se o email foi confirmado
-        if (data.user && !data.user.email_confirmed_at) {
-            showMessage('Por favor, verifique seu email para confirmar sua conta antes de fazer login.', 'info');
-            await supabase.auth.signOut(); // Desloga o usuário
-            return;
-        }
 
         showMessage('Login realizado com sucesso! Redirecionando...', 'success');
 

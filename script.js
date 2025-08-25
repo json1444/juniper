@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof AuthManager !== 'undefined') {
         window.authManager = new AuthManager();
     }
+    
+    // ... resto do seu código de inicialização
 });
 
 // ===== DADOS E INICIALIZAÇÃO =====
@@ -65,117 +67,6 @@ let carrinho = {};
 let favoritos = {};
 let currentSlide = 0;
 let carouselInterval;
-
-// ===== VERIFICAÇÃO DE LOGIN PARA FAVORITOS E CARRINHO =====
-function checkAuthBeforeAction(actionType, callback) {
-    if (window.authManager && window.authManager.user) {
-        // Usuário está logado, executar a ação
-        if (typeof callback === 'function') {
-            callback();
-        }
-    } else {
-        // Usuário não está logado, mostrar alerta e redirecionar
-        showLoginAlert(actionType);
-    }
-}
-
-function showLoginAlert(actionType) {
-    // Criar elemento de alerta estilizado
-    const alertOverlay = document.createElement('div');
-    alertOverlay.className = 'login-alert-overlay';
-    
-    const alertBox = document.createElement('div');
-    alertBox.className = 'login-alert-box';
-    
-    alertBox.innerHTML = `
-        <div class="login-alert-icon">
-            <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <h3>Acesso Restrito</h3>
-        <p>Você precisa estar logado para usar essa função. Crie sua conta grátis e aproveite todos os benefícios!</p>
-        <div class="login-alert-buttons">
-            <button class="btn-secondary" id="loginAlertCancel">Cancelar</button>
-            <a href="formulario/login.html" class="btn-primary">Fazer Login</a>
-        </div>
-    `;
-    
-    alertOverlay.appendChild(alertBox);
-    document.body.appendChild(alertOverlay);
-    
-    // Adicionar estilos dinamicamente se não existirem
-    if (!document.querySelector('#loginAlertStyles')) {
-        const styles = document.createElement('style');
-        styles.id = 'loginAlertStyles';
-        styles.textContent = `
-            .login-alert-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.7);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                padding: 20px;
-            }
-            
-            .login-alert-box {
-                background: white;
-                border-radius: 16px;
-                padding: 30px;
-                text-align: center;
-                max-width: 400px;
-                width: 100%;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            }
-            
-            .login-alert-icon {
-                font-size: 48px;
-                color: #ff9800;
-                margin-bottom: 15px;
-            }
-            
-            .login-alert-box h3 {
-                margin: 0 0 15px 0;
-                color: #2c3e50;
-                font-size: 22px;
-            }
-            
-            .login-alert-box p {
-                color: #7f8c8d;
-                margin-bottom: 25px;
-                line-height: 1.5;
-            }
-            
-            .login-alert-buttons {
-                display: flex;
-                gap: 10px;
-                justify-content: center;
-            }
-            
-            @media (max-width: 480px) {
-                .login-alert-buttons {
-                    flex-direction: column;
-                }
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-    
-    // Fechar o alerta ao clicar no botão Cancelar
-    document.getElementById('loginAlertCancel').addEventListener('click', function() {
-        document.body.removeChild(alertOverlay);
-    });
-    
-    // Fechar o alerta ao clicar fora da caixa
-    alertOverlay.addEventListener('click', function(e) {
-        if (e.target === alertOverlay) {
-            document.body.removeChild(alertOverlay);
-        }
-    });
-}
 
 // ===== SISTEMA DE PESQUISA =====
 function initSearch() {
@@ -607,38 +498,35 @@ function initSmoothScroll() {
 
 // ===== SISTEMA DE CARRINHO =====
 function addToCart(productId, price) {
-    checkAuthBeforeAction('cart', function() {
-        // Código original da função addToCart
-        if (!produtos[productId]) {
-            showNotification("Produto não encontrado!", true);
-            return;
-        }
-        
-        if (!carrinho[productId]) {
-            carrinho[productId] = {
-                quantidade: 1,
-                total: price,
-                ...produtos[productId]
-            };
-        } else {
-            carrinho[productId].quantidade++;
-            carrinho[productId].total = carrinho[productId].quantidade * price;
-        }
-        
-        // Atualizar localStorage
-        try {
-            localStorage.setItem('carrinho', JSON.stringify(carrinho));
-        } catch (e) {
-            console.error("Erro ao salvar no localStorage:", e);
-        }
-        
-        // Atualizar interface
-        updateCounters();
-        renderCart();
-        
-        // Mostrar notificação
-        showNotification(`${produtos[productId].nome} adicionado ao carrinho!`);
-    });
+    if (!produtos[productId]) {
+        showNotification("Produto não encontrado!", true);
+        return;
+    }
+    
+    if (!carrinho[productId]) {
+        carrinho[productId] = {
+            quantidade: 1,
+            total: price,
+            ...produtos[productId]
+        };
+    } else {
+        carrinho[productId].quantidade++;
+        carrinho[productId].total = carrinho[productId].quantidade * price;
+    }
+    
+    // Atualizar localStorage
+    try {
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    } catch (e) {
+        console.error("Erro ao salvar no localStorage:", e);
+    }
+    
+    // Atualizar interface
+    updateCounters();
+    renderCart();
+    
+    // Mostrar notificação
+    showNotification(`${produtos[productId].nome} adicionado ao carrinho!`);
 }
 
 function removeFromCart(productId, price) {
@@ -733,33 +621,30 @@ function removeAllFromCart(productId) {
 
 // ===== SISTEMA DE FAVORITOS =====
 function toggleWishlist(productId) {
-    checkAuthBeforeAction('wishlist', function() {
-        // Código original da função toggleWishlist
-        if (!produtos[productId]) {
-            showNotification("Produto não encontrado!", true);
-            return;
-        }
-        
-        if (favoritos[productId]) {
-            delete favoritos[productId];
-            showNotification(`${produtos[productId].nome} removido dos favoritos!`, true);
-        } else {
-            favoritos[productId] = produtos[productId];
-            showNotification(`${produtos[productId].nome} adicionado aos favoritos!`);
-        }
-        
-        // Atualizar localStorage
-        try {
-            localStorage.setItem('favoritos', JSON.stringify(favoritos));
-        } catch (e) {
-            console.error("Erro ao salvar no localStorage:", e);
-        }
-        
-        // Atualizar interface
-        updateCounters();
-        renderWishlist();
-        updateWishlistButtons();
-    });
+    if (!produtos[productId]) {
+        showNotification("Produto não encontrado!", true);
+        return;
+    }
+    
+    if (favoritos[productId]) {
+        delete favoritos[productId];
+        showNotification(`${produtos[productId].nome} removido dos favoritos!`, true);
+    } else {
+        favoritos[productId] = produtos[productId];
+        showNotification(`${produtos[productId].nome} adicionado aos favoritos!`);
+    }
+    
+    // Atualizar localStorage
+    try {
+        localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    } catch (e) {
+        console.error("Erro ao salvar no localStorage:", e);
+    }
+    
+    // Atualizar interface
+    updateCounters();
+    renderWishlist();
+    updateWishlistButtons();
 }
 
 function renderWishlist() {
@@ -1053,36 +938,6 @@ function initEventListeners() {
         });
     });
     
-    // Ícones do header - Favoritos e Carrinho
-    const wishlistIcon = document.getElementById('wishlistIcon');
-    const cartIcon = document.getElementById('cartIcon');
-    
-    if (wishlistIcon) {
-        wishlistIcon.addEventListener('click', function(e) {
-            // Se não estiver logado, mostrar alerta
-            if (!window.authManager || !window.authManager.user) {
-                e.preventDefault();
-                showLoginAlert('wishlist');
-            } else {
-                // Se estiver logado, abrir modal normalmente
-                document.getElementById('wishlistModal').classList.add('active');
-            }
-        });
-    }
-    
-    if (cartIcon) {
-        cartIcon.addEventListener('click', function(e) {
-            // Se não estiver logado, mostrar alerta
-            if (!window.authManager || !window.authManager.user) {
-                e.preventDefault();
-                showLoginAlert('cart');
-            } else {
-                // Se estiver logado, abrir modal normalmente
-                document.getElementById('cartModal').classList.add('active');
-            }
-        });
-    }
-    
     // Pausar carrossel ao passar o mouse
     const heroCarousel = document.querySelector('.hero-carousel');
     if (heroCarousel) {
@@ -1095,26 +950,3 @@ function initEventListeners() {
     initForms();
     updateWishlistButtons();
 }
-
-// ===== VERIFICAÇÃO DE CONFIRMAÇÃO DE EMAIL =====
-function checkEmailConfirmation() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const emailConfirmed = urlParams.get('email_confirmed');
-    
-    if (emailConfirmed === 'true') {
-        // Mostrar mensagem de sucesso
-        showNotification('Email confirmado com sucesso! Sua conta está ativa.', false);
-        
-        // Limpar o parâmetro da URL sem recarregar a página
-        const newUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, newUrl);
-    }
-}
-
-// Adicione esta chamada na função de inicialização:
-document.addEventListener('DOMContentLoaded', function() {
-    // ... código existente ...
-    
-    // Verificar confirmação de email
-    checkEmailConfirmation();
-});
