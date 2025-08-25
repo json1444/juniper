@@ -8,6 +8,67 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Configuração do Supabase
+        const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Processar a sessão quando a página carregar
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Verificar se há tokens na URL (redirecionamento do Supabase)
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                const accessToken = hashParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token');
+                const type = hashParams.get('type');
+                
+                if (accessToken && refreshToken && type === 'signup') {
+                    // Definir a sessão manualmente
+                    const { data: { session }, error } = await supabase.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken
+                    });
+                    
+                    if (error) {
+                        console.error('Erro ao definir sessão:', error);
+                    } else if (session) {
+                        console.log('Sessão definida com sucesso para:', session.user.email);
+                        
+                        // Verificar se o perfil existe, se não, criar um padrão
+                        const { data: profile, error: profileError } = await supabase
+                            .from('profiles')
+                            .select('*')
+                            .eq('id', session.user.id)
+                            .single();
+                            
+                        if (profileError) {
+                            // Criar perfil padrão
+                            const { error: insertError } = await supabase
+                                .from('profiles')
+                                .insert([{ 
+                                    id: session.user.id, 
+                                    nome: session.user.email.split('@')[0],
+                                    avatar: 'cachorro', 
+                                    nivel: 1 
+                                }]);
+                                
+                            if (insertError) {
+                                console.error('Erro ao criar perfil:', insertError);
+                            }
+                        }
+                        
+                        // Limpar a URL para remover os tokens
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao processar verificação de email:', error);
+            }
+        });
+    </script>
     <style>
         .email-verified-container {
             min-height: 100vh;
