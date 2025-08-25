@@ -40,7 +40,6 @@ signupForm.addEventListener('submit', async (e) => {
                     name: name,
                     avatar: avatar
                 }
-                // Removemos o emailRedirectTo para evitar problemas com localhost
             }
         });
         
@@ -57,6 +56,16 @@ signupForm.addEventListener('submit', async (e) => {
     }
 });
 
+// Função para verificar manualmente se o email foi confirmado
+async function checkEmailVerification() {
+    const { data, error } = await supabase.auth.getSession();
+    
+    if (data.session && !data.session.user.email_confirmed_at) {
+        // Se o usuário está logado mas o email não foi confirmado
+        showMessage('Por favor, verifique seu email para confirmar sua conta.', 'info');
+    }
+}
+
 // Login de usuário
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -67,6 +76,13 @@ loginForm.addEventListener('submit', async (e) => {
     try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+
+        // Verificar se o email foi confirmado
+        if (data.user && !data.user.email_confirmed_at) {
+            showMessage('Por favor, verifique seu email para confirmar sua conta antes de fazer login.', 'info');
+            await supabase.auth.signOut(); // Desloga o usuário
+            return;
+        }
 
         showMessage('Login realizado com sucesso! Redirecionando...', 'success');
 
