@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Verificado - LuckPet</title>
-    <link rel="shortcut icon" href="img/petshop.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/petshop.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
         .email-confirmed-container {
             display: flex;
@@ -86,8 +86,15 @@
             </div>
             <h1 class="email-confirmed-title">Email verificado com sucesso!</h1>
             <p class="email-confirmed-message">Parabéns, sua conta foi confirmada e já está pronta para usar. Aproveite todas as vantagens da LuckPet!</p>
-            <a href="../index.html" class="btn-go-home">Ir para a Página Inicial</a>
+            <a href="../index.html?email_confirmed=true" class="btn-go-home">Ir para a Página Inicial</a>
         </div>
     </div>
+    
+    <script>
+        // Redirecionamento automático após 5 segundos
+        setTimeout(function() {
+            window.location.href = '../index.html?email_confirmed=true';
+        }, 5000);
+    </script>
 </body>
 </html>

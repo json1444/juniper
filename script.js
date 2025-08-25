@@ -1095,3 +1095,26 @@ function initEventListeners() {
     initForms();
     updateWishlistButtons();
 }
+
+// ===== VERIFICAÇÃO DE CONFIRMAÇÃO DE EMAIL =====
+function checkEmailConfirmation() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const emailConfirmed = urlParams.get('email_confirmed');
+    
+    if (emailConfirmed === 'true') {
+        // Mostrar mensagem de sucesso
+        showNotification('Email confirmado com sucesso! Sua conta está ativa.', false);
+        
+        // Limpar o parâmetro da URL sem recarregar a página
+        const newUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+    }
+}
+
+// Adicione esta chamada na função de inicialização:
+document.addEventListener('DOMContentLoaded', function() {
+    // ... código existente ...
+    
+    // Verificar confirmação de email
+    checkEmailConfirmation();
+});

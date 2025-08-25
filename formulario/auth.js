@@ -21,7 +21,7 @@ tabButtons.forEach(button => {
     });
 });
 
-// Cadastro de usuário com redirecionamento para confirmação de email
+// Cadastro de usuário
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -31,7 +31,7 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        // Criar usuário no Supabase Auth com redirecionamento
+        // Criar usuário no Supabase Auth
         const { data: authData, error: authError } = await supabase.auth.signUp({ 
             email, 
             password,
@@ -39,14 +39,14 @@ signupForm.addEventListener('submit', async (e) => {
                 data: {
                     name: name,
                     avatar: avatar
-                },
-                emailRedirectTo: `${window.location.origin}/email-verificado.html`
+                }
+                // Removemos o emailRedirectTo para evitar problemas com localhost
             }
         });
         
         if (authError) throw authError;
 
-        showMessage('Cadastro realizado! Verifique seu email para confirmar a conta.', 'success');
+        showMessage('Cadastro realizado! Verifique seu email para confirmar a conta. Após confirmar, você poderá fazer login.', 'success');
 
         // Limpar formulário
         signupForm.reset();
