@@ -21,7 +21,7 @@ tabButtons.forEach(button => {
     });
 });
 
-// Cadastro de usuário com login automático
+// Cadastro de usuário com redirecionamento para confirmação de email
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -31,27 +31,25 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        // Criar usuário no Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
+        // Criar usuário no Supabase Auth com redirecionamento
+        const { data: authData, error: authError } = await supabase.auth.signUp({ 
+            email, 
+            password,
+            options: {
+                data: {
+                    name: name,
+                    avatar: avatar
+                },
+                emailRedirectTo: `${window.location.origin}/email-verificado.html`
+            }
+        });
+        
         if (authError) throw authError;
 
-        // Logar automaticamente após cadastro
-        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
-        if (loginError) throw loginError;
+        showMessage('Cadastro realizado! Verifique seu email para confirmar a conta.', 'success');
 
-        const userId = loginData.user.id;
-
-        // Criar perfil do usuário na tabela profiles
-        const { error: profileError } = await supabase
-            .from('profiles')
-            .insert([{ id: userId, nome: name, avatar: avatar, nivel: 1 }]);
-        if (profileError) throw profileError;
-
-        showMessage('Conta criada com sucesso! Redirecionando...', 'success');
-
-        setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 2000);
+        // Limpar formulário
+        signupForm.reset();
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
