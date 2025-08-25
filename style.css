@@ -367,6 +367,80 @@ button, .btn {
     margin-bottom: 3px;
 }
 
+/* Estilos para o alerta de autenticação */
+.auth-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.auth-alert-content {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.auth-alert-icon {
+    font-size: 50px;
+    color: #FF6B6B;
+    margin-bottom: 15px;
+}
+
+.auth-alert-message h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.auth-alert-message p {
+    color: #6c757d;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.auth-alert-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.auth-alert-actions .btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.auth-alert-actions .btn-secondary:hover {
+    background: #5a6268;
+}
+
+@media (max-width: 480px) {
+    .auth-alert-content {
+        padding: 20px;
+    }
+    
+    .auth-alert-actions {
+        flex-direction: column;
+    }
+}
+
 /* Estilos para o menu de usuário */
 .user-menu {
     display: none;

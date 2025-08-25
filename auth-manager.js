@@ -22,6 +22,9 @@ class AuthManager {
                 this.handleSignIn(session);
             } else if (event === 'SIGNED_OUT') {
                 this.handleSignOut();
+            } else if (event === 'USER_UPDATED') {
+                // Verificar se o email foi confirmado
+                this.checkEmailVerification();
             }
         });
     }
@@ -41,8 +44,34 @@ class AuthManager {
         }
     }
 
+    async checkEmailVerification() {
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (session && session.user) {
+                const { data: userData, error } = await supabase.auth.getUser();
+                
+                if (error) throw error;
+                
+                // Verificar se o email foi confirmado
+                if (userData.user && !userData.user.email_confirmed_at) {
+                    console.log('Email não confirmado');
+                    // Você pode adicionar lógica adicional aqui se necessário
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao verificar email:', error);
+        }
+    }
+
     async handleSignIn(session) {
         this.user = session.user;
+        
+        // Verificar confirmação de email
+        if (this.user && !this.user.email_confirmed_at) {
+            console.log('Email não confirmado');
+            // Você pode adicionar lógica para lidar com email não confirmado
+        }
         
         // Buscar perfil do usuário
         const { data: profile, error } = await supabase
@@ -58,7 +87,6 @@ class AuthManager {
         
         this.profile = profile;
         console.log('Perfil carregado:', profile);
-        console.log('Avatar selecionado:', profile.avatar);
         this.updateUI();
     }
 

@@ -10,6 +10,17 @@ const signupForm = document.getElementById('signupForm');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const authForms = document.querySelectorAll('.auth-form');
 
+// Verificar parâmetros de URL para confirmação de email
+function checkEmailConfirmation() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+    
+    if (type === 'signup' || window.location.hash === '#email_confirmed') {
+        // Redirecionar para página de email verificado
+        window.location.href = '../email-verificado.html';
+    }
+}
+
 // Alternar entre login e cadastro
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -32,26 +43,19 @@ signupForm.addEventListener('submit', async (e) => {
 
     try {
         // Criar usuário no Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
+        const { data: authData, error: authError } = await supabase.auth.signUp({ 
+            email, 
+            password,
+            options: {
+                emailRedirectTo: `${window.location.origin}/formulario/login.html?type=signup`
+            }
+        });
         if (authError) throw authError;
 
-        // Logar automaticamente após cadastro
-        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
-        if (loginError) throw loginError;
+        showMessage('Conta criada com sucesso! Verifique seu email para confirmar sua conta.', 'success');
 
-        const userId = loginData.user.id;
-
-        // Criar perfil do usuário na tabela profiles
-        const { error: profileError } = await supabase
-            .from('profiles')
-            .insert([{ id: userId, nome: name, avatar: avatar, nivel: 1 }]);
-        if (profileError) throw profileError;
-
-        showMessage('Conta criada com sucesso! Redirecionando...', 'success');
-
-        setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 2000);
+        // Limpar formulário
+        signupForm.reset();
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
@@ -138,4 +142,7 @@ async function checkAuth() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', checkAuth);
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuth();
+    checkEmailConfirmation();
+});
