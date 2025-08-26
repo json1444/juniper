@@ -536,10 +536,17 @@ function initSearch() {
 
 // ===== FUNÇÕES DE INICIALIZAÇÃO =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar carrinho e favoritos do localStorage
+    // Inicializar carrinho e favoritos do localStorage APENAS se o usuário estiver logado
     try {
-        carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
-        favoritos = JSON.parse(localStorage.getItem('favoritos')) || {};
+        if (window.authManager && window.authManager.user) {
+            carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
+            favoritos = JSON.parse(localStorage.getItem('favoritos')) || {};
+        } else {
+            // Se não estiver logado, limpar os contadores
+            carrinho = {};
+            favoritos = {};
+            updateCounters();
+        }
     } catch (e) {
         console.error("Erro ao carregar dados do localStorage:", e);
         carrinho = {};
@@ -672,6 +679,13 @@ function renderCart() {
     
     if (!cartItems || !cartTotal) return;
     
+    // Se não estiver logado, mostrar carrinho vazio
+    if (!window.authManager || !window.authManager.user) {
+        cartItems.innerHTML = '<p class="wishlist-empty">Faça login para ver seu carrinho</p>';
+        cartTotal.textContent = 'Subtotal: R$ 0,00';
+        return;
+    }
+    
     if (Object.keys(carrinho).length === 0) {
         cartItems.innerHTML = '<p class="wishlist-empty">Seu carrinho está vazio</p>';
         cartTotal.textContent = 'Subtotal: R$ 0,00';
@@ -768,9 +782,18 @@ function renderWishlist() {
     
     if (!wishlistItems || !wishlistEmpty) return;
     
+    // Se não estiver logado, mostrar favoritos vazios
+    if (!window.authManager || !window.authManager.user) {
+        wishlistItems.innerHTML = '';
+        wishlistEmpty.classList.remove('hidden');
+        wishlistEmpty.textContent = 'Faça login para ver seus favoritos';
+        return;
+    }
+    
     if (Object.keys(favoritos).length === 0) {
         wishlistItems.innerHTML = '';
         wishlistEmpty.classList.remove('hidden');
+        wishlistEmpty.textContent = 'Você ainda não tem favoritos';
         return;
     }
     
@@ -818,6 +841,16 @@ function updateWishlistButtons() {
 
 // ===== CONTADORES =====
 function updateCounters() {
+    // Se não estiver logado, zerar os contadores
+    if (!window.authManager || !window.authManager.user) {
+        const cartCountElement = document.getElementById('cartCount');
+        const wishlistCountElement = document.getElementById('wishlistCount');
+        
+        if (cartCountElement) cartCountElement.textContent = '0';
+        if (wishlistCountElement) wishlistCountElement.textContent = '0';
+        return;
+    }
+    
     // Contador do carrinho
     const cartCount = Object.values(carrinho).reduce((total, item) => total + item.quantidade, 0);
     const cartCountElement = document.getElementById('cartCount');
@@ -920,11 +953,16 @@ function prevSlide() {
 
 // ===== MODAIS =====
 function initModals() {
-    // Modal do carrinho
+    // Modal do carrinho - MODIFICADO para verificar autenticação
     const cartIcon = document.getElementById('cartIcon');
     if (cartIcon) {
-        cartIcon.addEventListener('click', () => {
-            document.getElementById('cartModal').classList.add('active');
+        cartIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!window.authManager || !window.authManager.user) {
+                showLoginAlert('cart');
+            } else {
+                document.getElementById('cartModal').classList.add('active');
+            }
         });
     }
     
@@ -939,15 +977,24 @@ function initModals() {
     if (viewCartBtn) {
         viewCartBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            document.getElementById('cartModal').classList.add('active');
+            if (!window.authManager || !window.authManager.user) {
+                showLoginAlert('cart');
+            } else {
+                document.getElementById('cartModal').classList.add('active');
+            }
         });
     }
     
-    // Modal de favoritos
+    // Modal de favoritos - MODIFICADO para verificar autenticação
     const wishlistIcon = document.getElementById('wishlistIcon');
     if (wishlistIcon) {
-        wishlistIcon.addEventListener('click', () => {
-            document.getElementById('wishlistModal').classList.add('active');
+        wishlistIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!window.authManager || !window.authManager.user) {
+                showLoginAlert('wishlist');
+            } else {
+                document.getElementById('wishlistModal').classList.add('active');
+            }
         });
     }
     
@@ -958,7 +1005,7 @@ function initModals() {
         });
     }
     
-    // Modal de agendamento
+    // Modal de agendamento (não precisa de autenticação para visualizar)
     document.querySelectorAll('[data-service]').forEach(btn => {
         btn.addEventListener('click', () => {
             const service = btn.dataset.service;
@@ -1053,36 +1100,6 @@ function initEventListeners() {
         });
     });
     
-    // Ícones do header - Favoritos e Carrinho
-    const wishlistIcon = document.getElementById('wishlistIcon');
-    const cartIcon = document.getElementById('cartIcon');
-    
-    if (wishlistIcon) {
-        wishlistIcon.addEventListener('click', function(e) {
-            // Se não estiver logado, mostrar alerta
-            if (!window.authManager || !window.authManager.user) {
-                e.preventDefault();
-                showLoginAlert('wishlist');
-            } else {
-                // Se estiver logado, abrir modal normalmente
-                document.getElementById('wishlistModal').classList.add('active');
-            }
-        });
-    }
-    
-    if (cartIcon) {
-        cartIcon.addEventListener('click', function(e) {
-            // Se não estiver logado, mostrar alerta
-            if (!window.authManager || !window.authManager.user) {
-                e.preventDefault();
-                showLoginAlert('cart');
-            } else {
-                // Se estiver logado, abrir modal normalmente
-                document.getElementById('cartModal').classList.add('active');
-            }
-        });
-    }
-    
     // Pausar carrossel ao passar o mouse
     const heroCarousel = document.querySelector('.hero-carousel');
     if (heroCarousel) {
@@ -1094,4 +1111,31 @@ function initEventListeners() {
     initSmoothScroll();
     initForms();
     updateWishlistButtons();
+}
+
+// ===== FUNÇÕES ADICIONAIS PARA GERENCIAR LOGIN/LOGOUT =====
+// Função para limpar dados quando o usuário faz logout
+function clearUserData() {
+    carrinho = {};
+    favoritos = {};
+    updateCounters();
+    renderCart();
+    renderWishlist();
+}
+
+// Monitorar mudanças no estado de autenticação
+if (window.authManager) {
+    // Sobrescrever o método handleSignOut para limpar os dados
+    const originalHandleSignOut = window.authManager.handleSignOut;
+    window.authManager.handleSignOut = function() {
+        originalHandleSignOut.call(this);
+        clearUserData();
+    };
+    
+    // Verificar periodicamente o estado de autenticação
+    setInterval(() => {
+        if (window.authManager && !window.authManager.user && (Object.keys(carrinho).length > 0 || Object.keys(favoritos).length > 0)) {
+            clearUserData();
+        }
+    }, 1000);
 }
