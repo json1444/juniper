@@ -10,85 +10,6 @@ const signupForm = document.getElementById('signupForm');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const authForms = document.querySelectorAll('.auth-form');
 
-// Verificar parâmetros de URL para confirmação de email
-function checkEmailConfirmation() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get('type');
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token');
-    
-    // Verificar se temos tokens de autenticação na URL (redirecionamento do Supabase)
-    if (accessToken && refreshToken) {
-        // Extrair o tipo da URL (signup ou recovery)
-        const hashParams = new URLSearchParams(window.location.hash.substring(1));
-        const signupType = hashParams.get('type');
-        
-        if (signupType === 'signup') {
-            // Processar o login automático com os tokens e redirecionar para a página inicial
-            processAutoLoginAndRedirect(accessToken, refreshToken);
-            return;
-        }
-    }
-    
-    if (type === 'signup') {
-        // Redirecionar para página de email verificado
-        window.location.href = '../email-verificado.html';
-    }
-}
-
-// Processar login automático com tokens e redirecionar para a página inicial
-async function processAutoLoginAndRedirect(accessToken, refreshToken) {
-    try {
-        // Definir a sessão manualmente
-        const { data: { session }, error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken
-        });
-        
-        if (error) throw error;
-        
-        if (session) {
-            // Buscar perfil do usuário
-            const { data: profile, error: profileError } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', session.user.id)
-                .single();
-                
-            if (profileError) {
-                console.error('Erro ao carregar perfil:', profileError);
-                // Criar perfil padrão se não existir
-                await createDefaultProfile(session.user);
-            }
-            
-            // Redirecionar diretamente para a página inicial
-            window.location.href = '../index.html';
-        }
-    } catch (error) {
-        console.error('Erro no login automático:', error);
-        // Em caso de erro, redirecionar para a página de login normalmente
-        window.location.href = '../formulario/login.html?type=signup';
-    }
-}
-
-// Criar perfil padrão se não existir
-async function createDefaultProfile(user) {
-    try {
-        const { error } = await supabase
-            .from('profiles')
-            .insert([{ 
-                id: user.id, 
-                nome: user.email.split('@')[0], // Usar parte do email como nome
-                avatar: 'cachorro', 
-                nivel: 1 
-            }]);
-            
-        if (error) throw error;
-    } catch (error) {
-        console.error('Erro ao criar perfil padrão:', error);
-    }
-}
-
 // Alternar entre login e cadastro
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -100,7 +21,7 @@ tabButtons.forEach(button => {
     });
 });
 
-// Cadastro de usuário
+// Cadastro de usuário com login automático
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -111,25 +32,26 @@ signupForm.addEventListener('submit', async (e) => {
 
     try {
         // Criar usuário no Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({ 
-            email, 
-            password,
-            options: {
-                data: {
-                    name: name,
-                    avatar: avatar
-                },
-                // Redirecionar para a página inicial após confirmação
-                emailRedirectTo: `${window.location.origin}/index.html`
-            }
-        });
-        
+        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
         if (authError) throw authError;
 
-        showMessage('Conta criada com sucesso! Verifique seu email para confirmar sua conta.', 'success');
+        // Logar automaticamente após cadastro
+        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+        if (loginError) throw loginError;
 
-        // Limpar formulário
-        signupForm.reset();
+        const userId = loginData.user.id;
+
+        // Criar perfil do usuário na tabela profiles
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .insert([{ id: userId, nome: name, avatar: avatar, nivel: 1 }]);
+        if (profileError) throw profileError;
+
+        showMessage('Conta criada com sucesso! Redirecionando...', 'success');
+
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 2000);
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
@@ -216,7 +138,4 @@ async function checkAuth() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    checkAuth();
-    checkEmailConfirmation();
-});
+document.addEventListener('DOMContentLoaded', checkAuth);
