@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verificado - LuckPet</title>
+  <link rel="shortcut icon" href="./img/petshop.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background: #fdfdfd;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    p {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+    .btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #4CAF50;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Email verificado com sucesso!</h1>
+    <p>Agora você já pode acessar o LuckPet com sua conta.</p>
+    <a href="index.html" class="btn">Ir para página inicial</a>
+  </div>
+
+  <script>
+    // Redirecionar automaticamente após 5 segundos
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 5000);
+  </script>
+</body>
+</html>
