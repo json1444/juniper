@@ -7,42 +7,40 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // ===== CONFIGURAÇÃO SUPABASE =====
-  const SUPABASE_URL = "https://drbukxyfvbpcqfzykose.supabase.co"; // seu
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsIn..."; // seu
+  // Configuração do Supabase
+  const SUPABASE_URL = "https://drbukxyfvbpcqfzykose.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I";
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // 1. Captura o hash da URL (#access_token=...)
+  // 1. Captura tokens da URL (#access_token=...&refresh_token=...)
   const params = new URLSearchParams(window.location.hash.substring(1));
   const access_token = params.get("access_token");
   const refresh_token = params.get("refresh_token");
 
   if (access_token && refresh_token) {
-    // 2. Salva a sessão no Supabase
+    // 2. Salva sessão no Supabase
     await supabase.auth.setSession({
       access_token,
       refresh_token,
     });
 
-    // 3. Limpa o hash da URL (fica mais bonito)
+    // 3. Limpa hash da URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 
-  // 4. Recupera usuário logado
+  // 4. Recupera usuário atual
   const { data: { user } } = await supabase.auth.getUser();
 
   if (user) {
-    // Aqui você pode buscar também a tabela `profiles` se salvou avatar/nome lá
     mostrarPerfil(user);
   }
 });
 
+// Função para atualizar header
 function mostrarPerfil(user) {
-  const header = document.querySelector("#user-header"); // ID ou classe onde está o "Entrar"
-
+  const header = document.querySelector("#user-header"); // troque pelo seletor do "Entrar"
   if (!header) return;
 
-  // Exemplo simples — substitua pelo seu layout real
   header.innerHTML = `
     <img src="${user.user_metadata?.avatar_url || './img/perfil.png'}" 
          alt="Avatar" style="width:40px;height:40px;border-radius:50%">
