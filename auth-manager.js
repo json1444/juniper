@@ -56,7 +56,6 @@ class AuthManager {
                 // Verificar se o email foi confirmado
                 if (userData.user && !userData.user.email_confirmed_at) {
                     console.log('Email não confirmado');
-                    // Você pode adicionar lógica adicional aqui se necessário
                 }
             }
         } catch (error) {
@@ -70,7 +69,6 @@ class AuthManager {
         // Verificar confirmação de email
         if (this.user && !this.user.email_confirmed_at) {
             console.log('Email não confirmado');
-            // Você pode adicionar lógica para lidar com email não confirmado
         }
         
         // Buscar perfil do usuário
@@ -82,12 +80,33 @@ class AuthManager {
             
         if (error) {
             console.error('Erro ao carregar perfil:', error);
+            // Criar perfil padrão se não existir
+            await this.createDefaultProfile(this.user);
+            // Recarregar a página para atualizar a UI
+            window.location.reload();
             return;
         }
         
         this.profile = profile;
         console.log('Perfil carregado:', profile);
         this.updateUI();
+    }
+
+    async createDefaultProfile(user) {
+        try {
+            const { error } = await supabase
+                .from('profiles')
+                .insert([{ 
+                    id: user.id, 
+                    nome: user.email.split('@')[0],
+                    avatar: 'cachorro', 
+                    nivel: 1 
+                }]);
+                
+            if (error) throw error;
+        } catch (error) {
+            console.error('Erro ao criar perfil padrão:', error);
+        }
     }
 
     handleSignOut() {
@@ -133,22 +152,22 @@ class AuthManager {
                 const avatarFileName = avatarMap[this.profile.avatar] || 'ava-dog1.jpg';
                 
                 if (avatarImg) {
-                    avatarImg.src = `../img/avatares/${avatarFileName}`;
+                    avatarImg.src = `img/avatares/${avatarFileName}`;
                     avatarImg.alt = this.profile.nome;
                     avatarImg.onerror = function() {
                         console.error('Erro ao carregar avatar:', this.src);
-                        this.src = '../img/avatares/ava-dog1.jpg';
+                        this.src = 'img/avatares/ava-dog1.jpg';
                     }
                 }
                 
                 if (userName) userName.textContent = this.profile.nome;
                 
                 if (profileAvatar) {
-                    profileAvatar.src = `../img/avatares/${avatarFileName}`;
+                    profileAvatar.src = `img/avatares/${avatarFileName}`;
                     profileAvatar.alt = this.profile.nome;
                     profileAvatar.onerror = function() {
                         console.error('Erro ao carregar avatar do perfil:', this.src);
-                        this.src = '../img/avatares/ava-dog1.jpg';
+                        this.src = 'img/avatares/ava-dog1.jpg';
                     }
                 }
                 

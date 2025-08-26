@@ -24,8 +24,8 @@ function checkEmailConfirmation() {
         const signupType = hashParams.get('type');
         
         if (signupType === 'signup') {
-            // Processar o login automático com os tokens
-            processAutoLogin(accessToken, refreshToken);
+            // Processar o login automático com os tokens e redirecionar para a página inicial
+            processAutoLoginAndRedirect(accessToken, refreshToken);
             return;
         }
     }
@@ -36,8 +36,8 @@ function checkEmailConfirmation() {
     }
 }
 
-// Processar login automático com tokens
-async function processAutoLogin(accessToken, refreshToken) {
+// Processar login automático com tokens e redirecionar para a página inicial
+async function processAutoLoginAndRedirect(accessToken, refreshToken) {
     try {
         // Definir a sessão manualmente
         const { data: { session }, error } = await supabase.auth.setSession({
@@ -61,13 +61,13 @@ async function processAutoLogin(accessToken, refreshToken) {
                 await createDefaultProfile(session.user);
             }
             
-            // Redirecionar para página de email verificado
-            window.location.href = '../email-verificado.html';
+            // Redirecionar diretamente para a página inicial
+            window.location.href = '../index.html';
         }
     } catch (error) {
         console.error('Erro no login automático:', error);
-        // Em caso de erro, ainda redirecionar para a página de confirmação
-        window.location.href = '../email-verificado.html';
+        // Em caso de erro, redirecionar para a página de login normalmente
+        window.location.href = '../formulario/login.html?type=signup';
     }
 }
 
@@ -119,8 +119,8 @@ signupForm.addEventListener('submit', async (e) => {
                     name: name,
                     avatar: avatar
                 },
-                // Usar a URL atual como redirecionamento
-                emailRedirectTo: `${window.location.origin}${window.location.pathname}`
+                // Redirecionar para a página inicial após confirmação
+                emailRedirectTo: `${window.location.origin}/index.html`
             }
         });
         
