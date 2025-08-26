@@ -6,6 +6,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener("DOMContentLoaded", async () => {
+  // ===== CONFIGURAÇÃO SUPABASE =====
+  const SUPABASE_URL = "https://drbukxyfvbpcqfzykose.supabase.co"; // seu
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsIn..."; // seu
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // 1. Captura o hash da URL (#access_token=...)
+  const params = new URLSearchParams(window.location.hash.substring(1));
+  const access_token = params.get("access_token");
+  const refresh_token = params.get("refresh_token");
+
+  if (access_token && refresh_token) {
+    // 2. Salva a sessão no Supabase
+    await supabase.auth.setSession({
+      access_token,
+      refresh_token,
+    });
+
+    // 3. Limpa o hash da URL (fica mais bonito)
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  // 4. Recupera usuário logado
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    // Aqui você pode buscar também a tabela `profiles` se salvou avatar/nome lá
+    mostrarPerfil(user);
+  }
+});
+
+function mostrarPerfil(user) {
+  const header = document.querySelector("#user-header"); // ID ou classe onde está o "Entrar"
+
+  if (!header) return;
+
+  // Exemplo simples — substitua pelo seu layout real
+  header.innerHTML = `
+    <img src="${user.user_metadata?.avatar_url || './img/perfil.png'}" 
+         alt="Avatar" style="width:40px;height:40px;border-radius:50%">
+    <span>${user.user_metadata?.nome || user.email}</span>
+  `;
+}
+
+
 // ===== DADOS E INICIALIZAÇÃO =====
 const produtos = {
     racao1: { nome: "Ração Premium Canina", preco: 129.99, tipo: "alimento", img: "img/racao/racao1.jpg" },
