@@ -6,36 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // Configuração do Supabase
-  const SUPABASE_URL = "https://drbukxyfvbpcqfzykose.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I";
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  // Captura tokens da URL (#access_token=...&refresh_token=...)
-  const params = new URLSearchParams(window.location.hash.substring(1));
-  const access_token = params.get("access_token");
-  const refresh_token = params.get("refresh_token");
-
-  if (access_token && refresh_token) {
-    // Salva sessão no Supabase
-    await supabase.auth.setSession({
-      access_token,
-      refresh_token,
-    });
-
-    // Limpa hash da URL
-    window.history.replaceState({}, document.title, window.location.pathname);
-
-    // ⚡ força reload do AuthManager
-    if (window.authManager) {
-      await window.authManager.checkSession();
-    }
-  }
-});
-
-
-
 // ===== DADOS E INICIALIZAÇÃO =====
 const produtos = {
     racao1: { nome: "Ração Premium Canina", preco: 129.99, tipo: "alimento", img: "img/racao/racao1.jpg" },
