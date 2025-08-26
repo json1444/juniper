@@ -1,150 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verificado - LuckPet</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            text-align: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 25px;
-            animation: scaleUp 0.5s ease-out;
-        }
-        
-        @keyframes scaleUp {
-            0% { transform: scale(0); }
-            70% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        .success-icon svg {
-            width: 40px;
-            height: 40px;
-            fill: white;
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 28px;
-        }
-        
-        p {
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #6e8efb;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        
-        .btn:hover {
-            background-color: #5a7df9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106, 142, 251, 0.4);
-        }
-        
-        .countdown {
-            margin-top: 20px;
-            color: #888;
-            font-size: 14px;
-        }
-        
-        .logo {
-            margin-bottom: 30px;
-        }
-        
-        .logo img {
-            height: 50px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verificado - LuckPet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    .card h1 {
+      color: #4caf50;
+      margin-bottom: 1rem;
+    }
+    .card p {
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <!-- Substitua pelo logo da LuckPet -->
-            <h2 style="color: #6e8efb;">LuckPet</h2>
-        </div>
-        
-        <div class="success-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-        </div>
-        
-        <h1>Email Verificado!</h1>
-        <p>Sua conta foi confirmada com sucesso. Agora você pode aproveitar todos os recursos da LuckPet.</p>
-        
-        <a href="https://projeto-luckpet.vercel.app/index.html" class="btn">Ir para a Página Inicial</a>
-        
-        <div class="countdown">
-            Redirecionando em <span id="countdown">5</span> segundos...
-        </div>
-    </div>
-
-    <script>
-        // Contagem regressiva para redirecionamento automático
-        let seconds = 5;
-        const countdownElement = document.getElementById('countdown');
-        
-        const countdown = setInterval(function() {
-            seconds--;
-            countdownElement.textContent = seconds;
-            
-            if (seconds <= 0) {
-                clearInterval(countdown);
-                window.location.href = "https://projeto-luckpet.vercel.app/index.html";
-            }
-        }, 1000);
-    </script>
+  <div class="card">
+    <h1>🎉 Email verificado com sucesso!</h1>
+    <p>Agora você já pode acessar sua conta.</p>
+    <a href="https://projeto-luckpet.vercel.app/" class="btn">Voltar para página inicial</a>
+  </div>
 </body>
 </html>
