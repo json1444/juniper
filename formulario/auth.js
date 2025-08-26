@@ -21,7 +21,7 @@ tabButtons.forEach(button => {
     });
 });
 
-// Cadastro de usuário com login automático
+// Cadastro de usuário
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -31,27 +31,39 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        // Criar usuário no Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
+        // Criar usuário no Supabase Auth com redirecionamento personalizado
+        const { data: authData, error: authError } = await supabase.auth.signUp({ 
+            email, 
+            password,
+            options: {
+                data: {
+                    nome: name,
+                    avatar: avatar
+                },
+                emailRedirectTo: 'https://projeto-luckpet.vercel.app/formulario/confirmacao-email.html?type=signup'
+            }
+        });
+        
         if (authError) throw authError;
 
-        // Logar automaticamente após cadastro
-        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
-        if (loginError) throw loginError;
-
-        const userId = loginData.user.id;
-
         // Criar perfil do usuário na tabela profiles
-        const { error: profileError } = await supabase
-            .from('profiles')
-            .insert([{ id: userId, nome: name, avatar: avatar, nivel: 1 }]);
-        if (profileError) throw profileError;
+        if (authData.user) {
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .insert([{ 
+                    id: authData.user.id, 
+                    nome: name, 
+                    avatar: avatar, 
+                    nivel: 1 
+                }]);
+            
+            if (profileError) throw profileError;
+        }
 
-        showMessage('Conta criada com sucesso! Redirecionando...', 'success');
+        showMessage('Conta criada com sucesso! Verifique seu email para confirmar.', 'success');
 
-        setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 2000);
+        // Limpar formulário
+        signupForm.reset();
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
@@ -97,6 +109,22 @@ function showMessage(message, type) {
     setTimeout(() => messageEl.remove(), 5000);
 }
 
+// Verificar se é uma confirmação de email
+async function checkEmailConfirmation() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const confirmationType = urlParams.get('type');
+    
+    if (confirmationType === 'signup') {
+        // Mostrar mensagem de sucesso
+        showMessage('Email confirmado com sucesso! Redirecionando...', 'success');
+        
+        // Redirecionar após 3 segundos
+        setTimeout(() => {
+            window.location.href = 'confirmacao-email.html';
+        }, 3000);
+    }
+}
+
 // Verificar se usuário já está logado
 async function checkAuth() {
     if (!window.location.pathname.includes('login.html')) return;
@@ -138,4 +166,7 @@ async function checkAuth() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', checkAuth);
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuth();
+    checkEmailConfirmation();
+});

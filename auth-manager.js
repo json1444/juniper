@@ -22,6 +22,8 @@ class AuthManager {
                 this.handleSignIn(session);
             } else if (event === 'SIGNED_OUT') {
                 this.handleSignOut();
+            } else if (event === 'USER_UPDATED') {
+                this.handleUserUpdated(session);
             }
         });
     }
@@ -53,12 +55,44 @@ class AuthManager {
             
         if (error) {
             console.error('Erro ao carregar perfil:', error);
+            
+            // Se não encontrar perfil, tenta criar um com base nos metadados
+            if (this.user.user_metadata) {
+                try {
+                    const { error: createError } = await supabase
+                        .from('profiles')
+                        .insert([{ 
+                            id: this.user.id, 
+                            nome: this.user.user_metadata.nome || 'Usuário',
+                            avatar: this.user.user_metadata.avatar || 'cachorro',
+                            nivel: 1 
+                        }]);
+                    
+                    if (!createError) {
+                        // Recarregar perfil após criação
+                        const { data: newProfile } = await supabase
+                            .from('profiles')
+                            .select('*')
+                            .eq('id', this.user.id)
+                            .single();
+                        
+                        this.profile = newProfile;
+                    }
+                } catch (createError) {
+                    console.error('Erro ao criar perfil:', createError);
+                }
+            }
             return;
         }
         
         this.profile = profile;
         console.log('Perfil carregado:', profile);
-        console.log('Avatar selecionado:', profile.avatar);
+        this.updateUI();
+    }
+
+    handleUserUpdated(session) {
+        // Atualizar dados do usuário quando houver mudanças
+        this.user = session.user;
         this.updateUI();
     }
 
@@ -72,6 +106,9 @@ class AuthManager {
         try {
             const { error } = await supabase.auth.signOut();
             if (error) throw error;
+            
+            // Redirecionar para página inicial após logout
+            window.location.href = '../index.html';
         } catch (error) {
             console.error('Erro ao fazer logout:', error);
         }
@@ -94,7 +131,7 @@ class AuthManager {
                 const profileName = userMenu.querySelector('.profile-name');
                 const profileLevel = userMenu.querySelector('.profile-level');
                 
-                // Mapeamento dos avatares baseado nos valores do formulário
+                // Mapeamento dos avatares
                 const avatarMap = {
                     'cachorro': 'ava-dog1.jpg',
                     'gato': 'ava-gato.jpg',
@@ -108,7 +145,6 @@ class AuthManager {
                     avatarImg.src = `../img/avatares/${avatarFileName}`;
                     avatarImg.alt = this.profile.nome;
                     avatarImg.onerror = function() {
-                        console.error('Erro ao carregar avatar:', this.src);
                         this.src = '../img/avatares/ava-dog1.jpg';
                     }
                 }
@@ -119,7 +155,6 @@ class AuthManager {
                     profileAvatar.src = `../img/avatares/${avatarFileName}`;
                     profileAvatar.alt = this.profile.nome;
                     profileAvatar.onerror = function() {
-                        console.error('Erro ao carregar avatar do perfil:', this.src);
                         this.src = '../img/avatares/ava-dog1.jpg';
                     }
                 }

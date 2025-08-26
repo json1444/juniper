@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmado - LuckPet</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .confirmation-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .confirmation-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .confirmation-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+
+        .confirmation-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .confirmation-message {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .countdown {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="confirmation-icon">🎉</div>
+            <h1 class="confirmation-title">Email Confirmado com Sucesso!</h1>
+            <p class="confirmation-message">
+                Parabéns! Sua conta foi verificada com sucesso. 
+                Agora você pode aproveitar todos os benefícios da LuckPet.
+            </p>
+            <a href="https://projeto-luckpet.vercel.app/" class="btn-primary">
+                Ir para a Página Inicial
+            </a>
+            <div class="countdown" id="countdown">
+                Redirecionando em <span id="countdown-number">5</span> segundos...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Contagem regressiva para redirecionamento automático
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown-number');
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = 'https://projeto-luckpet.vercel.app/';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
