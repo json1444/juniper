@@ -4,49 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - LuckPet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="auth.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="auth-container">
+        <div class="decoration-layer">
+            <div class="decoration-shape shape-1"></div>
+            <div class="decoration-shape shape-2"></div>
+            <div class="decoration-shape shape-3"></div>
+            <div class="floating-pet">
+                <i class="fas fa-paw"></i>
+            </div>
+            <div class="floating-pet pet-2">
+                <i class="fas fa-cat"></i>
+            </div>
+            <div class="floating-pet pet-3">
+                <i class="fas fa-dog"></i>
+            </div>
+        </div>
+        
         <div class="auth-card">
             <div class="auth-header">
-                <a href="../index.html" class="logo">Luck<span>Pet</span></a>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    Luck<span>Pet</span>
+                </a>
                 <h2>Bem-vindo de volta!</h2>
                 <p>Entre na sua conta ou crie uma nova</p>
             </div>
 
             <div class="auth-tabs">
-                <button class="tab-btn active" data-tab="login">Entrar</button>
-                <button class="tab-btn" data-tab="signup">Cadastrar</button>
+                <button class="tab-btn active" data-tab="login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar
+                </button>
+                <button class="tab-btn" data-tab="signup">
+                    <i class="fas fa-user-plus"></i>
+                    Cadastrar
+                </button>
             </div>
 
             <form id="loginForm" class="auth-form active">
                 <div class="form-group">
                     <label for="loginEmail">E-mail</label>
-                    <input type="email" id="loginEmail" required>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" required placeholder="seu@email.com">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Senha</label>
-                    <input type="password" id="loginPassword" required>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" required placeholder="Sua senha">
+                        <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
-                <button type="submit" class="btn-primary">Entrar</button>
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text">Entrar</span>
+                    <div class="btn-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+                <div class="auth-divider">
+                    <span>ou</span>
+                </div>
+                <button type="button" class="btn-google">
+                    <i class="fab fa-google"></i>
+                    Entrar com Google
+                </button>
             </form>
 
             <form id="signupForm" class="auth-form">
                 <div class="form-group">
                     <label for="signupEmail">E-mail</label>
-                    <input type="email" id="signupEmail" required>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signupEmail" required placeholder="seu@email.com">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="signupPassword">Senha</label>
-                    <input type="password" id="signupPassword" required>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPassword" required placeholder="Crie uma senha segura">
+                        <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill"></div>
+                        </div>
+                        <span class="strength-text">Força da senha</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="signupName">Nome do seu pet</label>
-                    <input type="text" id="signupName" required>
+                    <div class="input-with-icon">
+                        <i class="fas fa-paw"></i>
+                        <input type="text" id="signupName" required placeholder="Ex: Bob, Luna, Thor">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Escolha um avatar</label>
@@ -55,35 +118,58 @@
                             <input type="radio" id="avatar-dog" name="avatar" value="cachorro" checked>
                             <label for="avatar-dog">
                                 <img src="../img/avatares/ava-dog1.jpg" alt="Cachorro">
+                                <div class="avatar-check"><i class="fas fa-check"></i></div>
                             </label>
+                            <span>Cachorro</span>
                         </div>
                         <div class="avatar-option">
                             <input type="radio" id="avatar-cat" name="avatar" value="gato">
                             <label for="avatar-cat">
                                 <img src="../img/avatares/ava-gato.jpg" alt="Gato">
+                                <div class="avatar-check"><i class="fas fa-check"></i></div>
                             </label>
+                            <span>Gato</span>
                         </div>
                         <div class="avatar-option">
                             <input type="radio" id="avatar-rabbit" name="avatar" value="coelho">
                             <label for="avatar-rabbit">
                                 <img src="../img/avatares/ava-dog2.jpg" alt="Coelho">
+                                <div class="avatar-check"><i class="fas fa-check"></i></div>
                             </label>
+                            <span>Coelho</span>
                         </div>
                         <div class="avatar-option">
                             <input type="radio" id="avatar-bird" name="avatar" value="pássaro">
                             <label for="avatar-bird">
                                 <img src="../img/avatares/ava-gato2.jpg" alt="Pássaro">
+                                <div class="avatar-check"><i class="fas fa-check"></i></div>
                             </label>
+                            <span>Pássaro</span>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary">Criar conta</button>
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text">Criar conta</span>
+                    <div class="btn-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
             </form>
 
             <div class="auth-footer">
                 <p>Ao continuar, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.</p>
             </div>
         </div>
+    </div>
+
+    <div class="notification-toast" id="notificationToast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+        <button class="toast-close">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
 
     <script src="auth.js"></script>

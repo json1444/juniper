@@ -9,6 +9,11 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const authForms = document.querySelectorAll('.auth-form');
+const passwordInputs = document.querySelectorAll('input[type="password"]');
+const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+const passwordStrengthBar = document.querySelector('.strength-fill');
+const passwordStrengthText = document.querySelector('.strength-text');
+const notificationToast = document.getElementById('notificationToast');
 
 // Alternar entre login e cadastro
 tabButtons.forEach(button => {
@@ -21,10 +26,84 @@ tabButtons.forEach(button => {
     });
 });
 
+// Toggle password visibility
+togglePasswordButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = button.closest('.input-with-icon').querySelector('input');
+        const icon = button.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+});
+
+// Password strength indicator
+if (document.getElementById('signupPassword')) {
+    document.getElementById('signupPassword').addEventListener('input', function() {
+        const password = this.value;
+        const strength = calculatePasswordStrength(password);
+        
+        // Update strength bar
+        passwordStrengthBar.style.width = strength.percentage + '%';
+        passwordStrengthBar.style.background = strength.color;
+        
+        // Update strength text
+        passwordStrengthText.textContent = strength.text;
+        passwordStrengthText.style.color = strength.color;
+    });
+}
+
+function calculatePasswordStrength(password) {
+    let strength = 0;
+    let feedback = '';
+    let color = '';
+    
+    if (password.length > 0) {
+        document.querySelector('.password-strength').style.display = 'block';
+    } else {
+        document.querySelector('.password-strength').style.display = 'none';
+        return { percentage: 0, text: 'Força da senha', color: 'transparent' };
+    }
+    
+    // Length check
+    if (password.length > 5) strength += 20;
+    if (password.length > 8) strength += 20;
+    
+    // Character variety checks
+    if (/[A-Z]/.test(password)) strength += 20;
+    if (/[0-9]/.test(password)) strength += 20;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+    
+    // Determine feedback and color
+    if (strength < 40) {
+        feedback = 'Fraca';
+        color = '#DC3545';
+    } else if (strength < 80) {
+        feedback = 'Média';
+        color = '#FFC107';
+    } else {
+        feedback = 'Forte';
+        color = '#28A745';
+    }
+    
+    return { percentage: strength, text: feedback, color: color };
+}
+
 // Cadastro de usuário
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+    
+    const submitButton = signupForm.querySelector('.btn-primary');
+    submitButton.classList.add('loading');
+    
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
     const name = document.getElementById('signupName').value;
@@ -63,20 +142,25 @@ signupForm.addEventListener('submit', async (e) => {
             }
         }
 
-        showMessage('Conta criada com sucesso! Verifique seu email para confirmar. 📧', 'success');
+        showNotification('Conta criada com sucesso! Verifique seu email para confirmar. 📧', 'success');
 
         // Limpar formulário
         signupForm.reset();
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
-        showMessage(error.message, 'error');
+        showNotification(error.message, 'error');
+    } finally {
+        submitButton.classList.remove('loading');
     }
 });
 
 // Login de usuário
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    const submitButton = loginForm.querySelector('.btn-primary');
+    submitButton.classList.add('loading');
 
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
@@ -85,32 +169,48 @@ loginForm.addEventListener('submit', async (e) => {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
 
-        showMessage('Login realizado com sucesso! Redirecionando...', 'success');
+        showNotification('Login realizado com sucesso! Redirecionando...', 'success');
 
         setTimeout(() => {
             window.location.href = '../index.html';
-        }, 1000);
+        }, 1500);
 
     } catch (error) {
         console.error('Erro no login:', error);
-        showMessage(error.message, 'error');
+        showNotification(error.message, 'error');
+        loginForm.classList.add('shake');
+        setTimeout(() => loginForm.classList.remove('shake'), 500);
+    } finally {
+        submitButton.classList.remove('loading');
     }
 });
 
-// Mostrar mensagens de erro/sucesso
-function showMessage(message, type) {
-    const existingMessages = document.querySelectorAll('.message');
-    existingMessages.forEach(msg => msg.remove());
-
-    const messageEl = document.createElement('div');
-    messageEl.className = `message ${type}`;
-    messageEl.textContent = message;
-
-    const activeForm = document.querySelector('.auth-form.active');
-    activeForm.insertBefore(messageEl, activeForm.firstChild);
-
-    setTimeout(() => messageEl.remove(), 5000);
+// Mostrar notificações
+function showNotification(message, type) {
+    const toast = document.getElementById('notificationToast');
+    const toastIcon = toast.querySelector('.toast-icon');
+    const toastMessage = toast.querySelector('.toast-message');
+    
+    // Set message and type
+    toastMessage.textContent = message;
+    toast.className = `notification-toast toast-${type}`;
+    
+    // Show toast
+    toast.classList.add('show');
+    
+    // Auto hide after 5 seconds
+    setTimeout(() => {
+        hideNotification();
+    }, 5000);
 }
+
+function hideNotification() {
+    const toast = document.getElementById('notificationToast');
+    toast.classList.remove('show');
+}
+
+// Close notification when close button is clicked
+document.querySelector('.toast-close').addEventListener('click', hideNotification);
 
 // Verificar se é uma confirmação de email
 async function checkEmailConfirmation() {
@@ -123,7 +223,7 @@ async function checkEmailConfirmation() {
     
     // Verificar se há erro na URL
     if (error) {
-        showMessage(`Erro: ${errorDescription || error}`, 'error');
+        showNotification(`Erro: ${errorDescription || error}`, 'error');
         return;
     }
     
@@ -140,7 +240,7 @@ async function checkEmailConfirmation() {
             
             if (data && data.user) {
                 // Mostrar mensagem de sucesso
-                showMessage('Email confirmado com sucesso! Redirecionando...', 'success');
+                showNotification('Email confirmado com sucesso! Redirecionando...', 'success');
                 
                 // Redirecionar para página de confirmação após breve delay
                 setTimeout(() => {
@@ -157,7 +257,7 @@ async function checkEmailConfirmation() {
                     window.location.href = 'confirmacao-email.html';
                 }, 1000);
             } else {
-                showMessage('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
+                showNotification('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
             }
         }
     }
@@ -186,7 +286,7 @@ async function checkAuth() {
                 .single();
 
             if (!error && profile) {
-                showMessage(`Você já está logado como ${profile.nome}. Redirecionando em 3 segundos...`, 'success');
+                showNotification(`Você já está logado como ${profile.nome}. Redirecionando em 3 segundos...`, 'success');
 
                 setTimeout(() => {
                     window.location.href = '../index.html';
@@ -253,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const message = urlParams.get('message');
     if (message === 'email_confirmed') {
-        showMessage('Email confirmado com sucesso!', 'success');
+        showNotification('Email confirmado com sucesso!', 'success');
     }
 });
 
