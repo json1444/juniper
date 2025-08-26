@@ -1,74 +1,78 @@
 // ===== CONFIGURAÇÃO SUPABASE =====
 const SUPABASE_URL = "https://drbukxyfvbpcqfzykose.supabase.co";
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ===== LOGIN =====
+document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-// ====== CADASTRO ======
-document
-  .getElementById("signup-form")
-  ?.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
 
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-    const name = document.getElementById("signup-name").value;
-    const avatar = document.querySelector('input[name="avatar"]:checked')?.value;
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    // Cria usuário no Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          nome: name,
-          avatar: avatar,
-        },
-        emailRedirectTo: "https://projeto-luckpet.vercel.app/index.html",
-      },
-    });
+  if (error) {
+    alert("Erro no login: " + error.message);
+    return;
+  }
 
-    if (authError) {
-      alert("Erro no cadastro: " + authError.message);
-      return;
-    }
+  // Redireciona para página principal
+  window.location.href = "../index.html";
+});
 
-    // Cria perfil na tabela "profiles"
-    if (authData?.user) {
-      const { error: profileError } = await supabase.from("profiles").insert({
-        id: authData.user.id,
-        name: name,
+// ===== CADASTRO =====
+document.getElementById("signupForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+  const petName = document.getElementById("signupName").value;
+  const avatar = document.querySelector("input[name='avatar']:checked")?.value;
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        pet_name: petName,
         avatar: avatar,
-      });
-
-      if (profileError) {
-        console.error("Erro ao salvar perfil:", profileError);
-      }
-    }
-
-    alert("Cadastro realizado! Verifique seu email para confirmar a conta.");
+      },
+      emailRedirectTo: "https://projeto-luckpet.vercel.app/index.html",
+    },
   });
 
-// ====== LOGIN ======
-document
-  .getElementById("login-form")
-  ?.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  if (error) {
+    alert("Erro no cadastro: " + error.message);
+    return;
+  }
 
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+  alert("Cadastro realizado! Confirme seu e-mail para continuar.");
+});
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+// ===== VERIFICAR LOGIN E ATUALIZAR HEADER =====
+async function checkUser() {
+  const { data } = await supabaseClient.auth.getUser();
 
-    if (error) {
-      alert("Erro no login: " + error.message);
-      return;
+  if (data.user) {
+    const user = data.user;
+    const petName = user.user_metadata?.pet_name || "Meu Pet";
+    const avatar = user.user_metadata?.avatar || "cachorro";
+
+    // Exemplo: trocar o botão "Entrar" pelo perfil
+    const headerUser = document.getElementById("header-user");
+    if (headerUser) {
+      headerUser.innerHTML = `
+        <div class="user-info">
+          <img src="../img/avatares/ava-${avatar}.jpg" alt="Avatar" class="user-avatar">
+          <span>${petName}</span>
+        </div>
+      `;
     }
+  }
+}
 
-    // Redireciona para página inicial após login
-    window.location.href = "https://projeto-luckpet.vercel.app/index.html";
-  });
+checkUser();

@@ -750,6 +750,53 @@
     <script src="script.js"></script>
 <script src="auth-manager.js"></script>
    
+<script>
+  const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+  const SUPABASE_ANON_KEY = 'SEU_ANON_KEY_AQUI';
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  async function carregarUsuario() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    const loginBtn = document.getElementById("loginBtn");
+    const userMenu = document.getElementById("userMenu");
+
+    if (user) {
+      // Buscar perfil do usuário
+      const { data: profile } = await supabaseClient
+        .from("profiles")
+        .select("username, avatar_url, level")
+        .eq("id", user.id)
+        .single();
+
+      if (profile) {
+        // Preenche avatar e nome
+        document.querySelectorAll(".user-avatar, .profile-avatar").forEach(img => {
+          img.src = profile.avatar_url || "img/default-avatar.png";
+        });
+        document.querySelector(".user-name").textContent = profile.username || "Usuário";
+        document.querySelector(".profile-name").textContent = profile.username || "Usuário";
+        document.querySelector(".profile-level").textContent = "Nível " + (profile.level || 1);
+
+        // Mostra menu do usuário
+        loginBtn.style.display = "none";
+        userMenu.style.display = "block";
+      }
+    } else {
+      // Se não tiver login → mostra botão entrar
+      loginBtn.style.display = "block";
+      userMenu.style.display = "none";
+    }
+  }
+
+  carregarUsuario();
+
+  // Logout
+  document.getElementById("logoutBtn")?.addEventListener("click", async () => {
+    await supabaseClient.auth.signOut();
+    location.reload();
+  });
+</script>
 
  
 </body>
