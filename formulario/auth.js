@@ -40,7 +40,7 @@ signupForm.addEventListener('submit', async (e) => {
                     nome: name,
                     avatar: avatar
                 },
-                emailRedirectTo: 'https://projeto-luckpet.vercel.app/formulario/confirmacao-email.html?type=signup'
+                emailRedirectTo: 'https://projeto-luckpet.vercel.app/formulario/confirmacao-email.html'
             }
         });
         
@@ -57,10 +57,13 @@ signupForm.addEventListener('submit', async (e) => {
                     nivel: 1 
                 }]);
             
-            if (profileError) throw profileError;
+            if (profileError) {
+                console.error('Erro ao criar perfil:', profileError);
+                // Não lançar erro aqui para não interromper o fluxo
+            }
         }
 
-        showMessage('Conta criada com sucesso! Verifique seu email para confirmar.', 'success');
+        showMessage('Conta criada com sucesso! Verifique seu email para confirmar. 📧', 'success');
 
         // Limpar formulário
         signupForm.reset();
@@ -112,16 +115,60 @@ function showMessage(message, type) {
 // Verificar se é uma confirmação de email
 async function checkEmailConfirmation() {
     const urlParams = new URLSearchParams(window.location.search);
-    const confirmationType = urlParams.get('type');
+    const accessToken = urlParams.get('access_token');
+    const refreshToken = urlParams.get('refresh_token');
+    const type = urlParams.get('type');
+    const error = urlParams.get('error');
+    const errorDescription = urlParams.get('error_description');
     
-    if (confirmationType === 'signup') {
-        // Mostrar mensagem de sucesso
-        showMessage('Email confirmado com sucesso! Redirecionando...', 'success');
-        
-        // Redirecionar após 3 segundos
+    // Verificar se há erro na URL
+    if (error) {
+        showMessage(`Erro: ${errorDescription || error}`, 'error');
+        return;
+    }
+    
+    // Verificar se é um redirecionamento de confirmação de email
+    if (accessToken && refreshToken) {
+        try {
+            // Tentar fazer login com os tokens
+            const { data, error: sessionError } = await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken
+            });
+            
+            if (sessionError) throw sessionError;
+            
+            if (data && data.user) {
+                // Mostrar mensagem de sucesso
+                showMessage('Email confirmado com sucesso! Redirecionando...', 'success');
+                
+                // Redirecionar para página de confirmação após breve delay
+                setTimeout(() => {
+                    window.location.href = 'confirmacao-email.html';
+                }, 2000);
+            }
+            
+        } catch (error) {
+            console.error('Erro ao processar confirmação:', error);
+            
+            // Se der erro mas tiver tokens, tenta redirecionar diretamente
+            if (accessToken && refreshToken) {
+                setTimeout(() => {
+                    window.location.href = 'confirmacao-email.html';
+                }, 1000);
+            } else {
+                showMessage('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
+            }
+        }
+    }
+    
+    // Verificar também pelo parâmetro type (fallback)
+    const confirmationType = urlParams.get('type');
+    if (confirmationType === 'signup' || confirmationType === 'email') {
+        // Redirecionar para página de confirmação
         setTimeout(() => {
             window.location.href = 'confirmacao-email.html';
-        }, 3000);
+        }, 1000);
     }
 }
 
@@ -166,7 +213,54 @@ async function checkAuth() {
     }
 }
 
+// Função para verificar e processar tokens de autenticação
+async function processAuthTokens() {
+    const urlParams = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = urlParams.get('access_token');
+    const refreshToken = urlParams.get('refresh_token');
+    const tokenType = urlParams.get('token_type');
+    const expiresIn = urlParams.get('expires_in');
+    
+    if (accessToken && refreshToken) {
+        try {
+            const { error } = await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken
+            });
+            
+            if (!error) {
+                // Limpar a URL para remover os tokens
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                // Redirecionar para página de confirmação
+                setTimeout(() => {
+                    window.location.href = 'confirmacao-email.html';
+                }, 1000);
+            }
+        } catch (error) {
+            console.error('Erro ao processar tokens:', error);
+        }
+    }
+}
+
+// Inicialização
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
     checkEmailConfirmation();
+    processAuthTokens();
+    
+    // Verificar se há mensagens de sucesso na URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    if (message === 'email_confirmed') {
+        showMessage('Email confirmado com sucesso!', 'success');
+    }
 });
+
+// Função auxiliar para extrair parâmetros da URL
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
