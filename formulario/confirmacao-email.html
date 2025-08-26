@@ -96,6 +96,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // Contagem regressiva para redirecionamento automático
         let seconds = 5;
@@ -110,6 +111,40 @@
                 window.location.href = 'https://projeto-luckpet.vercel.app/';
             }
         }, 1000);
+
+            // Configuração do Supabase (mesma do auth.js)
+    const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Processar tokens da URL ao carregar a página
+    document.addEventListener('DOMContentLoaded', async function() {
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = urlParams.get('access_token');
+        const refreshToken = urlParams.get('refresh_token');
+
+        if (accessToken && refreshToken) {
+            try {
+                console.log('Processando tokens de confirmação...');
+                const { error } = await supabase.auth.setSession({
+                    access_token: accessToken,
+                    refresh_token: refreshToken
+                });
+                
+                if (!error) {
+                    console.log('Sessão configurada com sucesso!');
+                    // Limpar a URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    
+                    // Forçar recarregamento do auth manager na página principal
+                    localStorage.setItem('forceAuthRefresh', 'true');
+                }
+            } catch (error) {
+                console.error('Erro ao processar tokens:', error);
+            }
+        }
+    });
     </script>
 </body>
 </html>

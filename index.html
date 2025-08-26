@@ -750,7 +750,20 @@
     <script src="script.js"></script>
 <script src="auth-manager.js"></script>
    
-
+<script>
+// Verificar se precisa forçar atualização do auth
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('forceAuthRefresh') === 'true') {
+        localStorage.removeItem('forceAuthRefresh');
+        setTimeout(() => {
+            if (window.authManager) {
+                window.authManager.checkSession();
+                window.location.reload();
+            }
+        }, 1000);
+    }
+});
+</script>
  
 </body>
 </html>

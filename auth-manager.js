@@ -18,23 +18,59 @@ class AuthManager {
         
         // Configurar listener para mudanças de autenticação
         supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_IN') {
+            console.log('Auth state changed:', event, session);
+            if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'TOKEN_REFRESHED') {
                 this.handleSignIn(session);
             } else if (event === 'SIGNED_OUT') {
                 this.handleSignOut();
-            } else if (event === 'USER_UPDATED') {
-                this.handleUserUpdated(session);
             }
         });
+
+        // Verificar também tokens na URL (para confirmação de email)
+        this.checkUrlTokens();
+    }
+
+    async checkUrlTokens() {
+        // Verificar tokens na URL (comum após confirmação de email)
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = urlParams.get('access_token');
+        const refreshToken = urlParams.get('refresh_token');
+
+        if (accessToken && refreshToken) {
+            try {
+                console.log('Tokens encontrados na URL, processando...');
+                const { error } = await supabase.auth.setSession({
+                    access_token: accessToken,
+                    refresh_token: refreshToken
+                });
+                
+                if (!error) {
+                    // Limpar a URL para remover os tokens
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    console.log('Sessão configurada com sucesso a partir dos tokens da URL');
+                }
+            } catch (error) {
+                console.error('Erro ao processar tokens da URL:', error);
+            }
+        }
     }
 
     async checkSession() {
         try {
-            const { data: { session } } = await supabase.auth.getSession();
+            console.log('Verificando sessão...');
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (error) {
+                console.error('Erro ao obter sessão:', error);
+                this.handleSignOut();
+                return;
+            }
             
             if (session) {
+                console.log('Sessão encontrada:', session.user.email);
                 await this.handleSignIn(session);
             } else {
+                console.log('Nenhuma sessão encontrada');
                 this.handleSignOut();
             }
         } catch (error) {
@@ -44,61 +80,82 @@ class AuthManager {
     }
 
     async handleSignIn(session) {
-        this.user = session.user;
-        
-        // Buscar perfil do usuário
-        const { data: profile, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', this.user.id)
-            .single();
+        try {
+            this.user = session.user;
+            console.log('Usuário autenticado:', this.user.email);
             
-        if (error) {
-            console.error('Erro ao carregar perfil:', error);
+            // Buscar perfil do usuário
+            await this.loadUserProfile();
             
-            // Se não encontrar perfil, tenta criar um com base nos metadados
-            if (this.user.user_metadata) {
-                try {
-                    const { error: createError } = await supabase
-                        .from('profiles')
-                        .insert([{ 
-                            id: this.user.id, 
-                            nome: this.user.user_metadata.nome || 'Usuário',
-                            avatar: this.user.user_metadata.avatar || 'cachorro',
-                            nivel: 1 
-                        }]);
-                    
-                    if (!createError) {
-                        // Recarregar perfil após criação
-                        const { data: newProfile } = await supabase
-                            .from('profiles')
-                            .select('*')
-                            .eq('id', this.user.id)
-                            .single();
-                        
-                        this.profile = newProfile;
-                    }
-                } catch (createError) {
-                    console.error('Erro ao criar perfil:', createError);
-                }
+            this.updateUI();
+            
+            // Se estiver na página de confirmação, redirecionar para home após login
+            if (window.location.pathname.includes('confirmacao-email.html')) {
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 3000);
             }
-            return;
+            
+        } catch (error) {
+            console.error('Erro no handleSignIn:', error);
         }
-        
-        this.profile = profile;
-        console.log('Perfil carregado:', profile);
-        this.updateUI();
     }
 
-    handleUserUpdated(session) {
-        // Atualizar dados do usuário quando houver mudanças
-        this.user = session.user;
-        this.updateUI();
+    async loadUserProfile() {
+        try {
+            const { data: profile, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', this.user.id)
+                .single();
+                
+            if (error) {
+                console.error('Erro ao carregar perfil:', error);
+                
+                // Tentar criar perfil se não existir
+                await this.createUserProfile();
+                return;
+            }
+            
+            this.profile = profile;
+            console.log('Perfil carregado:', profile);
+            
+        } catch (error) {
+            console.error('Erro ao carregar perfil:', error);
+        }
+    }
+
+    async createUserProfile() {
+        try {
+            // Usar metadata do usuário ou valores padrão
+            const userMetadata = this.user.user_metadata || {};
+            const { error } = await supabase
+                .from('profiles')
+                .insert([{ 
+                    id: this.user.id, 
+                    nome: userMetadata.nome || this.user.email.split('@')[0],
+                    avatar: userMetadata.avatar || 'cachorro',
+                    nivel: 1,
+                    created_at: new Date().toISOString()
+                }]);
+            
+            if (error) {
+                console.error('Erro ao criar perfil:', error);
+                return;
+            }
+            
+            // Recarregar perfil após criação
+            await this.loadUserProfile();
+            
+        } catch (error) {
+            console.error('Erro ao criar perfil:', error);
+        }
     }
 
     handleSignOut() {
         this.user = null;
         this.profile = null;
+        console.log('Usuário deslogado');
         this.updateUI();
     }
 
@@ -118,6 +175,8 @@ class AuthManager {
         const loginBtn = document.getElementById('loginBtn');
         const userMenu = document.getElementById('userMenu');
         
+        console.log('Atualizando UI - Usuário:', this.user ? 'Logado' : 'Deslogado');
+        
         if (this.user && this.profile) {
             // Usuário logado - mostrar menu de usuário
             if (loginBtn) loginBtn.style.display = 'none';
@@ -125,42 +184,8 @@ class AuthManager {
                 userMenu.style.display = 'flex';
                 
                 // Atualizar avatar e nome
-                const avatarImg = userMenu.querySelector('.user-avatar');
-                const userName = userMenu.querySelector('.user-name');
-                const profileAvatar = userMenu.querySelector('.profile-avatar');
-                const profileName = userMenu.querySelector('.profile-name');
-                const profileLevel = userMenu.querySelector('.profile-level');
-                
-                // Mapeamento dos avatares
-                const avatarMap = {
-                    'cachorro': 'ava-dog1.jpg',
-                    'gato': 'ava-gato.jpg',
-                    'coelho': 'ava-dog2.jpg',
-                    'pássaro': 'ava-gato2.jpg'
-                };
-                
-                const avatarFileName = avatarMap[this.profile.avatar] || 'ava-dog1.jpg';
-                
-                if (avatarImg) {
-                    avatarImg.src = `../img/avatares/${avatarFileName}`;
-                    avatarImg.alt = this.profile.nome;
-                    avatarImg.onerror = function() {
-                        this.src = '../img/avatares/ava-dog1.jpg';
-                    }
-                }
-                
-                if (userName) userName.textContent = this.profile.nome;
-                
-                if (profileAvatar) {
-                    profileAvatar.src = `../img/avatares/${avatarFileName}`;
-                    profileAvatar.alt = this.profile.nome;
-                    profileAvatar.onerror = function() {
-                        this.src = '../img/avatares/ava-dog1.jpg';
-                    }
-                }
-                
-                if (profileName) profileName.textContent = this.profile.nome;
-                if (profileLevel) profileLevel.textContent = `Nível ${this.profile.nivel}`;
+                this.updateUserAvatar();
+                this.updateUserName();
             }
         } else {
             // Usuário não logado - mostrar botão de login
@@ -168,10 +193,64 @@ class AuthManager {
             if (userMenu) userMenu.style.display = 'none';
         }
     }
+
+    updateUserAvatar() {
+        const avatarImg = document.querySelector('.user-avatar');
+        const profileAvatar = document.querySelector('.profile-avatar');
+        
+        if (!this.profile) return;
+        
+        // Mapeamento dos avatares
+        const avatarMap = {
+            'cachorro': 'ava-dog1.jpg',
+            'gato': 'ava-gato.jpg',
+            'coelho': 'ava-dog2.jpg',
+            'pássaro': 'ava-gato2.jpg'
+        };
+        
+        const avatarFileName = avatarMap[this.profile.avatar] || 'ava-dog1.jpg';
+        const avatarPath = `../img/avatares/${avatarFileName}`;
+        
+        if (avatarImg) {
+            avatarImg.src = avatarPath;
+            avatarImg.alt = this.profile.nome;
+            avatarImg.onerror = function() {
+                console.error('Erro ao carregar avatar:', this.src);
+                this.src = '../img/avatares/ava-dog1.jpg';
+            }
+        }
+        
+        if (profileAvatar) {
+            profileAvatar.src = avatarPath;
+            profileAvatar.alt = this.profile.nome;
+            profileAvatar.onerror = function() {
+                console.error('Erro ao carregar avatar do perfil:', this.src);
+                this.src = '../img/avatares/ava-dog1.jpg';
+            }
+        }
+    }
+
+    updateUserName() {
+        const userName = document.querySelector('.user-name');
+        const profileName = document.querySelector('.profile-name');
+        const profileLevel = document.querySelector('.profile-level');
+        
+        if (!this.profile) return;
+        
+        if (userName) userName.textContent = this.profile.nome;
+        if (profileName) profileName.textContent = this.profile.nome;
+        if (profileLevel) profileLevel.textContent = `Nível ${this.profile.nivel}`;
+    }
+
+    // Método para forçar atualização da UI
+    forceUpdate() {
+        this.updateUI();
+    }
 }
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Inicializando AuthManager...');
     window.authManager = new AuthManager();
     
     // Configurar toggle do dropdown
@@ -185,8 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Fechar dropdown ao clicar fora
-        document.addEventListener('click', () => {
-            userDropdown.classList.remove('show');
+        document.addEventListener('click', (e) => {
+            if (!userToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
         });
     }
     
@@ -198,4 +279,18 @@ document.addEventListener('DOMContentLoaded', () => {
             await window.authManager.signOut();
         });
     }
+
+    // Verificar se há mudanças de autenticação a cada 2 segundos (para garantir)
+    setInterval(() => {
+        if (window.authManager) {
+            window.authManager.checkSession();
+        }
+    }, 2000);
 });
+
+// Função global para forçar atualização do auth
+window.refreshAuth = function() {
+    if (window.authManager) {
+        window.authManager.checkSession();
+    }
+};
