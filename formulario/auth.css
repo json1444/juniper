@@ -278,7 +278,7 @@ body {
 
 /* ===== Form ===== */
 .auth-form {
-    padding: 35px 30px;
+    padding: 35px 30px 25px;
     display: none;
     animation: fadeIn 0.5s ease forwards;
 }
@@ -324,6 +324,13 @@ body {
     z-index: 1;
     font-size: 18px;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .input-with-icon .toggle-password:hover {
