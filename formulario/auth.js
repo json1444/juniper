@@ -78,8 +78,10 @@ signupForm.addEventListener('submit', async e => {
     const avatar = document.querySelector('input[name="avatar"]:checked')?.value || '';
 
     try {
+        // Signup com emailRedirectTo para confirmacao-email.html
         const { data: authData, error: authError } = await supabase.auth.signUp({ 
-            email, password,
+            email, 
+            password,
             options: {
                 data: { nome: name, avatar: avatar },
                 emailRedirectTo: 'https://projeto-luckpet.vercel.app/formulario/confirmacao-email.html'
@@ -111,7 +113,7 @@ loginForm.addEventListener('submit', async e => {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         showNotification('Login realizado com sucesso! Redirecionando...', 'success');
-        setTimeout(() => window.location.href = '../index.html', 1500);
+        setTimeout(() => window.location.href = 'https://projeto-luckpet.vercel.app/', 1500);
     } catch (error) {
         console.error('Erro no login:', error);
         showNotification(error.message, 'error');
@@ -135,7 +137,7 @@ function showNotification(message, type) {
 async function checkAuth() {
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
-        window.location.href = '../index.html';
+        window.location.href = 'https://projeto-luckpet.vercel.app/';
     }
 }
 

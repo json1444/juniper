@@ -3,24 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Confirmado - LuckPet</title>
+<title>Confirmando Email - LuckPet</title>
+<link rel="shortcut icon" href="perfil.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-    body { font-family: 'Poppins', sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#F8F9FA; margin:0; }
-    .confirmation-card { background:white; padding:40px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08); text-align:center; max-width:500px; width:90%; }
-    .confirmation-title { font-size:28px; color:#1A1A2E; margin-bottom:15px; font-weight:700; }
-    .confirmation-message { font-size:18px; color:#666; margin-bottom:30px; }
-    .btn-primary { background:#FF6B35; color:white; padding:15px 30px; border:none; border-radius:30px; font-size:16px; text-decoration:none; display:inline-block; }
-    .countdown { margin-top:20px; font-size:16px; color:#999; }
+:root {
+    --primary: #FF6B35;
+    --secondary: #2EC4B6;
+    --accent: #FF9F1C;
+    --dark: #1A1A2E;
+    --light: #F8F9FA;
+    --success: #28A745;
+    --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FF9F1C 100%);
+    --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+    --font-primary: 'Poppins', 'Inter', Arial, sans-serif;
+}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+    font-family: var(--font-primary);
+    background-color: var(--light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.confirmation-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.confirmation-card {
+    background:white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    text-align:center;
+    padding:40px 20px;
+    animation: cardAppear 0.6s ease-out forwards;
+}
+
+.confirmation-header {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.confirmation-icon {
+    font-size: 80px;
+    color: var(--success);
+    margin-bottom: 20px;
+    animation: bounce 1s infinite;
+}
+
+.confirmation-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.confirmation-message {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color:white;
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    transition: var(--transition);
+}
+
+.countdown {
+    margin-top:20px;
+    font-size:16px;
+    color:#999;
+}
+
+@keyframes bounce {0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-20px);}60%{transform:translateY(-10px);}}
+@keyframes cardAppear {0%{opacity:0; transform:translateY(30px) scale(0.95);}100%{opacity:1; transform:translateY(0) scale(1);}}
 </style>
 </head>
 <body>
-<div class="confirmation-card">
-    <div class="confirmation-icon">✓</div>
-    <h1 class="confirmation-title">Email Confirmado com Sucesso!</h1>
-    <p class="confirmation-message">Parabéns! Sua conta foi verificada com sucesso. Redirecionando para a página inicial...</p>
-    <a href="https://projeto-luckpet.vercel.app/" class="btn-primary">Ir para a Página Inicial</a>
-    <div class="countdown" id="countdown">Redirecionando em <span id="countdown-number">5</span> segundos...</div>
+<div class="confirmation-container">
+    <div class="confirmation-card">
+        <div class="confirmation-header">LuckPet</div>
+        <div class="confirmation-icon">✓</div>
+        <h1 class="confirmation-title">Confirmando seu email...</h1>
+        <p class="confirmation-message">Aguarde enquanto verificamos sua conta. Você será redirecionado em breve.</p>
+        <div class="countdown">Redirecionando em <span id="countdown-number">5</span> segundos...</div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -29,51 +116,60 @@ const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Contagem regressiva
-let seconds = 5;
-const countdownElement = document.getElementById('countdown-number');
-const interval = setInterval(() => {
-    seconds--;
-    countdownElement.textContent = seconds;
-    if(seconds <= 0) {
-        clearInterval(interval);
-        window.location.href = 'https://projeto-luckpet.vercel.app/';
-    }
-},1000);
-
-// Processar tokens de confirmação e criar perfil
-document.addEventListener('DOMContentLoaded', async () => {
+// Processar tokens da URL
+async function processConfirmation() {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = urlParams.get('access_token');
     const refreshToken = urlParams.get('refresh_token');
 
-    if(accessToken && refreshToken) {
-        try {
-            const { data, error } = await supabase.auth.setSession({
-                access_token: accessToken,
-                refresh_token: refreshToken
-            });
-            if(error) throw error;
-
-            const user = data.user;
-            if(user) {
-                // Criar perfil na tabela profiles
-                const { error: profileError } = await supabase.from('profiles').insert([{
-                    id: user.id,
-                    nome: user.user_metadata.nome || '',
-                    avatar: user.user_metadata.avatar || '',
-                    nivel: 1
-                }]);
-                if(profileError) console.error('Erro ao criar perfil:', profileError.message);
-                else console.log('Perfil criado com sucesso!');
-            }
-
-            // Limpar URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-        } catch(err) {
-            console.error('Erro ao processar confirmação:', err);
-        }
+    if (!accessToken || !refreshToken) {
+        console.error('Tokens ausentes!');
+        return redirectCountdown();
     }
+
+    try {
+        const { data, error: sessionError } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+        });
+        if (sessionError) throw sessionError;
+
+        const user = data.user;
+        if (!user) throw new Error('Usuário não encontrado');
+
+        // Criar perfil na tabela profiles se não existir
+        const { error: profileError } = await supabase.from('profiles').upsert([{
+            id: user.id,
+            nome: user.user_metadata.nome || '',
+            avatar: user.user_metadata.avatar || '',
+            nivel: 1
+        }]);
+        if (profileError) console.error('Erro ao criar perfil:', profileError);
+
+        redirectCountdown();
+
+    } catch (err) {
+        console.error('Erro ao confirmar email:', err);
+        redirectCountdown();
+    }
+}
+
+// Contagem regressiva
+function redirectCountdown() {
+    let seconds = 5;
+    const countdownEl = document.getElementById('countdown-number');
+    const interval = setInterval(() => {
+        seconds--;
+        countdownEl.textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(interval);
+            window.location.href = 'https://projeto-luckpet.vercel.app/email-verificado.html';
+        }
+    }, 1000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    processConfirmation();
 });
 </script>
 </body>
