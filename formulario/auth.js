@@ -118,11 +118,14 @@ signupForm.addEventListener('submit', async (e) => {
         });
         
         if (authError) {
+            // Tratamento ESPECÍFICO para rate limit
+            if (authError.message.includes('rate limit') || 
+                authError.message.includes('too many requests') ||
+                authError.message.includes('429')) {
+                throw new Error('Muitas tentativas recentes. Aguarde 15 minutos antes de tentar novamente.');
+            }
             if (authError.message.includes('already registered')) {
                 throw new Error('Este email já está cadastrado. Tente fazer login.');
-            }
-            if (authError.message.includes('email rate limit')) {
-                throw new Error('Muitas tentativas. Aguarde alguns minutos.');
             }
             throw authError;
         }
