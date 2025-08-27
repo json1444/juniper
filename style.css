@@ -1529,7 +1529,7 @@ button, .btn {
     }
 }
 
-/* ===== ANIMAÇÕES ===== */
+/* ===== ANIMAÇÕES OTIMIZADAS ===== */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -1541,30 +1541,48 @@ button, .btn {
 }
 
 .animate-fadeIn {
+    opacity: 0;
     animation: fadeIn 0.5s ease forwards;
+    will-change: opacity;
 }
 
 .animate-slideInUp {
+    opacity: 0;
+    transform: translateY(50px);
     animation: slideInUp 0.5s ease forwards;
+    will-change: transform, opacity;
 }
+
+/* Delay escalonado para grids e listas */
+.animate-delay-0 { animation-delay: 0s; }
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }
+.animate-delay-5 { animation-delay: 0.5s; }
 
 /* ===== UTILITÁRIOS ===== */
-.text-center {
-    text-align: center;
-}
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
 
-.mt-20 {
-    margin-top: 20px;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
+/* Substituindo display: none/block por opacity e pointer-events */
 .hidden {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
 .visible {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.4s ease;
+}
+
+/* Imagens responsivas sem cortes */
+img {
+    max-width: 100%;
+    height: auto;
     display: block;
+    object-fit: cover;
 }
