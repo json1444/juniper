@@ -119,30 +119,28 @@ signupForm.addEventListener('submit', async (e) => {
                     nome: name,
                     avatar: avatar
                 },
-                emailRedirectTo: 'https://projeto-luckpet.vercel.app/formulario/confirmacao-email.html'
+                emailRedirectTo: window.location.origin + '/formulario/confirmacao-email.html'
             }
         });
         
-        if (authError) throw authError;
-
-        // Criar perfil do usuário na tabela profiles
-        if (authData.user) {
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .insert([{ 
-                    id: authData.user.id, 
-                    nome: name, 
-                    avatar: avatar, 
-                    nivel: 1 
-                }]);
-            
-            if (profileError) {
-                console.error('Erro ao criar perfil:', profileError);
-                // Não lançar erro aqui para não interromper o fluxo
+        if (authError) {
+            // Tratamento de erros específicos
+            if (authError.message.includes('rate limit') || authError.message.includes('429')) {
+                throw new Error('Muitas tentativas. Aguarde 15 minutos antes de tentar novamente.');
             }
+            if (authError.message.includes('already registered')) {
+                throw new Error('Este email já está cadastrado. Tente fazer login.');
+            }
+            throw authError;
         }
 
-        showNotification('Conta criada com sucesso! Verifique seu email para confirmar. 📧', 'success');
+        // ✅ AVISO ATUALIZADO COM MENÇÃO AO SPAM
+        showNotification('✅ Conta criada! Verifique seu email (inclusive SPAM)', 'success');
+
+        // ✅ AVISO SECUNDÁRIO SOBRE SPAM (3 segundos depois)
+        setTimeout(() => {
+            showNotification('📧 Dica: Se não encontrar o email, verifique a pasta de SPAM!', 'info');
+        }, 3000);
 
         // Limpar formulário
         signupForm.reset();
@@ -214,10 +212,10 @@ document.querySelector('.toast-close').addEventListener('click', hideNotificatio
 
 // Verificar se é uma confirmação de email
 async function checkEmailConfirmation() {
-    const urlParams = new URLSearchParams(window.location.search);
+    // ✅ CORRIGIDO: Usar hash em vez de search
+    const urlParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = urlParams.get('access_token');
     const refreshToken = urlParams.get('refresh_token');
-    const type = urlParams.get('type');
     const error = urlParams.get('error');
     const errorDescription = urlParams.get('error_description');
     
@@ -260,15 +258,6 @@ async function checkEmailConfirmation() {
                 showNotification('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
             }
         }
-    }
-    
-    // Verificar também pelo parâmetro type (fallback)
-    const confirmationType = urlParams.get('type');
-    if (confirmationType === 'signup' || confirmationType === 'email') {
-        // Redirecionar para página de confirmação
-        setTimeout(() => {
-            window.location.href = 'confirmacao-email.html';
-        }, 1000);
     }
 }
 
