@@ -30,76 +30,76 @@
                 </button>
             </div>
             
-            <div class="nav-icons">
-                <div class="nav-icon" id="wishlistIcon">
-                    <i class="fas fa-paw"></i>
-                    <span>Favoritos</span>
-                    <span class="badge" id="wishlistCount">0</span>
-                </div>
-                
-                <div class="nav-icon" id="cartIcon">
-                    <i class="fas fa-shopping-basket"></i>
-                    <span>Carrinho</span>
-                    <span class="badge" id="cartCount">0</span>
-                </div>
-                
-                <div class="nav-icon login-btn" id="loginBtn">
-                    <a href="formulario/login.html">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Entrar</span>
-                    </a>
-                </div>
+         <div class="nav-icons">
+    <div class="nav-icon" id="wishlistIcon">
+        <i class="fas fa-paw"></i>
+        <span>Favoritos</span>
+        <span class="badge" id="wishlistCount">0</span>
+    </div>
+    
+    <div class="nav-icon" id="cartIcon">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Carrinho</span>
+        <span class="badge" id="cartCount">0</span>
+    </div>
+    
+    <div class="nav-icon login-btn" id="loginBtn">
+        <a href="formulario/login.html">
+            <i class="fas fa-user-circle"></i>
+            <span>Entrar</span>
+        </a>
+    </div>
 
-                <div class="user-menu" id="userMenu" style="display: none;">
-                    <div class="user-toggle" id="userToggle">
-                        <img class="user-avatar" src="" alt="Avatar">
-                        <span class="user-name"></span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="user-dropdown" id="userDropdown">
-                        <div class="user-profile-preview">
-                            <img class="profile-avatar" src="" alt="Avatar">
-                            <div class="profile-info">
-                                <div class="profile-name"></div>
-                                <div class="profile-level"></div>
-                            </div>
-                        </div>
-                        <div class="user-dropdown-divider"></div>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-user"></i> Meu Perfil
-                        </a>
-                        <a href="#" id="logoutBtn" class="user-dropdown-item">
-                            <i class="fas fa-sign-out-alt"></i> Sair
-                        </a>
-                    </div>
+    <div class="user-menu" id="userMenu" style="display: none;">
+        <div class="user-toggle" id="userToggle">
+            <img class="user-avatar" src="" alt="Avatar">
+            <span class="user-name"></span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="user-dropdown" id="userDropdown">
+            <div class="user-profile-preview">
+                <img class="profile-avatar" src="" alt="Avatar">
+                <div class="profile-info">
+                    <div class="profile-name"></div>
+                    <div class="profile-level"></div>
                 </div>
             </div>
+            <div class="user-dropdown-divider"></div>
+            <a href="#" class="user-dropdown-item">
+                <i class="fas fa-user"></i> Meu Perfil
+            </a>
+            <a href="#" id="logoutBtn" class="user-dropdown-item">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </a>
+        </div>
+    </div>
+</div>
         </div>
     </header>
 
     <!-- Banners promocionais -->
     <div class="container">
         <div class="promo-banners">
-            <div class="promo-banner animate-slideInUp animate-delay-0">
+            <div class="promo-banner">
                 <i class="fas fa-shopping-bag"></i>
                 <p>Descontos de 15% a 25% OFF + Frete Grátis! <a href="#">Clique aqui</a></p>
             </div>
-            <div class="promo-banner animate-slideInUp animate-delay-1">
+            <div class="promo-banner">
                 <i class="fas fa-tag"></i>
                 <p>Ganhe 10% na Primeira Compra! Código: <strong>BEMVINHO10!</strong> <a href="#">Clique aqui</a></p>
             </div>
-            <div class="promo-banner animate-slideInUp animate-delay-2">
+            <div class="promo-banner">
                 <i class="fas fa-spa"></i>
                 <p>Agende Já! Banho e Tosa com 15% de Desconto! <a href="#">Clique aqui</a></p>
             </div>
         </div>
     </div>
 
-    <!-- Carrossel principal -->
+    <!-- Carrossel principal (botões removidos) -->
     <div class="container">
         <div class="hero-carousel">
             <div class="carousel-inner" id="carouselInner">
-                <div class="carousel-item animate-fadeIn animate-delay-0">
+                <div class="carousel-item">
                     <img src="img/anuncios/racao-anuncio.jpg" alt="Promoção de ração" loading="lazy">
                     <div class="carousel-caption">
                         <h2>Ração Premium para Seu Pet</h2>
@@ -107,7 +107,7 @@
                         <button class="btn-primary">Ver Ofertas</button>
                     </div>
                 </div>
-                <div class="carousel-item animate-fadeIn animate-delay-1">
+                <div class="carousel-item">
                     <img src="img/anuncios/acessorio-anuncio.jpg" alt="Promoção de acessórios" loading="lazy">
                     <div class="carousel-caption">
                         <h2>Acessórios Incríveis</h2>
@@ -115,7 +115,7 @@
                         <button class="btn-primary">Comprar Agora</button>
                     </div>
                 </div>
-                <div class="carousel-item animate-fadeIn animate-delay-2">
+                <div class="carousel-item">
                     <img src="img/anuncios/banhoetosa-anuncio.jpg" alt="Promoção de serviços" loading="lazy">
                     <div class="carousel-caption">
                         <h2>Serviços de Qualidade</h2>
@@ -124,6 +124,9 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Botões de navegação removidos conforme solicitado -->
+            
             <div class="carousel-controls" id="carouselDots"></div>
         </div>
     </div>
@@ -131,20 +134,35 @@
     <!-- Categorias -->
     <div class="container">
         <div class="categories">
-            <a href="#saude-pet" class="category-item animate-slideInUp animate-delay-0" data-section="saude-pet">
-                <div class="category-icon"><i class="fas fa-pills"></i></div><span>Saúde Pet</span>
+            <a href="#saude-pet" class="category-item" data-section="saude-pet">
+                <div class="category-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <span>Saúde Pet</span>
             </a>
-            <a href="#moda-pet" class="category-item animate-slideInUp animate-delay-1" data-section="moda-pet">
-                <div class="category-icon"><i class="fas fa-tshirt"></i></div><span>Moda Pet</span>
+            <a href="#moda-pet" class="category-item" data-section="moda-pet">
+                <div class="category-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <span>Moda Pet</span>
             </a>
-            <a href="#nutricao-pet" class="category-item animate-slideInUp animate-delay-2" data-section="nutricao-pet">
-                <div class="category-icon"><i class="fas fa-apple-alt"></i></div><span>Nutrição</span>
+            <a href="#nutricao-pet" class="category-item" data-section="nutricao-pet">
+                <div class="category-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <span>Nutrição</span>
             </a>
-            <a href="#curiosidades" class="category-item animate-slideInUp animate-delay-3" data-section="curiosidades">
-                <div class="category-icon"><i class="fas fa-lightbulb"></i></div><span>Curiosidades</span>
+            <a href="#curiosidades" class="category-item" data-section="curiosidades">
+                <div class="category-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <span>Curiosidades</span>
             </a>
-            <a href="#servicos" class="category-item animate-slideInUp animate-delay-4" data-section="servicos">
-                <div class="category-icon"><i class="fas fa-concierge-bell"></i></div><span>Serviços</span>
+            <a href="#servicos" class="category-item" data-section="servicos">
+                <div class="category-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <span>Serviços</span>
             </a>
         </div>
     </div>
@@ -152,13 +170,17 @@
     <!-- Seção de Moda Pet -->
     <section class="section" id="moda-pet">
         <div class="container">
-            <h2 class="section-title animate-slideInUp animate-delay-0">Estilo Premium Para Seu <span>Melhor Amigo!</span></h2>
+            <h2 class="section-title">Estilo Premium Para Seu <span>Melhor Amigo!</span></h2>
+            
             <div class="products-grid">
-                <div class="product-card animate-slideInUp animate-delay-0">
+                <!-- Produto 1 -->
+                <div class="product-card">
                     <div class="product-image">
                         <img src="img/roupas/cachorro-roupa.jpg" alt="Roupa para Cachorro" loading="lazy">
                         <div class="product-badge">Oferta</div>
-                        <div class="product-wishlist" data-product="roupa1"><i class="far fa-heart"></i></div>
+                        <div class="product-wishlist" data-product="roupa1">
+                            <i class="far fa-heart"></i>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">Conjunto Esportivo</h3>
@@ -169,15 +191,23 @@
                             <span class="price-discount">20% OFF</span>
                         </div>
                         <div class="product-actions">
-                            <button class="btn-cart" data-product="roupa1" data-price="79.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
-                            <button class="btn-wishlist" data-product="roupa1"><i class="far fa-heart"></i></button>
+                            <button class="btn-cart" data-product="roupa1" data-price="79.99">
+                                <i class="fas fa-shopping-cart"></i> Adicionar
+                            </button>
+                            <button class="btn-wishlist" data-product="roupa1">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="product-card animate-slideInUp animate-delay-1">
+                
+                <!-- Produto 2 -->
+                <div class="product-card">
                     <div class="product-image">
                         <img src="img/roupas/fantasia.jpg" alt="Casaco para Cachorro" loading="lazy">
-                        <div class="product-wishlist" data-product="roupa2"><i class="far fa-heart"></i></div>
+                        <div class="product-wishlist" data-product="roupa2">
+                            <i class="far fa-heart"></i>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">Casaco Acolchoado</h3>
@@ -188,35 +218,46 @@
                             <span class="price-discount">18% OFF</span>
                         </div>
                         <div class="product-actions">
-                            <button class="btn-cart" data-product="roupa2" data-price="89.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
-                            <button class="btn-wishlist" data-product="roupa2"><i class="far fa-heart"></i></button>
+                            <button class="btn-cart" data-product="roupa2" data-price="89.99">
+                                <i class="fas fa-shopping-cart"></i> Adicionar
+                            </button>
+                            <button class="btn-wishlist" data-product="roupa2">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="product-card animate-slideInUp animate-delay-2">
+                
+                <!-- Produto 3 -->
+                <div class="product-card">
                     <div class="product-image">
-                        <img src="img/roupas/img-cat.jpg" alt="Vestido Pet" loading="lazy">
+                        <img src="img/roupas/img-cat.jpg" alt="Fantasia para Pet" loading="lazy">
                         <div class="product-badge">Novo</div>
-                        <div class="product-wishlist" data-product="roupa3"><i class="far fa-heart"></i></div>
+                        <div class="product-wishlist" data-product="roupa3">
+                            <i class="far fa-heart"></i>
+                        </div>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title">Visão de Estilo</h3>
-                        <p class="product-desc">Elegância e conforto para seu pet</p>
+                        <h3 class="product-title">Fantasia Divertida</h3>
+                        <p class="product-desc">Diversão e estilo para ocasiões especiais</p>
                         <div class="product-price">
-                            <span class="price-current">R$ 69,99</span>
-                            <span class="price-original">R$ 89,99</span>
-                            <span class="price-discount">22% OFF</span>
+                            <span class="price-current">R$ 65,00</span>
+                            <span class="price-original">R$ 85,00</span>
+                            <span class="price-discount">24% OFF</span>
                         </div>
                         <div class="product-actions">
-                            <button class="btn-cart" data-product="roupa3" data-price="69.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
-                            <button class="btn-wishlist" data-product="roupa3"><i class="far fa-heart"></i></button>
+                            <button class="btn-cart" data-product="roupa3" data-price="65.00">
+                                <i class="fas fa-shopping-cart"></i> Adicionar
+                            </button>
+                            <button class="btn-wishlist" data-product="roupa3">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <!-- Seção de Nutrição Pet -->
     <section class="section" id="nutricao-pet">
@@ -565,6 +606,7 @@
         <div class="modal-content">
             <span class="modal-close" id="closeCartModal">&times;</span>
             <h2 class="modal-title">Seu Carrinho</h2>
+            <p class="text-center">🟠 Alimentos 🔵 Vestimento</p>
             
             <div class="cart-items" id="cartItems">
                 <!-- Itens do carrinho serão inseridos aqui via JavaScript -->
