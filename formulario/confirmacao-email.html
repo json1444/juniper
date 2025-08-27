@@ -222,6 +222,37 @@
             border-top: 1px solid #eee;
         }
 
+        .spam-warning {
+    background: linear-gradient(135deg, #FFF3CD 0%, #FFEAA7 100%);
+    border: 2px solid #FFD43B;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: pulse 2s infinite;
+}
+
+.spam-warning i {
+    color: #856404;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.spam-highlight {
+    background: #FFD43B;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-20px);}
@@ -290,6 +321,14 @@
             <div class="pet-decoration pet-3">🐾</div>
         </div>
     </div>
+
+    <div class="spam-warning">
+    <i class="fas fa-exclamation-triangle"></i>
+    <div>
+        <strong>Não encontrou o email?</strong>
+        <p>Verifique sua pasta de <span class="spam-highlight">SPAM</span> ou <span class="spam-highlight">Lixo Eletrônico</span></p>
+    </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>

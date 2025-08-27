@@ -51,11 +51,8 @@ if (document.getElementById('signupPassword')) {
         const password = this.value;
         const strength = calculatePasswordStrength(password);
         
-        // Update strength bar
         passwordStrengthBar.style.width = strength.percentage + '%';
         passwordStrengthBar.style.background = strength.color;
-        
-        // Update strength text
         passwordStrengthText.textContent = strength.text;
         passwordStrengthText.style.color = strength.color;
     });
@@ -73,16 +70,12 @@ function calculatePasswordStrength(password) {
         return { percentage: 0, text: 'Força da senha', color: 'transparent' };
     }
     
-    // Length check
     if (password.length > 5) strength += 20;
     if (password.length > 8) strength += 20;
-    
-    // Character variety checks
     if (/[A-Z]/.test(password)) strength += 20;
     if (/[0-9]/.test(password)) strength += 20;
     if (/[^A-Za-z0-9]/.test(password)) strength += 20;
     
-    // Determine feedback and color
     if (strength < 40) {
         feedback = 'Fraca';
         color = '#DC3545';
@@ -110,7 +103,8 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        // Criar usuário no Supabase Auth com redirecionamento personalizado
+        const redirectUrl = 'https://projeto-luckpet.vercel.app/formulario/confirmacao-email.html';
+        
         const { data: authData, error: authError } = await supabase.auth.signUp({ 
             email, 
             password,
@@ -119,42 +113,32 @@ signupForm.addEventListener('submit', async (e) => {
                     nome: name,
                     avatar: avatar
                 },
-                emailRedirectTo: window.location.origin + '/formulario/confirmacao-email.html'
+                emailRedirectTo: redirectUrl
             }
         });
         
-        if (authError) throw authError;
-
-        // Criar perfil do usuário na tabela profiles (se RLS permitir)
-        if (authData.user) {
-            try {
-                const { error: profileError } = await supabase
-                    .from('profiles')
-                    .insert([{ 
-                        id: authData.user.id, 
-                        nome: name, 
-                        avatar: avatar, 
-                        nivel: 1,
-                        created_at: new Date().toISOString()
-                    }]);
-                
-                if (profileError) {
-                    console.warn('Aviso ao criar perfil (pode ser normal devido ao RLS):', profileError);
-                    // Não é crítico se falhar aqui - o trigger ou o usuário pode criar depois
-                }
-            } catch (profileError) {
-                console.warn('Erro ao criar perfil:', profileError);
+        if (authError) {
+            if (authError.message.includes('already registered')) {
+                throw new Error('Este email já está cadastrado. Tente fazer login.');
             }
+            if (authError.message.includes('email rate limit')) {
+                throw new Error('Muitas tentativas. Aguarde alguns minutos.');
+            }
+            throw authError;
         }
 
-        showNotification('Conta criada com sucesso! Verifique seu email para confirmar. 📧', 'success');
+        showNotification('✅ Conta criada com sucesso! Verifique seu email para confirmar.', 'success');
+        
+        // Aviso sobre spam
+        setTimeout(() => {
+            showNotification('📧 Se não encontrar o email, verifique a pasta de SPAM!', 'info');
+        }, 3000);
 
-        // Limpar formulário
         signupForm.reset();
 
     } catch (error) {
         console.error('Erro no cadastro:', error);
-        showNotification(error.message, 'error');
+        showNotification(`❌ ${error.message}`, 'error');
     } finally {
         submitButton.classList.remove('loading');
     }
@@ -174,7 +158,7 @@ loginForm.addEventListener('submit', async (e) => {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
 
-        showNotification('Login realizado com sucesso! Redirecionando...', 'success');
+        showNotification('✅ Login realizado! Redirecionando...', 'success');
 
         setTimeout(() => {
             window.location.href = '../index.html';
@@ -182,7 +166,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     } catch (error) {
         console.error('Erro no login:', error);
-        showNotification(error.message, 'error');
+        showNotification(`❌ ${error.message}`, 'error');
         loginForm.classList.add('shake');
         setTimeout(() => loginForm.classList.remove('shake'), 500);
     } finally {
@@ -196,14 +180,19 @@ function showNotification(message, type) {
     const toastIcon = toast.querySelector('.toast-icon');
     const toastMessage = toast.querySelector('.toast-message');
     
-    // Set message and type
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        info: 'fa-info-circle',
+        warning: 'fa-exclamation-triangle'
+    };
+    
     toastMessage.textContent = message;
     toast.className = `notification-toast toast-${type}`;
+    toastIcon.className = `toast-icon fas ${icons[type] || 'fa-info-circle'}`;
     
-    // Show toast
     toast.classList.add('show');
     
-    // Auto hide after 5 seconds
     setTimeout(() => {
         hideNotification();
     }, 5000);
@@ -214,28 +203,23 @@ function hideNotification() {
     toast.classList.remove('show');
 }
 
-// Close notification when close button is clicked
 document.querySelector('.toast-close').addEventListener('click', hideNotification);
 
-// Verificar se é uma confirmação de email
+// Verificar confirmação de email
 async function checkEmailConfirmation() {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = urlParams.get('access_token');
     const refreshToken = urlParams.get('refresh_token');
-    const type = urlParams.get('type');
     const error = urlParams.get('error');
     const errorDescription = urlParams.get('error_description');
     
-    // Verificar se há erro na URL
     if (error) {
-        showNotification(`Erro: ${errorDescription || error}`, 'error');
+        showNotification(`❌ Erro: ${errorDescription || error}`, 'error');
         return;
     }
     
-    // Verificar se é um redirecionamento de confirmação de email
     if (accessToken && refreshToken) {
         try {
-            // Tentar fazer login com os tokens
             const { data, error: sessionError } = await supabase.auth.setSession({
                 access_token: accessToken,
                 refresh_token: refreshToken
@@ -244,10 +228,8 @@ async function checkEmailConfirmation() {
             if (sessionError) throw sessionError;
             
             if (data && data.user) {
-                // Mostrar mensagem de sucesso
-                showNotification('Email confirmado com sucesso! Redirecionando...', 'success');
+                showNotification('✅ Email confirmado! Redirecionando...', 'success');
                 
-                // Redirecionar para página de confirmação após breve delay
                 setTimeout(() => {
                     window.location.href = 'confirmacao-email.html';
                 }, 2000);
@@ -255,20 +237,16 @@ async function checkEmailConfirmation() {
             
         } catch (error) {
             console.error('Erro ao processar confirmação:', error);
-            
-            // Se der erro mas tiver tokens, tenta redirecionar diretamente
             if (accessToken && refreshToken) {
                 setTimeout(() => {
                     window.location.href = 'confirmacao-email.html';
                 }, 1000);
-            } else {
-                showNotification('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
             }
         }
     }
 }
 
-// Verificar se usuário já está logado
+// Verificar autenticação
 async function checkAuth() {
     if (!window.location.pathname.includes('login.html')) return;
 
@@ -283,7 +261,7 @@ async function checkAuth() {
                     .single();
 
                 if (!error && profile) {
-                    showNotification(`Você já está logado como ${profile.nome}. Redirecionando em 3 segundos...`, 'success');
+                    showNotification(`✅ Você já está logado como ${profile.nome}. Redirecionando...`, 'success');
 
                     setTimeout(() => {
                         window.location.href = '../index.html';
@@ -313,13 +291,11 @@ async function checkAuth() {
     }
 }
 
-// Função para verificar e processar tokens de autenticação
+// Processar tokens
 async function processAuthTokens() {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = urlParams.get('access_token');
     const refreshToken = urlParams.get('refresh_token');
-    const tokenType = urlParams.get('token_type');
-    const expiresIn = urlParams.get('expires_in');
     
     if (accessToken && refreshToken) {
         try {
@@ -329,10 +305,7 @@ async function processAuthTokens() {
             });
             
             if (!error) {
-                // Limpar a URL para remover os tokens
                 window.history.replaceState({}, document.title, window.location.pathname);
-                
-                // Redirecionar para página de confirmação
                 setTimeout(() => {
                     window.location.href = 'confirmacao-email.html';
                 }, 1000);
@@ -349,10 +322,9 @@ document.addEventListener('DOMContentLoaded', function() {
     checkEmailConfirmation();
     processAuthTokens();
     
-    // Verificar se há mensagens de sucesso na URL
     const urlParams = new URLSearchParams(window.location.search);
     const message = urlParams.get('message');
     if (message === 'email_confirmed') {
-        showNotification('Email confirmado com sucesso!', 'success');
+        showNotification('✅ Email confirmado com sucesso!', 'success');
     }
 });
