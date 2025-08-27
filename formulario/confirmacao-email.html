@@ -1,176 +1,345 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Confirmando Email - LuckPet</title>
-<link rel="shortcut icon" href="perfil.png" type="image/x-icon">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-    --primary: #FF6B35;
-    --secondary: #2EC4B6;
-    --accent: #FF9F1C;
-    --dark: #1A1A2E;
-    --light: #F8F9FA;
-    --success: #28A745;
-    --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FF9F1C 100%);
-    --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
-    --radius: 12px;
-    --transition: all 0.3s ease;
-    --font-primary: 'Poppins', 'Inter', Arial, sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmado - LuckPet</title>
+    <link rel="shortcut icon" href="perfil.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2EC4B6;
+            --accent: #FF9F1C;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --success: #28A745;
+            --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FF9F1C 100%);
+            --gradient-secondary: linear-gradient(135deg, #2EC4B6 0%, #4EA8DE 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --font-primary: 'Poppins', 'Inter', Arial, sans-serif;
+        }
 
-* {margin:0;padding:0;box-sizing:border-box;}
-body {
-    font-family: var(--font-primary);
-    background-color: var(--light);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.confirmation-container {
-    width: 100%;
-    max-width: 500px;
-}
+        body {
+            font-family: var(--font-primary);
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f9fa"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23e9ecef" stroke-width="1"/></svg>');
+            background-size: 30px 30px;
+        }
 
-.confirmation-card {
-    background:white;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-hover);
-    text-align:center;
-    padding:40px 20px;
-    animation: cardAppear 0.6s ease-out forwards;
-}
+        .confirmation-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.confirmation-header {
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: var(--primary);
-}
+        .confirmation-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            animation: cardAppear 0.6s ease-out forwards;
+        }
 
-.confirmation-icon {
-    font-size: 80px;
-    color: var(--success);
-    margin-bottom: 20px;
-    animation: bounce 1s infinite;
-}
+        .confirmation-header {
+            background: var(--gradient-primary);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
 
-.confirmation-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--dark);
-}
+        .confirmation-header::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
 
-.confirmation-message {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
+        .confirmation-header::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
 
-.btn-primary {
-    background: var(--gradient-primary);
-    color:white;
-    padding:15px 30px;
-    border:none;
-    border-radius:30px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    display:inline-block;
-    transition: var(--transition);
-}
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
 
-.countdown {
-    margin-top:20px;
-    font-size:16px;
-    color:#999;
-}
+        .logo span {
+            color: var(--secondary);
+        }
 
-@keyframes bounce {0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-20px);}60%{transform:translateY(-10px);}}
-@keyframes cardAppear {0%{opacity:0; transform:translateY(30px) scale(0.95);}100%{opacity:1; transform:translateY(0) scale(1);}}
-</style>
+        .confirmation-body {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: var(--success);
+            position: relative;
+            display: inline-block;
+            animation: bounce 1s infinite;
+        }
+
+        .confirmation-icon::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: rgba(46, 196, 182, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .confirmation-title {
+            font-size: 28px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .confirmation-message {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .countdown {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .pet-decoration {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .pet-1 {
+            top: 20%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pet-2 {
+            bottom: 20%;
+            right: 10%;
+            animation: float 7s ease-in-out infinite 1s;
+        }
+
+        .pet-3 {
+            top: 40%;
+            right: 15%;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+
+        .confirmation-footer {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        @keyframes cardAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @media (max-width: 576px) {
+            .confirmation-body {
+                padding: 30px 20px;
+            }
+            
+            .confirmation-title {
+                font-size: 24px;
+            }
+            
+            .confirmation-message {
+                font-size: 16px;
+            }
+            
+            .btn-primary {
+                padding: 12px 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="confirmation-container">
-    <div class="confirmation-card">
-        <div class="confirmation-header">LuckPet</div>
-        <div class="confirmation-icon">✓</div>
-        <h1 class="confirmation-title">Confirmando seu email...</h1>
-        <p class="confirmation-message">Aguarde enquanto verificamos sua conta. Você será redirecionado em breve.</p>
-        <div class="countdown">Redirecionando em <span id="countdown-number">5</span> segundos...</div>
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="confirmation-header">
+                <div class="logo">Luck<span>Pet</span></div>
+            </div>
+            
+            <div class="confirmation-body">
+                <div class="confirmation-icon">✓</div>
+                <h1 class="confirmation-title">Email Confirmado com Sucesso!</h1>
+                <p class="confirmation-message">
+                    Parabéns! Sua conta foi verificada com sucesso. 
+                    Agora você pode aproveitar todos os benefícios da LuckPet.
+                </p>
+                <a href="https://projeto-luckpet.vercel.app/" class="btn-primary">
+                    <i class="fas fa-paw"></i> Ir para a Página Inicial
+                </a>
+                <div class="countdown" id="countdown">
+                    Redirecionando em <span id="countdown-number">5</span> segundos...
+                </div>
+            </div>
+            
+            <div class="confirmation-footer">
+                <p>© 2024 LuckPet - Todos os direitos reservados</p>
+            </div>
+            
+            <!-- Decorações temáticas -->
+            <div class="pet-decoration pet-1">🐕</div>
+            <div class="pet-decoration pet-2">🐈</div>
+            <div class="pet-decoration pet-3">🐾</div>
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Contagem regressiva para redirecionamento automático
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown-number');
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = 'https://projeto-luckpet.vercel.app/';
+            }
+        }, 1000);
 
-// Processar tokens da URL
-async function processConfirmation() {
-    const urlParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token');
+        // Configuração do Supabase (mesma do auth.js)
+        const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
 
-    if (!accessToken || !refreshToken) {
-        console.error('Tokens ausentes!');
-        return redirectCountdown();
-    }
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    try {
-        const { data, error: sessionError } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken
+        // Processar tokens da URL ao carregar a página
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = urlParams.get('access_token');
+            const refreshToken = urlParams.get('refresh_token');
+
+            if (accessToken && refreshToken) {
+                try {
+                    console.log('Processando tokens de confirmação...');
+                    const { error } = await supabase.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken
+                    });
+                    
+                    if (!error) {
+                        console.log('Sessão configurada com sucesso!');
+                        // Limpar a URL
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                        
+                        // Forçar recarregamento do auth manager na página principal
+                        localStorage.setItem('forceAuthRefresh', 'true');
+                    }
+                } catch (error) {
+                    console.error('Erro ao processar tokens:', error);
+                }
+            }
         });
-        if (sessionError) throw sessionError;
-
-        const user = data.user;
-        if (!user) throw new Error('Usuário não encontrado');
-
-        // Criar perfil na tabela profiles se não existir
-        const { error: profileError } = await supabase.from('profiles').upsert([{
-            id: user.id,
-            nome: user.user_metadata.nome || '',
-            avatar: user.user_metadata.avatar || '',
-            nivel: 1
-        }]);
-        if (profileError) console.error('Erro ao criar perfil:', profileError);
-
-        redirectCountdown();
-
-    } catch (err) {
-        console.error('Erro ao confirmar email:', err);
-        redirectCountdown();
-    }
-}
-
-// Contagem regressiva
-function redirectCountdown() {
-    let seconds = 5;
-    const countdownEl = document.getElementById('countdown-number');
-    const interval = setInterval(() => {
-        seconds--;
-        countdownEl.textContent = seconds;
-        if (seconds <= 0) {
-            clearInterval(interval);
-            window.location.href = 'https://projeto-luckpet.vercel.app/email-verificado.html';
-        }
-    }, 1000);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    processConfirmation();
-});
-</script>
+    </script>
 </body>
 </html>
