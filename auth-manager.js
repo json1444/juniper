@@ -202,13 +202,13 @@ class AuthManager {
         
         // Mapeamento dos avatares
         const avatarMap = {
-            'cachorro': 'ava-dog1.jpg',
-            'gato': 'ava-gato.jpg',
-            'coelho': 'ava-dog2.jpg',
-            'pássaro': 'ava-gato2.jpg'
+            'cachorro': 'cachorro.jpg',
+            'gato': 'gato.jpg',
+            'coelho': 'coelho.jpg',
+            'pássaro': 'passaro.jpg'
         };
         
-        const avatarFileName = avatarMap[this.profile.avatar] || 'ava-dog1.jpg';
+        const avatarFileName = avatarMap[this.profile.avatar] || 'cachorro.jpg';
         const avatarPath = `../img/avatares/${avatarFileName}`;
         
         if (avatarImg) {
@@ -225,7 +225,7 @@ class AuthManager {
             profileAvatar.alt = this.profile.nome;
             profileAvatar.onerror = function() {
                 console.error('Erro ao carregar avatar do perfil:', this.src);
-                this.src = '../img/avatares/ava-dog1.jpg';
+                this.src = '../img/avatares/cachorro.jpg';
             }
         }
     }
