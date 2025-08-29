@@ -28,6 +28,9 @@ class AuthManager {
 
         // Verificar também tokens na URL (para confirmação de email)
         this.checkUrlTokens();
+        
+        // ✅ NOVO: Verificar confirmação de email entre dispositivos
+        this.checkCrossDeviceEmailConfirmation();
     }
 
     async checkUrlTokens() {
@@ -48,10 +51,84 @@ class AuthManager {
                     // Limpar a URL para remover os tokens
                     window.history.replaceState({}, document.title, window.location.pathname);
                     console.log('Sessão configurada com sucesso a partir dos tokens da URL');
+                    
+                    // ✅ NOVO: Salvar para sincronização entre dispositivos
+                    const { data: { user } } = await supabase.auth.getUser();
+                    if (user) {
+                        localStorage.setItem('emailConfirmed', 'true');
+                        localStorage.setItem('userEmail', user.email);
+                    }
                 }
             } catch (error) {
                 console.error('Erro ao processar tokens da URL:', error);
             }
+        }
+    }
+    
+    // ✅ NOVO: Verificar confirmação de email entre dispositivos
+    async checkCrossDeviceEmailConfirmation() {
+        const emailConfirmed = localStorage.getItem('emailConfirmed');
+        const userEmail = localStorage.getItem('userEmail');
+        
+        if (emailConfirmed === 'true' && userEmail) {
+            console.log('Email confirmado em outro dispositivo:', userEmail);
+            
+            try {
+                // Tentar obter a sessão atual
+                const { data: { session }, error } = await supabase.auth.getSession();
+                
+                if (!session) {
+                    // Se não há sessão, mostrar mensagem para o usuário fazer login
+                    console.log('Usuário precisa fazer login após confirmação de email');
+                    this.showEmailConfirmedMessage(userEmail);
+                } else {
+                    // Se já está logado, limpar o flag
+                    localStorage.removeItem('emailConfirmed');
+                    localStorage.removeItem('userEmail');
+                }
+            } catch (error) {
+                console.error('Erro ao verificar sessão cross-device:', error);
+            }
+        }
+    }
+    
+    // ✅ NOVO: Mostrar mensagem de email confirmado
+    showEmailConfirmedMessage(email) {
+        // Criar elemento de mensagem
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'cross-device-message';
+        messageDiv.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            Email ${email} confirmado com sucesso! Faça login para continuar.
+        `;
+        
+        // Adicionar estilos se não existirem
+        if (!document.querySelector('#crossDeviceStyles')) {
+            const styles = document.createElement('style');
+            styles.id = 'crossDeviceStyles';
+            styles.textContent = `
+                .cross-device-message {
+                    background: #e3f2fd;
+                    border: 1px solid #bbdefb;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 20px 0;
+                    text-align: center;
+                    color: #0d47a1;
+                }
+                
+                .cross-device-message i {
+                    color: #2196f3;
+                    margin-right: 10px;
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+        
+        // Adicionar a mensagem no topo da página
+        const authCard = document.querySelector('.auth-card');
+        if (authCard) {
+            authCard.insertBefore(messageDiv, authCard.firstChild);
         }
     }
 
@@ -84,20 +161,61 @@ class AuthManager {
             this.user = session.user;
             console.log('Usuário autenticado:', this.user.email);
             
+            // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
+            const urlParams = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = urlParams.get('access_token');
+            
+            if (accessToken) {
+                // É uma confirmação de email
+                await this.handleEmailConfirmation(session);
+                
+                // Limpar a URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else {
+                // Login normal
+                await this.loadUserProfile();
+                this.updateUI();
+            }
+            
+            // Limpar flags de confirmação
+            localStorage.removeItem('emailConfirmed');
+            localStorage.removeItem('userEmail');
+            
+        } catch (error) {
+            console.error('Erro no handleSignIn:', error);
+        }
+    }
+    
+    // ✅ NOVO: Método para lidar com confirmação de email
+    async handleEmailConfirmation(session) {
+        try {
+            this.user = session.user;
+            console.log('Usuário confirmado via email:', this.user.email);
+            
+            // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
+            localStorage.setItem('emailConfirmed', 'true');
+            localStorage.setItem('userEmail', this.user.email);
+            
             // Buscar perfil do usuário
             await this.loadUserProfile();
             
             this.updateUI();
             
-            // Se estiver na página de confirmação, redirecionar para home após login
-            if (window.location.pathname.includes('confirmacao-email.html')) {
-                setTimeout(() => {
-                    window.location.href = '../index.html';
-                }, 3000);
+            // Forçar atualização em todas as abas abertas
+            if (typeof BroadcastChannel !== 'undefined') {
+                try {
+                    const channel = new BroadcastChannel('auth_channel');
+                    channel.postMessage({ 
+                        type: 'USER_CONFIRMED', 
+                        email: this.user.email 
+                    });
+                } catch (e) {
+                    console.log('BroadcastChannel não suportado');
+                }
             }
             
         } catch (error) {
-            console.error('Erro no handleSignIn:', error);
+            console.error('Erro no handleEmailConfirmation:', error);
         }
     }
 

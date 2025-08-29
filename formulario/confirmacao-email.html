@@ -293,20 +293,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Contagem regressiva para redirecionamento automático
-        let seconds = 5;
-        const countdownElement = document.getElementById('countdown-number');
-        
-        const countdown = setInterval(() => {
-            seconds--;
-            countdownElement.textContent = seconds;
-            
-            if (seconds <= 0) {
-                clearInterval(countdown);
-                window.location.href = 'https://projeto-luckpet.vercel.app/';
-            }
-        }, 1000);
-
         // Configuração do Supabase (mesma do auth.js)
         const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
@@ -329,17 +315,54 @@
                     
                     if (!error) {
                         console.log('Sessão configurada com sucesso!');
+                        
+                        // ✅ SALVAR PARA SINCRONIZAÇÃO ENTRE DISPOSITIVOS
+                        const { data: { user } } = await supabase.auth.getUser();
+                        if (user) {
+                            localStorage.setItem('emailConfirmed', 'true');
+                            localStorage.setItem('userEmail', user.email);
+                        }
+                        
                         // Limpar a URL
                         window.history.replaceState({}, document.title, window.location.pathname);
                         
-                        // Forçar recarregamento do auth manager na página principal
-                        localStorage.setItem('forceAuthRefresh', 'true');
+                        // ✅ REDIRECIONAMENTO CORRETO PARA A PÁGINA INICIAL
+                        setTimeout(() => {
+                            window.location.href = 'https://projeto-luckpet.vercel.app/';
+                        }, 3000);
+                    } else {
+                        console.error('Erro ao configurar sessão:', error);
                     }
                 } catch (error) {
                     console.error('Erro ao processar tokens:', error);
                 }
+            } else {
+                // ✅ SE NÃO HÁ TOKENS, VERIFICAR SE JÁ ESTÁ LOGADO
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session) {
+                    console.log('Usuário já está logado, redirecionando...');
+                    setTimeout(() => {
+                        window.location.href = 'https://projeto-luckpet.vercel.app/';
+                    }, 2000);
+                }
             }
         });
+
+        // Contagem regressiva para redirecionamento automático
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown-number');
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            if (countdownElement) {
+                countdownElement.textContent = seconds;
+            }
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = 'https://projeto-luckpet.vercel.app/';
+            }
+        }, 1000);
     </script>
 </body>
 </html>

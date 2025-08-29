@@ -222,12 +222,16 @@ async function checkEmailConfirmation() {
     // Verificar se há erro na URL
     if (error) {
         showNotification(`Erro: ${errorDescription || error}`, 'error');
+        // Limpar a URL
+        window.history.replaceState({}, document.title, window.location.pathname);
         return;
     }
     
     // Verificar se é um redirecionamento de confirmação de email
     if (accessToken && refreshToken) {
         try {
+            console.log('Processando tokens de confirmação de email...');
+            
             // Tentar fazer login com os tokens
             const { data, error: sessionError } = await supabase.auth.setSession({
                 access_token: accessToken,
@@ -237,19 +241,35 @@ async function checkEmailConfirmation() {
             if (sessionError) throw sessionError;
             
             if (data && data.user) {
+                console.log('Sessão configurada com sucesso para:', data.user.email);
+                
+                // ✅ SALVAR NO LOCALSTORAGE PARA SINCRONIZAÇÃO ENTRE DISPOSITIVOS
+                localStorage.setItem('emailConfirmed', 'true');
+                localStorage.setItem('userEmail', data.user.email);
+                
                 // Mostrar mensagem de sucesso
                 showNotification('Email confirmado com sucesso! Redirecionando...', 'success');
                 
-                // Redirecionar para página de confirmação após breve delay
+                // Limpar a URL para remover os tokens
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                // ✅ REDIRECIONAMENTO CORRETO - Aguardar 2 segundos para processamento completo
                 setTimeout(() => {
-                    window.location.href = 'confirmacao-email.html';
+                    // Verificar se estamos na página de login ou confirmação
+                    if (window.location.pathname.includes('login.html') || 
+                        window.location.pathname.includes('confirmacao-email.html')) {
+                        window.location.href = '../index.html';
+                    } else {
+                        // Recarregar a página atual para atualizar o estado de autenticação
+                        window.location.reload();
+                    }
                 }, 2000);
             }
             
         } catch (error) {
             console.error('Erro ao processar confirmação:', error);
             
-            // Se der erro mas tiver tokens, tenta redirecionar diretamente
+            // Se der erro mas tiver tokens, tenta redirecionar para confirmação
             if (accessToken && refreshToken) {
                 setTimeout(() => {
                     window.location.href = 'confirmacao-email.html';
@@ -257,6 +277,33 @@ async function checkEmailConfirmation() {
             } else {
                 showNotification('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
             }
+        }
+    }
+}
+
+// ✅ NOVA FUNÇÃO: Verificar confirmação entre dispositivos
+async function checkCrossDeviceConfirmation() {
+    // Verificar se há indicação de que o email foi confirmado em outro dispositivo
+    const emailConfirmed = localStorage.getItem('emailConfirmed');
+    const userEmail = localStorage.getItem('userEmail');
+    
+    if (emailConfirmed === 'true' && userEmail) {
+        console.log('Email confirmado em outro dispositivo, tentando login automático...');
+        
+        try {
+            // Tentar obter a sessão atual
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (!session) {
+                // Se não há sessão, tentar fazer login com o email (usuário precisará digitar senha)
+                showNotification(`Email ${userEmail} confirmado. Faça login para continuar.`, 'info');
+            } else {
+                // Se já está logado, limpar o flag
+                localStorage.removeItem('emailConfirmed');
+                localStorage.removeItem('userEmail');
+            }
+        } catch (error) {
+            console.error('Erro ao verificar sessão cross-device:', error);
         }
     }
 }
@@ -336,6 +383,7 @@ async function processAuthTokens() {
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
     checkEmailConfirmation();
+    checkCrossDeviceConfirmation(); // ✅ NOVA VERIFICAÇÃO
     processAuthTokens();
     
     // Verificar se há mensagens de sucesso na URL

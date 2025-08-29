@@ -4,7 +4,85 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof AuthManager !== 'undefined') {
         window.authManager = new AuthManager();
     }
+    
+    // ✅ CORREÇÃO: Colocar o monitoramento DENTRO do DOMContentLoaded
+    if (window.authManager) {
+        // Sobrescrever o método handleSignOut para limpar os dados
+        const originalHandleSignOut = window.authManager.handleSignOut;
+        window.authManager.handleSignOut = function() {
+            originalHandleSignOut.call(this);
+            clearUserData();
+        };
+        
+        // Verificar periodicamente o estado de autenticação
+        setInterval(() => {
+            if (window.authManager && !window.authManager.user && (Object.keys(carrinho).length > 0 || Object.keys(favoritos).length > 0)) {
+                clearUserData();
+            }
+        }, 1000);
+    }
+    
+    initAuthSync(); // ✅ Isso está correto
 });
+
+// ===== FUNÇÕES DE SINCRONIZAÇÃO =====
+// ✅ Você PRECISA definir estas funções ANTES de usá-las
+
+// Função para sincronizar estado de autenticação entre abas/dispositivos
+function initAuthSync() {
+    // Usar BroadcastChannel se disponível para sincronização em tempo real
+    if (typeof BroadcastChannel !== 'undefined') {
+        try {
+            const authChannel = new BroadcastChannel('auth_channel');
+            
+            authChannel.onmessage = (event) => {
+                if (event.data.type === 'USER_CONFIRMED') {
+                    console.log('Usuário confirmado em outra aba:', event.data.email);
+                    
+                    // Recarregar dados de autenticação
+                    if (window.authManager) {
+                        window.authManager.checkSession();
+                    }
+                    
+                    // Mostrar notificação
+                    showNotification(`Email ${event.data.email} confirmado com sucesso!`);
+                }
+            };
+        } catch (e) {
+            console.log('BroadcastChannel não suportado, usando fallback');
+        }
+    }
+    
+    // Verificar periodicamente se o email foi confirmado em outro dispositivo
+    setInterval(() => {
+        const emailConfirmed = localStorage.getItem('emailConfirmed');
+        const userEmail = localStorage.getItem('userEmail');
+        
+        if (emailConfirmed === 'true' && userEmail) {
+            console.log('Email confirmado em outro dispositivo:', userEmail);
+            
+            // Recarregar auth manager
+            if (window.authManager) {
+                window.authManager.checkSession();
+            }
+            
+            // Limpar o flag após processamento
+            localStorage.removeItem('emailConfirmed');
+            localStorage.removeItem('userEmail');
+            
+            showNotification(`Email ${userEmail} confirmado com sucesso!`);
+        }
+    }, 2000);
+}
+
+// Função para limpar dados quando o usuário faz logout
+function clearUserData() {
+    carrinho = {};
+    favoritos = {};
+    updateCounters();
+    renderCart();
+    renderWishlist();
+}
 
 // ===== DADOS E INICIALIZAÇÃO =====
 const produtos = {
