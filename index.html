@@ -218,169 +218,97 @@
     </section>
 
 
-    <!-- Seção de Nutrição Pet -->
-    <section class="section" id="nutricao-pet">
-        <div class="container">
-            <h2 class="section-title">Nutrição Balanceada Para Uma <span>Vida Saudável</span></h2>
+    <!-- Seção de Nutrição Pet - CORRIGIDA -->
+<section class="section" id="nutricao-pet">
+    <div class="container">
+        <h2 class="section-title">Nutrição Balanceada Para Uma <span>Vida Saudável</span></h2>
+        
+        <div class="products-grid" id="racao-grid">
+            <!-- Produtos iniciais (3 primeiros) -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/racao/racao1.jpg" alt="Ração Premium Canina" loading="lazy">
+                    <div class="product-wishlist" data-product="racao1">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ração Premium Canina</h3>
+                    <p class="product-desc">Nutrição completa para cães de todas as raças</p>
+                    <div class="product-price">
+                        <span class="price-current">R$ 129,99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart" data-product="racao1" data-price="129.99">
+                            <i class="fas fa-shopping-cart"></i> Adicionar
+                        </button>
+                        <button class="btn-wishlist" data-product="racao1">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
             
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/racao/racao3.jpg" alt="Ração Premium Felina" loading="lazy">
+                    <div class="product-badge">Oferta</div>
+                    <div class="product-wishlist" data-product="racao2">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ração Premium Felina</h3>
+                    <p class="product-desc">Fórmula especial para saúde dos gatos</p>
+                    <div class="product-price">
+                        <span class="price-current">R$ 89,90</span>
+                        <span class="price-original">R$ 119,90</span>
+                        <span class="price-discount">25% OFF</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart" data-product="racao2" data-price="89.90">
+                            <i class="fas fa-shopping-cart"></i> Adicionar
+                        </button>
+                        <button class="btn-wishlist" data-product="racao2">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
             
-            <div class="products-grid">
-    <!-- Ração 1 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="img/racao/racao1.jpg" alt="Ração Premium Canina" loading="lazy">
-            <div class="product-wishlist" data-product="racao1">
-                <i class="far fa-heart"></i>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/racao/racao2.jpg" alt="Ração Crescimento Saudável" loading="lazy">
+                    <div class="product-wishlist" data-product="racao3">
+                        <i class="far fa-heart"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ração Crescimento Saudável</h3>
+                    <p class="product-desc">Especialmente desenvolvida para filhotes</p>
+                    <div class="product-price">
+                        <span class="price-current">R$ 99,99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart" data-product="racao3" data-price="99.99">
+                            <i class="fas fa-shopping-cart"></i> Adicionar
+                        </button>
+                        <button class="btn-wishlist" data-product="racao3">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="product-info">
-            <h3 class="product-title">Ração Premium Canina</h3>
-            <p class="product-desc">Nutrição completa para cães de todas as raças</p>
-            <div class="product-price">
-                <span class="price-current">R$ 129,99</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" data-product="racao1" data-price="129.99">
-                    <i class="fas fa-shopping-cart"></i> Adicionar
-                </button>
-                <button class="btn-wishlist" data-product="racao1">
-                    <i class="far fa-heart"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Ração 2 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="img/racao/racao3.jpg" alt="Ração Premium Felina" loading="lazy">
-            <div class="product-badge">Oferta</div>
-            <div class="product-wishlist" data-product="racao2">
-                <i class="far fa-heart"></i>
-            </div>
-        </div>
-        <div class="product-info">
-            <h3 class="product-title">Ração Premium Felina</h3>
-            <p class="product-desc">Fórmula especial para saúde dos gatos</p>
-            <div class="product-price">
-                <span class="price-current">R$ 89,90</span>
-                <span class="price-original">R$ 119,90</span>
-                <span class="price-discount">25% OFF</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" data-product="racao2" data-price="89.90">
-                    <i class="fas fa-shopping-cart"></i> Adicionar
-                </button>
-                <button class="btn-wishlist" data-product="racao2">
-                    <i class="far fa-heart"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Ração 3 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="img/racao/racao2.jpg" alt="Ração Crescimento Saudável" loading="lazy">
-            <div class="product-wishlist" data-product="racao3">
-                <i class="far fa-heart"></i>
-            </div>
-        </div>
-        <div class="product-info">
-            <h3 class="product-title">Ração Crescimento Saudável</h3>
-            <p class="product-desc">Especialmente desenvolvida para filhotes</p>
-            <div class="product-price">
-                <span class="price-current">R$ 99,99</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" data-product="racao3" data-price="99.99">
-                    <i class="fas fa-shopping-cart"></i> Adicionar
-                </button>
-                <button class="btn-wishlist" data-product="racao3">
-                    <i class="far fa-heart"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Ração 4 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="img/racao/racao4.jpg" alt="Ração Light Balance" loading="lazy">
-            <div class="product-wishlist" data-product="racao4">
-                <i class="far fa-heart"></i>
-            </div>
-        </div>
-        <div class="product-info">
-            <h3 class="product-title">Ração Light Balance</h3>
-            <p class="product-desc">Ideal para pets que precisam controlar o peso</p>
-            <div class="product-price">
-                <span class="price-current">R$ 139,99</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" data-product="racao4" data-price="139.99">
-                    <i class="fas fa-shopping-cart"></i> Adicionar
-                </button>
-                <button class="btn-wishlist" data-product="racao4">
-                    <i class="far fa-heart"></i>
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Ração 5 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="img/racao/racao5.jpg" alt="Ração Júnior Ossinho" loading="lazy">
-            <div class="product-wishlist" data-product="racao5">
-                <i class="far fa-heart"></i>
-            </div>
-        </div>
-        <div class="product-info">
-            <h3 class="product-title">Ração Júnior Ossinho</h3>
-            <p class="product-desc">Perfeita para o crescimento saudável de filhotes</p>
-            <div class="product-price">
-                <span class="price-current">R$ 99,99</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" data-product="racao5" data-price="99.99">
-                    <i class="fas fa-shopping-cart"></i> Adicionar
-                </button>
-                <button class="btn-wishlist" data-product="racao5">
-                    <i class="far fa-heart"></i>
-                </button>
-            </div>
+        <!-- Botão para carregar mais produtos -->
+        <div class="text-center mt-20">
+            <button id="load-more-racao" class="btn-secondary">
+                <i class="fas fa-plus"></i> Carregar Mais Rações
+            </button>
         </div>
     </div>
-
-    <!-- Ração 6 -->
-    <div class="product-card">
-        <div class="product-image">
-            <img src="img/racao/racao6.jpg" alt="Ração Júnior Vitality" loading="lazy">
-            <div class="product-wishlist" data-product="racao6">
-                <i class="far fa-heart"></i>
-            </div>
-        </div>
-        <div class="product-info">
-            <h3 class="product-title">Ração Júnior Vitality</h3>
-            <p class="product-desc">Energia e nutrição completa para filhotes</p>
-            <div class="product-price">
-                <span class="price-current">R$ 99,99</span>
-            </div>
-            <div class="product-actions">
-                <button class="btn-cart" data-product="racao6" data-price="99.99">
-                    <i class="fas fa-shopping-cart"></i> Adicionar
-                </button>
-                <button class="btn-wishlist" data-product="racao6">
-                    <i class="far fa-heart"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-        </div>
-    </section>
+</section>
 
     <!-- Seção de Agendamento de Serviços -->
     <section class="section" id="servicos">

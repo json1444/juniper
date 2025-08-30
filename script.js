@@ -158,6 +158,12 @@ function checkAuthBeforeAction(actionType, callback) {
 }
 
 function showLoginAlert(actionType) {
+    // Remover alertas existentes
+    const existingAlert = document.querySelector('.login-alert-overlay');
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+    
     // Criar elemento de alerta estilizado
     const alertOverlay = document.createElement('div');
     alertOverlay.className = 'login-alert-overlay';
@@ -207,6 +213,12 @@ function showLoginAlert(actionType) {
                 max-width: 400px;
                 width: 100%;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                animation: alertFadeIn 0.3s ease;
+            }
+            
+            @keyframes alertFadeIn {
+                from { opacity: 0; transform: scale(0.9); }
+                to { opacity: 1; transform: scale(1); }
             }
             
             .login-alert-icon {
@@ -233,6 +245,25 @@ function showLoginAlert(actionType) {
                 justify-content: center;
             }
             
+            .login-alert-buttons .btn-secondary {
+                background: #6c757d;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: 600;
+            }
+            
+            .login-alert-buttons .btn-primary {
+                background: var(--primary);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: 600;
+            }
+            
             @media (max-width: 480px) {
                 .login-alert-buttons {
                     flex-direction: column;
@@ -242,18 +273,32 @@ function showLoginAlert(actionType) {
         document.head.appendChild(styles);
     }
     
-    // Fechar o alerta ao clicar no botão Cancelar
-    document.getElementById('loginAlertCancel').addEventListener('click', function() {
-        document.body.removeChild(alertOverlay);
-    });
+    // Configurar evento para o botão Cancelar
+    const cancelBtn = document.getElementById('loginAlertCancel');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function() {
+            alertOverlay.remove();
+        });
+    }
     
     // Fechar o alerta ao clicar fora da caixa
     alertOverlay.addEventListener('click', function(e) {
         if (e.target === alertOverlay) {
-            document.body.removeChild(alertOverlay);
+            alertOverlay.remove();
         }
     });
-}
+    
+    // Fechar com a tecla ESC
+    const closeOnEsc = function(e) {
+        if (e.key === 'Escape') {
+            alertOverlay.remove();
+            document.removeEventListener('keydown', closeOnEsc);
+        }
+    };
+    
+    document.addEventListener('keydown', closeOnEsc);
+};
+
 
 // ===== SISTEMA DE PESQUISA =====
 function initSearch() {
@@ -1217,3 +1262,296 @@ if (window.authManager) {
         }
     }, 1000);
 }
+
+// ===== CARREGAMENTO SOB DEMANDA PARA RAÇÕES - SIMPLIFICADO =====
+document.addEventListener('DOMContentLoaded', function() {
+    const loadMoreBtn = document.getElementById('load-more-racao');
+    const racaoGrid = document.getElementById('racao-grid');
+    
+    if (!loadMoreBtn || !racaoGrid) {
+        console.log('Elementos não encontrados');
+        return;
+    }
+    
+    console.log('Botão e grid encontrados, inicializando...');
+    
+    // Produtos adicionais
+    const maisRacoes = [
+        {
+            id: 'racao4',
+            nome: 'Ração Light Balance',
+            preco: 139.99,
+            img: 'img/racao/racao4.jpg',
+            desc: 'Ideal para pets que precisam controlar o peso'
+        },
+        {
+            id: 'racao5', 
+            nome: 'Ração Júnior Ossinho',
+            preco: 99.99,
+            img: 'img/racao/racao5.jpg',
+            desc: 'Perfeita para o crescimento saudável de filhotes'
+        },
+        {
+            id: 'racao6',
+            nome: 'Ração Júnior Vitality',
+            preco: 99.99, 
+            img: 'img/racao/racao6.jpg',
+            desc: 'Energia e nutrição completa para filhotes'
+        }
+    ];
+    
+    loadMoreBtn.addEventListener('click', function() {
+        console.log('Botão clicado, carregando produtos...');
+        
+        // Criar HTML para todos os produtos de uma vez
+        let produtosHTML = '';
+        
+        maisRacoes.forEach((racao, index) => {
+            produtosHTML += `
+                <div class="product-card" style="animation-delay: ${index * 0.1}s">
+                    <div class="product-image">
+                        <img src="${racao.img}" alt="${racao.nome}" loading="lazy">
+                        <div class="product-wishlist" data-product="${racao.id}">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${racao.nome}</h3>
+                        <p class="product-desc">${racao.desc}</p>
+                        <div class="product-price">
+                            <span class="price-current">R$ ${racao.preco.toFixed(2)}</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="${racao.id}" data-price="${racao.preco}">
+                                <i class="fas fa-shopping-cart"></i> Adicionar
+                            </button>
+                            <button class="btn-wishlist" data-product="${racao.id}">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        // Adicionar todos os produtos ao grid
+        racaoGrid.insertAdjacentHTML('beforeend', produtosHTML);
+        console.log('Produtos adicionados ao grid');
+        
+        // Inicializar event listeners para os novos botões
+        initEventListenersForNewElements();
+        
+        // Esconder o botão após carregar todos os produtos
+        loadMoreBtn.style.display = 'none';
+        console.log('Botão escondido');
+    });
+});
+
+// ===== FUNÇÕES ADICIONAIS PARA OS NOVOS PRODUTOS =====
+function initEventListenersForNewElements() {
+    console.log('Inicializando event listeners para novos produtos...');
+    
+    // Botões de carrinho - usar event delegation
+    document.querySelectorAll('#racao-grid .btn-cart').forEach(btn => {
+        // Remover qualquer evento anterior para evitar duplicação
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        
+        newBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const productId = this.dataset.product;
+            const price = parseFloat(this.dataset.price);
+            
+            // Verificar autenticação antes de adicionar ao carrinho
+            if (window.authManager && window.authManager.user) {
+                if (typeof addToCart === 'function') {
+                    addToCart(productId, price);
+                } else {
+                    console.log('Produto adicionado ao carrinho:', productId, price);
+                    showNotification('Produto adicionado ao carrinho!');
+                }
+            } else {
+                // Se não estiver logado, mostrar o alerta de login
+                showLoginAlert('cart');
+            }
+        });
+    });
+    
+    // Botões de favoritos - usar event delegation
+    document.querySelectorAll('#racao-grid .product-wishlist, #racao-grid .btn-wishlist').forEach(btn => {
+        // Remover qualquer evento anterior para evitar duplicação
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        
+        newBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const productId = this.dataset.product;
+            
+            // Verificar autenticação antes de adicionar aos favoritos
+            if (window.authManager && window.authManager.user) {
+                if (typeof toggleWishlist === 'function') {
+                    toggleWishlist(productId);
+                } else {
+                    const heartIcon = this.querySelector('i');
+                    if (heartIcon.classList.contains('far')) {
+                        heartIcon.className = 'fas fa-heart';
+                        showNotification('Produto adicionado aos favoritos!');
+                    } else {
+                        heartIcon.className = 'far fa-heart';
+                        showNotification('Produto removido dos favoritos!');
+                    }
+                }
+            } else {
+                // Se não estiver logado, mostrar o alerta de login
+                showLoginAlert('wishlist');
+            }
+        });
+    });
+}
+
+// Função para fechar o alerta de login
+function setupLoginAlertClose() {
+    document.addEventListener('click', function(e) {
+        // Fechar alerta ao clicar no botão Cancelar
+        if (e.target.id === 'loginAlertCancel' || e.target.closest('#loginAlertCancel')) {
+            const alertOverlay = document.querySelector('.login-alert-overlay');
+            if (alertOverlay) {
+                alertOverlay.remove();
+            }
+        }
+        
+        // Fechar alerta ao clicar fora da caixa
+        if (e.target.classList.contains('login-alert-overlay')) {
+            e.target.remove();
+        }
+    });
+}
+
+// Função para mostrar alerta de login (se não existir)
+if (typeof showLoginAlert === 'undefined') {
+    function showLoginAlert(actionType) {
+        // Remover alertas existentes
+        const existingAlert = document.querySelector('.login-alert-overlay');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+        
+        // Criar elemento de alerta estilizado
+        const alertOverlay = document.createElement('div');
+        alertOverlay.className = 'login-alert-overlay';
+        
+        const alertBox = document.createElement('div');
+        alertBox.className = 'login-alert-box';
+        
+        alertBox.innerHTML = `
+            <div class="login-alert-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h3>Acesso Restrito</h3>
+            <p>Você precisa estar logado para usar essa função. Crie sua conta grátis e aproveite todos os benefícios!</p>
+            <div class="login-alert-buttons">
+                <button class="btn-secondary" id="loginAlertCancel">Cancelar</button>
+                <a href="formulario/login.html" class="btn-primary">Fazer Login</a>
+            </div>
+        `;
+        
+        alertOverlay.appendChild(alertBox);
+        document.body.appendChild(alertOverlay);
+        
+        // Adicionar estilos dinamicamente se não existirem
+        if (!document.querySelector('#loginAlertStyles')) {
+            const styles = document.createElement('style');
+            styles.id = 'loginAlertStyles';
+            styles.textContent = `
+                .login-alert-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.7);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10000;
+                    padding: 20px;
+                }
+                
+                .login-alert-box {
+                    background: white;
+                    border-radius: 16px;
+                    padding: 30px;
+                    text-align: center;
+                    max-width: 400px;
+                    width: 100%;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                    animation: alertFadeIn 0.3s ease;
+                }
+                
+                @keyframes alertFadeIn {
+                    from { opacity: 0; transform: scale(0.9); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+                
+                .login-alert-icon {
+                    font-size: 48px;
+                    color: #ff9800;
+                    margin-bottom: 15px;
+                }
+                
+                .login-alert-box h3 {
+                    margin: 0 0 15px 0;
+                    color: #2c3e50;
+                    font-size: 22px;
+                }
+                
+                .login-alert-box p {
+                    color: #7f8c8d;
+                    margin-bottom: 25px;
+                    line-height: 1.5;
+                }
+                
+                .login-alert-buttons {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: center;
+                }
+                
+                .login-alert-buttons .btn-secondary {
+                    background: #6c757d;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-weight: 600;
+                }
+                
+                .login-alert-buttons .btn-primary {
+                    background: var(--primary);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    text-decoration: none;
+                    font-weight: 600;
+                }
+                
+                @media (max-width: 480px) {
+                    .login-alert-buttons {
+                        flex-direction: column;
+                    }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+    }
+}
+
+// Inicializar o fechamento do alerta quando o DOM carregar
+document.addEventListener('DOMContentLoaded', function() {
+    setupLoginAlertClose();
+});

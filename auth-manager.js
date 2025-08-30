@@ -412,3 +412,4 @@ window.refreshAuth = function() {
         window.authManager.checkSession();
     }
 };
+

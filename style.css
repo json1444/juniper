@@ -647,6 +647,7 @@ button, .btn {
     margin: 40px 0;
 }
 
+
 .category-item {
     display: flex;
     flex-direction: column;
@@ -662,6 +663,7 @@ button, .btn {
 
 .category-item:hover {
     transform: translateY(-5px);
+    background-color: #FF6B35;
     box-shadow: var(--shadow-hover);
 }
 
@@ -1585,4 +1587,85 @@ img {
     height: auto;
     display: block;
     object-fit: cover;
+}
+
+/* ===== ESTILOS PARA CARREGAMENTO DE RAÇÕES ===== */
+#racao-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Animação para novos produtos */
+.product-card {
+    opacity: 0;
+    animation: slideInUp 0.6s ease forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botão de carregar mais */
+#load-more-racao {
+    margin: 30px auto 0;
+    padding: 12px 25px;
+    background: var(--gradient-secondary);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#load-more-racao:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Estilos para os botões do alerta de login */
+.login-alert-buttons .btn-secondary {
+    background: #6c757d !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    transition: all 0.3s ease !important;
+}
+
+.login-alert-buttons .btn-secondary:hover {
+    background: #5a6268 !important;
+    transform: translateY(-2px) !important;
+}
+
+.login-alert-buttons .btn-primary {
+    background: var(--primary) !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+    transition: all 0.3s ease !important;
+}
+
+.login-alert-buttons .btn-primary:hover {
+    background: #e55a2b !important;
+    transform: translateY(-2px) !important;
 }
