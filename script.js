@@ -1737,3 +1737,87 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+function processCreditsPayment(total) {
+    const creditsCost = Math.floor(total);
+    const userCredits = parseInt(localStorage.getItem('userCredits') || '0');
+    
+    if (userCredits >= creditsCost) {
+        // Zerar os créditos após a compra
+        const newCredits = userCredits - creditsCost;
+        localStorage.setItem('userCredits', newCredits.toString());
+        
+        // Atualizar a exibição de créditos
+        if (window.authManager) {
+            window.authManager.updateUserCredits();
+        }
+        
+        // Mostrar modal de confirmação
+        showPurchaseConfirmation(creditsCost, newCredits);
+        return true;
+    }
+    
+    return false;
+}
+
+// Função para mostrar a confirmação de compra
+function showPurchaseConfirmation(creditsSpent, remainingCredits) {
+    const modal = document.getElementById('purchaseConfirmationModal');
+    const orderNumber = document.getElementById('orderNumber');
+    const paymentMethod = document.getElementById('paymentMethod');
+    const totalSpent = document.getElementById('totalSpent');
+    const remainingCreditsElement = document.getElementById('remainingCredits');
+    const backToHomeBtn = document.getElementById('backToHomeBtn');
+    
+    // Gerar número de pedido aleatório
+    const randomOrderNum = 'LP-' + new Date().getFullYear() + '-' + Math.floor(10000 + Math.random() * 90000);
+    
+    // Preencher os dados
+    orderNumber.textContent = randomOrderNum;
+    paymentMethod.textContent = 'LuckCoins';
+    totalSpent.textContent = creditsSpent + ' LuckCoins';
+    remainingCreditsElement.textContent = remainingCredits + ' LuckCoins';
+    
+    // Mostrar o modal
+    modal.classList.add('active');
+    
+    // Configurar o botão de voltar para home
+    backToHomeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+        window.location.href = 'index.html';
+    });
+}
+
+// Modificar a função de checkout para usar créditos
+function setupCheckout() {
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const total = calculateCartTotal();
+            
+            // Verificar se o usuário quer pagar com créditos
+            if (confirm(`Deseja pagar ${Math.floor(total)} LuckCoins por esta compra?`)) {
+                if (processCreditsPayment(total)) {
+                    // Limpar carrinho após compra bem-sucedida
+                    carrinho = {};
+                    localStorage.removeItem('carrinho');
+                    updateCounters();
+                    renderCart();
+                } else {
+                    alert('Saldo de LuckCoins insuficiente!');
+                    window.location.href = 'pagamento.html';
+                }
+            } else {
+                window.location.href = 'pagamento.html';
+            }
+        });
+    }
+}
+
+// Inicializar o checkout quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    setupCheckout();
+});

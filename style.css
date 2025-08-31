@@ -1830,3 +1830,150 @@ img {
         margin-bottom: 20px;
     }
 }
+
+.product-credits {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 10px 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(255, 159, 28, 0.15) 0%, rgba(255, 107, 53, 0.15) 100%);
+    border-radius: 20px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.product-credits i {
+    color: var(--accent);
+    animation: coinSpin 2s infinite ease-in-out;
+}
+
+/* Reposicionar o botão de favoritos */
+.product-image {
+    position: relative;
+}
+
+.product-wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray);
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 2;
+}
+
+.product-wishlist:hover, .product-wishlist.active {
+    color: var(--danger);
+}
+
+/* Ajustar ações do produto */
+.product-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.product-actions button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-cart {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.btn-cart:hover {
+    opacity: 0.9;
+}
+
+/* Estilos para o modal de confirmação de compra */
+.purchase-confirmation {
+    text-align: center;
+    padding: 20px;
+}
+
+.confirmation-icon {
+    font-size: 4rem;
+    color: var(--success);
+    margin-bottom: 20px;
+    animation: bounceIn 1s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.confirmation-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.confirmation-message {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.confirmation-details {
+    background: #f8f9fa;
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.confirmation-details p {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirmation-details p:last-child {
+    margin-bottom: 0;
+}
+
+.confirmation-details strong {
+    color: var(--dark);
+}
+
+#backToHomeBtn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+/* Melhorias para a responsividade */
+@media (max-width: 768px) {
+    .product-credits {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .confirmation-title {
+        font-size: 1.5rem;
+    }
+    
+    .confirmation-message {
+        font-size: 1rem;
+    }
+    
+    .confirmation-details {
+        padding: 15px;
+    }
+}
