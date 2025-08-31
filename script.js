@@ -1738,86 +1738,95 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function processCreditsPayment(total) {
-    const creditsCost = Math.floor(total);
-    const userCredits = parseInt(localStorage.getItem('userCredits') || '0');
-    
-    if (userCredits >= creditsCost) {
-        // Zerar os créditos após a compra
+function payWithCredits(productId, creditsCost) {
+    checkAuthBeforeAction('credits', function() {
+        if (!window.authManager || !window.authManager.user) {
+            showLoginAlert('credits');
+            return;
+        }
+        
+        // Verificar se o usuário tem créditos suficientes
+        const userCredits = parseInt(localStorage.getItem('userCredits') || '0');
+        
+        if (userCredits < creditsCost) {
+            showNotification(`Saldo insuficiente! Você precisa de mais ${creditsCost - userCredits} LuckCoins.`, true);
+            return;
+        }
+        
+        // Processar pagamento com créditos
         const newCredits = userCredits - creditsCost;
         localStorage.setItem('userCredits', newCredits.toString());
         
-        // Atualizar a exibição de créditos
-        if (window.authManager) {
+        // Atualizar a exibição de créditos (usando a função global)
+        if (typeof updateUserCreditsUI === 'function') {
+            updateUserCreditsUI();
+        } else if (window.authManager && typeof window.authManager.updateUserCredits === 'function') {
             window.authManager.updateUserCredits();
         }
         
-        // Mostrar modal de confirmação
-        showPurchaseConfirmation(creditsCost, newCredits);
-        return true;
-    }
-    
-    return false;
-}
-
-// Função para mostrar a confirmação de compra
-function showPurchaseConfirmation(creditsSpent, remainingCredits) {
-    const modal = document.getElementById('purchaseConfirmationModal');
-    const orderNumber = document.getElementById('orderNumber');
-    const paymentMethod = document.getElementById('paymentMethod');
-    const totalSpent = document.getElementById('totalSpent');
-    const remainingCreditsElement = document.getElementById('remainingCredits');
-    const backToHomeBtn = document.getElementById('backToHomeBtn');
-    
-    // Gerar número de pedido aleatório
-    const randomOrderNum = 'LP-' + new Date().getFullYear() + '-' + Math.floor(10000 + Math.random() * 90000);
-    
-    // Preencher os dados
-    orderNumber.textContent = randomOrderNum;
-    paymentMethod.textContent = 'LuckCoins';
-    totalSpent.textContent = creditsSpent + ' LuckCoins';
-    remainingCreditsElement.textContent = remainingCredits + ' LuckCoins';
-    
-    // Mostrar o modal
-    modal.classList.add('active');
-    
-    // Configurar o botão de voltar para home
-    backToHomeBtn.addEventListener('click', function() {
-        modal.classList.remove('active');
-        window.location.href = 'index.html';
+        // Mostrar mensagem de sucesso
+        showCreditsPaymentSuccess(productId, creditsCost, newCredits);
+        
+        // Remover o produto do carrinho se estiver lá
+        if (carrinho[productId]) {
+            delete carrinho[productId];
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            updateCounters();
+            renderCart();
+        }
     });
 }
 
-// Modificar a função de checkout para usar créditos
-function setupCheckout() {
-    const checkoutBtn = document.getElementById('checkoutBtn');
+// Mostrar modal de sucesso no pagamento com créditos
+function showCreditsPaymentSuccess(productId, creditsCost, newBalance) {
+    // Criar modal de sucesso
+    const modal = document.createElement('div');
+    modal.className = 'modal active';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="modal-close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+            <div class="credits-payment-modal">
+                <i class="fas fa-check-circle"></i>
+                <h2>Compra Realizada com Sucesso!</h2>
+                <p>Você usou <strong>${creditsCost} LuckCoins</strong> para adquirir o produto.</p>
+                
+                <div class="credits-success-message">
+                    <p>Saldo restante: ${newBalance} LuckCoins</p>
+                </div>
+                
+                <p>Obrigado por comprar na LuckPet! Seu pedido será processado e enviado em breve.</p>
+                
+                <a href="index.html" class="btn-back-to-store">
+                    <i class="fas fa-home"></i> Voltar para a Loja
+                </a>
+            </div>
+        </div>
+    `;
     
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const total = calculateCartTotal();
-            
-            // Verificar se o usuário quer pagar com créditos
-            if (confirm(`Deseja pagar ${Math.floor(total)} LuckCoins por esta compra?`)) {
-                if (processCreditsPayment(total)) {
-                    // Limpar carrinho após compra bem-sucedida
-                    carrinho = {};
-                    localStorage.removeItem('carrinho');
-                    updateCounters();
-                    renderCart();
-                } else {
-                    alert('Saldo de LuckCoins insuficiente!');
-                    window.location.href = 'pagamento.html';
-                }
-            } else {
-                window.location.href = 'pagamento.html';
-            }
-        });
-    }
+    document.body.appendChild(modal);
+    
+    // Fechar modal ao clicar fora
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
 }
 
-// Inicializar o checkout quando o DOM estiver carregado
+// Adicionar event listeners para os botões de créditos
+function initCreditsButtons() {
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-credits') || e.target.closest('.btn-credits')) {
+            const btn = e.target.classList.contains('btn-credits') ? e.target : e.target.closest('.btn-credits');
+            const productId = btn.dataset.product;
+            const creditsCost = parseInt(btn.dataset.credits);
+            
+            payWithCredits(productId, creditsCost);
+        }
+    });
+}
+
+// Inicializar os botões de créditos quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
-    setupCheckout();
+    initCreditsButtons();
 });

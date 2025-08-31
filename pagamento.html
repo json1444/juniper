@@ -350,46 +350,6 @@
             gap: 15px;
         }
 
-        /* Opção de pagamento com créditos */
-        .payment-option[data-method="credits"] .payment-icon {
-            color: var(--accent);
-        }
-
-        /* Detalhes do pagamento com créditos */
-        .credits-container {
-            padding: 15px;
-            background: rgba(46, 196, 182, 0.1);
-            border-radius: var(--radius);
-        }
-
-        .credits-balance h3 {
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        .credits-after-payment {
-            margin: 15px 0;
-            padding: 15px;
-            background: white;
-            border-radius: var(--radius);
-            border-left: 4px solid var(--success);
-        }
-
-        .credits-warning {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: rgba(220, 53, 69, 0.1);
-            border-radius: var(--radius);
-            color: var(--danger);
-            border-left: 4px solid var(--danger);
-        }
-
-        .credits-warning i {
-            font-size: 1.2rem;
-        }
-
         /* QR Code PIX */
         .pix-container {
             text-align: center;
@@ -723,17 +683,6 @@
                                 <p>Pagamento à vista</p>
                             </div>
                         </div>
-
-                        <div class="payment-option" data-method="credits">
-                            <input type="radio" name="payment-method" id="credits-method">
-                            <div class="payment-icon">
-                                <i class="fas fa-coins"></i>
-                            </div>
-                            <div>
-                                <label for="credits-method">Pagar com LuckCoins</label>
-                                <p>Use seus créditos para pagar a compra</p>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Detalhes do PIX (inicialmente visível) -->
@@ -811,23 +760,6 @@
                         </div>
                     </div>
 
-                    <!-- Detalhes do pagamento com créditos -->
-                    <div class="payment-details" id="credits-details">
-                        <div class="credits-container">
-                            <div class="credits-balance">
-                                <h3>Seu Saldo: <span id="credits-balance">0</span> LuckCoins</h3>
-                                <p>Valor da compra: <span id="credits-total">0</span> LuckCoins</p>
-                            </div>
-                            <div class="credits-after-payment">
-                                <p>Saldo restante após a compra: <span id="credits-remaining">0</span> LuckCoins</p>
-                            </div>
-                            <div class="credits-warning" id="credits-warning" style="display: none;">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <p>Saldo insuficiente. Você precisa de mais <span id="credits-needed">0</span> LuckCoins.</p>
-                            </div>
-                        </div>
-                    </div>
-
                     <button class="checkout-btn" id="complete-order">
                         <i class="fas fa-lock"></i> Finalizar Pedido
                     </button>
@@ -872,375 +804,483 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         // ===== SISTEMA DE CRÉDITOS LUCKPET =====
-        let userCredits = 0;
+    let userCredits = 0;
 
-        // Carregar créditos do usuário
-        function loadUserCredits() {
-            const savedCredits = localStorage.getItem('userCredits');
-            
-            if (savedCredits) {
-                userCredits = parseInt(savedCredits);
-            } else {
-                // Novo usuário - definir créditos iniciais
-                userCredits = 100;
-                localStorage.setItem('userCredits', userCredits);
-            }
-            
+    // Carregar créditos do usuário
+    function loadUserCredits() {
+        const savedCredits = localStorage.getItem('userCredits');
+        
+        if (savedCredits) {
+            userCredits = parseInt(savedCredits);
+        } else {
+            // Novo usuário - definir créditos iniciais
+            userCredits = 100;
+            localStorage.setItem('userCredits', userCredits);
+        }
+        
+        updateCreditsDisplay();
+    }
+
+    // Atualizar exibição de créditos
+    function updateCreditsDisplay() {
+        const creditsElement = document.getElementById('credits-balance');
+        if (creditsElement) {
+            creditsElement.textContent = userCredits;
+        }
+    }
+
+    // Verificar se o usuário tem créditos suficientes
+    function hasEnoughCredits(amount) {
+        return userCredits >= amount;
+    }
+
+    // Remover créditos do usuário
+    function deductCredits(amount) {
+        if (userCredits >= amount) {
+            userCredits -= amount;
+            localStorage.setItem('userCredits', userCredits);
             updateCreditsDisplay();
+            return true;
         }
+        return false;
+    }
 
-        // Atualizar exibição de créditos
-        function updateCreditsDisplay() {
-            const creditsElement = document.getElementById('credits-balance');
-            if (creditsElement) {
-                creditsElement.textContent = userCredits;
+    // Atualizar informações de pagamento com créditos
+    function updateCreditsPaymentInfo() {
+        const creditsBalance = document.getElementById('credits-balance');
+        const creditsTotal = document.getElementById('credits-total');
+        const creditsRemaining = document.getElementById('credits-remaining');
+        const creditsWarning = document.getElementById('credits-warning');
+        const creditsNeeded = document.getElementById('credits-needed');
+        
+        if (creditsBalance && creditsTotal && creditsRemaining) {
+            const total = calculateCartTotal();
+            const creditsCost = Math.floor(total); // 1 crédito = R$ 1,00
+            
+            creditsBalance.textContent = userCredits;
+            creditsTotal.textContent = creditsCost;
+            
+            if (userCredits >= creditsCost) {
+                creditsRemaining.textContent = userCredits - creditsCost;
+                creditsWarning.style.display = 'none';
+            } else {
+                creditsNeeded.textContent = creditsCost - userCredits;
+                creditsWarning.style.display = 'block';
             }
         }
+    }
 
-        // Verificar se o usuário tem créditos suficientes
-        function hasEnoughCredits(amount) {
-            return userCredits >= amount;
-        }
-
-        // Remover créditos do usuário
-        function deductCredits(amount) {
-            if (userCredits >= amount) {
-                userCredits -= amount;
-                localStorage.setItem('userCredits', userCredits);
-                updateCreditsDisplay();
+    // Processar pagamento com créditos
+    function processCreditsPayment() {
+        const total = calculateCartTotal();
+        const creditsCost = Math.floor(total);
+        
+        if (hasEnoughCredits(creditsCost)) {
+            if (deductCredits(creditsCost)) {
+                // Pagamento bem-sucedido - mostrar tela de agradecimento
+                showCreditsThankYouPage(creditsCost, userCredits);
+                clearCart();
                 return true;
             }
-            return false;
         }
+        
+        return false;
+    }
 
-        // Atualizar informações de pagamento com créditos
-        function updateCreditsPaymentInfo() {
-            const creditsBalance = document.getElementById('credits-balance');
-            const creditsTotal = document.getElementById('credits-total');
-            const creditsRemaining = document.getElementById('credits-remaining');
-            const creditsWarning = document.getElementById('credits-warning');
-            const creditsNeeded = document.getElementById('credits-needed');
-            
-            if (creditsBalance && creditsTotal && creditsRemaining) {
-                const total = calculateCartTotal();
-                const creditsCost = Math.floor(total); // 1 crédito = R$ 1,00
+    // Mostrar página de agradecimento por pagamento com créditos
+    function showCreditsThankYouPage(creditsUsed, remainingCredits) {
+        // Ocultar todo o conteúdo atual
+        document.querySelector('.payment-main').style.display = 'none';
+        document.querySelector('.payment-header').style.display = 'none';
+        document.querySelector('.payment-footer').style.display = 'none';
+        
+        // Criar conteúdo de agradecimento
+        const thankYouContent = document.createElement('div');
+        thankYouContent.className = 'container';
+        thankYouContent.innerHTML = `
+            <div class="credits-payment-modal" style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-check-circle" style="font-size: 5rem; color: #FF9F1C; margin-bottom: 30px;"></i>
+                <h2 style="color: #FF6B35; margin-bottom: 20px; text-align: center;">Compra Realizada com Sucesso!</h2>
                 
-                creditsBalance.textContent = userCredits;
-                creditsTotal.textContent = creditsCost;
+                <div class="credits-success-message" style="max-width: 400px;">
+                    <p style="font-size: 1.2rem;">Você usou <strong>${creditsUsed} LuckCoins</strong> para finalizar sua compra.</p>
+                    <p style="margin-top: 10px;">Saldo restante: <strong>${remainingCredits} LuckCoins</strong></p>
+                </div>
                 
-                if (userCredits >= creditsCost) {
-                    creditsRemaining.textContent = userCredits - creditsCost;
-                    creditsWarning.style.display = 'none';
-                } else {
-                    creditsNeeded.textContent = creditsCost - userCredits;
-                    creditsWarning.style.display = 'block';
-                }
-            }
-        }
-
-        // Processar pagamento com créditos
-        function processCreditsPayment() {
-            const total = calculateCartTotal();
-            const creditsCost = Math.floor(total);
-            
-            if (hasEnoughCredits(creditsCost)) {
-                if (deductCredits(creditsCost)) {
-                    // Pagamento bem-sucedido
-                    showNotification(`Pagamento de ${creditsCost} LuckCoins realizado com sucesso!`);
-                    clearCart();
-                    return true;
-                }
+                <p style="color: #6C757D; margin: 30px 0; text-align: center; max-width: 500px;">
+                    Obrigado por comprar na LuckPet! Seu pedido será processado e enviado em breve.
+                    Você receberá um e-mail com todos os detalhes da sua compra.
+                </p>
+                
+                <a href="index.html" class="btn-back-to-store" style="text-decoration: none;">
+                    <i class="fas fa-home"></i> Voltar para a Loja
+                </a>
+            </div>
+        `;
+        
+        // Adicionar ao body
+        document.body.appendChild(thankYouContent);
+        
+        // Adicionar estilos
+        const styles = document.createElement('style');
+        styles.textContent = `
+            .credits-payment-modal {
+                text-align: center;
+                padding: 40px 20px;
             }
             
-            return false;
-        }
+            .credits-success-message {
+                background: rgba(40, 167, 69, 0.1);
+                border-radius: 12px;
+                padding: 20px;
+                margin: 20px 0;
+                border-left: 4px solid #28A745;
+            }
+            
+            .btn-back-to-store {
+                background: linear-gradient(135deg, #FF6B35 0%, #FF9F1C 100%);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 30px;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-block;
+                margin-top: 20px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            
+            .btn-back-to-store:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+                opacity: 0.9;
+            }
+        `;
+        
+        document.head.appendChild(styles);
+    }
 
+    // Mostrar notificação
+    function showNotification(message, isError = false) {
+        // Criar notificação estilizada
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: ${isError ? '#DC3545' : '#28A745'};
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 400px;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
         // Mostrar notificação
-        function showNotification(message, isError = false) {
-            alert(message); // Simples alert para demonstração
-        }
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+            notification.style.opacity = '1';
+        }, 100);
+        
+        // Esconder após 5 segundos
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
 
-        // Calcular total do carrinho
-        function calculateCartTotal() {
-            let total = 0;
-            for (const productId in cart) {
-                total += cart[productId].total;
+    // Calcular total do carrinho
+    function calculateCartTotal() {
+        let total = 0;
+        for (const productId in cart) {
+            total += cart[productId].total;
+        }
+        return total;
+    }
+
+    // Limpar carrinho
+    function clearCart() {
+        cart = {};
+        localStorage.removeItem('carrinho');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Recupera o carrinho do localStorage
+        let cart = JSON.parse(localStorage.getItem('carrinho')) || {};
+        let subtotal = 0;
+        let discount = 0;
+        let total = 0;
+        
+        // Elementos do DOM
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const subtotalElement = document.getElementById('subtotal');
+        const discountElement = document.getElementById('discount');
+        const totalElement = document.getElementById('total');
+        const pixValueElement = document.getElementById('pix-value');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const paymentDetails = document.querySelectorAll('.payment-details');
+        const completeOrderBtn = document.getElementById('complete-order');
+        
+        // Carregar créditos do usuário
+        loadUserCredits();
+        
+        // Exibe os itens do carrinho
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+            subtotal = 0;
+            
+            if (Object.keys(cart).length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart" style="text-align: center; padding: 40px; color: #6C757D;">Seu carrinho está vazio</p>';
+                return;
             }
-            return total;
-        }
-
-        // Limpar carrinho
-        function clearCart() {
-            cart = {};
-            localStorage.removeItem('carrinho');
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            // Recupera o carrinho do localStorage
-            let cart = JSON.parse(localStorage.getItem('carrinho')) || {};
-            let subtotal = 0;
-            let discount = 0;
-            let total = 0;
             
-            // Elementos do DOM
-            const cartItemsContainer = document.getElementById('cart-items-container');
-            const subtotalElement = document.getElementById('subtotal');
-            const discountElement = document.getElementById('discount');
-            const totalElement = document.getElementById('total');
-            const pixValueElement = document.getElementById('pix-value');
-            const paymentOptions = document.querySelectorAll('.payment-option');
-            const paymentDetails = document.querySelectorAll('.payment-details');
-            const completeOrderBtn = document.getElementById('complete-order');
-            
-            // Carregar créditos do usuário
-            loadUserCredits();
-            
-            // Exibe os itens do carrinho
-            function renderCartItems() {
-                cartItemsContainer.innerHTML = '';
-                subtotal = 0;
-                
-                if (Object.keys(cart).length === 0) {
-                    cartItemsContainer.innerHTML = '<p class="empty-cart">Seu carrinho está vazio</p>';
-                    return;
-                }
-                
-                for (let productId in cart) {
-                    if (cart[productId].quantidade > 0) {
-                        const product = cart[productId];
-                        subtotal += product.total;
-                        
-                        const cartItem = document.createElement('div');
-                        cartItem.className = 'cart-item';
-                        cartItem.innerHTML = `
-                            <div class="item-image">
-                                <img src="${product.img || 'img/placeholder.jpg'}" alt="${product.nome}">
+            for (let productId in cart) {
+                if (cart[productId].quantidade > 0) {
+                    const product = cart[productId];
+                    subtotal += product.total;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="item-image">
+                            <img src="${product.img || 'img/placeholder.jpg'}" alt="${product.nome}">
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">${product.nome}</div>
+                            <div class="item-price">R$ ${product.preco.toFixed(2)}</div>
+                            <div class="item-quantity">
+                                <span>Qtd: ${product.quantidade}</span>
                             </div>
-                            <div class="item-details">
-                                <div class="item-name">${product.nome}</div>
-                                <div class="item-price">R$ ${product.preco.toFixed(2)}</div>
-                                <div class="item-quantity">
-                                    <span>Qtd: ${product.quantidade}</span>
-                                </div>
-                            </div>
-                        `;
-                        
-                        cartItemsContainer.appendChild(cartItem);
-                    }
-                }
-                
-                // Calcula descontos e total
-                discount = subtotal * 0.05; // 5% de desconto no PIX
-                total = subtotal - discount;
-                
-                // Atualiza os totais na interface
-                subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
-                discountElement.textContent = `- R$ ${discount.toFixed(2)}`;
-                totalElement.textContent = `R$ ${total.toFixed(2)}`;
-                pixValueElement.textContent = `R$ ${total.toFixed(2)}`;
-                
-                // Atualiza as opções de parcelamento
-                updateInstallmentsOptions();
-                
-                // Atualiza informações de créditos
-                updateCreditsPaymentInfo();
-            }
-            
-            // Atualiza as opções de parcelamento do cartão de crédito
-            function updateInstallmentsOptions() {
-                const installmentsSelect = document.getElementById('card-installments');
-                installmentsSelect.innerHTML = '';
-                
-                const maxInstallments = 12;
-                const minInstallmentValue = 10; // Valor mínimo por parcela
-                
-                for (let i = 1; i <= maxInstallments; i++) {
-                    const installmentValue = total / i;
-                    
-                    if (i === 1 || installmentValue >= minInstallmentValue) {
-                        const option = document.createElement('option');
-                        option.value = i;
-                        
-                        if (i === 1) {
-                            option.textContent = `1x de R$ ${total.toFixed(2)} sem juros`;
-                        } else {
-                            option.textContent = `${i}x de R$ ${installmentValue.toFixed(2)} sem juros`;
-                        }
-                        
-                        installmentsSelect.appendChild(option);
-                    }
-                }
-            }
-            
-            // Alterna entre os métodos de pagamento
-            paymentOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    const method = this.getAttribute('data-method');
-                    
-                    // Atualiza a seleção visual
-                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                    
-                    // Atualiza o input radio
-                    this.querySelector('input').checked = true;
-                    
-                    // Mostra os detalhes do método selecionado
-                    paymentDetails.forEach(detail => detail.classList.remove('active'));
-                    document.getElementById(`${method}-details`).classList.add('active');
-                    
-                    // Ajusta o desconto conforme o método de pagamento
-                    if (method === 'pix') {
-                        discount = subtotal * 0.05;
-                        total = subtotal - discount;
-                        discountElement.textContent = `- R$ ${discount.toFixed(2)}`;
-                    } else {
-                        discount = 0;
-                        total = subtotal;
-                        discountElement.textContent = `- R$ 0,00`;
-                    }
-                    
-                    totalElement.textContent = `R$ ${total.toFixed(2)}`;
-                    pixValueElement.textContent = `R$ ${total.toFixed(2)}`;
-                    updateInstallmentsOptions();
-                    
-                    // Se for créditos, atualiza as informações
-                    if (method === 'credits') {
-                        updateCreditsPaymentInfo();
-                    }
-                    
-                    // Se voltou para PIX, regenera o QR code
-                    if (method === 'pix') {
-                        generatePixQrCode();
-                    }
-                });
-            });
-            
-            // Gera o QR Code PIX
-            function generatePixQrCode() {
-                const chavePix = "contato@luckpet.com";
-                const nomeRecebedor = "LuckPet Comercio de Produtos para Pets";
-                const cidadeRecebedor = "Sao Paulo";
-                const valorPagamento = total.toFixed(2);
-                const identificadorTx = "***";
-                const descricao = "Compra LuckPet";
-                
-                // Formata o payload do PIX conforme o padrão oficial
-                const payload = [
-                    "000201", // Payload Format Indicator
-                    "26580014br.gov.bcb.pix", // PIX Merchant Account Information
-                    "01" + String(chavePix.length).padStart(2, '0') + chavePix,
-                    "52040000", // Merchant Category Code
-                    "5303986", // Transaction Currency (Real Brasileiro)
-                    "54" + String(valorPagamento.length).padStart(2, '0') + valorPagamento,
-                    "5802BR", // Country Code
-                    "59" + String(nomeRecebedor.length).padStart(2, '0') + nomeRecebedor, // Merchant Name
-                    "60" + String(cidadeRecebedor.length).padStart(2, '0') + cidadeRecebedor, // Merchant City
-                    "62" + String(descricao.length + 5).padStart(2, '0') + // Additional Data Field
-                          "05" + String(descricao.length).padStart(2, '0') + descricao, // Description
-                    "6304" // CRC16
-                ].join('');
-                
-                // Calcula o CRC16 para o payload
-                const crc = calculateCRC16(payload);
-                const payloadPix = payload + crc;
-                
-                // Limpa qualquer QR Code anterior
-                document.getElementById("qrcode").innerHTML = "";
-                
-                // Gera o novo QR Code
-                try {
-                    new QRCode(document.getElementById("qrcode"), {
-                        text: payloadPix,
-                        width: 200,
-                        height: 200,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                } catch (error) {
-                    console.error("Erro ao gerar QR Code:", error);
-                    document.getElementById("qrcode").innerHTML = `
-                        <div class="error-message">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <p>Erro ao gerar QR Code</p>
-                            <p><small>Tente recarregar a página</small></p>
                         </div>
                     `;
+                    
+                    cartItemsContainer.appendChild(cartItem);
                 }
             }
             
-            // Calcula o CRC16 para o payload PIX
-            function calculateCRC16(payload) {
-                function charCodeAt(str, i) {
-                    return str.charCodeAt(i);
-                }
-                
-                let crc = 0xFFFF;
-                let str = payload;
-                
-                for (let i = 0; i < str.length; i++) {
-                    crc ^= charCodeAt(str, i) << 8;
-                    
-                    for (let j = 0; j < 8; j++) {
-                        if (crc & 0x8000) {
-                            crc = (crc << 1) ^ 0x1021;
-                        } else {
-                            crc = crc << 1;
-                        }
-                    }
-                }
-                
-                const hex = (crc & 0xFFFF).toString(16).toUpperCase();
-                return hex.padStart(4, '0');
-            }
+            // Calcula descontos e total
+            discount = subtotal * 0.05; // 5% de desconto no PIX
+            total = subtotal - discount;
             
-            // Finaliza o pedido
-            completeOrderBtn.addEventListener('click', function() {
-                const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            // Atualiza os totais na interface
+            subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+            discountElement.textContent = `- R$ ${discount.toFixed(2)}`;
+            totalElement.textContent = `R$ ${total.toFixed(2)}`;
+            pixValueElement.textContent = `R$ ${total.toFixed(2)}`;
+            
+            // Atualiza as opções de parcelamento
+            updateInstallmentsOptions();
+            
+            // Atualiza informações de créditos
+            updateCreditsPaymentInfo();
+        }
+        
+        // Atualiza as opções de parcelamento do cartão de crédito
+        function updateInstallmentsOptions() {
+            const installmentsSelect = document.getElementById('card-installments');
+            installmentsSelect.innerHTML = '';
+            
+            const maxInstallments = 12;
+            const minInstallmentValue = 10; // Valor mínimo por parcela
+            
+            for (let i = 1; i <= maxInstallments; i++) {
+                const installmentValue = total / i;
                 
-                // Validação básica dos formulários de cartão
-                if (selectedMethod === 'credit-card') {
-                    const cardNumber = document.getElementById('card-number').value;
-                    const cardExpiry = document.getElementById('card-expiry').value;
-                    const cardCvv = document.getElementById('card-cvv').value;
-                    const cardName = document.getElementById('card-name').value;
+                if (i === 1 || installmentValue >= minInstallmentValue) {
+                    const option = document.createElement('option');
+                    option.value = i;
                     
-                    if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
-                        alert('Por favor, preencha todos os dados do cartão de crédito.');
-                        return;
+                    if (i === 1) {
+                        option.textContent = `1x de R$ ${total.toFixed(2)} sem juros`;
+                    } else {
+                        option.textContent = `${i}x de R$ ${installmentValue.toFixed(2)} sem juros`;
                     }
-                } else if (selectedMethod === 'debit-card') {
-                    const cardNumber = document.getElementById('debit-card-number').value;
-                    const cardExpiry = document.getElementById('debit-card-expiry').value;
-                    const cardCvv = document.getElementById('debit-card-cvv').value;
-                    const cardName = document.getElementById('debit-card-name').value;
                     
-                    if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
-                        alert('Por favor, preencha todos os dados do cartão de débito.');
-                        return;
-                    }
-                } else if (selectedMethod === 'credits') {
-                    if (!processCreditsPayment()) {
-                        return;
-                    }
+                    installmentsSelect.appendChild(option);
+                }
+            }
+        }
+        
+        // Alterna entre os métodos de pagamento
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const method = this.getAttribute('data-method');
+                
+                // Atualiza a seleção visual
+                paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Atualiza o input radio
+                this.querySelector('input').checked = true;
+                
+                // Mostra os detalhes do método selecionado
+                paymentDetails.forEach(detail => detail.classList.remove('active'));
+                document.getElementById(`${method}-details`).classList.add('active');
+                
+                // Ajusta o desconto conforme o método de pagamento
+                if (method === 'pix') {
+                    discount = subtotal * 0.05;
+                    total = subtotal - discount;
+                    discountElement.textContent = `- R$ ${discount.toFixed(2)}`;
+                } else {
+                    discount = 0;
+                    total = subtotal;
+                    discountElement.textContent = `- R$ 0,00`;
                 }
                 
-                // Simula o processamento do pedido
-                alert(`Pedido realizado com sucesso!\nForma de pagamento: ${selectedMethod.toUpperCase()}\nTotal: R$ ${total.toFixed(2)}`);
+                totalElement.textContent = `R$ ${total.toFixed(2)}`;
+                pixValueElement.textContent = `R$ ${total.toFixed(2)}`;
+                updateInstallmentsOptions();
                 
-                // Limpa o carrinho
-                localStorage.removeItem('carrinho');
+                // Se for créditos, atualiza as informações
+                if (method === 'credits') {
+                    updateCreditsPaymentInfo();
+                }
                 
-                // Redireciona para a página de confirmação
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
+                // Se voltou para PIX, regenera o QR code
+                if (method === 'pix') {
+                    generatePixQrCode();
+                }
             });
-            
-            // Inicializa a página
-            renderCartItems();
-            generatePixQrCode();
         });
+        
+        // Gera o QR Code PIX
+        function generatePixQrCode() {
+            const chavePix = "contato@luckpet.com";
+            const nomeRecebedor = "LuckPet Comercio de Produtos para Pets";
+            const cidadeRecebedor = "Sao Paulo";
+            const valorPagamento = total.toFixed(2);
+            const identificadorTx = "***";
+            const descricao = "Compra LuckPet";
+            
+            // Formata o payload do PIX conforme o padrão oficial
+            const payload = [
+                "000201", // Payload Format Indicator
+                "26580014br.gov.bcb.pix", // PIX Merchant Account Information
+                "01" + String(chavePix.length).padStart(2, '0') + chavePix,
+                "52040000", // Merchant Category Code
+                "5303986", // Transaction Currency (Real Brasileiro)
+                "54" + String(valorPagamento.length).padStart(2, '0') + valorPagamento,
+                "5802BR", // Country Code
+                "59" + String(nomeRecebedor.length).padStart(2, '0') + nomeRecebedor, // Merchant Name
+                "60" + String(cidadeRecebedor.length).padStart(2, '0') + cidadeRecebedor, // Merchant City
+                "62" + String(descricao.length + 5).padStart(2, '0') + // Additional Data Field
+                      "05" + String(descricao.length).padStart(2, '0') + descricao, // Description
+                "6304" // CRC16
+            ].join('');
+            
+            // Calcula o CRC16 para o payload
+            const crc = calculateCRC16(payload);
+            const payloadPix = payload + crc;
+            
+            // Limpa qualquer QR Code anterior
+            document.getElementById("qrcode").innerHTML = "";
+            
+            // Gera o novo QR Code
+            try {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: payloadPix,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (error) {
+                console.error("Erro ao gerar QR Code:", error);
+                document.getElementById("qrcode").innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Erro ao gerar QR Code</p>
+                        <p><small>Tente recarregar a página</small></p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Calcula o CRC16 para o payload PIX
+        function calculateCRC16(payload) {
+            function charCodeAt(str, i) {
+                return str.charCodeAt(i);
+            }
+            
+            let crc = 0xFFFF;
+            let str = payload;
+            
+            for (let i = 0; i < str.length; i++) {
+                crc ^= charCodeAt(str, i) << 8;
+                
+                for (let j = 0; j < 8; j++) {
+                    if (crc & 0x8000) {
+                        crc = (crc << 1) ^ 0x1021;
+                    } else {
+                        crc = crc << 1;
+                    }
+                }
+            }
+            
+            const hex = (crc & 0xFFFF).toString(16).toUpperCase();
+            return hex.padStart(4, '0');
+        }
+        
+        // Finaliza o pedido
+        completeOrderBtn.addEventListener('click', function() {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            
+            // Validação básica dos formulários de cartão
+            if (selectedMethod === 'credit-card') {
+                const cardNumber = document.getElementById('card-number').value;
+                const cardExpiry = document.getElementById('card-expiry').value;
+                const cardCvv = document.getElementById('card-cvv').value;
+                const cardName = document.getElementById('card-name').value;
+                
+                if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
+                    showNotification('Por favor, preencha todos os dados do cartão de crédito.', true);
+                    return;
+                }
+            } else if (selectedMethod === 'debit-card') {
+                const cardNumber = document.getElementById('debit-card-number').value;
+                const cardExpiry = document.getElementById('debit-card-expiry').value;
+                const cardCvv = document.getElementById('debit-card-cvv').value;
+                const cardName = document.getElementById('debit-card-name').value;
+                
+                if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
+                    showNotification('Por favor, preencha todos os dados do cartão de débito.', true);
+                    return;
+                }
+            } else if (selectedMethod === 'credits') {
+                if (!processCreditsPayment()) {
+                    showNotification('Saldo de LuckCoins insuficiente para completar a compra.', true);
+                    return;
+                } else {
+                    // Pagamento com créditos bem-sucedido - não continuar com o processamento normal
+                    return;
+                }
+            }
+            
+            // Simula o processamento do pedido para outros métodos de pagamento
+            showNotification(`Pedido realizado com sucesso!\nForma de pagamento: ${selectedMethod.toUpperCase()}\nTotal: R$ ${total.toFixed(2)}`);
+            
+            // Limpa o carrinho
+            localStorage.removeItem('carrinho');
+            
+            // Redireciona para a página de confirmação
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+        
+        // Inicializa a página
+        renderCartItems();
+        generatePixQrCode();
+    });
     </script>
 </body>
 </html>

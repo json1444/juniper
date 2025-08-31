@@ -194,6 +194,7 @@
                         </div>
                         <div class="product-actions">
                             <button class="btn-cart" data-product="roupa1" data-price="79.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
+                            <button class="btn-credits" data-product="roupa1" data-credits="75">Usar Créditos</button>
                         </div>
                     </div>
                 </div>
@@ -215,6 +216,7 @@
                         </div>
                         <div class="product-actions">
                             <button class="btn-cart" data-product="roupa2" data-price="89.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
+                            <button class="btn-credits" data-product="roupa2" data-credits="85">Usar Créditos</button>
                         </div>
                     </div>
                 </div>
@@ -237,6 +239,7 @@
                         </div>
                         <div class="product-actions">
                             <button class="btn-cart" data-product="roupa3" data-price="69.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
+                            <button class="btn-credits" data-product="roupa3" data-credits="65">Usar Créditos</button>
                         </div>
                     </div>
                 </div>
@@ -244,7 +247,7 @@
         </div>
     </section>
 
-    <!-- Seção de Nutrição Pet -->
+    <!-- Seção de Nutrição Pet - CORRIGIDA -->
     <section class="section" id="nutricao-pet">
         <div class="container">
             <h2 class="section-title">Nutrição Balanceada Para Uma <span>Vida Saudável</span></h2>
@@ -270,6 +273,9 @@
                         <div class="product-actions">
                             <button class="btn-cart" data-product="racao1" data-price="129.99">
                                 <i class="fas fa-shopping-cart"></i> Adicionar
+                            </button>
+                            <button class="btn-credits" data-product="racao1" data-credits="120">
+                                Usar Créditos
                             </button>
                         </div>
                     </div>
@@ -298,6 +304,9 @@
                             <button class="btn-cart" data-product="racao2" data-price="89.90">
                                 <i class="fas fa-shopping-cart"></i> Adicionar
                             </button>
+                            <button class="btn-credits" data-product="racao2" data-credits="85">
+                                Usar Créditos
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -321,6 +330,9 @@
                         <div class="product-actions">
                             <button class="btn-cart" data-product="racao3" data-price="99.99">
                                 <i class="fas fa-shopping-cart"></i> Adicionar
+                            </button>
+                            <button class="btn-credits" data-product="racao3" data-credits="95">
+                                Usar Créditos
                             </button>
                         </div>
                     </div>
@@ -553,26 +565,6 @@
         Produto adicionado ao carrinho!
     </div>
 
-    <!-- Modal de Confirmação de Compra -->
-    <div class="modal" id="purchaseConfirmationModal">
-        <div class="modal-content">
-            <div class="purchase-confirmation">
-                <div class="confirmation-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h2 class="confirmation-title">Compra Realizada com Sucesso!</h2>
-                <p class="confirmation-message">Obrigado por comprar na LuckPet. Seu pedido foi processado com sucesso e já está sendo preparado.</p>
-                <div class="confirmation-details">
-                    <p><strong>Número do pedido:</strong> <span id="orderNumber">LP-2024-00123</span></p>
-                    <p><strong>Forma de pagamento:</strong> <span id="paymentMethod">LuckCoins</span></p>
-                    <p><strong>Total gasto:</strong> <span id="totalSpent">85 LuckCoins</span></p>
-                    <p><strong>Saldo restante:</strong> <span id="remainingCredits">15 LuckCoins</span></p>
-                </div>
-                <button class="btn-primary" id="backToHomeBtn">Voltar para a Página Inicial</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Rodapé -->
     <footer class="footer">
         <div class="container">
@@ -633,7 +625,6 @@
             </div>
         </div>
     </footer>
-    
 
     <script src="script.js"></script>
     <script src="auth-manager.js"></script>
@@ -652,6 +643,5 @@
         }
     });
     </script>
- 
 </body>
 </html>

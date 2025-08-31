@@ -475,3 +475,11 @@ window.closeWelcome = function() {
         welcomeSection.style.display = 'none';
     }
 };
+
+function updateUserCreditsUI() {
+    const userCreditsElement = document.getElementById('userCredits');
+    if (userCreditsElement) {
+        const userCredits = localStorage.getItem('userCredits') || '0';
+        userCreditsElement.textContent = userCredits;
+    }
+}

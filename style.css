@@ -1831,17 +1831,18 @@ img {
     }
 }
 
+/* ===== MELHORIAS PARA CRÉDITOS ===== */
 .product-credits {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     margin: 10px 0;
     padding: 8px 12px;
-    background: linear-gradient(135deg, rgba(255, 159, 28, 0.15) 0%, rgba(255, 107, 53, 0.15) 100%);
+    background: linear-gradient(135deg, rgba(255, 159, 28, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
     border-radius: 20px;
     color: var(--accent);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .product-credits i {
@@ -1849,11 +1850,32 @@ img {
     animation: coinSpin 2s infinite ease-in-out;
 }
 
-/* Reposicionar o botão de favoritos */
-.product-image {
-    position: relative;
+.btn-credits {
+    background: var(--gradient-secondary);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: var(--transition);
+    flex: 1;
 }
 
+.btn-credits:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.product-actions button {
+    flex: 1;
+}
+
+/* Ajuste para o botão de favoritos */
 .product-wishlist {
     position: absolute;
     top: 10px;
@@ -1875,105 +1897,63 @@ img {
     color: var(--danger);
 }
 
-/* Ajustar ações do produto */
-.product-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+/* Animações para créditos */
+@keyframes coinSpin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
 }
 
-.product-actions button {
-    flex: 1;
-    padding: 10px;
-    border-radius: 5px;
+/* ===== MODAL DE PAGAMENTO COM CRÉDITOS ===== */
+.credits-payment-modal {
+    text-align: center;
+    padding: 30px;
+}
+
+.credits-payment-modal i {
+    font-size: 4rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    animation: coinSpin 2s ease-in-out;
+}
+
+.credits-payment-modal h2 {
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.credits-payment-modal p {
+    color: var(--gray);
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.credits-success-message {
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin: 20px 0;
+    border-left: 4px solid var(--success);
+}
+
+.credits-success-message p {
+    color: var(--success);
+    margin: 0;
     font-weight: 600;
+}
+
+.btn-back-to-store {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
     transition: var(--transition);
 }
 
-.btn-cart {
-    background: var(--gradient-primary);
-    color: white;
-}
-
-.btn-cart:hover {
-    opacity: 0.9;
-}
-
-/* Estilos para o modal de confirmação de compra */
-.purchase-confirmation {
-    text-align: center;
-    padding: 20px;
-}
-
-.confirmation-icon {
-    font-size: 4rem;
-    color: var(--success);
-    margin-bottom: 20px;
-    animation: bounceIn 1s ease;
-}
-
-@keyframes bounceIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.confirmation-title {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: var(--dark);
-}
-
-.confirmation-message {
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-    color: var(--gray);
-    line-height: 1.6;
-}
-
-.confirmation-details {
-    background: #f8f9fa;
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 25px;
-    text-align: left;
-}
-
-.confirmation-details p {
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.confirmation-details p:last-child {
-    margin-bottom: 0;
-}
-
-.confirmation-details strong {
-    color: var(--dark);
-}
-
-#backToHomeBtn {
-    padding: 12px 30px;
-    font-size: 1.1rem;
-}
-
-/* Melhorias para a responsividade */
-@media (max-width: 768px) {
-    .product-credits {
-        font-size: 0.8rem;
-        padding: 6px 10px;
-    }
-    
-    .confirmation-title {
-        font-size: 1.5rem;
-    }
-    
-    .confirmation-message {
-        font-size: 1rem;
-    }
-    
-    .confirmation-details {
-        padding: 15px;
-    }
+.btn-back-to-store:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
 }
