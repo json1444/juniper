@@ -22,13 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
     
-    initAuthSync(); // ✅ Isso está correto
+    initAuthSync();
 });
 
 // ===== FUNÇÕES DE SINCRONIZAÇÃO =====
-// ✅ Você PRECISA definir estas funções ANTES de usá-las
-
-// Função para sincronizar estado de autenticação entre abas/dispositivos
 function initAuthSync() {
     // Usar BroadcastChannel se disponível para sincronização em tempo real
     if (typeof BroadcastChannel !== 'undefined') {
@@ -144,7 +141,7 @@ let favoritos = {};
 let currentSlide = 0;
 let carouselInterval;
 
-// ===== VERIFICAÇÃO DE LOGIN PARA FAVORITOS AND CARRINHO =====
+// ===== VERIFICAÇÃO DE LOGIN PARA FAVORITOS E CARRINHO =====
 function checkAuthBeforeAction(actionType, callback) {
     if (window.authManager && window.authManager.user) {
         // Usuário está logado, executar a ação
@@ -635,7 +632,7 @@ function initSearch() {
             if (bestMatch.categoria === 'produto') {
                 scrollParaSecao('nutricao-pet');
                 
-                // Destacar o produto após a small delay
+                // Destacar o produto após um pequeno delay
                 setTimeout(() => {
                     highlightProduct(bestMatch.id);
                 }, 800);
@@ -688,6 +685,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar sistema de créditos
     initCreditsSystem();
     
+    // Inicializar botões de créditos
+    initCreditsButtons();
+    
+    // Inicializar sincronização de créditos
+    if (typeof initCreditsSync === 'function') {
+        initCreditsSync();
+    }
+    
+    // Atualizar créditos na UI
+    updateCreditsDisplay();
+    
     // Scroll para o topo
     window.scrollTo(0, 0);
 });
@@ -728,6 +736,10 @@ function initSmoothScroll() {
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight - 20;
                 
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
@@ -1222,13 +1234,7 @@ function initEventListeners() {
     });
     
     // Botões de créditos
-    document.querySelectorAll('.btn-credits').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const productId = btn.dataset.product;
-            const creditsCost = parseInt(btn.dataset.credits);
-            payWithCredits(productId, creditsCost);
-        });
-    });
+    initCreditsButtons();
     
     // Pausar carrossel ao passar o mouse
     const heroCarousel = document.querySelector('.hero-carousel');
@@ -1573,6 +1579,20 @@ function payWithCredits(productId, creditsCost) {
     });
 }
 
+// ===== INICIALIZAÇÃO DOS BOTÕES DE CRÉDITOS =====
+function initCreditsButtons() {
+    // Adicionar event listeners para os botões de créditos
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-credits') || e.target.closest('.btn-credits')) {
+            const btn = e.target.classList.contains('btn-credits') ? e.target : e.target.closest('.btn-credits');
+            const productId = btn.dataset.product;
+            const creditsCost = parseInt(btn.dataset.credits);
+            
+            payWithCredits(productId, creditsCost);
+        }
+    });
+}
+
 // ===== SINCRONIZAÇÃO DE CRÉDITOS ENTRE DISPOSITIVOS =====
 function initCreditsSync() {
     // Verificar se há mudanças nos créditos a cada 2 segundos
@@ -1592,17 +1612,6 @@ function initCreditsSync() {
         updateCreditsDisplay();
     });
 }
-
-// Inicializar os botões de créditos quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar sincronização de créditos
-    if (typeof initCreditsSync === 'function') {
-        initCreditsSync();
-    }
-    
-    // Atualizar créditos na UI
-    updateCreditsDisplay();
-});
 
 // ===== FUNÇÃO GLOBAL PARA FECHAR A SEÇÃO DE BOAS-VINDAS =====
 window.closeWelcome = function() {
