@@ -650,6 +650,17 @@
                         <h2>Forma de Pagamento</h2>
                     </div>
 
+                                        <div class="payment-option" data-method="credits">
+                        <input type="radio" name="payment-method" id="credits-method">
+                        <div class="payment-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div>
+                            <label for="credits-method">Pagar com LuckCoins</label>
+                            <p>Use seus créditos para pagar a compra</p>
+                        </div>
+                    </div>
+
                     <div class="payment-methods">
                         <div class="payment-option selected" data-method="pix">
                             <input type="radio" name="payment-method" id="pix-method" checked>
@@ -686,6 +697,24 @@
                     </div>
 
                     <!-- Detalhes do PIX (inicialmente visível) -->
+
+                    <!-- Detalhes do pagamento com créditos -->
+<div class="payment-details" id="credits-details">
+    <div class="credits-container">
+        <div class="credits-balance">
+            <h3>Seu Saldo: <span id="credits-balance">0</span> LuckCoins</h3>
+            <p>Valor da compra: <span id="credits-total">0</span> LuckCoins</p>
+        </div>
+        <div class="credits-after-payment">
+            <p>Saldo restante após a compra: <span id="credits-remaining">0</span> LuckCoins</p>
+        </div>
+        <div class="credits-warning" id="credits-warning" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Saldo insuficiente. Você precisa de mais <span id="credits-needed">0</span> LuckCoins.</p>
+        </div>
+    </div>
+</div>
+
                     <div class="payment-details active" id="pix-details">
                         <div class="pix-container">
                             <p>Pagamento rápido e seguro via PIX</p>
@@ -1150,47 +1179,47 @@
         }
         
         // Alterna entre os métodos de pagamento
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const method = this.getAttribute('data-method');
-                
-                // Atualiza a seleção visual
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                
-                // Atualiza o input radio
-                this.querySelector('input').checked = true;
-                
-                // Mostra os detalhes do método selecionado
-                paymentDetails.forEach(detail => detail.classList.remove('active'));
-                document.getElementById(`${method}-details`).classList.add('active');
-                
-                // Ajusta o desconto conforme o método de pagamento
-                if (method === 'pix') {
-                    discount = subtotal * 0.05;
-                    total = subtotal - discount;
-                    discountElement.textContent = `- R$ ${discount.toFixed(2)}`;
-                } else {
-                    discount = 0;
-                    total = subtotal;
-                    discountElement.textContent = `- R$ 0,00`;
-                }
-                
-                totalElement.textContent = `R$ ${total.toFixed(2)}`;
-                pixValueElement.textContent = `R$ ${total.toFixed(2)}`;
-                updateInstallmentsOptions();
-                
-                // Se for créditos, atualiza as informações
-                if (method === 'credits') {
-                    updateCreditsPaymentInfo();
-                }
-                
-                // Se voltou para PIX, regenera o QR code
-                if (method === 'pix') {
-                    generatePixQrCode();
-                }
-            });
-        });
+paymentOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        const method = this.getAttribute('data-method');
+        
+        // Atualiza a seleção visual
+        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // Atualiza o input radio
+        this.querySelector('input').checked = true;
+        
+        // Mostra os detalhes do método selecionado
+        paymentDetails.forEach(detail => detail.classList.remove('active'));
+        document.getElementById(`${method}-details`).classList.add('active');
+        
+        // Ajusta o desconto conforme o método de pagamento
+        if (method === 'pix') {
+            discount = subtotal * 0.05;
+            total = subtotal - discount;
+            discountElement.textContent = `- R$ ${discount.toFixed(2)}`;
+        } else {
+            discount = 0;
+            total = subtotal;
+            discountElement.textContent = `- R$ 0,00`;
+        }
+        
+        totalElement.textContent = `R$ ${total.toFixed(2)}`;
+        pixValueElement.textContent = `R$ ${total.toFixed(2)}`;
+        updateInstallmentsOptions();
+        
+        // Se for créditos, atualiza as informações
+        if (method === 'credits') {
+            updateCreditsPaymentInfo();
+        }
+        
+        // Se voltou para PIX, regenera o QR code
+        if (method === 'pix') {
+            generatePixQrCode();
+        }
+    });
+});
         
         // Gera o QR Code PIX
         function generatePixQrCode() {
@@ -1272,39 +1301,39 @@
         }
         
         // Finaliza o pedido
-        completeOrderBtn.addEventListener('click', function() {
-            const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
-            
-            // Validação básica dos formulários de cartão
-            if (selectedMethod === 'credit-card') {
-                const cardNumber = document.getElementById('card-number').value;
-                const cardExpiry = document.getElementById('card-expiry').value;
-                const cardCvv = document.getElementById('card-cvv').value;
-                const cardName = document.getElementById('card-name').value;
-                
-                if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
-                    showNotification('Por favor, preencha todos os dados do cartão de crédito.', true);
-                    return;
-                }
-            } else if (selectedMethod === 'debit-card') {
-                const cardNumber = document.getElementById('debit-card-number').value;
-                const cardExpiry = document.getElementById('debit-card-expiry').value;
-                const cardCvv = document.getElementById('debit-card-cvv').value;
-                const cardName = document.getElementById('debit-card-name').value;
-                
-                if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
-                    showNotification('Por favor, preencha todos os dados do cartão de débito.', true);
-                    return;
-                }
-            } else if (selectedMethod === 'credits') {
-                if (!processCreditsPayment()) {
-                    showNotification('Saldo de LuckCoins insuficiente para completar a compra.', true);
-                    return;
-                } else {
-                    // Pagamento com créditos bem-sucedido - não continuar com o processamento normal
-                    return;
-                }
-            }
+completeOrderBtn.addEventListener('click', function() {
+    const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+    
+    // Validação básica dos formulários de cartão
+    if (selectedMethod === 'credit-card') {
+        const cardNumber = document.getElementById('card-number').value;
+        const cardExpiry = document.getElementById('card-expiry').value;
+        const cardCvv = document.getElementById('card-cvv').value;
+        const cardName = document.getElementById('card-name').value;
+        
+        if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
+            showNotification('Por favor, preencha todos os dados do cartão de crédito.', true);
+            return;
+        }
+    } else if (selectedMethod === 'debit-card') {
+        const cardNumber = document.getElementById('debit-card-number').value;
+        const cardExpiry = document.getElementById('debit-card-expiry').value;
+        const cardCvv = document.getElementById('debit-card-cvv').value;
+        const cardName = document.getElementById('debit-card-name').value;
+        
+        if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
+            showNotification('Por favor, preencha todos os dados do cartão de débito.', true);
+            return;
+        }
+    } else if (selectedMethod === 'credits') {
+        if (!processCreditsPayment()) {
+            showNotification('Saldo de LuckCoins insuficiente para completar a compra.', true);
+            return;
+        } else {
+            // Pagamento com créditos bem-sucedido - não continuar com o processamento normal
+            return;
+        }
+    }
             
             // Simula o processamento do pedido para outros métodos de pagamento
             showNotification(`Pedido realizado com sucesso!\nForma de pagamento: ${selectedMethod.toUpperCase()}\nTotal: R$ ${total.toFixed(2)}`);
