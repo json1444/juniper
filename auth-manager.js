@@ -157,40 +157,41 @@ class AuthManager {
     }
 
     async handleSignIn(session) {
-        try {
-            this.user = session.user;
-            console.log('Usuário autenticado:', this.user.email);
+    try {
+        this.user = session.user;
+        console.log('Usuário autenticado:', this.user.email);
+        
+        // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = urlParams.get('access_token');
+        
+        if (accessToken) {
+            // É uma confirmação de email
+            await this.handleEmailConfirmation(session);
             
-            // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
-            const urlParams = new URLSearchParams(window.location.hash.substring(1));
-            const accessToken = urlParams.get('access_token');
-            
-            if (accessToken) {
-                // É uma confirmação de email
-                await this.handleEmailConfirmation(session);
-                
-                // Limpar a URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-            } else {
-                // Login normal
-                await this.loadUserProfile();
-                this.updateUI();
-            }
-            
-            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS
-            await this.checkAndAwardCredits();
-            
-            // Limpar flags de confirmação
-            localStorage.removeItem('emailConfirmed');
-            localStorage.removeItem('userEmail');
-            
-        } catch (error) {
-            console.error('Erro no handleSignIn:', error);
+            // Limpar a URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } else {
+            // Login normal
+            await this.loadUserProfile();
+            this.updateUI();
         }
+        
+        // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS
+        await this.checkAndAwardCredits();
+        
+        // Limpar flags de confirmação
+        localStorage.removeItem('emailConfirmed');
+        localStorage.removeItem('userEmail');
+        
+    } catch (error) {
+        console.error('Erro no handleSignIn:', error);
     }
+}
+
     
     // ✅ NOVO: Método para dar créditos a novos usuários
-    async checkAndAwardCredits() {
+   async checkAndAwardCredits() {
     try {
         // Verificar se é um novo usuário (primeiro login)
         const hasCredits = localStorage.getItem('userCredits');
@@ -215,6 +216,7 @@ class AuthManager {
         console.error('Erro ao conceder créditos:', error);
     }
 }
+
     
     // ✅ NOVO: Mostrar seção de boas-vindas
     showWelcomeSection() {
@@ -532,3 +534,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
   
 });
+
+// ✅ NOVO: Função para fechar a seção de boas-vindas
+window.closeWelcome = function() {
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'none';
+    }
+};
