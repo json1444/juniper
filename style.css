@@ -1957,3 +1957,12 @@ img {
     transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
 }
+/* Estilos para botão de loading */
+.btn-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.user-dropdown-item .fa-spinner {
+    margin-right: 12px;
+}

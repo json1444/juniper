@@ -1738,6 +1738,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// ===== SISTEMA DE PAGAMENTO COM CRÉDITOS =====
 function payWithCredits(productId, creditsCost) {
     checkAuthBeforeAction('credits', function() {
         if (!window.authManager || !window.authManager.user) {
@@ -1745,72 +1746,42 @@ function payWithCredits(productId, creditsCost) {
             return;
         }
         
-        // Verificar se o usuário tem créditos suficientes
-        const userCredits = parseInt(localStorage.getItem('userCredits') || '0');
+        // Salvar informações do produto para usar na página de pagamento
+        localStorage.setItem('creditsProductId', productId);
+        localStorage.setItem('creditsCost', creditsCost.toString());
         
-        if (userCredits < creditsCost) {
-            showNotification(`Saldo insuficiente! Você precisa de mais ${creditsCost - userCredits} LuckCoins.`, true);
-            return;
-        }
-        
-        // Processar pagamento com créditos
-        const newCredits = userCredits - creditsCost;
-        localStorage.setItem('userCredits', newCredits.toString());
-        
-        // Atualizar a exibição de créditos (usando a função global)
-        if (typeof updateUserCreditsUI === 'function') {
-            updateUserCreditsUI();
-        } else if (window.authManager && typeof window.authManager.updateUserCredits === 'function') {
-            window.authManager.updateUserCredits();
-        }
-        
-        // Mostrar mensagem de sucesso
-        showCreditsPaymentSuccess(productId, creditsCost, newCredits);
-        
-        // Remover o produto do carrinho se estiver lá
-        if (carrinho[productId]) {
-            delete carrinho[productId];
-            localStorage.setItem('carrinho', JSON.stringify(carrinho));
-            updateCounters();
-            renderCart();
-        }
+        // Redirecionar para a página de pagamento
+        window.location.href = 'pagamento.html';
     });
 }
 
-// Mostrar modal de sucesso no pagamento com créditos
-function showCreditsPaymentSuccess(productId, creditsCost, newBalance) {
-    // Criar modal de sucesso
-    const modal = document.createElement('div');
-    modal.className = 'modal active';
-    modal.innerHTML = `
-        <div class="modal-content" style="max-width: 500px;">
-            <span class="modal-close" onclick="this.parentElement.parentElement.remove()">&times;</span>
-            <div class="credits-payment-modal">
-                <i class="fas fa-check-circle"></i>
-                <h2>Compra Realizada com Sucesso!</h2>
-                <p>Você usou <strong>${creditsCost} LuckCoins</strong> para adquirir o produto.</p>
-                
-                <div class="credits-success-message">
-                    <p>Saldo restante: ${newBalance} LuckCoins</p>
-                </div>
-                
-                <p>Obrigado por comprar na LuckPet! Seu pedido será processado e enviado em breve.</p>
-                
-                <a href="index.html" class="btn-back-to-store">
-                    <i class="fas fa-home"></i> Voltar para a Loja
-                </a>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Fechar modal ao clicar fora
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.remove();
+// ===== SINCRONIZAÇÃO DE CRÉDITOS ENTRE DISPOSITIVOS =====
+function initCreditsSync() {
+    // Verificar se há mudanças nos créditos a cada 2 segundos
+    setInterval(() => {
+        const savedCredits = localStorage.getItem('userCredits');
+        const lastKnownCredits = localStorage.getItem('lastKnownCredits');
+        
+        if (savedCredits !== lastKnownCredits) {
+            // Atualizar créditos na UI
+            updateCreditsDisplay();
+            localStorage.setItem('lastKnownCredits', savedCredits);
         }
+    }, 2000);
+    
+    // Sincronizar quando a página ganhar foco
+    window.addEventListener('focus', () => {
+        updateCreditsDisplay();
     });
+}
+
+// Atualizar exibição de créditos
+function updateCreditsDisplay() {
+    const userCreditsElement = document.getElementById('userCredits');
+    if (userCreditsElement) {
+        const userCredits = localStorage.getItem('userCredits') || '0';
+        userCreditsElement.textContent = userCredits;
+    }
 }
 
 // Adicionar event listeners para os botões de créditos
@@ -1821,6 +1792,10 @@ function initCreditsButtons() {
             const productId = btn.dataset.product;
             const creditsCost = parseInt(btn.dataset.credits);
             
+            // Salvar informações do produto para usar na página de pagamento
+            localStorage.setItem('creditsProductId', productId);
+            localStorage.setItem('creditsCost', creditsCost.toString());
+            
             payWithCredits(productId, creditsCost);
         }
     });
@@ -1829,4 +1804,12 @@ function initCreditsButtons() {
 // Inicializar os botões de créditos quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
     initCreditsButtons();
+    
+    // Inicializar sincronização de créditos
+    if (typeof initCreditsSync === 'function') {
+        initCreditsSync();
+    }
+    
+    // Atualizar créditos na UI
+    updateCreditsDisplay();
 });

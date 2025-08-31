@@ -483,3 +483,51 @@ function updateUserCreditsUI() {
         userCreditsElement.textContent = userCredits;
     }
 }
+
+// ✅ Configurar logout mobile melhorado
+function setupMobileLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        // Remover event listener existente para evitar duplicação
+        logoutBtn.replaceWith(logoutBtn.cloneNode(true));
+        
+        // Novo event listener
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (window.authManager) {
+                // Adicionar visual de loading
+                const originalHtml = e.target.innerHTML;
+                e.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saindo...';
+                e.target.classList.add('loading');
+                
+                try {
+                    await window.authManager.signOut();
+                } catch (error) {
+                    console.error('Erro no logout:', error);
+                    // Forçar redirecionamento mesmo com erro
+                    window.location.href = '../index.html';
+                }
+            }
+        });
+    }
+}
+
+// ✅ Inicializar quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Inicializando AuthManager...');
+    window.authManager = new AuthManager();
+    
+    // Configurar logout mobile
+    setTimeout(setupMobileLogout, 1000);
+    
+    // ✅ SINCRONIZAÇÃO DE CRÉDITOS
+    setInterval(() => {
+        if (window.authManager && window.authManager.updateUserCredits) {
+            window.authManager.updateUserCredits();
+        }
+    }, 2000);
+    
+  
+});

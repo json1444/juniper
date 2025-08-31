@@ -803,7 +803,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        // ===== SISTEMA DE CRÉDITOS LUCKPET =====
+            // ===== SISTEMA DE CRÉDITOS LUCKPET =====
     let userCredits = 0;
 
     // Carregar créditos do usuário
@@ -840,6 +840,10 @@
             userCredits -= amount;
             localStorage.setItem('userCredits', userCredits);
             updateCreditsDisplay();
+            
+            // Sincronizar com outras abas/dispositivos
+            localStorage.setItem('lastKnownCredits', userCredits.toString());
+            
             return true;
         }
         return false;
@@ -875,10 +879,20 @@
         const total = calculateCartTotal();
         const creditsCost = Math.floor(total);
         
-        if (hasEnoughCredits(creditsCost)) {
-            if (deductCredits(creditsCost)) {
+        // Verificar se é uma compra direta com créditos
+        const directProductId = localStorage.getItem('creditsProductId');
+        const directCreditsCost = parseInt(localStorage.getItem('creditsCost') || '0');
+        
+        const finalCreditsCost = directCreditsCost > 0 ? directCreditsCost : creditsCost;
+        
+        if (hasEnoughCredits(finalCreditsCost)) {
+            if (deductCredits(finalCreditsCost)) {
+                // Limpar dados de compra direta
+                localStorage.removeItem('creditsProductId');
+                localStorage.removeItem('creditsCost');
+                
                 // Pagamento bem-sucedido - mostrar tela de agradecimento
-                showCreditsThankYouPage(creditsCost, userCredits);
+                showCreditsThankYouPage(finalCreditsCost, userCredits);
                 clearCart();
                 return true;
             }
@@ -960,6 +974,23 @@
         document.head.appendChild(styles);
     }
 
+    // ===== SISTEMA DE SINCRONIZAÇÃO =====
+    function initCreditsSync() {
+        // Verificar se há mudanças nos créditos a cada 2 segundos
+        setInterval(() => {
+            const savedCredits = localStorage.getItem('userCredits');
+            const lastKnownCredits = localStorage.getItem('lastKnownCredits');
+            
+            if (savedCredits !== lastKnownCredits) {
+                // Atualizar créditos
+                userCredits = parseInt(savedCredits || '0');
+                updateCreditsDisplay();
+                updateCreditsPaymentInfo();
+                localStorage.setItem('lastKnownCredits', savedCredits);
+            }
+        }, 2000);
+    }
+
     // Mostrar notificação
     function showNotification(message, isError = false) {
         // Criar notificação estilizada
@@ -1030,6 +1061,16 @@
         
         // Carregar créditos do usuário
         loadUserCredits();
+        initCreditsSync();
+        
+        // Verificar se é uma compra direta com créditos
+        const directProductId = localStorage.getItem('creditsProductId');
+        if (directProductId) {
+            // Selecionar automaticamente pagamento com créditos
+            setTimeout(() => {
+                document.querySelector('[data-method="credits"]').click();
+            }, 500);
+        }
         
         // Exibe os itens do carrinho
         function renderCartItems() {
