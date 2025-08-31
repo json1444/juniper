@@ -2,7 +2,7 @@
 
 🎉 Um e-commerce moderno, responsivo e cheio de estilo para quem ama cuidar dos seus pets!
 
-![Demonstração LuckPet](https://raw.githubusercontent.com/PabloG-7/ecommerce-luckpet/refs/heads/main/luckpet-linkedin.png.png)
+![Demonstração LuckPet](https://raw.githubusercontent.com/PabloG-7/ecommerce-luckpet/refs/heads/main/luckpet-linkedin.png)
 
 ---
 
