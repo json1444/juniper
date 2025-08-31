@@ -1555,3 +1555,185 @@ if (typeof showLoginAlert === 'undefined') {
 document.addEventListener('DOMContentLoaded', function() {
     setupLoginAlertClose();
 });
+
+// ===== SISTEMA DE CRÉDITOS LUCKPET =====
+let userCredits = 0;
+
+// Inicializar créditos do usuário
+function initCreditsSystem() {
+    // Verificar se o usuário está logado
+    if (window.authManager && window.authManager.user) {
+        loadUserCredits();
+        
+        // Verificar se é um novo usuário (primeiro acesso)
+        const isNewUser = localStorage.getItem('isNewUser');
+        if (isNewUser === 'true') {
+            showWelcomeCredits();
+            localStorage.removeItem('isNewUser');
+        }
+    }
+}
+
+// Carregar créditos do usuário
+function loadUserCredits() {
+    // Simulando carregamento de créditos (em um sistema real, viria do backend)
+    const savedCredits = localStorage.getItem('userCredits');
+    
+    if (savedCredits) {
+        userCredits = parseInt(savedCredits);
+    } else {
+        // Novo usuário - definir créditos iniciais
+        userCredits = 100;
+        localStorage.setItem('userCredits', userCredits);
+        localStorage.setItem('isNewUser', 'true');
+    }
+    
+    updateCreditsDisplay();
+}
+
+// Atualizar exibição de créditos
+function updateCreditsDisplay() {
+    const creditsElement = document.getElementById('userCredits');
+    if (creditsElement) {
+        creditsElement.textContent = userCredits;
+    }
+}
+
+// Mostrar boas-vindas com créditos
+function showWelcomeCredits() {
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'block';
+        
+        // Rolar suavemente para a seção
+        setTimeout(() => {
+            welcomeSection.scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
+    }
+}
+
+// Fechar mensagem de boas-vindas
+function closeWelcome() {
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'none';
+    }
+}
+
+// Adicionar créditos ao usuário
+function addCredits(amount) {
+    userCredits += amount;
+    localStorage.setItem('userCredits', userCredits);
+    updateCreditsDisplay();
+    showNotification(`+${amount} LuckCoins adicionados à sua conta!`);
+}
+
+// Remover créditos do usuário
+function deductCredits(amount) {
+    if (userCredits >= amount) {
+        userCredits -= amount;
+        localStorage.setItem('userCredits', userCredits);
+        updateCreditsDisplay();
+        return true;
+    }
+    return false;
+}
+
+// Verificar se o usuário tem créditos suficientes
+function hasEnoughCredits(amount) {
+    return userCredits >= amount;
+}
+
+// ===== PAGAMENTO COM CRÉDITOS =====
+function setupCreditsPayment() {
+    const creditsOption = document.querySelector('[data-method="credits"]');
+    const creditsDetails = document.getElementById('credits-details');
+    
+    if (creditsOption && creditsDetails) {
+        creditsOption.addEventListener('click', function() {
+            updateCreditsPaymentInfo();
+        });
+    }
+}
+
+// Atualizar informações de pagamento com créditos
+function updateCreditsPaymentInfo() {
+    const creditsBalance = document.getElementById('credits-balance');
+    const creditsTotal = document.getElementById('credits-total');
+    const creditsRemaining = document.getElementById('credits-remaining');
+    const creditsWarning = document.getElementById('credits-warning');
+    const creditsNeeded = document.getElementById('credits-needed');
+    
+    if (creditsBalance && creditsTotal && creditsRemaining) {
+        const total = calculateCartTotal();
+        const creditsCost = Math.floor(total); // 1 crédito = R$ 1,00
+        
+        creditsBalance.textContent = userCredits;
+        creditsTotal.textContent = creditsCost;
+        
+        if (userCredits >= creditsCost) {
+            creditsRemaining.textContent = userCredits - creditsCost;
+            creditsWarning.style.display = 'none';
+        } else {
+            creditsNeeded.textContent = creditsCost - userCredits;
+            creditsWarning.style.display = 'block';
+        }
+    }
+}
+
+// Processar pagamento com créditos
+function processCreditsPayment() {
+    const total = calculateCartTotal();
+    const creditsCost = Math.floor(total);
+    
+    if (hasEnoughCredits(creditsCost)) {
+        if (deductCredits(creditsCost)) {
+            // Pagamento bem-sucedido
+            showNotification(`Pagamento de ${creditsCost} LuckCoins realizado com sucesso!`);
+            clearCart();
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Calcular total do carrinho
+function calculateCartTotal() {
+    let total = 0;
+    for (const productId in carrinho) {
+        total += carrinho[productId].total;
+    }
+    return total;
+}
+
+// ===== INICIALIZAÇÃO =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar sistema de créditos
+    initCreditsSystem();
+    
+    // Configurar pagamento com créditos se estiver na página de pagamento
+    if (window.location.pathname.includes('pagamento.html')) {
+        setupCreditsPayment();
+        
+        // Modificar o botão de finalizar compra para aceitar créditos
+        const completeOrderBtn = document.getElementById('complete-order');
+        if (completeOrderBtn) {
+            completeOrderBtn.addEventListener('click', function(e) {
+                const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+                
+                if (selectedMethod === 'credits') {
+                    e.preventDefault();
+                    if (processCreditsPayment()) {
+                        // Redirecionar para página de sucesso
+                        setTimeout(() => {
+                            window.location.href = 'compra-finalizada.html';
+                        }, 2000);
+                    } else {
+                        showNotification('Saldo de LuckCoins insuficiente!', true);
+                    }
+                }
+            });
+        }
+    }
+});

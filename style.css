@@ -1669,3 +1669,164 @@ img {
     background: #e55a2b !important;
     transform: translateY(-2px) !important;
 }
+
+/* ===== ESTILOS PARA SISTEMA DE CRÉDITOS ===== */
+.welcome-section {
+    padding: 20px 0;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border-radius: var(--radius);
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    color: white;
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+}
+
+.welcome-icon {
+    font-size: 3rem;
+    margin-right: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-content h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.welcome-content p {
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.welcome-card .btn-primary {
+    background: white;
+    color: var(--primary);
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-card .btn-primary:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+}
+
+/* Créditos no perfil */
+.profile-credits {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.profile-credits i {
+    color: var(--accent);
+}
+
+/* Preço em créditos */
+.price-credits {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* Opção de pagamento com créditos */
+.payment-option[data-method="credits"] .payment-icon {
+    color: var(--accent);
+}
+
+/* Detalhes do pagamento com créditos */
+.credits-container {
+    padding: 15px;
+    background: rgba(46, 196, 182, 0.1);
+    border-radius: var(--radius);
+}
+
+.credits-balance h3 {
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.credits-after-payment {
+    margin: 15px 0;
+    padding: 15px;
+    background: white;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--success);
+}
+
+.credits-warning {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: var(--radius);
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
+}
+
+.credits-warning i {
+    font-size: 1.2rem;
+}
+
+/* Badge de produto com desconto em créditos */
+.product-badge.credits {
+    background: var(--accent);
+    top: 10px;
+    right: 10px;
+    left: auto;
+}
+
+/* Animações para créditos */
+@keyframes coinSpin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.fa-coins {
+    animation: coinSpin 2s infinite ease-in-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .welcome-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .welcome-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .welcome-content {
+        margin-bottom: 20px;
+    }
+}

@@ -177,12 +177,54 @@ class AuthManager {
                 this.updateUI();
             }
             
+            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS
+            await this.checkAndAwardCredits();
+            
             // Limpar flags de confirmação
             localStorage.removeItem('emailConfirmed');
             localStorage.removeItem('userEmail');
             
         } catch (error) {
             console.error('Erro no handleSignIn:', error);
+        }
+    }
+    
+    // ✅ NOVO: Método para dar créditos a novos usuários
+    async checkAndAwardCredits() {
+        try {
+            // Verificar se é um novo usuário (primeiro login)
+            const hasCredits = localStorage.getItem('userCredits');
+            
+            if (!hasCredits && this.user) {
+                // Novo usuário - dar 100 créditos iniciais
+                localStorage.setItem('userCredits', '100');
+                localStorage.setItem('isNewUser', 'true');
+                
+                console.log('100 LuckCoins concedidos ao novo usuário:', this.user.email);
+                
+                // Mostrar notificação (se a função existir)
+                if (typeof showNotification === 'function') {
+                    showNotification('🎉 Parabéns! Você ganhou 100 LuckCoins de boas-vindas!');
+                }
+                
+                // Mostrar seção de boas-vindas
+                this.showWelcomeSection();
+            }
+        } catch (error) {
+            console.error('Erro ao conceder créditos:', error);
+        }
+    }
+    
+    // ✅ NOVO: Mostrar seção de boas-vindas
+    showWelcomeSection() {
+        const welcomeSection = document.getElementById('welcome-credits');
+        if (welcomeSection) {
+            welcomeSection.style.display = 'block';
+            
+            // Rolar suavemente para a seção após um breve delay
+            setTimeout(() => {
+                welcomeSection.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
         }
     }
     
@@ -200,6 +242,9 @@ class AuthManager {
             await this.loadUserProfile();
             
             this.updateUI();
+            
+            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
+            await this.checkAndAwardCredits();
             
             // Forçar atualização em todas as abas abertas
             if (typeof BroadcastChannel !== 'undefined') {
@@ -304,6 +349,7 @@ class AuthManager {
                 // Atualizar avatar e nome
                 this.updateUserAvatar();
                 this.updateUserName();
+                this.updateUserCredits();
             }
         } else {
             // Usuário não logado - mostrar botão de login
@@ -359,6 +405,15 @@ class AuthManager {
         if (profileName) profileName.textContent = this.profile.nome;
         if (profileLevel) profileLevel.textContent = `Nível ${this.profile.nivel}`;
     }
+    
+    // ✅ NOVO: Atualizar créditos do usuário na UI
+    updateUserCredits() {
+        const userCreditsElement = document.getElementById('userCredits');
+        if (userCreditsElement) {
+            const userCredits = localStorage.getItem('userCredits') || '0';
+            userCreditsElement.textContent = userCredits;
+        }
+    }
 
     // Método para forçar atualização da UI
     forceUpdate() {
@@ -413,3 +468,10 @@ window.refreshAuth = function() {
     }
 };
 
+// ✅ NOVO: Função para fechar a seção de boas-vindas
+window.closeWelcome = function() {
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'none';
+    }
+};

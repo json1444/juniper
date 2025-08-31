@@ -62,6 +62,10 @@
                             <div class="profile-info">
                                 <div class="profile-name"></div>
                                 <div class="profile-level"></div>
+                                <div class="profile-credits">
+                                    <i class="fas fa-coins"></i>
+                                    <span id="userCredits">0</span> LuckCoins
+                                </div>
                             </div>
                         </div>
                         <div class="user-dropdown-divider"></div>
@@ -76,6 +80,23 @@
             </div>
         </div>
     </header>
+
+    <!-- Seção de Boas-vindas com Créditos -->
+    <section class="welcome-section" id="welcome-credits" style="display: none;">
+        <div class="container">
+            <div class="welcome-card animate-slideInUp">
+                <div class="welcome-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="welcome-content">
+                    <h2>Bem-vindo à LuckPet!</h2>
+                    <p>Você ganhou <strong>100 LuckCoins</strong> para usar em sua primeira compra!</p>
+                    <p>Os LuckCoins são créditos que você pode usar para comprar produtos em nossa loja.</p>
+                </div>
+                <button class="btn-primary" onclick="closeWelcome()">Explorar Produtos</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Banners promocionais -->
     <div class="container">
@@ -167,6 +188,9 @@
                             <span class="price-current">R$ 79,99</span>
                             <span class="price-original">R$ 99,99</span>
                             <span class="price-discount">20% OFF</span>
+                            <span class="price-credits">
+                                <i class="fas fa-coins"></i> 75 LuckCoins
+                            </span>
                         </div>
                         <div class="product-actions">
                             <button class="btn-cart" data-product="roupa1" data-price="79.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
@@ -186,6 +210,9 @@
                             <span class="price-current">R$ 89,99</span>
                             <span class="price-original">R$ 109,99</span>
                             <span class="price-discount">18% OFF</span>
+                            <span class="price-credits">
+                                <i class="fas fa-coins"></i> 85 LuckCoins
+                            </span>
                         </div>
                         <div class="product-actions">
                             <button class="btn-cart" data-product="roupa2" data-price="89.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
@@ -206,6 +233,9 @@
                             <span class="price-current">R$ 69,99</span>
                             <span class="price-original">R$ 89,99</span>
                             <span class="price-discount">22% OFF</span>
+                            <span class="price-credits">
+                                <i class="fas fa-coins"></i> 65 LuckCoins
+                            </span>
                         </div>
                         <div class="product-actions">
                             <button class="btn-cart" data-product="roupa3" data-price="69.99"><i class="fas fa-shopping-cart"></i> Adicionar</button>
@@ -237,6 +267,9 @@
                     <p class="product-desc">Nutrição completa para cães de todas as raças</p>
                     <div class="product-price">
                         <span class="price-current">R$ 129,99</span>
+                        <span class="price-credits">
+                            <i class="fas fa-coins"></i> 120 LuckCoins
+                        </span>
                     </div>
                     <div class="product-actions">
                         <button class="btn-cart" data-product="racao1" data-price="129.99">
@@ -264,6 +297,9 @@
                         <span class="price-current">R$ 89,90</span>
                         <span class="price-original">R$ 119,90</span>
                         <span class="price-discount">25% OFF</span>
+                        <span class="price-credits">
+                            <i class="fas fa-coins"></i> 85 LuckCoins
+                        </span>
                     </div>
                     <div class="product-actions">
                         <button class="btn-cart" data-product="racao2" data-price="89.90">
@@ -288,6 +324,9 @@
                     <p class="product-desc">Especialmente desenvolvida para filhotes</p>
                     <div class="product-price">
                         <span class="price-current">R$ 99,99</span>
+                        <span class="price-credits">
+                            <i class="fas fa-coins"></i> 95 LuckCoins
+                        </span>
                     </div>
                     <div class="product-actions">
                         <button class="btn-cart" data-product="racao3" data-price="99.99">
