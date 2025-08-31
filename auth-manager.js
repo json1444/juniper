@@ -191,42 +191,43 @@ class AuthManager {
     
     // ✅ NOVO: Método para dar créditos a novos usuários
     async checkAndAwardCredits() {
-        try {
-            // Verificar se é um novo usuário (primeiro login)
-            const hasCredits = localStorage.getItem('userCredits');
+    try {
+        // Verificar se é um novo usuário (primeiro login)
+        const hasCredits = localStorage.getItem('userCredits');
+        const creditsAwarded = localStorage.getItem('creditsAwarded');
+        
+        if (!hasCredits && !creditsAwarded && this.user) {
+            // Novo usuário - dar 100 créditos iniciais
+            localStorage.setItem('userCredits', '100');
+            localStorage.setItem('creditsAwarded', 'true');
             
-            if (!hasCredits && this.user) {
-                // Novo usuário - dar 100 créditos iniciais
-                localStorage.setItem('userCredits', '100');
-                localStorage.setItem('isNewUser', 'true');
-                
-                console.log('100 LuckCoins concedidos ao novo usuário:', this.user.email);
-                
-                // Mostrar notificação (se a função existir)
-                if (typeof showNotification === 'function') {
-                    showNotification('🎉 Parabéns! Você ganhou 100 LuckCoins de boas-vindas!');
-                }
-                
-                // Mostrar seção de boas-vindas
-                this.showWelcomeSection();
+            console.log('100 LuckCoins concedidos ao novo usuário:', this.user.email);
+            
+            // Mostrar notificação de boas-vindas
+            if (typeof showNotification === 'function') {
+                showNotification('🎉 Parabéns! Você ganhou 100 LuckCoins de boas-vindas!');
             }
-        } catch (error) {
-            console.error('Erro ao conceder créditos:', error);
+            
+            // Mostrar seção de boas-vindas
+            this.showWelcomeSection();
         }
+    } catch (error) {
+        console.error('Erro ao conceder créditos:', error);
     }
+}
     
     // ✅ NOVO: Mostrar seção de boas-vindas
     showWelcomeSection() {
-        const welcomeSection = document.getElementById('welcome-credits');
-        if (welcomeSection) {
-            welcomeSection.style.display = 'block';
-            
-            // Rolar suavemente para a seção após um breve delay
-            setTimeout(() => {
-                welcomeSection.scrollIntoView({ behavior: 'smooth' });
-            }, 1000);
-        }
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'block';
+        
+        // Rolar suavemente para a seção após um breve delay
+        setTimeout(() => {
+            welcomeSection.scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
     }
+}
     
     // ✅ NOVO: Método para lidar com confirmação de email
     async handleEmailConfirmation(session) {

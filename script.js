@@ -1746,6 +1746,14 @@ function payWithCredits(productId, creditsCost) {
             return;
         }
         
+        // Verificar se tem créditos suficientes ANTES de redirecionar
+        const userCredits = parseInt(localStorage.getItem('userCredits') || '0');
+        
+        if (userCredits < creditsCost) {
+            showNotification(`Saldo insuficiente! Você precisa de ${creditsCost} LuckCoins mas só tem ${userCredits}.`, true);
+            return;
+        }
+        
         // Salvar informações do produto para usar na página de pagamento
         localStorage.setItem('creditsProductId', productId);
         localStorage.setItem('creditsCost', creditsCost.toString());

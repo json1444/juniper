@@ -904,31 +904,35 @@
     }
 
     // Processar pagamento com créditos
-    function processCreditsPayment() {
-        const total = calculateCartTotal();
-        const creditsCost = Math.floor(total);
-        
-        // Verificar se é uma compra direta com créditos
-        const directProductId = localStorage.getItem('creditsProductId');
-        const directCreditsCost = parseInt(localStorage.getItem('creditsCost') || '0');
-        
-        const finalCreditsCost = directCreditsCost > 0 ? directCreditsCost : creditsCost;
-        
-        if (hasEnoughCredits(finalCreditsCost)) {
-            if (deductCredits(finalCreditsCost)) {
-                // Limpar dados de compra direta
-                localStorage.removeItem('creditsProductId');
-                localStorage.removeItem('creditsCost');
-                
-                // Pagamento bem-sucedido - mostrar tela de agradecimento
-                showCreditsThankYouPage(finalCreditsCost, userCredits);
-                clearCart();
-                return true;
-            }
-        }
-        
+function processCreditsPayment() {
+    const total = calculateCartTotal();
+    const creditsCost = Math.floor(total);
+    
+    // Verificar se é uma compra direta com créditos
+    const directProductId = localStorage.getItem('creditsProductId');
+    const directCreditsCost = parseInt(localStorage.getItem('creditsCost') || '0');
+    
+    const finalCreditsCost = directCreditsCost > 0 ? directCreditsCost : creditsCost;
+    
+    // Verificar se tem créditos suficientes
+    if (!hasEnoughCredits(finalCreditsCost)) {
+        showNotification(`Saldo insuficiente! Você precisa de ${finalCreditsCost} LuckCoins mas só tem ${userCredits}.`, true);
         return false;
     }
+    
+    if (deductCredits(finalCreditsCost)) {
+        // Limpar dados de compra direta
+        localStorage.removeItem('creditsProductId');
+        localStorage.removeItem('creditsCost');
+        
+        // Pagamento bem-sucedido - mostrar tela de agradecimento
+        showCreditsThankYouPage(finalCreditsCost, userCredits);
+        clearCart();
+        return true;
+    }
+    
+    return false;
+}
 
     // Mostrar página de agradecimento por pagamento com créditos
     function showCreditsThankYouPage(creditsUsed, remainingCredits) {
@@ -1021,40 +1025,46 @@
     }
 
     // Mostrar notificação
-    function showNotification(message, isError = false) {
-        // Criar notificação estilizada
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            background: ${isError ? '#DC3545' : '#28A745'};
-            color: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            z-index: 10000;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-            max-width: 400px;
-        `;
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        // Mostrar notificação
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-            notification.style.opacity = '1';
-        }, 100);
-        
-        // Esconder após 5 segundos
-        setTimeout(() => {
-            notification.style.transform = 'translateX(100%)';
-            notification.style.opacity = '0';
-            setTimeout(() => notification.remove(), 300);
-        }, 5000);
-    }
+function showNotification(message, isError = false) {
+    // Criar notificação estilizada
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 8px;
+        background: ${isError ? '#DC3545' : '#28A745'};
+        color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 10000;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        max-width: 400px;
+        font-weight: 500;
+    `;
+    
+    // Adicionar ícone
+    const icon = isError ? '❌' : '✅';
+    notification.innerHTML = `${icon} ${message}`;
+    
+    document.body.appendChild(notification);
+    
+    // Mostrar notificação
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+        notification.style.opacity = '1';
+    }, 100);
+    
+    // Esconder após 5 segundos
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
 
     // Calcular total do carrinho
     function calculateCartTotal() {
@@ -1177,6 +1187,32 @@
                 }
             }
         }
+
+        // Verificar saldo antes de mostrar opção de créditos
+function checkCreditsBeforeShowing() {
+    const total = calculateCartTotal();
+    const creditsCost = Math.floor(total);
+    const creditsOption = document.querySelector('[data-method="credits"]');
+    
+    if (creditsOption) {
+        if (!hasEnoughCredits(creditsCost)) {
+            creditsOption.style.opacity = '0.6';
+            creditsOption.style.pointerEvents = 'none';
+            creditsOption.title = `Saldo insuficiente. Você precisa de ${creditsCost} LuckCoins`;
+        } else {
+            creditsOption.style.opacity = '1';
+            creditsOption.style.pointerEvents = 'auto';
+            creditsOption.title = '';
+        }   
+         // Verificar créditos ao carregar
+    checkCreditsBeforeShowing();
+    
+    // Verificar sempre que o carrinho mudar
+    setInterval(checkCreditsBeforeShowing, 1000);
+    }
+}
+
+
         
         // Alterna entre os métodos de pagamento
 paymentOptions.forEach(option => {
