@@ -190,30 +190,30 @@ class AuthManager {
     }
     
     // ✅ NOVO: Método para dar créditos a novos usuários
-    async checkAndAwardCredits() {
-        try {
-            // Verificar se é um novo usuário (primeiro login)
-            const hasCredits = localStorage.getItem('userCredits');
+async checkAndAwardCredits() {
+    try {
+        // Verificar se é um novo usuário (primeiro login)
+        const hasCredits = localStorage.getItem('userCredits');
+        
+        if (!hasCredits && this.user) {
+            // Novo usuário - dar 50 créditos iniciais (alterado de 100 para 50)
+            localStorage.setItem('userCredits', '50');
+            localStorage.setItem('isNewUser', 'true');
             
-            if (!hasCredits && this.user) {
-                // Novo usuário - dar 100 créditos iniciais
-                localStorage.setItem('userCredits', '100');
-                localStorage.setItem('isNewUser', 'true');
-                
-                console.log('100 LuckCoins concedidos ao novo usuário:', this.user.email);
-                
-                // Mostrar notificação (se a função existir)
-                if (typeof showNotification === 'function') {
-                    showNotification('🎉 Parabéns! Você ganhou 100 LuckCoins de boas-vindas!');
-                }
-                
-                // Mostrar seção de boas-vindas
-                this.showWelcomeSection();
+            console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
+            
+            // Mostrar notificação (se a função existir)
+            if (typeof showNotification === 'function') {
+                showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!');
             }
-        } catch (error) {
-            console.error('Erro ao conceder créditos:', error);
+            
+            // Mostrar seção de boas-vindas
+            this.showWelcomeSection();
         }
+    } catch (error) {
+        console.error('Erro ao conceder créditos:', error);
     }
+}
     
     // ✅ NOVO: Mostrar seção de boas-vindas
     showWelcomeSection() {

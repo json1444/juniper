@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Compra - LuckPet</title>
-    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmY2YjM1IiBkPSJNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMCA0NDhjLTExMC41IDAtMjAwLTg5LjUtMjAwLTIwMFMxNDUuNSA1NiAyNT2IDU2czIwMCA4OS41IDIwMCAyMDAtODkuNSAyMDAtMjAwIDIwMHoiLz48cGF0aCBmaWxsPSIjMmVjMGI2IiBkPSJNMzAwLjMgMTM1LjdsLTIyLjktMjIuOWMtMi45LTIuOS03LjctMi45LTEwLjYgMEwyNTYgMTQ1LjFsLTEwLTMyLjNjLTIuOS05LjMtMTMuNS0xMS43LTIwLjQtNUwyMTUgMTI1LjdjLTYuMyA2LjMtNi4zIDE2LjQgMCAyMi43bDIyLjkgMjIuOWMyLjkgMi45IDIuOSA3LjcgMCAxMC42TDIwNi45IDE5MWwzMi4zIDEwYzkuMyAyLjkgMTEuNyAxMy41IDUgMjAuNGwtMTYuNiAyMC42Yy02LjMgNi4zLTYuMyAxNi40IDAgMjIuN2wyMi45IDIyLjljMi45IDIuOSA3LjcgMi45IDEwLjYgMEwyNTYgMzY2LjlsMTAuMSAzMi4zYzIuOSA5LjMgMTMuNSAxMS43IDIwLjQgNWwxNi42LTIwLjZjNi4zLTYuMyA2LjMtMTYuNCAwLTIyLjdsLTIyLjktMjIuOWMtMi45LTIuOS0yLjktNy43IDAtMTAuNkwzMDUuMSAzMTJsLTMyLjMtMTBjLTkuMy0yLjktMTEuNy0xMy41LTUtMjAuNGwxNi42LTIwLjZjNi4zLTYuMyA2LjMtMTYuNCAwLTIyLjd6Ii8+PC9zdmc+" type="image/svg+xml">
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmY2YjM1IiBkPSJNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMCA0NDhjLTExMC41IDAtMjAwLTg5LjUtMjAwLTIwMFMxNDUuNSA1NiAyNTYgNTZzMjAwIDg5LjUgMjAwIDIwMC04OS41IDIwMC0yMDAgMjAweiIvPjxwYXRoIGZpbGw9IiMyZWMyYjYiIGQ9Ik0zMDAuMyAxMzUuN2wtMjIuOS0yMi45Yy0yLjktMi45LTcuNy0yLjktMTAuNiAwTDI1NiAxNDUuMWwtMTAtMzIuM2MtMi45LTkuMy0xMy41LTExLjctMjAuNC01TDIxNSAxMjUuN2MtNi4zIDYuMy02LjMgMTYuNCAwIDIyLjdsMjIuOSAyMi45YzIuOSAyLjkgMi45IDcuNyAwIDEwLjZMMjA2LjkgMTkxbDMyLjMgMTBjOS4zIDIuOSAxMS43IDEzLjUgNSAyMC40bC0xNi42IDIwLjZjLTYuMyA2LjMtNi4zIDE2LjQgMCAyMi43bDIyLjkgMjIuOWMyLjkgMi45IDcuNyAyLjkgMTAuNiAwTDI1NiAzNjYuOWwxMC4xIDMyLjNjMi45IDkuMyAxMy41IDExLjcgMjAuNCA1bDE2LjYtMjAuNmM2LjMtNi4zIDYuMy0xNi40IDAtMjIuN2wtMjIuOS0yMi45Yy0yLjktMi45LTIuOS03LjcgMC0xMC42TDMwNS4xIDMxMmwtMzIuMy0xMGMtOS4zLTIuOS0xMS43LTEzLjUtNS0yMC40bDE2LjYtMjAuNmM2LjMtNi4zIDYuMy0xNi40IDAtMjIuN3oiLz48L3N2Zz4=" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -663,6 +663,59 @@
             color: var(--success);
             font-weight: 600;
         }
+        
+        /* Novos estilos para mensagem de coins insuficientes */
+        .credits-progress {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(46, 196, 182, 0.1);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .ways-to-earn {
+            margin-top: 20px;
+        }
+        
+        .ways-to-earn h4 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .ways-to-earn ul {
+            padding-left: 20px;
+        }
+        
+        .ways-to-earn li {
+            margin-bottom: 8px;
+            color: var(--gray);
+        }
+        
+        .ways-to-earn strong {
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -866,6 +919,29 @@
                             <div class="credits-after-payment" id="credits-after-payment">
                                 <span>Saldo após a compra: <strong id="credits-remaining">0</strong> LuckCoins</span>
                             </div>
+                            
+                            <!-- Nova seção de progresso e formas de ganhar mais coins -->
+                            <div class="credits-progress" id="credits-progress">
+                                <h4>Continue acumulando LuckCoins!</h4>
+                                <p>Seu progresso atual:</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <div class="progress-text">
+                                    <span id="current-level">Nível 1</span>
+                                    <span id="next-level">Nível 2: 100 LuckCoins</span>
+                                </div>
+                                
+                                <div class="ways-to-earn">
+                                    <h4>Como ganhar mais LuckCoins:</h4>
+                                    <ul>
+                                        <li><strong>+5 coins</strong> para cada R$ 50,00 em compras</li>
+                                        <li><strong>+10 coins</strong> ao avaliar produtos comprados</li>
+                                        <li><strong>+20 coins</strong> no seu aniversário</li>
+                                        <li><strong>+15 coins</strong> ao indicar amigos para a LuckPet</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -920,19 +996,52 @@
         let discount = 0;
         let total = 0;
 
-        // Carregar créditos do usuário
+        // Carregar créditos do usuário (ATUALIZADO para 50 coins)
         function loadUserCredits() {
             const savedCredits = localStorage.getItem('userCredits');
             
             if (savedCredits) {
                 userCredits = parseInt(savedCredits);
             } else {
-                // Novo usuário - definir créditos iniciais
-                userCredits = 100;
+                // Novo usuário - definir créditos iniciais (50 coins)
+                userCredits = 50;
                 localStorage.setItem('userCredits', userCredits);
             }
             
             updateCreditsDisplay();
+            updateProgressBar();
+        }
+
+        // Atualizar barra de progresso
+        function updateProgressBar() {
+            const progressFill = document.getElementById('progress-fill');
+            const currentLevel = document.getElementById('current-level');
+            const nextLevel = document.getElementById('next-level');
+            
+            if (userCredits < 100) {
+                // Nível 1 (0-99 coins)
+                const progress = (userCredits / 100) * 100;
+                progressFill.style.width = `${progress}%`;
+                currentLevel.textContent = `Nível 1: ${userCredits} LuckCoins`;
+                nextLevel.textContent = `Nível 2: 100 LuckCoins`;
+            } else if (userCredits < 250) {
+                // Nível 2 (100-249 coins)
+                const progress = ((userCredits - 100) / 150) * 100;
+                progressFill.style.width = `${progress}%`;
+                currentLevel.textContent = `Nível 2: ${userCredits} LuckCoins`;
+                nextLevel.textContent = `Nível 3: 250 LuckCoins`;
+            } else if (userCredits < 500) {
+                // Nível 3 (250-499 coins)
+                const progress = ((userCredits - 250) / 250) * 100;
+                progressFill.style.width = `${progress}%`;
+                currentLevel.textContent = `Nível 3: ${userCredits} LuckCoins`;
+                nextLevel.textContent = `Nível 4: 500 LuckCoins`;
+            } else {
+                // Nível 4 (500+ coins)
+                progressFill.style.width = `100%`;
+                currentLevel.textContent = `Nível 4: ${userCredits} LuckCoins`;
+                nextLevel.textContent = `Nível máximo alcançado!`;
+            }
         }
 
         // Atualizar exibição de créditos
@@ -960,6 +1069,7 @@
                 userCredits -= amount;
                 localStorage.setItem('userCredits', userCredits);
                 updateCreditsDisplay();
+                updateProgressBar();
                 return true;
             }
             return false;
@@ -972,6 +1082,7 @@
             const creditsNeeded = document.getElementById('credits-needed');
             const creditsRemaining = document.getElementById('credits-remaining');
             const creditsAfterPayment = document.getElementById('credits-after-payment');
+            const creditsProgress = document.getElementById('credits-progress');
             
             if (creditsTotal) {
                 creditsTotal.textContent = `R$ ${total.toFixed(2)}`;
@@ -981,10 +1092,12 @@
                 if (userCredits >= creditsCost) {
                     creditsWarning.style.display = 'none';
                     creditsAfterPayment.style.display = 'block';
+                    creditsProgress.style.display = 'block';
                     creditsRemaining.textContent = userCredits - creditsCost;
                 } else {
                     creditsWarning.style.display = 'flex';
                     creditsAfterPayment.style.display = 'none';
+                    creditsProgress.style.display = 'block';
                     creditsNeeded.textContent = creditsCost - userCredits;
                 }
             }
@@ -1001,6 +1114,8 @@
                     clearCart();
                     return true;
                 }
+            } else {
+                showNotification('Saldo de LuckCoins insuficiente. Escolha outra forma de pagamento.', true);
             }
             
             return false;
@@ -1028,10 +1143,16 @@
                         <p style="font-size: 1.1rem;">Saldo restante: <strong style="color: #FF9F1C;">${remainingCredits} LuckCoins</strong></p>
                     </div>
                     
-                    <p style="color: #6C757D; margin-bottom: 30px; max-width: 500px;">
-                        Obrigado por comprar na LuckPet! Seu pedido será processado e enviado em breve.
-                        Você receberá um e-mail com todos os detalhes da sua compra.
-                    </p>
+                    <div style="background: rgba(46, 196, 182, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #2EC4B6; margin-bottom: 30px; max-width: 500px;">
+                        <h3 style="color: #2EC4B6; margin-bottom: 15px;">Continue acumulando LuckCoins!</h3>
+                        <p style="color: #6C757D; margin-bottom: 10px;">Quanto mais você compra, mais LuckCoins você ganha:</p>
+                        <ul style="text-align: left; color: #6C757D;">
+                            <li><strong>+5 coins</strong> para cada R$ 50,00 em compras</li>
+                            <li><strong>+10 coins</strong> ao avaliar produtos comprados</li>
+                            <li><strong>+20 coins</strong> no seu aniversário</li>
+                            <li><strong>+15 coins</strong> ao indicar amigos para a LuckPet</li>
+                        </ul>
+                    </div>
                     
                     <a href="index.html" style="background: linear-gradient(135deg, #FF6B35 0%, #FF9F1C 100%); color: white; padding: 15px 30px; border-radius: 30px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;">
                         <i class="fas fa-home"></i> Voltar para a Loja

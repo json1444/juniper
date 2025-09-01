@@ -1926,6 +1926,58 @@ img {
     left: auto;
 }
 
+.credits-progress {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(46, 196, 182, 0.1);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--secondary);
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.ways-to-earn {
+    margin-top: 20px;
+}
+
+.ways-to-earn h4 {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.ways-to-earn ul {
+    padding-left: 20px;
+}
+
+.ways-to-earn li {
+    margin-bottom: 8px;
+    color: var(--gray);
+}
+
+.ways-to-earn strong {
+    color: var(--accent);
+}
+
 /* Animações para créditos */
 @keyframes coinSpin {
     0% { transform: rotateY(0deg); }

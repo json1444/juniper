@@ -171,8 +171,8 @@ function loadUserCredits() {
     if (savedCredits) {
         userCredits = parseInt(savedCredits);
     } else {
-        // Novo usuário - definir créditos iniciais
-        userCredits = 100;
+        // Novo usuário - definir créditos iniciais (alterado de 100 para 50)
+        userCredits = 50;
         localStorage.setItem('userCredits', userCredits);
         localStorage.setItem('isNewUser', 'true');
     }
