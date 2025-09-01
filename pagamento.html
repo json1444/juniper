@@ -430,6 +430,17 @@
             transform: translateY(-2px);
         }
 
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .checkout-btn:disabled:hover {
+            opacity: 1;
+            transform: none;
+        }
+
         /* Footer */
         .payment-footer {
             background: var(--dark);
@@ -995,6 +1006,7 @@
         let subtotal = 0;
         let discount = 0;
         let total = 0;
+        let selectedPaymentMethod = 'pix';
 
         // Carregar créditos do usuário (ATUALIZADO para 50 coins)
         function loadUserCredits() {
@@ -1010,6 +1022,7 @@
             
             updateCreditsDisplay();
             updateProgressBar();
+            updateCheckoutButton();
         }
 
         // Atualizar barra de progresso
@@ -1070,6 +1083,7 @@
                 localStorage.setItem('userCredits', userCredits);
                 updateCreditsDisplay();
                 updateProgressBar();
+                updateCheckoutButton();
                 return true;
             }
             return false;
@@ -1101,6 +1115,25 @@
                     creditsNeeded.textContent = creditsCost - userCredits;
                 }
             }
+            
+            updateCheckoutButton();
+        }
+
+        // Atualizar estado do botão de finalizar compra
+        function updateCheckoutButton() {
+            const completeOrderBtn = document.getElementById('complete-order');
+            
+            if (selectedPaymentMethod === 'credits') {
+                const creditsCost = Math.floor(total);
+                if (userCredits < creditsCost) {
+                    completeOrderBtn.disabled = true;
+                    completeOrderBtn.innerHTML = '<i class="fas fa-lock"></i> Saldo insuficiente';
+                    return;
+                }
+            }
+            
+            completeOrderBtn.disabled = false;
+            completeOrderBtn.innerHTML = '<i class="fas fa-lock"></i> Finalizar Pedido';
         }
 
         // Processar pagamento com créditos
@@ -1313,6 +1346,7 @@
             paymentOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     const method = this.getAttribute('data-method');
+                    selectedPaymentMethod = method;
                     
                     // Atualiza a seleção visual
                     paymentOptions.forEach(opt => opt.classList.remove('selected'));
@@ -1343,6 +1377,8 @@
                     // Se for créditos, atualiza as informações
                     if (method === 'credits') {
                         updateCreditsPaymentInfo();
+                    } else {
+                        updateCheckoutButton();
                     }
                     
                     // Se voltou para PIX, regenera o QR code
