@@ -41,22 +41,30 @@
             box-sizing: border-box;
         }
 
-        /* Personalização da scrollbar */
+        /* Personalização da scrollbar - MELHORADA */
         ::-webkit-scrollbar {
             width: var(--scrollbar-width);
         }
 
         ::-webkit-scrollbar-track {
             background: var(--scrollbar-track);
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: var(--scrollbar-thumb);
             border-radius: 10px;
+            border: 2px solid var(--scrollbar-track);
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--scrollbar-thumb-hover);
+        }
+
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
         }
 
         body {
@@ -802,6 +810,53 @@
             font-weight: 600;
         }
 
+        /* ===== NOVOS ESTILOS PARA SELEÇÃO DE TAMANHO E TIPO ===== */
+        .product-options {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #f8f9fa;
+            color: var(--gray);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid #eaeaea;
+        }
+
+        .option-btn.selected {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .option-btn:hover:not(.selected) {
+            background: #e9ecef;
+        }
+
         .product-actions {
             display: flex;
             gap: 10px;
@@ -1300,6 +1355,7 @@
             font-size: 2rem;
             margin-bottom: 15px;
             font-weight: 800;
+            color: white;
         }
 
         .footer-brand p {
@@ -1311,6 +1367,7 @@
             font-size: 1.2rem;
             margin-bottom: 20px;
             position: relative;
+            color: white;
         }
 
         .footer-links h4::after {
@@ -1931,16 +1988,6 @@
             transform: translateY(-2px);
         }
 
-        .product-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .product-actions button {
-            flex: 1;
-        }
-
         /* Ajuste para o botão de favoritos */
         .product-wishlist {
             position: absolute;
@@ -2279,13 +2326,13 @@
         </div>
     </section>
 
-    <!-- Seção de Nutrição Pet -->
+    <!-- Seção de Nutrição Pet - ATUALIZADA COM TAMANHOS E TIPOS -->
     <section class="section" id="nutricao-pet">
         <div class="container">
             <h2 class="section-title">Nutrição Balanceada Para Uma <span>Vida Saudável</span></h2>
             
             <div class="products-grid" id="racao-grid">
-                <!-- Apenas as 3 rações iniciais permanecem -->
+                <!-- Ração 1 - Com seleção de tamanho e tipo -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="img/racao/racao1.jpg" alt="Ração Premium Canina" loading="lazy">
@@ -2296,6 +2343,28 @@
                     <div class="product-info">
                         <h3 class="product-title">Ração Premium Canina</h3>
                         <p class="product-desc">Nutrição completa para cães de todas as raças</p>
+                        
+                        <!-- Seleção de tamanho -->
+                        <div class="product-options">
+                            <div class="option-group">
+                                <div class="option-label">Tamanho:</div>
+                                <div class="option-buttons">
+                                    <button class="option-btn" data-size="P">P</button>
+                                    <button class="option-btn" data-size="M">M</button>
+                                    <button class="option-btn selected" data-size="G">G</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Seleção de tipo (filhote/adulto) -->
+                            <div class="option-group">
+                                <div class="option-label">Tipo:</div>
+                                <div class="option-buttons">
+                                    <button class="option-btn selected" data-type="filhote">Filhote</button>
+                                    <button class="option-btn" data-type="adulto">Adulto</button>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="product-price">
                             <span class="price-current">R$ 129,99</span>
                         </div>
@@ -2313,6 +2382,7 @@
                     </div>
                 </div>
                 
+                <!-- Ração 2 - Com seleção de tamanho e tipo -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="img/racao/racao3.jpg" alt="Ração Premium Felina" loading="lazy">
@@ -2324,6 +2394,28 @@
                     <div class="product-info">
                         <h3 class="product-title">Ração Premium Felina</h3>
                         <p class="product-desc">Fórmula especial para saúde dos gatos</p>
+                        
+                        <!-- Seleção de tamanho -->
+                        <div class="product-options">
+                            <div class="option-group">
+                                <div class="option-label">Tamanho:</div>
+                                <div class="option-buttons">
+                                    <button class="option-btn selected" data-size="P">P</button>
+                                    <button class="option-btn" data-size="M">M</button>
+                                    <button class="option-btn" data-size="G">G</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Seleção de tipo (filhote/adulto) -->
+                            <div class="option-group">
+                                <div class="option-label">Tipo:</div>
+                                <div class="option-buttons">
+                                    <button class="option-btn" data-type="filhote">Filhote</button>
+                                    <button class="option-btn selected" data-type="adulto">Adulto</button>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="product-price">
                             <span class="price-current">R$ 89,90</span>
                             <span class="price-original">R$ 119,90</span>
@@ -2343,6 +2435,7 @@
                     </div>
                 </div>
                 
+                <!-- Ração 3 - Com seleção de tamanho e tipo -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="img/racao/racao2.jpg" alt="Ração Crescimento Saudável" loading="lazy">
@@ -2353,6 +2446,28 @@
                     <div class="product-info">
                         <h3 class="product-title">Ração Crescimento Saudável</h3>
                         <p class="product-desc">Especialmente desenvolvida para filhotes</p>
+                        
+                        <!-- Seleção de tamanho -->
+                        <div class="product-options">
+                            <div class="option-group">
+                                <div class="option-label">Tamanho:</div>
+                                <div class="option-buttons">
+                                    <button class="option-btn" data-size="P">P</button>
+                                    <button class="option-btn selected" data-size="M">M</button>
+                                    <button class="option-btn" data-size="G">G</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Seleção de tipo (filhote/adulto) -->
+                            <div class="option-group">
+                                <div class="option-label">Tipo:</div>
+                                <div class="option-buttons">
+                                    <button class="option-btn selected" data-type="filhote">Filhote</button>
+                                    <button class="option-btn" data-type="adulto">Adulto</button>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="product-price">
                             <span class="price-current">R$ 99,99</span>
                         </div>
@@ -2751,7 +2866,7 @@
             secoes: [
                 { id: "saude-pet", nome: "Saúde Pet", tipo: "secao", descricao: "Planos de saúde e cuidados veterinários" },
                 { id: "moda-pet", nome: "Moda Pet", tipo: "secao", descricao: "Roupas e acessórios para seu pet" },
-                { id: "nutricao-pet", nome: "Nutrição", tipo: "secao", descricao: "Alimentos e rações de qualidade" },
+                { id: "nutricao-pet", nome: "Nutrição", tipo: "secao", descricao: "Alimentos и rações de qualidade" },
                 { id: "curiosidades", nome: "Curiosidades", tipo: "secao", descricao: "Fatos interessantes sobre pets" },
                 { id: "servicos", nome: "Serviços", tipo: "secao", descricao: "Banho, tosa e consultas veterinárias" }
             ],
@@ -3347,6 +3462,9 @@
             // Atualizar créditos na UI
             updateCreditsDisplay();
             
+            // Inicializar seleção de tamanhos e tipos
+            initSizeAndTypeSelection();
+            
             // Scroll para o topo
             window.scrollTo(0, 0);
         });
@@ -3355,10 +3473,10 @@
         function initScrollAnimations() {
             const sections = document.querySelectorAll('.section');
             
-            // Verificar se as seções já estão visíveis no carregamento
+            // Verificar si las secciones ya están visibles al cargar
             checkVisibility();
             
-            // Adicionar o event listener para scroll
+            // Agregar el event listener para scroll
             window.addEventListener('scroll', checkVisibility);
             
             function checkVisibility() {
@@ -3399,21 +3517,31 @@
         // ===== SISTEMA DE CARRINHO =====
         function addToCart(productId, price) {
             checkAuthBeforeAction('cart', function() {
-                // Código original da função addToCart
+                // Obter seleções de tamanho e tipo
+                const productCard = document.querySelector(`[data-product="${productId}"]`).closest('.product-card');
+                const selectedSize = productCard ? productCard.querySelector('.option-btn.selected[data-size]')?.getAttribute('data-size') : null;
+                const selectedType = productCard ? productCard.querySelector('.option-btn.selected[data-type]')?.getAttribute('data-type') : null;
+                
                 if (!produtos[productId]) {
                     showNotification("Produto não encontrado!", true);
                     return;
                 }
                 
-                if (!carrinho[productId]) {
-                    carrinho[productId] = {
+                // Criar ID único com tamanho e tipo se estiverem disponíveis
+                const cartItemId = selectedSize && selectedType ? 
+                    `${productId}-${selectedSize}-${selectedType}` : productId;
+                
+                if (!carrinho[cartItemId]) {
+                    carrinho[cartItemId] = {
                         quantidade: 1,
                         total: price,
+                        tamanho: selectedSize,
+                        tipo: selectedType,
                         ...produtos[productId]
                     };
                 } else {
-                    carrinho[productId].quantidade++;
-                    carrinho[productId].total = carrinho[productId].quantidade * price;
+                    carrinho[cartItemId].quantidade++;
+                    carrinho[cartItemId].total = carrinho[cartItemId].quantidade * price;
                 }
                 
                 // Atualizar localStorage
@@ -3428,7 +3556,11 @@
                 renderCart();
                 
                 // Mostrar notificação
-                showNotification(`${produtos[productId].nome} adicionado ao carrinho!`);
+                let notificationMsg = `${produtos[productId].nome} adicionado ao carrinho!`;
+                if (selectedSize) notificationMsg += ` Tamanho: ${selectedSize}`;
+                if (selectedType) notificationMsg += ` Tipo: ${selectedType}`;
+                
+                showNotification(notificationMsg);
             });
         }
 
@@ -3482,6 +3614,11 @@
             for (const [id, item] of Object.entries(carrinho)) {
                 total += item.total;
                 
+                // Extrair informações adicionais
+                let details = '';
+                if (item.tamanho) details += `Tamanho: ${item.tamanho} `;
+                if (item.tipo) details += `Tipo: ${item.tipo}`;
+                
                 html += `
                     <div class="cart-item">
                         <div class="cart-item-image">
@@ -3489,6 +3626,7 @@
                         </div>
                         <div class="cart-item-info">
                             <div class="cart-item-title">${item.nome}</div>
+                            ${details ? `<div class="cart-item-desc">${details}</div>` : ''}
                             <div class="cart-item-price">R$ ${item.total.toFixed(2)}</div>
                         </div>
                         <div class="cart-item-actions">
@@ -3900,6 +4038,41 @@
             updateWishlistButtons();
         }
 
+        // ===== SISTEMA DE SELEÇÃO DE TAMANHO E TIPO =====
+        function initSizeAndTypeSelection() {
+            // Adicionar event listeners para os botões de tamanho
+            document.querySelectorAll('.option-btn[data-size]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const sizeGroup = this.closest('.option-group');
+                    
+                    // Remover a classe selected de todos os botões do mesmo grupo
+                    sizeGroup.querySelectorAll('.option-btn').forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    
+                    // Adicionar a classe selected ao botão clicado
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Adicionar event listeners para os botões de tipo
+            document.querySelectorAll('.option-btn[data-type]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const typeGroup = this.closest('.option-group');
+                    
+                    // Remover a classe selected de todos os botões do mesmo grupo
+                    typeGroup.querySelectorAll('.option-btn').forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    
+                    // Adicionar a classe selected ao botão clicado
+                    this.classList.add('selected');
+                });
+            });
+        }
+
         // ===== SISTEMA DE CRÉDITOS LUCKPET =====
         let userCredits = 0;
 
@@ -4004,6 +4177,11 @@
                     return;
                 }
                 
+                // Obter seleções de tamanho e tipo
+                const productCard = document.querySelector(`[data-product="${productId}"]`).closest('.product-card');
+                const selectedSize = productCard ? productCard.querySelector('.option-btn.selected[data-size]')?.getAttribute('data-size') : null;
+                const selectedType = productCard ? productCard.querySelector('.option-btn.selected[data-type]')?.getAttribute('data-type') : null;
+                
                 // Verificar se tem créditos suficientes
                 if (!hasEnoughCredits(creditsCost)) {
                     showNotification(`Saldo insuficiente! Você precisa de ${creditsCost} LuckCoins mas só tem ${userCredits}.`, true);
@@ -4013,11 +4191,39 @@
                 // Confirmar compra com créditos
                 if (confirm(`Deseja usar ${creditsCost} LuckCoins para comprar este produto?`)) {
                     if (deductCredits(creditsCost)) {
+                        // Criar ID único com tamanho e tipo se estiverem disponíveis
+                        const cartItemId = selectedSize && selectedType ? 
+                            `${productId}-${selectedSize}-${selectedType}` : productId;
+                        
                         // Adicionar ao carrinho (opcional)
-                        addToCart(productId, 0); // Preço zero pois já pagou com créditos
+                        if (!carrinho[cartItemId]) {
+                            carrinho[cartItemId] = {
+                                quantidade: 1,
+                                total: 0, // Preço zero pois já pagou com créditos
+                                tamanho: selectedSize,
+                                tipo: selectedType,
+                                ...produtos[productId]
+                            };
+                        } else {
+                            carrinho[cartItemId].quantidade++;
+                        }
+                        
+                        // Atualizar localStorage
+                        try {
+                            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                        } catch (e) {
+                            console.error("Erro ao salvar no localStorage:", e);
+                        }
+                        
+                        // Atualizar contadores
+                        updateCounters();
                         
                         // Mostrar mensagem de sucesso
-                        showNotification(`Compra realizada com sucesso usando ${creditsCost} LuckCoins!`);
+                        let successMsg = `Compra realizada com sucesso usando ${creditsCost} LuckCoins!`;
+                        if (selectedSize) successMsg += ` Tamanho: ${selectedSize}`;
+                        if (selectedType) successMsg += ` Tipo: ${selectedType}`;
+                        
+                        showNotification(successMsg);
                         
                         // Redirecionar para página de agradecimento
                         setTimeout(() => {
@@ -4105,6 +4311,9 @@
             
             // Inicializar sincronização de créditos
             initCreditsSync();
+            
+            // Inicializar seleção de tamanhos e tipos
+            initSizeAndTypeSelection();
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
