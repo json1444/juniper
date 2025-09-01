@@ -769,10 +769,48 @@ button, .btn {
     margin-bottom: 15px;
 }
 
-.product-price {
+/* Tamanhos de produtos */
+.product-size {
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.size-label {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-right: 8px;
+}
+
+.size-options {
+    display: flex;
+    gap: 5px;
+}
+
+.size-option {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #f5f5f5;
+    color: var(--dark);
+}
+
+.size-option.filhote {
+    background: rgba(255, 158, 28, 0.2);
+    color: #e67e22;
+}
+
+.size-option.adulto {
+    background: rgba(46, 196, 182, 0.2);
+    color: var(--secondary);
+}
+
+.product-price {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     margin-bottom: 15px;
 }
 
@@ -792,6 +830,15 @@ button, .btn {
     font-size: 0.9rem;
     color: var(--danger);
     font-weight: 600;
+}
+
+.price-credits {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .product-actions {
@@ -1231,6 +1278,70 @@ button, .btn {
     color: var(--gray);
 }
 
+/* Aplicação de créditos no carrinho */
+.credits-application {
+    padding: 15px 0;
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+    margin: 15px 0;
+}
+
+.credits-balance {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.credits-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.credits-input label {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.credits-input input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80px;
+}
+
+.credits-max {
+    background: var(--accent);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.credits-max:hover {
+    background: #e68900;
+}
+
+.credits-savings {
+    text-align: right;
+    font-weight: 600;
+    color: var(--success);
+}
+
+.final-total {
+    padding: 15px 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: right;
+    color: var(--primary);
+}
+
 .checkout-btn {
     width: 100%;
     padding: 15px;
@@ -1460,6 +1571,17 @@ button, .btn {
         margin: 10px auto;
         max-width: 90%;
     }
+    
+    /* Ajustes para créditos em mobile */
+    .credits-input {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .credits-input input {
+        width: 100%;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1568,7 +1690,7 @@ button, .btn {
 .mt-20 { margin-top: 20px; }
 .mb-20 { margin-bottom: 20px; }
 
-/* Substituindo display: none/block por opacity e pointer-events */
+/* Substituindo display: none/block por opacity и pointer-events */
 .hidden {
     opacity: 0;
     pointer-events: none;
@@ -1829,180 +1951,4 @@ img {
     .welcome-content {
         margin-bottom: 20px;
     }
-}
-
-/* ===== MELHORIAS PARA CRÉDITOS ===== */
-.product-credits {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 10px 0;
-    padding: 8px 12px;
-    background: linear-gradient(135deg, rgba(255, 159, 28, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
-    border-radius: 20px;
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.product-credits i {
-    color: var(--accent);
-    animation: coinSpin 2s infinite ease-in-out;
-}
-
-.btn-credits {
-    background: var(--gradient-secondary);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: var(--transition);
-    flex: 1;
-}
-
-.btn-credits:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-}
-
-.product-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.product-actions button {
-    flex: 1;
-}
-
-/* Ajuste para o botão de favoritos */
-.product-wishlist {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray);
-    cursor: pointer;
-    transition: var(--transition);
-    z-index: 2;
-}
-
-.product-wishlist:hover, .product-wishlist.active {
-    color: var(--danger);
-}
-
-/* Animações para créditos */
-@keyframes coinSpin {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(360deg); }
-}
-
-/* ===== MODAL DE PAGAMENTO COM CRÉDITOS ===== */
-.credits-payment-modal {
-    text-align: center;
-    padding: 30px;
-}
-
-.credits-payment-modal i {
-    font-size: 4rem;
-    color: var(--accent);
-    margin-bottom: 20px;
-    animation: coinSpin 2s ease-in-out;
-}
-
-.credits-payment-modal h2 {
-    color: var(--primary);
-    margin-bottom: 15px;
-}
-
-.credits-payment-modal p {
-    color: var(--gray);
-    margin-bottom: 25px;
-    font-size: 1.1rem;
-}
-
-.credits-success-message {
-    background: rgba(40, 167, 69, 0.1);
-    border-radius: var(--radius);
-    padding: 15px;
-    margin: 20px 0;
-    border-left: 4px solid var(--success);
-}
-
-.credits-success-message p {
-    color: var(--success);
-    margin: 0;
-    font-weight: 600;
-}
-
-.btn-back-to-store {
-    background: var(--gradient-primary);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-    transition: var(--transition);
-}
-
-.btn-back-to-store:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
-}
-/* Estilos para botão de loading */
-.btn-loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-.user-dropdown-item .fa-spinner {
-    margin-right: 12px;
-}
-
-/* Opção de pagamento com créditos */
-.payment-option[data-method="credits"] .payment-icon {
-    color: var(--accent);
-}
-
-/* Detalhes do pagamento com créditos */
-.credits-container {
-    padding: 15px;
-    background: rgba(46, 196, 182, 0.1);
-    border-radius: var(--radius);
-}
-
-.credits-balance h3 {
-    color: var(--dark);
-    margin-bottom: 10px;
-}
-
-.credits-after-payment {
-    margin: 15px 0;
-    padding: 15px;
-    background: white;
-    border-radius: var(--radius);
-    border-left: 4px solid var(--success);
-}
-
-.credits-warning {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
-    background: rgba(220, 53, 69, 0.1);
-    border-radius: var(--radius);
-    color: var(--danger);
-    border-left: 4px solid var(--danger);
-}
-
-.credits-warning i {
-    font-size: 1.2rem;
 }

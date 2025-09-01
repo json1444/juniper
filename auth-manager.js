@@ -157,79 +157,76 @@ class AuthManager {
     }
 
     async handleSignIn(session) {
-    try {
-        this.user = session.user;
-        console.log('Usuário autenticado:', this.user.email);
-        
-        // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
-        const urlParams = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = urlParams.get('access_token');
-        
-        if (accessToken) {
-            // É uma confirmação de email
-            await this.handleEmailConfirmation(session);
+        try {
+            this.user = session.user;
+            console.log('Usuário autenticado:', this.user.email);
             
-            // Limpar a URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-        } else {
-            // Login normal
-            await this.loadUserProfile();
-            this.updateUI();
-        }
-        
-        // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS
-        await this.checkAndAwardCredits();
-        
-        // Limpar flags de confirmação
-        localStorage.removeItem('emailConfirmed');
-        localStorage.removeItem('userEmail');
-        
-    } catch (error) {
-        console.error('Erro no handleSignIn:', error);
-    }
-}
-
-    
-    // ✅ NOVO: Método para dar créditos a novos usuários
-   async checkAndAwardCredits() {
-    try {
-        // Verificar se é um novo usuário (primeiro login)
-        const hasCredits = localStorage.getItem('userCredits');
-        const creditsAwarded = localStorage.getItem('creditsAwarded');
-        
-        if (!hasCredits && !creditsAwarded && this.user) {
-            // Novo usuário - dar 100 créditos iniciais
-            localStorage.setItem('userCredits', '100');
-            localStorage.setItem('creditsAwarded', 'true');
+            // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
+            const urlParams = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = urlParams.get('access_token');
             
-            console.log('100 LuckCoins concedidos ao novo usuário:', this.user.email);
-            
-            // Mostrar notificação de boas-vindas
-            if (typeof showNotification === 'function') {
-                showNotification('🎉 Parabéns! Você ganhou 100 LuckCoins de boas-vindas!');
+            if (accessToken) {
+                // É uma confirmação de email
+                await this.handleEmailConfirmation(session);
+                
+                // Limpar a URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else {
+                // Login normal
+                await this.loadUserProfile();
+                this.updateUI();
             }
             
-            // Mostrar seção de boas-vindas
-            this.showWelcomeSection();
+            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS
+            await this.checkAndAwardCredits();
+            
+            // Limpar flags de confirmação
+            localStorage.removeItem('emailConfirmed');
+            localStorage.removeItem('userEmail');
+            
+        } catch (error) {
+            console.error('Erro no handleSignIn:', error);
         }
-    } catch (error) {
-        console.error('Erro ao conceder créditos:', error);
     }
-}
-
+    
+    // ✅ NOVO: Método para dar créditos a novos usuários
+    async checkAndAwardCredits() {
+        try {
+            // Verificar se é um novo usuário (primeiro login)
+            const hasCredits = localStorage.getItem('userCredits');
+            
+            if (!hasCredits && this.user) {
+                // Novo usuário - dar 100 créditos iniciais
+                localStorage.setItem('userCredits', '100');
+                localStorage.setItem('isNewUser', 'true');
+                
+                console.log('100 LuckCoins concedidos ao novo usuário:', this.user.email);
+                
+                // Mostrar notificação (se a função existir)
+                if (typeof showNotification === 'function') {
+                    showNotification('🎉 Parabéns! Você ganhou 100 LuckCoins de boas-vindas!');
+                }
+                
+                // Mostrar seção de boas-vindas
+                this.showWelcomeSection();
+            }
+        } catch (error) {
+            console.error('Erro ao conceder créditos:', error);
+        }
+    }
     
     // ✅ NOVO: Mostrar seção de boas-vindas
     showWelcomeSection() {
-    const welcomeSection = document.getElementById('welcome-credits');
-    if (welcomeSection) {
-        welcomeSection.style.display = 'block';
-        
-        // Rolar suavemente para a seção após um breve delay
-        setTimeout(() => {
-            welcomeSection.scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
+        const welcomeSection = document.getElementById('welcome-credits');
+        if (welcomeSection) {
+            welcomeSection.style.display = 'block';
+            
+            // Rolar suavemente para a seção após um breve delay
+            setTimeout(() => {
+                welcomeSection.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
     }
-}
     
     // ✅ NOVO: Método para lidar com confirmação de email
     async handleEmailConfirmation(session) {
@@ -470,70 +467,6 @@ window.refreshAuth = function() {
         window.authManager.checkSession();
     }
 };
-
-// ✅ NOVO: Função para fechar a seção de boas-vindas
-window.closeWelcome = function() {
-    const welcomeSection = document.getElementById('welcome-credits');
-    if (welcomeSection) {
-        welcomeSection.style.display = 'none';
-    }
-};
-
-function updateUserCreditsUI() {
-    const userCreditsElement = document.getElementById('userCredits');
-    if (userCreditsElement) {
-        const userCredits = localStorage.getItem('userCredits') || '0';
-        userCreditsElement.textContent = userCredits;
-    }
-}
-
-// ✅ Configurar logout mobile melhorado
-function setupMobileLogout() {
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        // Remover event listener existente para evitar duplicação
-        logoutBtn.replaceWith(logoutBtn.cloneNode(true));
-        
-        // Novo event listener
-        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (window.authManager) {
-                // Adicionar visual de loading
-                const originalHtml = e.target.innerHTML;
-                e.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saindo...';
-                e.target.classList.add('loading');
-                
-                try {
-                    await window.authManager.signOut();
-                } catch (error) {
-                    console.error('Erro no logout:', error);
-                    // Forçar redirecionamento mesmo com erro
-                    window.location.href = '../index.html';
-                }
-            }
-        });
-    }
-}
-
-// ✅ Inicializar quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Inicializando AuthManager...');
-    window.authManager = new AuthManager();
-    
-    // Configurar logout mobile
-    setTimeout(setupMobileLogout, 1000);
-    
-    // ✅ SINCRONIZAÇÃO DE CRÉDITOS
-    setInterval(() => {
-        if (window.authManager && window.authManager.updateUserCredits) {
-            window.authManager.updateUserCredits();
-        }
-    }, 2000);
-    
-  
-});
 
 // ✅ NOVO: Função para fechar a seção de boas-vindas
 window.closeWelcome = function() {

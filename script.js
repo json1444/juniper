@@ -22,7 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
     
-    initAuthSync();
+    initAuthSync(); // ✅ Isso está correto
+    
+    // Inicializar sistema de créditos
+    initCreditsSystem();
 });
 
 // ===== FUNÇÕES DE SINCRONIZAÇÃO =====
@@ -140,6 +143,171 @@ let carrinho = {};
 let favoritos = {};
 let currentSlide = 0;
 let carouselInterval;
+
+// ===== SISTEMA DE CRÉDITOS LUCKPET =====
+let userCredits = 0;
+let appliedCredits = 0;
+
+// Inicializar créditos do usuário
+function initCreditsSystem() {
+    // Verificar se o usuário está logado
+    if (window.authManager && window.authManager.user) {
+        loadUserCredits();
+        
+        // Verificar se é um novo usuário (primeiro acesso)
+        const isNewUser = localStorage.getItem('isNewUser');
+        if (isNewUser === 'true') {
+            showWelcomeCredits();
+            localStorage.removeItem('isNewUser');
+        }
+    }
+}
+
+// Carregar créditos do usuário
+function loadUserCredits() {
+    // Simulando carregamento de créditos (em um sistema real, viria do backend)
+    const savedCredits = localStorage.getItem('userCredits');
+    
+    if (savedCredits) {
+        userCredits = parseInt(savedCredits);
+    } else {
+        // Novo usuário - definir créditos iniciais
+        userCredits = 100;
+        localStorage.setItem('userCredits', userCredits);
+        localStorage.setItem('isNewUser', 'true');
+    }
+    
+    updateCreditsDisplay();
+}
+
+// Atualizar exibição de créditos
+function updateCreditsDisplay() {
+    const creditsElement = document.getElementById('userCredits');
+    const cartCreditsElement = document.getElementById('cartCreditsBalance');
+    
+    if (creditsElement) {
+        creditsElement.textContent = userCredits;
+    }
+    
+    if (cartCreditsElement) {
+        cartCreditsElement.textContent = userCredits;
+    }
+}
+
+// Mostrar boas-vindas com créditos
+function showWelcomeCredits() {
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'block';
+        
+        // Rolar suavemente para a seção
+        setTimeout(() => {
+            welcomeSection.scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
+    }
+}
+
+// Fechar mensagem de boas-vindas
+function closeWelcome() {
+    const welcomeSection = document.getElementById('welcome-credits');
+    if (welcomeSection) {
+        welcomeSection.style.display = 'none';
+    }
+}
+
+// Adicionar créditos ao usuário
+function addCredits(amount) {
+    userCredits += amount;
+    localStorage.setItem('userCredits', userCredits);
+    updateCreditsDisplay();
+    showNotification(`+${amount} LuckCoins adicionados à sua conta!`);
+}
+
+// Remover créditos do usuário
+function deductCredits(amount) {
+    if (userCredits >= amount) {
+        userCredits -= amount;
+        localStorage.setItem('userCredits', userCredits);
+        updateCreditsDisplay();
+        return true;
+    }
+    return false;
+}
+
+// Verificar se o usuário tem créditos suficientes
+function hasEnoughCredits(amount) {
+    return userCredits >= amount;
+}
+
+// Aplicar créditos no carrinho
+function applyCreditsToCart(amount) {
+    const total = calculateCartTotal();
+    const maxApplicable = Math.min(userCredits, total);
+    
+    if (amount > maxApplicable) {
+        amount = maxApplicable;
+    }
+    
+    appliedCredits = amount;
+    updateCartCreditsDisplay();
+    
+    return amount;
+}
+
+// Atualizar exibição de créditos no carrinho
+function updateCartCreditsDisplay() {
+    const creditsInput = document.getElementById('useCredits');
+    const creditsDiscount = document.getElementById('creditsDiscount');
+    const finalTotal = document.getElementById('finalTotal');
+    const creditsApplication = document.getElementById('creditsApplication');
+    const setMaxCredits = document.getElementById('setMaxCredits');
+    
+    if (!creditsInput || !creditsDiscount || !finalTotal) return;
+    
+    const total = calculateCartTotal();
+    const maxApplicable = Math.min(userCredits, total);
+    
+    // Atualizar o valor máximo do input
+    creditsInput.max = maxApplicable;
+    
+    // Atualizar o botão de máximo
+    if (setMaxCredits) {
+        setMaxCredits.onclick = function() {
+            creditsInput.value = maxApplicable;
+            applyCreditsToCart(maxApplicable);
+            updateCartCreditsDisplay();
+        };
+    }
+    
+    // Atualizar desconto e total final
+    creditsDiscount.textContent = `R$ ${appliedCredits.toFixed(2)}`;
+    finalTotal.textContent = `Total com desconto: R$ ${(total - appliedCredits).toFixed(2)}`;
+    
+    // Mostrar/ocultar seção de créditos conforme necessário
+    if (creditsApplication) {
+        if (userCredits > 0 && total > 0) {
+            creditsApplication.style.display = 'block';
+        } else {
+            creditsApplication.style.display = 'none';
+        }
+    }
+}
+
+// Configurar eventos para aplicação de créditos
+function setupCreditsEvents() {
+    const creditsInput = document.getElementById('useCredits');
+    if (!creditsInput) return;
+    
+    creditsInput.addEventListener('input', function() {
+        const amount = parseInt(this.value) || 0;
+        applyCreditsToCart(amount);
+    });
+    
+    creditsInput.addEventListener('change', function() {
+        const amount = parseInt(this.value) || 0;
+        applyCreditsToCart(amount);
+    });
+}
 
 // ===== VERIFICAÇÃO DE LOGIN PARA FAVORITOS E CARRINHO =====
 function checkAuthBeforeAction(actionType, callback) {
@@ -400,7 +568,7 @@ function initSearch() {
             groupedResults['servico'].forEach(item => {
                 html += `
                     <div class="search-suggestion" data-service="${item.id}">
-                        <div><i class="fas fa-concierge-bell"></i> ${item.nome}</div>
+                        <div><i class="fas fa-concierce-bell"></i> ${item.nome}</div>
                         <small>${item.descricao}</small>
                     </div>
                 `;
@@ -683,18 +851,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderWishlist();
     
     // Inicializar sistema de créditos
-    initCreditsSystem();
-    
-    // Inicializar botões de créditos
-    initCreditsButtons();
-    
-    // Inicializar sincronização de créditos
-    if (typeof initCreditsSync === 'function') {
-        initCreditsSync();
-    }
-    
-    // Atualizar créditos na UI
-    updateCreditsDisplay();
+    setupCreditsEvents();
     
     // Scroll para o topo
     window.scrollTo(0, 0);
@@ -822,6 +979,12 @@ function renderCart() {
     if (Object.keys(carrinho).length === 0) {
         cartItems.innerHTML = '<p class="wishlist-empty">Seu carrinho está vazio</p>';
         cartTotal.textContent = 'Subtotal: R$ 0,00';
+        
+        // Ocultar seção de créditos se o carrinho estiver vazio
+        const creditsApplication = document.getElementById('creditsApplication');
+        if (creditsApplication) {
+            creditsApplication.style.display = 'none';
+        }
         return;
     }
     
@@ -856,6 +1019,10 @@ function renderCart() {
     
     cartItems.innerHTML = html;
     cartTotal.textContent = `Subtotal: R$ ${total.toFixed(2)}`;
+    
+    // Atualizar informações de créditos
+    updateCreditsDisplay();
+    updateCartCreditsDisplay();
 }
 
 function removeAllFromCart(productId) {
@@ -876,6 +1043,15 @@ function removeAllFromCart(productId) {
         // Mostrar notificação
         showNotification(`${produtos[productId].nome} removido do carrinho!`, true);
     }
+}
+
+// Calcular total do carrinho
+function calculateCartTotal() {
+    let total = 0;
+    for (const productId in carrinho) {
+        total += carrinho[productId].total;
+    }
+    return total;
 }
 
 // ===== SISTEMA DE FAVORITOS =====
@@ -1233,9 +1409,6 @@ function initEventListeners() {
         });
     });
     
-    // Botões de créditos
-    initCreditsButtons();
-    
     // Pausar carrossel ao passar o mouse
     const heroCarousel = document.querySelector('.hero-carousel');
     if (heroCarousel) {
@@ -1288,76 +1461,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Botão e grid encontrados, inicializando...');
     
-    // Produtos adicionais
-    const maisRacoes = [
-        {
-            id: 'racao4',
-            nome: 'Ração Light Balance',
-            preco: 139.99,
-            img: 'img/racao/racao4.jpg',
-            desc: 'Ideal para pets que precisam controlar o peso'
-        },
-        {
-            id: 'racao5', 
-            nome: 'Ração Júnior Ossinho',
-            preco: 99.99,
-            img: 'img/racao/racao5.jpg',
-            desc: 'Perfeita para o crescimento saudável de filhotes'
-        },
-        {
-            id: 'racao6',
-            nome: 'Ração Júnior Vitality',
-            preco: 99.99, 
-            img: 'img/racao/racao6.jpg',
-            desc: 'Energia e nutrição completa para filhotes'
-        }
-    ];
-    
-    loadMoreBtn.addEventListener('click', function() {
-        console.log('Botão clicado, carregando produtos...');
-        
-        // Criar HTML para todos os produtos de uma vez
-        let produtosHTML = '';
-        
-        maisRacoes.forEach((racao, index) => {
-            produtosHTML += `
-                <div class="product-card" style="animation-delay: ${index * 0.1}s">
-                    <div class="product-image">
-                        <img src="${racao.img}" alt="${racao.nome}" loading="lazy">
-                        <div class="product-wishlist" data-product="${racao.id}">
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${racao.nome}</h3>
-                        <p class="product-desc">${racao.desc}</p>
-                        <div class="product-price">
-                            <span class="price-current">R$ ${racao.preco.toFixed(2)}</span>
-                        </div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="${racao.id}" data-price="${racao.preco}">
-                                <i class="fas fa-shopping-cart"></i> Adicionar
-                            </button>
-                            <button class="btn-credits" data-product="${racao.id}" data-credits="${Math.floor(racao.preco)}">
-                                Usar Créditos
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        
-        // Adicionar todos os produtos ao grid
-        racaoGrid.insertAdjacentHTML('beforeend', produtosHTML);
-        console.log('Produtos adicionados ao grid');
-        
-        // Inicializar event listeners para os novos botões
-        initEventListenersForNewElements();
-        
-        // Esconder o botão após carregar todos os produtos
-        loadMoreBtn.style.display = 'none';
-        console.log('Botão escondido');
-    });
+    // Remover o botão "Carregar Mais" conforme solicitado
+    loadMoreBtn.style.display = 'none';
 });
 
 // ===== FUNÇÕES ADICIONAIS PARA OS NOVOS PRODUTOS =====
@@ -1424,23 +1529,6 @@ function initEventListenersForNewElements() {
             }
         });
     });
-    
-    // Botões de créditos - usar event delegation
-    document.querySelectorAll('#racao-grid .btn-credits').forEach(btn => {
-        // Remover qualquer evento anterior para evitar duplicação
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
-        
-        newBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const productId = this.dataset.product;
-            const creditsCost = parseInt(this.dataset.credits);
-            
-            payWithCredits(productId, creditsCost);
-        });
-    });
 }
 
 // Função para fechar o alerta de login
@@ -1465,158 +1553,3 @@ function setupLoginAlertClose() {
 document.addEventListener('DOMContentLoaded', function() {
     setupLoginAlertClose();
 });
-
-// ===== SISTEMA DE CRÉDITOS LUCKPET =====
-let userCredits = 0;
-
-// Inicializar créditos do usuário
-function initCreditsSystem() {
-    // Verificar se o usuário está logado
-    if (window.authManager && window.authManager.user) {
-        loadUserCredits();
-        
-        // Verificar se é um novo usuário (primeiro acesso)
-        const isNewUser = localStorage.getItem('isNewUser');
-        if (isNewUser === 'true') {
-            showWelcomeCredits();
-            localStorage.removeItem('isNewUser');
-        }
-    }
-}
-
-// Carregar créditos do usuário
-function loadUserCredits() {
-    // Simulando carregamento de créditos (em um sistema real, viria do backend)
-    const savedCredits = localStorage.getItem('userCredits');
-    
-    if (savedCredits) {
-        userCredits = parseInt(savedCredits);
-    } else {
-        // Novo usuário - definir créditos iniciais
-        userCredits = 100;
-        localStorage.setItem('userCredits', userCredits);
-        localStorage.setItem('isNewUser', 'true');
-    }
-    
-    updateCreditsDisplay();
-}
-
-// Atualizar exibição de créditos
-function updateCreditsDisplay() {
-    const creditsElement = document.getElementById('userCredits');
-    if (creditsElement) {
-        creditsElement.textContent = userCredits;
-    }
-}
-
-// Mostrar boas-vindas com créditos
-function showWelcomeCredits() {
-    const welcomeSection = document.getElementById('welcome-credits');
-    if (welcomeSection) {
-        welcomeSection.style.display = 'block';
-        
-        // Rolar suavemente para a seção
-        setTimeout(() => {
-            welcomeSection.scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
-    }
-}
-
-// Fechar mensagem de boas-vindas
-function closeWelcome() {
-    const welcomeSection = document.getElementById('welcome-credits');
-    if (welcomeSection) {
-        welcomeSection.style.display = 'none';
-    }
-}
-
-// Adicionar créditos ao usuário
-function addCredits(amount) {
-    userCredits += amount;
-    localStorage.setItem('userCredits', userCredits);
-    updateCreditsDisplay();
-    showNotification(`+${amount} LuckCoins adicionados à sua conta!`);
-}
-
-// Remover créditos do usuário
-function deductCredits(amount) {
-    if (userCredits >= amount) {
-        userCredits -= amount;
-        localStorage.setItem('userCredits', userCredits);
-        updateCreditsDisplay();
-        return true;
-    }
-    return false;
-}
-
-// Verificar se o usuário tem créditos suficientes
-function hasEnoughCredits(amount) {
-    return userCredits >= amount;
-}
-
-// ===== PAGAMENTO COM CRÉDITOS =====
-function payWithCredits(productId, creditsCost) {
-    checkAuthBeforeAction('credits', function() {
-        if (!window.authManager || !window.authManager.user) {
-            showLoginAlert('credits');
-            return;
-        }
-        
-        // Verificar se tem créditos suficientes ANTES de redirecionar
-        const userCredits = parseInt(localStorage.getItem('userCredits') || '0');
-        
-        if (userCredits < creditsCost) {
-            showNotification(`Saldo insuficiente! Você precisa de ${creditsCost} LuckCoins mas só tem ${userCredits}.`, true);
-            return;
-        }
-        
-        // Salvar informações do produto para usar na página de pagamento
-        localStorage.setItem('creditsProductId', productId);
-        localStorage.setItem('creditsCost', creditsCost.toString());
-        
-        // Redirecionar para a página de pagamento
-        window.location.href = 'pagamento.html';
-    });
-}
-
-// ===== INICIALIZAÇÃO DOS BOTÕES DE CRÉDITOS =====
-function initCreditsButtons() {
-    // Adicionar event listeners para os botões de créditos
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('btn-credits') || e.target.closest('.btn-credits')) {
-            const btn = e.target.classList.contains('btn-credits') ? e.target : e.target.closest('.btn-credits');
-            const productId = btn.dataset.product;
-            const creditsCost = parseInt(btn.dataset.credits);
-            
-            payWithCredits(productId, creditsCost);
-        }
-    });
-}
-
-// ===== SINCRONIZAÇÃO DE CRÉDITOS ENTRE DISPOSITIVOS =====
-function initCreditsSync() {
-    // Verificar se há mudanças nos créditos a cada 2 segundos
-    setInterval(() => {
-        const savedCredits = localStorage.getItem('userCredits');
-        const lastKnownCredits = localStorage.getItem('lastKnownCredits');
-        
-        if (savedCredits !== lastKnownCredits) {
-            // Atualizar créditos na UI
-            updateCreditsDisplay();
-            localStorage.setItem('lastKnownCredits', savedCredits);
-        }
-    }, 2000);
-    
-    // Sincronizar quando a página ganhar foco
-    window.addEventListener('focus', () => {
-        updateCreditsDisplay();
-    });
-}
-
-// ===== FUNÇÃO GLOBAL PARA FECHAR A SEÇÃO DE BOAS-VINDAS =====
-window.closeWelcome = function() {
-    const welcomeSection = document.getElementById('welcome-credits');
-    if (welcomeSection) {
-        welcomeSection.style.display = 'none';
-    }
-};
