@@ -4,79 +4,6 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ===== SINCRONIZAÇÃO ENTRE DISPOSITIVOS =====
-function initAuthSync() {
-    // Usar BroadcastChannel para sincronização em tempo real entre abas
-    if (typeof BroadcastChannel !== 'undefined') {
-        try {
-            const authChannel = new BroadcastChannel('auth_sync_channel');
-            
-            authChannel.onmessage = (event) => {
-                console.log('Mensagem recebida do BroadcastChannel:', event.data);
-                
-                if (event.data.type === 'SESSION_UPDATED') {
-                    console.log('Sessão atualizada em outra aba, verificando...');
-                    if (window.authManager) {
-                        window.authManager.checkSession();
-                    }
-                }
-                
-                if (event.data.type === 'EMAIL_CONFIRMED') {
-                    console.log('Email confirmado em outro dispositivo:', event.data.email);
-                    localStorage.setItem('emailConfirmed', 'true');
-                    localStorage.setItem('userEmail', event.data.email);
-                    
-                    // Forçar verificação de sessão
-                    if (window.authManager) {
-                        window.authManager.checkSession();
-                    }
-                    
-                    showNotification(`Email ${event.data.email} confirmado com sucesso!`);
-                }
-            };
-            
-            window.authChannel = authChannel;
-        } catch (e) {
-            console.log('BroadcastChannel não suportado, usando fallback com localStorage');
-        }
-    }
-    
-    // Verificar periodicamente se há mudanças de autenticação
-    setInterval(() => {
-        const emailConfirmed = localStorage.getItem('emailConfirmed');
-        const userEmail = localStorage.getItem('userEmail');
-        
-        if (emailConfirmed === 'true' && userEmail) {
-            console.log('Email confirmado detectado (localStorage):', userEmail);
-            
-            // Recarregar auth manager
-            if (window.authManager) {
-                window.authManager.checkSession();
-            }
-            
-            // Limpar flags
-            localStorage.removeItem('emailConfirmed');
-            localStorage.removeItem('userEmail');
-            
-            showNotification(`Email ${userEmail} confirmado com sucesso!`);
-        }
-    }, 2000);
-}
-
-// Função para notificar outros dispositivos/abas
-function notifyAuthUpdate(type, data = {}) {
-    // Usar BroadcastChannel se disponível
-    if (window.authChannel) {
-        window.authChannel.postMessage({ type, ...data });
-    }
-    
-    // Também usar localStorage como fallback
-    if (type === 'EMAIL_CONFIRMED') {
-        localStorage.setItem('emailConfirmed', 'true');
-        localStorage.setItem('userEmail', data.email);
-    }
-}
-
 // Gerenciamento de autenticação e interface
 class AuthManager {
     constructor() {
@@ -218,25 +145,11 @@ class AuthManager {
             
             if (session) {
                 console.log('Sessão encontrada:', session.user.email);
-                
-                // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO RECENTE
-                const emailConfirmed = localStorage.getItem('emailConfirmed');
-                if (emailConfirmed === 'true') {
-                    console.log('Processando confirmação de email detectada...');
-                    await this.handleEmailConfirmation(session);
-                    localStorage.removeItem('emailConfirmed');
-                    localStorage.removeItem('userEmail');
-                } else {
-                    await this.handleSignIn(session);
-                }
+                await this.handleSignIn(session);
             } else {
                 console.log('Nenhuma sessão encontrada');
                 this.handleSignOut();
             }
-            
-            // ✅ NOTIFICAR OUTRAS ABAS SOBRE ATUALIZAÇÃO DE SESSÃO
-            notifyAuthUpdate('SESSION_UPDATED');
-            
         } catch (error) {
             console.error('Erro ao verificar sessão:', error);
             this.handleSignOut();
@@ -277,30 +190,30 @@ class AuthManager {
     }
     
     // ✅ NOVO: Método para dar créditos a novos usuários
-    async checkAndAwardCredits() {
-        try {
-            // Verificar se é um novo usuário (primeiro login)
-            const hasCredits = localStorage.getItem('userCredits');
+async checkAndAwardCredits() {
+    try {
+        // Verificar se é um novo usuário (primeiro login)
+        const hasCredits = localStorage.getItem('userCredits');
+        
+        if (!hasCredits && this.user) {
+            // Novo usuário - dar 50 créditos iniciais (alterado de 100 para 50)
+            localStorage.setItem('userCredits', '50');
+            localStorage.setItem('isNewUser', 'true');
             
-            if (!hasCredits && this.user) {
-                // Novo usuário - dar 50 créditos iniciais (alterado de 100 para 50)
-                localStorage.setItem('userCredits', '50');
-                localStorage.setItem('isNewUser', 'true');
-                
-                console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
-                
-                // Mostrar notificação (se a função existir)
-                if (typeof showNotification === 'function') {
-                    showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!');
-                }
-                
-                // Mostrar seção de boas-vindas
-                this.showWelcomeSection();
+            console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
+            
+            // Mostrar notificação (se a função existir)
+            if (typeof showNotification === 'function') {
+                showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!');
             }
-        } catch (error) {
-            console.error('Erro ao conceder créditos:', error);
+            
+            // Mostrar seção de boas-vindas
+            this.showWelcomeSection();
         }
+    } catch (error) {
+        console.error('Erro ao conceder créditos:', error);
     }
+}
     
     // ✅ NOVO: Mostrar seção de boas-vindas
     showWelcomeSection() {
@@ -321,12 +234,9 @@ class AuthManager {
             this.user = session.user;
             console.log('Usuário confirmado via email:', this.user.email);
             
-            // ✅ SINCRONIZAR ENTRE TODOS OS DISPOSITIVOS
+            // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
             localStorage.setItem('emailConfirmed', 'true');
             localStorage.setItem('userEmail', this.user.email);
-            
-            // ✅ NOTIFICAR TODAS AS ABAS/DISPOSITIVOS
-            notifyAuthUpdate('EMAIL_CONFIRMED', { email: this.user.email });
             
             // Buscar perfil do usuário
             await this.loadUserProfile();
@@ -335,6 +245,19 @@ class AuthManager {
             
             // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
             await this.checkAndAwardCredits();
+            
+            // Forçar atualização em todas as abas abertas
+            if (typeof BroadcastChannel !== 'undefined') {
+                try {
+                    const channel = new BroadcastChannel('auth_channel');
+                    channel.postMessage({ 
+                        type: 'USER_CONFIRMED', 
+                        email: this.user.email 
+                    });
+                } catch (e) {
+                    console.log('BroadcastChannel não suportado');
+                }
+            }
             
         } catch (error) {
             console.error('Erro no handleEmailConfirmation:', error);
@@ -502,9 +425,6 @@ class AuthManager {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Inicializando AuthManager...');
     window.authManager = new AuthManager();
-    
-    // Inicializar sincronização de autenticação
-    initAuthSync();
     
     // Configurar toggle do dropdown
     const userToggle = document.getElementById('userToggle');

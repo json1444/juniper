@@ -5,11 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.authManager = new AuthManager();
     }
     
-    // ✅ Inicializar sincronização de autenticação
-    if (typeof initAuthSync === 'function') {
-        initAuthSync();
-    }
-    
     // ✅ CORREÇÃO: Colocar o monitoramento DENTRO do DOMContentLoaded
     if (window.authManager) {
         // Sobrescrever o método handleSignOut para limpar os dados
@@ -27,97 +22,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
     
+    initAuthSync(); // ✅ Isso está correto
+    
     // Inicializar sistema de créditos
     initCreditsSystem();
-    
-    // Inicializar componentes
-    initCarousel();
-    initModals();
-    initEventListeners();
-    initScrollAnimations();
-    initSearch(); // Sistema de busca melhorado
-    updateCounters();
-    renderCart();
-    renderWishlist();
-    
-    // Inicializar sistema de créditos
-    setupCreditsEvents();
-    
-    // Scroll para o topo
-    window.scrollTo(0, 0);
 });
 
-// ===== SINCRONIZAÇÃO ENTRE DISPOSITIVOS =====
+// ===== FUNÇÕES DE SINCRONIZAÇÃO =====
 function initAuthSync() {
-    // Usar BroadcastChannel para sincronização em tempo real entre abas
+    // Usar BroadcastChannel se disponível para sincronização em tempo real
     if (typeof BroadcastChannel !== 'undefined') {
         try {
-            const authChannel = new BroadcastChannel('auth_sync_channel');
+            const authChannel = new BroadcastChannel('auth_channel');
             
             authChannel.onmessage = (event) => {
-                console.log('Mensagem recebida do BroadcastChannel:', event.data);
-                
-                if (event.data.type === 'SESSION_UPDATED') {
-                    console.log('Sessão atualizada em outra aba, verificando...');
-                    if (window.authManager) {
-                        window.authManager.checkSession();
-                    }
-                }
-                
-                if (event.data.type === 'EMAIL_CONFIRMED') {
-                    console.log('Email confirmado em outro dispositivo:', event.data.email);
-                    localStorage.setItem('emailConfirmed', 'true');
-                    localStorage.setItem('userEmail', event.data.email);
+                if (event.data.type === 'USER_CONFIRMED') {
+                    console.log('Usuário confirmado em outra aba:', event.data.email);
                     
-                    // Forçar verificação de sessão
+                    // Recarregar dados de autenticação
                     if (window.authManager) {
                         window.authManager.checkSession();
                     }
                     
+                    // Mostrar notificação
                     showNotification(`Email ${event.data.email} confirmado com sucesso!`);
                 }
             };
-            
-            window.authChannel = authChannel;
         } catch (e) {
-            console.log('BroadcastChannel não suportado, usando fallback com localStorage');
+            console.log('BroadcastChannel não suportado, usando fallback');
         }
     }
     
-    // Verificar periodicamente se há mudanças de autenticação
+    // Verificar periodicamente se o email foi confirmado em outro dispositivo
     setInterval(() => {
         const emailConfirmed = localStorage.getItem('emailConfirmed');
         const userEmail = localStorage.getItem('userEmail');
         
         if (emailConfirmed === 'true' && userEmail) {
-            console.log('Email confirmado detectado (localStorage):', userEmail);
+            console.log('Email confirmado em outro dispositivo:', userEmail);
             
             // Recarregar auth manager
             if (window.authManager) {
                 window.authManager.checkSession();
             }
             
-            // Limpar flags
+            // Limpar o flag após processamento
             localStorage.removeItem('emailConfirmed');
             localStorage.removeItem('userEmail');
             
             showNotification(`Email ${userEmail} confirmado com sucesso!`);
         }
     }, 2000);
-}
-
-// Função para notificar outros dispositivos/abas
-function notifyAuthUpdate(type, data = {}) {
-    // Usar BroadcastChannel se disponível
-    if (window.authChannel) {
-        window.authChannel.postMessage({ type, ...data });
-    }
-    
-    // Também usar localStorage como fallback
-    if (type === 'EMAIL_CONFIRMED') {
-        localStorage.setItem('emailConfirmed', 'true');
-        localStorage.setItem('userEmail', data.email);
-    }
 }
 
 // Função para limpar dados quando o usuário faz logout
@@ -147,7 +102,7 @@ const conteudosSite = {
     // Seções e páginas
     secoes: [
         { id: "saude-pet", nome: "Saúde Pet", tipo: "secao", descricao: "Planos de saúde e cuidados veterinários" },
-        { id: "moda-pet", nome: "Moda Pet", tipo: "secao", descricao: "Roupas và acessórios para seu pet" },
+        { id: "moda-pet", nome: "Moda Pet", tipo: "secao", descricao: "Roupas e acessórios para seu pet" },
         { id: "nutricao-pet", nome: "Nutrição", tipo: "secao", descricao: "Alimentos e rações de qualidade" },
         { id: "curiosidades", nome: "Curiosidades", tipo: "secao", descricao: "Fatos interessantes sobre pets" },
         { id: "servicos", nome: "Serviços", tipo: "secao", descricao: "Banho, tosa e consultas veterinárias" }
@@ -866,6 +821,42 @@ function initSearch() {
     }
 }
 
+// ===== FUNÇÕES DE INICIALIZAÇÃO =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carrinho e favoritos do localStorage APENAS se o usuário estiver logado
+    try {
+        if (window.authManager && window.authManager.user) {
+            carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
+            favoritos = JSON.parse(localStorage.getItem('favoritos')) || {};
+        } else {
+            // Se não estiver logado, limpar os contadores
+            carrinho = {};
+            favoritos = {};
+            updateCounters();
+        }
+    } catch (e) {
+        console.error("Erro ao carregar dados do localStorage:", e);
+        carrinho = {};
+        favoritos = {};
+    }
+    
+    // Inicializar componentes
+    initCarousel();
+    initModals();
+    initEventListeners();
+    initScrollAnimations();
+    initSearch(); // Sistema de busca melhorado
+    updateCounters();
+    renderCart();
+    renderWishlist();
+    
+    // Inicializar sistema de créditos
+    setupCreditsEvents();
+    
+    // Scroll para o topo
+    window.scrollTo(0, 0);
+});
+
 // ===== ANIMAÇÕES DE SCROLL =====
 function initScrollAnimations() {
     const sections = document.querySelectorAll('.section');
@@ -1430,6 +1421,49 @@ function initEventListeners() {
     initForms();
     updateWishlistButtons();
 }
+
+// ===== FUNÇÕES ADICIONAIS PARA GERENCIAR LOGIN/LOGOUT =====
+// Função para limpar dados quando o usuário faz logout
+function clearUserData() {
+    carrinho = {};
+    favoritos = {};
+    updateCounters();
+    renderCart();
+    renderWishlist();
+}
+
+// Monitorar mudanças no estado de autenticação
+if (window.authManager) {
+    // Sobrescrever o método handleSignOut para limpar os dados
+    const originalHandleSignOut = window.authManager.handleSignOut;
+    window.authManager.handleSignOut = function() {
+        originalHandleSignOut.call(this);
+        clearUserData();
+    };
+    
+    // Verificar periodicamente o estado de autenticação
+    setInterval(() => {
+        if (window.authManager && !window.authManager.user && (Object.keys(carrinho).length > 0 || Object.keys(favoritos).length > 0)) {
+            clearUserData();
+        }
+    }, 1000);
+}
+
+// ===== CARREGAMENTO SOB DEMANDA PARA RAÇÕES - SIMPLIFICADO =====
+document.addEventListener('DOMContentLoaded', function() {
+    const loadMoreBtn = document.getElementById('load-more-racao');
+    const racaoGrid = document.getElementById('racao-grid');
+    
+    if (!loadMoreBtn || !racaoGrid) {
+        console.log('Elementos não encontrados');
+        return;
+    }
+    
+    console.log('Botão e grid encontrados, inicializando...');
+    
+    // Remover o botão "Carregar Mais" conforme solicitado
+    loadMoreBtn.style.display = 'none';
+});
 
 // ===== FUNÇÕES ADICIONAIS PARA OS NOVOS PRODUTOS =====
 function initEventListenersForNewElements() {
