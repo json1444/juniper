@@ -2004,3 +2004,51 @@ img {
         margin-bottom: 20px;
     }
 }
+
+/* ===== SINCRONIZAÇÃO ENTRE DISPOSITIVOS ===== */
+.sync-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-hover);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideInRight 0.3s ease;
+}
+
+.sync-notification.error {
+    background: var(--error);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Notificações de sincronização entre dispositivos */
+.cross-device-message {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+    color: #0d47a1;
+}
+
+.cross-device-message i {
+    color: #2196f3;
+    margin-right: 10px;
+}

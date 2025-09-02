@@ -293,9 +293,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Configuração do Supabase (mesma do auth.js)
+        // Configuração do Supabase
         const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NeIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -316,17 +316,31 @@
                     if (!error) {
                         console.log('Sessão configurada com sucesso!');
                         
-                        // ✅ SALVAR PARA SINCRONIZAÇÃO ENTRE DISPOSITIVOS
+                        // ✅ OBTER DADOS DO USUÁRIO
                         const { data: { user } } = await supabase.auth.getUser();
                         if (user) {
+                            // ✅ SINCRONIZAR ENTRE TODOS OS DISPOSITIVOS
                             localStorage.setItem('emailConfirmed', 'true');
                             localStorage.setItem('userEmail', user.email);
+                            
+                            // ✅ USAR BROADCASTCHANNEL SE DISPONÍVEL
+                            if (typeof BroadcastChannel !== 'undefined') {
+                                try {
+                                    const channel = new BroadcastChannel('auth_sync_channel');
+                                    channel.postMessage({ 
+                                        type: 'EMAIL_CONFIRMED', 
+                                        email: user.email 
+                                    });
+                                } catch (e) {
+                                    console.log('BroadcastChannel não suportado');
+                                }
+                            }
                         }
                         
                         // Limpar a URL
                         window.history.replaceState({}, document.title, window.location.pathname);
                         
-                        // ✅ REDIRECIONAMENTO CORRETO PARA A PÁGINA INICIAL
+                        // ✅ REDIRECIONAMENTO PARA A PÁGINA INICIAL
                         setTimeout(() => {
                             window.location.href = 'https://projeto-luckpet.vercel.app/';
                         }, 3000);
