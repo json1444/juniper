@@ -230,39 +230,39 @@ async checkAndAwardCredits() {
     
     // ✅ NOVO: Método para lidar com confirmação de email
     async handleEmailConfirmation(session) {
-        try {
-            this.user = session.user;
-            console.log('Usuário confirmado via email:', this.user.email);
-            
-            // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
-            localStorage.setItem('emailConfirmed', 'true');
-            localStorage.setItem('userEmail', this.user.email);
-            
-            // Buscar perfil do usuário
-            await this.loadUserProfile();
-            
-            this.updateUI();
-            
-            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
-            await this.checkAndAwardCredits();
-            
-            // Forçar atualização em todas as abas abertas
-            if (typeof BroadcastChannel !== 'undefined') {
-                try {
-                    const channel = new BroadcastChannel('auth_channel');
-                    channel.postMessage({ 
-                        type: 'USER_CONFIRMED', 
-                        email: this.user.email 
-                    });
-                } catch (e) {
-                    console.log('BroadcastChannel não suportado');
-                }
+    try {
+        this.user = session.user;
+        console.log('Usuário confirmado via email:', this.user.email);
+        
+        // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
+        localStorage.setItem('emailConfirmed', 'true');
+        localStorage.setItem('userEmail', this.user.email);
+        
+        // Buscar perfil do usuário
+        await this.loadUserProfile();
+        
+        this.updateUI();
+        
+        // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
+        await this.checkAndAwardCredits();
+        
+        // Forçar atualização em todas as abas abertas
+        if (typeof BroadcastChannel !== 'undefined') {
+            try {
+                const channel = new BroadcastChannel('auth_channel');
+                channel.postMessage({ 
+                    type: 'USER_CONFIRMED', 
+                    email: this.user.email 
+                });
+            } catch (e) {
+                console.log('BroadcastChannel não suportado');
             }
-            
-        } catch (error) {
-            console.error('Erro no handleEmailConfirmation:', error);
         }
+        
+    } catch (error) {
+        console.error('Erro no handleEmailConfirmation:', error);
     }
+}
 
     async loadUserProfile() {
         try {

@@ -253,17 +253,10 @@ async function checkEmailConfirmation() {
                 // Limpar a URL para remover os tokens
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                // ✅ REDIRECIONAMENTO CORRETO - Aguardar 2 segundos para processamento completo
+                // ✅ REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO
                 setTimeout(() => {
-                    // Verificar se estamos na página de login ou confirmação
-                    if (window.location.pathname.includes('login.html') || 
-                        window.location.pathname.includes('confirmacao-email.html')) {
-                        window.location.href = '../index.html';
-                    } else {
-                        // Recarregar a página atual para atualizar o estado de autenticação
-                        window.location.reload();
-                    }
-                }, 2000);
+                    window.location.href = 'confirmacao-email.html';
+                }, 1000);
             }
             
         } catch (error) {
