@@ -137,9 +137,17 @@ signupForm.addEventListener('submit', async (e) => {
         // ✅ AVISO ATUALIZADO COM MENÇÃO AO SPAM
         showNotification('✅ Conta criada! Verifique seu email (inclusive SPAM)', 'success');
 
-        // ✅ AVISO SECUNDÁRIO SOBRE SPAM (3 segundos depois)
+        // ✅ REDIRECIONAR PARA LOGIN APÓS 3 SEGUNDOS
         setTimeout(() => {
-            showNotification('📧 Dica: Se não encontrar o email, verifique a pasta de SPAM!', 'info');
+            // Mudar para a aba de login
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-tab="login"]').classList.add('active');
+            
+            authForms.forEach(form => form.classList.remove('active'));
+            document.getElementById('loginForm').classList.add('active');
+            
+            // Preencher o email automaticamente no login
+            document.getElementById('loginEmail').value = email;
         }, 3000);
 
         // Limpar formulário
@@ -152,6 +160,7 @@ signupForm.addEventListener('submit', async (e) => {
         submitButton.classList.remove('loading');
     }
 });
+
 
 // Login de usuário
 loginForm.addEventListener('submit', async (e) => {
@@ -253,10 +262,8 @@ async function checkEmailConfirmation() {
                 // Limpar a URL para remover os tokens
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                // ✅ REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO
-                setTimeout(() => {
-                    window.location.href = 'confirmacao-email.html';
-                }, 1000);
+                // ✅ REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO (SEM REDIRECIONAMENTO AUTOMÁTICO)
+                window.location.href = 'confirmacao-email.html';
             }
             
         } catch (error) {
@@ -264,9 +271,7 @@ async function checkEmailConfirmation() {
             
             // Se der erro mas tiver tokens, tenta redirecionar para confirmação
             if (accessToken && refreshToken) {
-                setTimeout(() => {
-                    window.location.href = 'confirmacao-email.html';
-                }, 1000);
+                window.location.href = 'confirmacao-email.html';
             } else {
                 showNotification('Erro ao confirmar email. Tente fazer login manualmente.', 'error');
             }
