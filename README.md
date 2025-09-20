@@ -2,7 +2,7 @@
 
 Um e-commerce moderno, responsivo e com sistema de autenticação para quem ama cuidar dos seus pets!
 
-<p align="center">
+<p>
   <img src="https://raw.githubusercontent.com/PabloG-7/ecommerce-luckpet/refs/heads/main/luckpet-linkedin.png" alt="LuckPet Banner" width="600"/>
 </p>
 
