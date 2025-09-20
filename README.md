@@ -89,29 +89,6 @@ xdg-open index.html # Linux
 
 ---
 
-## 📋 Pré-requisitos
-
-- Navegador moderno (Chrome, Firefox, Safari, Edge)
-- Conexão com internet (para Supabase e CDNs)
-
----
-
-## 🔧 Configuração do Ambiente
-
-### Variáveis de Ambiente (Supabase)
-O projeto já está configurado com as chaves do Supabase, mas para desenvolvimento personalizado:
-
-1. Crie uma conta em [supabase.com](https://supabase.com)
-2. Crie um novo projeto
-3. Substitua as chaves no arquivo `auth.js`:
-
-```javascript
-const SUPABASE_URL = 'sua-url-do-supabase';
-const SUPABASE_ANON_KEY = 'sua-chave-anonima';
-```
-
----
-
 ## 📁 Estrutura de Arquivos
 
 ```
