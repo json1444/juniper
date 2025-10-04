@@ -97,7 +97,7 @@ function calculatePasswordStrength(password) {
     return { percentage: strength, text: feedback, color: color };
 }
 
-// Cadastro de usuário
+// Cadastro de usuário - VERSÃO CORRIGIDA
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -110,7 +110,7 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        // Criar usuário no Supabase Auth com redirecionamento personalizado
+        // ✅ CORREÇÃO: Configuração correta para envio de email
         const { data: authData, error: authError } = await supabase.auth.signUp({ 
             email, 
             password,
@@ -119,7 +119,7 @@ signupForm.addEventListener('submit', async (e) => {
                     nome: name,
                     avatar: avatar
                 },
-                emailRedirectTo: window.location.origin + '/formulario/confirmacao-email.html'
+                emailRedirectTo: `${window.location.origin}/formulario/confirmacao-email.html`
             }
         });
         
@@ -134,21 +134,44 @@ signupForm.addEventListener('submit', async (e) => {
             throw authError;
         }
 
-        // ✅ AVISO ATUALIZADO COM MENÇÃO AO SPAM
-        showNotification('✅ Conta criada! Verifique seu email (inclusive SPAM)', 'success');
+        // ✅ VERIFICAÇÃO SE O EMAIL FOI ENVIADO
+        if (authData.user && !authData.user.email_confirmed_at) {
+            if (authData.user.identities && authData.user.identities.length === 0) {
+                throw new Error('Este email já está cadastrado. Tente fazer login.');
+            }
+            
+            // ✅ MENSAGEM MELHORADA COM INFORMAÇÕES SOBRE SPAM
+            showNotification('✅ Conta criada! Verifique seu email (incluindo a pasta SPAM) para confirmar sua conta. O email pode levar alguns minutos para chegar.', 'success');
+            
+            // ✅ TENTAR REENVIAR EMAIL APÓS 30 SEGUNDOS SE O USUÁRIO NÃO CONFIRMAR
+            setTimeout(async () => {
+                try {
+                    const { error: resendError } = await supabase.auth.resend({
+                        type: 'signup',
+                        email: email
+                    });
+                    if (!resendError) {
+                        console.log('Email de verificação reenviado');
+                    }
+                } catch (resendErr) {
+                    console.log('Não foi possível reenviar o email:', resendErr);
+                }
+            }, 30000);
+            
+        } else if (authData.user && authData.user.email_confirmed_at) {
+            showNotification('✅ Conta criada e email já confirmado! Faça login para continuar.', 'success');
+        }
 
-        // ✅ REDIRECIONAR PARA LOGIN APÓS 3 SEGUNDOS
+        // ✅ REDIRECIONAR PARA LOGIN APÓS 5 SEGUNDOS
         setTimeout(() => {
-            // Mudar para a aba de login
             tabButtons.forEach(btn => btn.classList.remove('active'));
             document.querySelector('[data-tab="login"]').classList.add('active');
             
             authForms.forEach(form => form.classList.remove('active'));
             document.getElementById('loginForm').classList.add('active');
             
-            // Preencher o email automaticamente no login
             document.getElementById('loginEmail').value = email;
-        }, 3000);
+        }, 5000);
 
         // Limpar formulário
         signupForm.reset();
@@ -399,3 +422,39 @@ function getUrlParameter(name) {
     const results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
+
+// Função para reenviar email de verificação
+async function resendVerificationEmail(email) {
+    try {
+        const { error } = await supabase.auth.resend({
+            type: 'signup',
+            email: email,
+            options: {
+                emailRedirectTo: `${window.location.origin}/formulario/confirmacao-email.html`
+            }
+        });
+        
+        if (error) throw error;
+        
+        showNotification('📧 Email de verificação reenviado! Verifique sua caixa de entrada.', 'success');
+    } catch (error) {
+        console.error('Erro ao reenviar email:', error);
+        showNotification('Erro ao reenviar email. Tente novamente mais tarde.', 'error');
+    }
+}
+
+// Adicionar evento para o botão de reenvio
+document.addEventListener('DOMContentLoaded', function() {
+    const resendBtn = document.getElementById('resendEmailBtn');
+    if (resendBtn) {
+        resendBtn.addEventListener('click', function() {
+            const email = document.getElementById('signupEmail').value || 
+                         document.getElementById('loginEmail').value;
+            if (email) {
+                resendVerificationEmail(email);
+            } else {
+                showNotification('Digite seu email para reenviar a verificação.', 'error');
+            }
+        });
+    }
+});
