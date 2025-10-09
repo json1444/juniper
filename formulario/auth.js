@@ -339,7 +339,7 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
-// ✅ ENTRAR COMO CONVIDADO
+// ✅ ENTRAR COMO CONVIDADO - SOLUÇÃO CORRIGIDA
 function setupGuestLogin() {
     const guestBtn = document.getElementById('guestLoginBtn');
     if (guestBtn) {
@@ -364,71 +364,42 @@ function setupGuestLogin() {
     }
 }
 
-// ✅ FUNÇÃO PARA LOGIN COMO CONVIDADO
+// ✅ FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO CORRIGIDA
 async function loginAsGuest() {
     try {
-        // Gerar credenciais únicas para o convidado
-        const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        const guestEmail = `${guestId}@guest.luckpet.com`;
-        const guestPassword = `guest_${Math.random().toString(36).substr(2, 12)}`;
+        // ✅ SOLUÇÃO: Usar localStorage para modo convidado sem autenticação Supabase
         const guestName = generateGuestName();
         const guestAvatar = getRandomAvatar();
+        const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-        // Criar conta de convidado
-        const { data: authData, error: authError } = await supabase.auth.signUp({ 
-            email: guestEmail,
-            password: guestPassword,
-            options: {
-                data: {
-                    nome: guestName,
-                    avatar: guestAvatar,
-                    is_guest: true,
-                    guest_id: guestId,
-                    created_at: new Date().toISOString()
-                }
-            }
-        });
+        // ✅ SALVAR INFORMAÇÕES DO CONVIDADO NO LOCALSTORAGE
+        localStorage.setItem('isGuest', 'true');
+        localStorage.setItem('guestName', guestName);
+        localStorage.setItem('guestAvatar', guestAvatar);
+        localStorage.setItem('guestId', guestId);
+        localStorage.setItem('guestLoginTime', new Date().toISOString());
         
-        if (authError) {
-            // Se já existir um convidado com esse email, tentar login
-            if (authError.message.includes('already registered')) {
-                const { error: signInError } = await supabase.auth.signInWithPassword({
-                    email: guestEmail,
-                    password: guestPassword
-                });
-                
-                if (!signInError) {
-                    showNotification(`🎉 Bem-vindo, ${guestName}!`, 'success');
-                    setTimeout(() => window.location.href = '../index.html', 1500);
-                    return;
-                }
-            }
-            throw authError;
-        }
+        // ✅ DADOS DO "PERFIL" DO CONVIDADO
+        const guestProfile = {
+            id: guestId,
+            nome: guestName,
+            avatar: guestAvatar,
+            is_guest: true,
+            created_at: new Date().toISOString()
+        };
+        
+        localStorage.setItem('guestProfile', JSON.stringify(guestProfile));
+        
+        // ✅ DAR CRÉDITOS INICIAIS PARA CONVIDADO
+        localStorage.setItem('userCredits', '25'); // Convidado ganha menos créditos
+        localStorage.setItem('isNewUser', 'true');
 
-        // Se a conta foi criada com sucesso, fazer login automaticamente
-        if (authData.user) {
-            const { error: signInError } = await supabase.auth.signInWithPassword({
-                email: guestEmail,
-                password: guestPassword
-            });
-            
-            if (!signInError) {
-                showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
-                
-                // ✅ SALVAR INFORMAÇÕES DO CONVIDADO NO LOCALSTORAGE
-                localStorage.setItem('isGuest', 'true');
-                localStorage.setItem('guestName', guestName);
-                localStorage.setItem('guestAvatar', guestAvatar);
-                localStorage.setItem('guestId', guestId);
-                
-                setTimeout(() => {
-                    window.location.href = '../index.html';
-                }, 1500);
-            } else {
-                throw signInError;
-            }
-        }
+        showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
+        
+        // ✅ REDIRECIONAR PARA PÁGINA PRINCIPAL
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 1500);
 
     } catch (error) {
         console.error('Erro no login como convidado:', error);
@@ -451,6 +422,35 @@ function generateGuestName() {
 function getRandomAvatar() {
     const avatars = ['cachorro', 'gato', 'coelho', 'pássaro'];
     return avatars[Math.floor(Math.random() * avatars.length)];
+}
+
+// ✅ VERIFICAR SE USUÁRIO É CONVIDADO
+function isGuestUser() {
+    return localStorage.getItem('isGuest') === 'true';
+}
+
+// ✅ OBTER PERFIL DO CONVIDADO
+function getGuestProfile() {
+    const guestProfile = localStorage.getItem('guestProfile');
+    return guestProfile ? JSON.parse(guestProfile) : null;
+}
+
+// ✅ FAZER LOGOUT DO MODO CONVIDADO
+function logoutGuest() {
+    localStorage.removeItem('isGuest');
+    localStorage.removeItem('guestName');
+    localStorage.removeItem('guestAvatar');
+    localStorage.removeItem('guestId');
+    localStorage.removeItem('guestProfile');
+    localStorage.removeItem('guestLoginTime');
+    
+    // Manter créditos se quiser, ou remover:
+    // localStorage.removeItem('userCredits');
+    
+    showNotification('Modo convidado finalizado.', 'info');
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
 }
 
 // Mostrar notificações
@@ -572,6 +572,12 @@ async function checkAuth() {
     if (!window.location.pathname.includes('login.html')) return;
 
     try {
+        // ✅ VERIFICAR SE É CONVIDADO PRIMEIRO
+        if (isGuestUser()) {
+            showNotification(`Você está no modo convidado como ${localStorage.getItem('guestName')}.`, 'info');
+            return;
+        }
+
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
             const { data: profile, error } = await supabase
@@ -673,3 +679,12 @@ function getUrlParameter(name) {
     const results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
+
+// ✅ EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
+window.AuthUtils = {
+    isGuestUser,
+    getGuestProfile,
+    logoutGuest,
+    generateGuestName,
+    getRandomAvatar
+};
