@@ -1555,3 +1555,174 @@ document.addEventListener('DOMContentLoaded', function() {
     setupLoginAlertClose();
 });
 
+// ===== SISTEMA DE CONVIDADO INTEGRADO =====
+
+// Modificar a função initCreditsSystem para incluir convidados
+function initCreditsSystem() {
+    // Verificar se é usuário logado OU convidado
+    if ((window.authManager && window.authManager.user) || window.GuestMode.isGuestUser()) {
+        loadUserCredits();
+        
+        // Verificar se é um novo usuário (primeiro acesso)
+        const isNewUser = localStorage.getItem('isNewUser');
+        if (isNewUser === 'true') {
+            showWelcomeCredits();
+            localStorage.removeItem('isNewUser');
+        }
+    }
+}
+
+// Modificar a função checkAuthBeforeAction para aceitar convidados
+function checkAuthBeforeAction(actionType, callback) {
+    if ((window.authManager && window.authManager.user) || window.GuestMode.isGuestUser()) {
+        // Usuário está logado ou é convidado, executar a ação
+        if (typeof callback === 'function') {
+            callback();
+        }
+    } else {
+        // Usuário não está logado, mostrar alerta e redirecionar
+        showLoginAlert(actionType);
+    }
+}
+
+// Modificar a função loadUserCredits para convidados
+function loadUserCredits() {
+    const savedCredits = localStorage.getItem('userCredits');
+    
+    if (savedCredits) {
+        userCredits = parseInt(savedCredits);
+    } else {
+        // Definir créditos iniciais baseado no tipo de usuário
+        if (window.GuestMode.isGuestUser()) {
+            userCredits = 25; // Convidado ganha menos créditos
+        } else {
+            userCredits = 50; // Usuário registrado ganha mais
+        }
+        localStorage.setItem('userCredits', userCredits);
+        localStorage.setItem('isNewUser', 'true');
+    }
+    
+    updateCreditsDisplay();
+}
+
+// Modificar a função clearUserData para não limpar dados de convidado
+function clearUserData() {
+    // Só limpar se não for convidado
+    if (!window.GuestMode.isGuestUser()) {
+        carrinho = {};
+        favoritos = {};
+        updateCounters();
+        renderCart();
+        renderWishlist();
+    }
+}
+
+// Nova função para carregar dados do convidado
+function loadGuestData() {
+    if (window.GuestMode.isGuestUser()) {
+        try {
+            carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
+            favoritos = JSON.parse(localStorage.getItem('favoritos')) || {};
+            console.log('Dados do convidado carregados:', { carrinho, favoritos });
+        } catch (e) {
+            console.error("Erro ao carregar dados do convidado:", e);
+            carrinho = {};
+            favoritos = {};
+        }
+    }
+}
+
+// Modificar a inicialização do DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar modo convidado primeiro
+    if (window.GuestMode && window.GuestMode.initGuestMode) {
+        window.GuestMode.initGuestMode();
+    }
+    
+    // Carregar dados baseado no tipo de usuário
+    if (window.GuestMode.isGuestUser()) {
+        loadGuestData();
+    } else if (window.authManager && window.authManager.user) {
+        // Código existente para usuários logados
+        try {
+            carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
+            favoritos = JSON.parse(localStorage.getItem('favoritos')) || {};
+        } catch (e) {
+            console.error("Erro ao carregar dados do localStorage:", e);
+            carrinho = {};
+            favoritos = {};
+        }
+    } else {
+        // Se não estiver logado nem for convidado, limpar os contadores
+        carrinho = {};
+        favoritos = {};
+    }
+    
+    // Resto do código de inicialização...
+    initAuthSync();
+    initCreditsSystem();
+    updateCounters();
+    renderCart();
+    renderWishlist();
+    // ... resto do código
+});
+
+// Modificar as funções de carrinho e favoritos para salvar no localStorage para convidados
+function addToCart(productId, price) {
+    checkAuthBeforeAction('cart', function() {
+        if (!produtos[productId]) {
+            showNotification("Produto não encontrado!", true);
+            return;
+        }
+        
+        if (!carrinho[productId]) {
+            carrinho[productId] = {
+                quantidade: 1,
+                total: price,
+                ...produtos[productId]
+            };
+        } else {
+            carrinho[productId].quantidade++;
+            carrinho[productId].total = carrinho[productId].quantidade * price;
+        }
+        
+        // Salvar no localStorage (funciona para convidados e usuários logados)
+        try {
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        } catch (e) {
+            console.error("Erro ao salvar no localStorage:", e);
+        }
+        
+        updateCounters();
+        renderCart();
+        showNotification(`${produtos[productId].nome} adicionado ao carrinho!`);
+    });
+}
+
+function toggleWishlist(productId) {
+    checkAuthBeforeAction('wishlist', function() {
+        if (!produtos[productId]) {
+            showNotification("Produto não encontrado!", true);
+            return;
+        }
+        
+        if (favoritos[productId]) {
+            delete favoritos[productId];
+            showNotification(`${produtos[productId].nome} removido dos favoritos!`, true);
+        } else {
+            favoritos[productId] = produtos[productId];
+            showNotification(`${produtos[productId].nome} adicionado aos favoritos!`);
+        }
+        
+        // Salvar no localStorage (funciona para convidados e usuários logados)
+        try {
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+        } catch (e) {
+            console.error("Erro ao salvar no localStorage:", e);
+        }
+        
+        updateCounters();
+        renderWishlist();
+        updateWishlistButtons();
+    });
+}

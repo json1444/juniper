@@ -31,6 +31,9 @@ class AuthManager {
         
         // ✅ NOVO: Verificar confirmação de email entre dispositivos
         this.checkCrossDeviceEmailConfirmation();
+        
+        // ✅ NOVO: Verificar modo convidado
+        this.checkGuestMode();
     }
 
     async checkUrlTokens() {
@@ -92,6 +95,25 @@ class AuthManager {
         }
     }
     
+    // ✅ NOVO: Verificar modo convidado
+    checkGuestMode() {
+        if (this.isGuestUser()) {
+            console.log('Modo convidado detectado no AuthManager');
+            this.updateUI();
+        }
+    }
+    
+    // ✅ NOVO: Verificar se é usuário convidado
+    isGuestUser() {
+        return localStorage.getItem('isGuest') === 'true';
+    }
+    
+    // ✅ NOVO: Obter perfil do convidado
+    getGuestProfile() {
+        const guestProfile = localStorage.getItem('guestProfile');
+        return guestProfile ? JSON.parse(guestProfile) : null;
+    }
+
     // ✅ NOVO: Mostrar mensagem de email confirmado
     showEmailConfirmedMessage(email) {
         // Criar elemento de mensagem
@@ -190,30 +212,30 @@ class AuthManager {
     }
     
     // ✅ NOVO: Método para dar créditos a novos usuários
-async checkAndAwardCredits() {
-    try {
-        // Verificar se é um novo usuário (primeiro login)
-        const hasCredits = localStorage.getItem('userCredits');
-        
-        if (!hasCredits && this.user) {
-            // Novo usuário - dar 50 créditos iniciais (alterado de 100 para 50)
-            localStorage.setItem('userCredits', '50');
-            localStorage.setItem('isNewUser', 'true');
+    async checkAndAwardCredits() {
+        try {
+            // Verificar se é um novo usuário (primeiro login)
+            const hasCredits = localStorage.getItem('userCredits');
             
-            console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
-            
-            // Mostrar notificação (se a função existir)
-            if (typeof showNotification === 'function') {
-                showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!');
+            if (!hasCredits && this.user) {
+                // Novo usuário - dar 50 créditos iniciais (alterado de 100 para 50)
+                localStorage.setItem('userCredits', '50');
+                localStorage.setItem('isNewUser', 'true');
+                
+                console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
+                
+                // Mostrar notificação (se a função existir)
+                if (typeof showNotification === 'function') {
+                    showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!');
+                }
+                
+                // Mostrar seção de boas-vindas
+                this.showWelcomeSection();
             }
-            
-            // Mostrar seção de boas-vindas
-            this.showWelcomeSection();
+        } catch (error) {
+            console.error('Erro ao conceder créditos:', error);
         }
-    } catch (error) {
-        console.error('Erro ao conceder créditos:', error);
     }
-}
     
     // ✅ NOVO: Mostrar seção de boas-vindas
     showWelcomeSection() {
@@ -230,39 +252,39 @@ async checkAndAwardCredits() {
     
     // ✅ NOVO: Método para lidar com confirmação de email
     async handleEmailConfirmation(session) {
-    try {
-        this.user = session.user;
-        console.log('Usuário confirmado via email:', this.user.email);
-        
-        // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
-        localStorage.setItem('emailConfirmed', 'true');
-        localStorage.setItem('userEmail', this.user.email);
-        
-        // Buscar perfil do usuário
-        await this.loadUserProfile();
-        
-        this.updateUI();
-        
-        // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
-        await this.checkAndAwardCredits();
-        
-        // Forçar atualização em todas as abas abertas
-        if (typeof BroadcastChannel !== 'undefined') {
-            try {
-                const channel = new BroadcastChannel('auth_channel');
-                channel.postMessage({ 
-                    type: 'USER_CONFIRMED', 
-                    email: this.user.email 
-                });
-            } catch (e) {
-                console.log('BroadcastChannel não suportado');
+        try {
+            this.user = session.user;
+            console.log('Usuário confirmado via email:', this.user.email);
+            
+            // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
+            localStorage.setItem('emailConfirmed', 'true');
+            localStorage.setItem('userEmail', this.user.email);
+            
+            // Buscar perfil do usuário
+            await this.loadUserProfile();
+            
+            this.updateUI();
+            
+            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
+            await this.checkAndAwardCredits();
+            
+            // Forçar atualização em todas as abas abertas
+            if (typeof BroadcastChannel !== 'undefined') {
+                try {
+                    const channel = new BroadcastChannel('auth_channel');
+                    channel.postMessage({ 
+                        type: 'USER_CONFIRMED', 
+                        email: this.user.email 
+                    });
+                } catch (e) {
+                    console.log('BroadcastChannel não suportado');
+                }
             }
+            
+        } catch (error) {
+            console.error('Erro no handleEmailConfirmation:', error);
         }
-        
-    } catch (error) {
-        console.error('Erro no handleEmailConfirmation:', error);
     }
-}
 
     async loadUserProfile() {
         try {
@@ -335,6 +357,13 @@ async checkAndAwardCredits() {
     }
 
     updateUI() {
+        // ✅ VERIFICAR SE É CONVIDADO PRIMEIRO
+        if (this.isGuestUser()) {
+            console.log('Atualizando UI para modo convidado');
+            this.updateUIForGuest();
+            return;
+        }
+        
         const loginBtn = document.getElementById('loginBtn');
         const userMenu = document.getElementById('userMenu');
         
@@ -356,6 +385,56 @@ async checkAndAwardCredits() {
             if (loginBtn) loginBtn.style.display = 'flex';
             if (userMenu) userMenu.style.display = 'none';
         }
+    }
+    
+    // ✅ NOVO: Atualizar UI para modo convidado
+    updateUIForGuest() {
+        const guestProfile = this.getGuestProfile();
+        if (!guestProfile) return;
+        
+        const loginBtn = document.getElementById('loginBtn');
+        const userMenu = document.getElementById('userMenu');
+        const userToggle = document.getElementById('userToggle');
+        const userAvatar = document.querySelector('.user-avatar');
+        const userName = document.querySelector('.user-name');
+        const profileAvatar = document.querySelector('.profile-avatar');
+        const profileName = document.querySelector('.profile-name');
+        const profileLevel = document.querySelector('.profile-level');
+        const userCreditsElement = document.getElementById('userCredits');
+        
+        // ✅ OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (userMenu) userMenu.style.display = 'flex';
+        
+        // ✅ ATUALIZAR AVATAR E NOME
+        if (userAvatar) {
+            userAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
+            userAvatar.alt = guestProfile.nome;
+            userAvatar.onerror = function() {
+                this.src = '../img/avatares/cachorro.jpg';
+            };
+        }
+        
+        if (userName) userName.textContent = guestProfile.nome;
+        
+        if (profileAvatar) {
+            profileAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
+            profileAvatar.alt = guestProfile.nome;
+            profileAvatar.onerror = function() {
+                this.src = '../img/avatares/cachorro.jpg';
+            };
+        }
+        
+        if (profileName) profileName.textContent = guestProfile.nome;
+        if (profileLevel) profileLevel.textContent = `Nível ${guestProfile.nivel}`;
+        
+        // ✅ ATUALIZAR CRÉDITOS
+        if (userCreditsElement) {
+            const userCredits = localStorage.getItem('userCredits') || '25';
+            userCreditsElement.textContent = userCredits;
+        }
+        
+        console.log('UI atualizada para modo convidado:', guestProfile.nome);
     }
 
     updateUserAvatar() {
@@ -414,6 +493,32 @@ async checkAndAwardCredits() {
             userCreditsElement.textContent = userCredits;
         }
     }
+    
+    // ✅ NOVO: Logout para convidado
+    logoutGuest() {
+        // Manter apenas os créditos, limpar o resto
+        const userCredits = localStorage.getItem('userCredits');
+        
+        localStorage.removeItem('isGuest');
+        localStorage.removeItem('guestProfile');
+        localStorage.removeItem('guestLoginTime');
+        localStorage.removeItem('isNewUser');
+        localStorage.removeItem('carrinho');
+        localStorage.removeItem('favoritos');
+        
+        // Restaurar créditos se existirem
+        if (userCredits) {
+            localStorage.setItem('userCredits', userCredits);
+        }
+        
+        if (typeof showNotification === 'function') {
+            showNotification('Modo convidado finalizado.', 'info');
+        }
+        
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
 
     // Método para forçar atualização da UI
     forceUpdate() {
@@ -444,12 +549,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Configurar logout
+    // Configurar logout - AGORA SUPORTA CONVIDADO TAMBÉM
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async (e) => {
             e.preventDefault();
-            await window.authManager.signOut();
+            
+            // Verificar se é convidado
+            if (window.authManager.isGuestUser()) {
+                window.authManager.logoutGuest();
+            } else {
+                await window.authManager.signOut();
+            }
         });
     }
 
@@ -473,5 +584,20 @@ window.closeWelcome = function() {
     const welcomeSection = document.getElementById('welcome-credits');
     if (welcomeSection) {
         welcomeSection.style.display = 'none';
+    }
+};
+
+// ✅ NOVO: Exportar funções de convidado para uso global
+window.GuestMode = {
+    isGuestUser: function() {
+        return window.authManager ? window.authManager.isGuestUser() : false;
+    },
+    getGuestProfile: function() {
+        return window.authManager ? window.authManager.getGuestProfile() : null;
+    },
+    logoutGuest: function() {
+        if (window.authManager) {
+            window.authManager.logoutGuest();
+        }
     }
 };
