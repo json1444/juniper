@@ -103,7 +103,7 @@ function calculatePasswordStrength(password) {
     return { percentage: strength, text: feedback, color: color };
 }
 
-// Cadastro de usuário - VERSÃO ULTRA RÁPIDA
+// Cadastro de usuário - VERSÃO ULTRA RÁPIDO
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -339,6 +339,120 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
+// ✅ ENTRAR COMO CONVIDADO
+function setupGuestLogin() {
+    const guestBtn = document.getElementById('guestLoginBtn');
+    if (guestBtn) {
+        guestBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = this;
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+            submitButton.disabled = true;
+            
+            try {
+                await loginAsGuest();
+            } catch (error) {
+                console.error('Erro ao entrar como convidado:', error);
+                showNotification('Erro ao entrar como convidado. Tente novamente.', 'error');
+            } finally {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
+        });
+    }
+}
+
+// ✅ FUNÇÃO PARA LOGIN COMO CONVIDADO
+async function loginAsGuest() {
+    try {
+        // Gerar credenciais únicas para o convidado
+        const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const guestEmail = `${guestId}@guest.luckpet.com`;
+        const guestPassword = `guest_${Math.random().toString(36).substr(2, 12)}`;
+        const guestName = generateGuestName();
+        const guestAvatar = getRandomAvatar();
+
+        // Criar conta de convidado
+        const { data: authData, error: authError } = await supabase.auth.signUp({ 
+            email: guestEmail,
+            password: guestPassword,
+            options: {
+                data: {
+                    nome: guestName,
+                    avatar: guestAvatar,
+                    is_guest: true,
+                    guest_id: guestId,
+                    created_at: new Date().toISOString()
+                }
+            }
+        });
+        
+        if (authError) {
+            // Se já existir um convidado com esse email, tentar login
+            if (authError.message.includes('already registered')) {
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email: guestEmail,
+                    password: guestPassword
+                });
+                
+                if (!signInError) {
+                    showNotification(`🎉 Bem-vindo, ${guestName}!`, 'success');
+                    setTimeout(() => window.location.href = '../index.html', 1500);
+                    return;
+                }
+            }
+            throw authError;
+        }
+
+        // Se a conta foi criada com sucesso, fazer login automaticamente
+        if (authData.user) {
+            const { error: signInError } = await supabase.auth.signInWithPassword({
+                email: guestEmail,
+                password: guestPassword
+            });
+            
+            if (!signInError) {
+                showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
+                
+                // ✅ SALVAR INFORMAÇÕES DO CONVIDADO NO LOCALSTORAGE
+                localStorage.setItem('isGuest', 'true');
+                localStorage.setItem('guestName', guestName);
+                localStorage.setItem('guestAvatar', guestAvatar);
+                localStorage.setItem('guestId', guestId);
+                
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 1500);
+            } else {
+                throw signInError;
+            }
+        }
+
+    } catch (error) {
+        console.error('Erro no login como convidado:', error);
+        throw error;
+    }
+}
+
+// ✅ GERAR NOME ALEATÓRIO PARA CONVIDADO
+function generateGuestName() {
+    const names = [
+        'Amigo Pet', 'Explorador', 'Aventureiro', 'Curioso', 'Visitante',
+        'Amigo dos Bichos', 'PetLover', 'Mimi', 'Tobby', 'Luna', 'Thor', 'Mel',
+        'Bob', 'Lucky', 'Charlie', 'Bella', 'Max', 'Lucy', 'Buddy', 'Daisy'
+    ];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    return `${randomName}#${Math.floor(Math.random() * 1000)}`;
+}
+
+// ✅ OBTER AVATAR ALEATÓRIO
+function getRandomAvatar() {
+    const avatars = ['cachorro', 'gato', 'coelho', 'pássaro'];
+    return avatars[Math.floor(Math.random() * avatars.length)];
+}
+
 // Mostrar notificações
 function showNotification(message, type) {
     const toast = document.getElementById('notificationToast');
@@ -530,6 +644,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkEmailConfirmation();
     checkCrossDeviceConfirmation(); // ✅ NOVA VERIFICAÇÃO
     processAuthTokens();
+    setupGuestLogin(); // ✅ CONFIGURAR LOGIN COMO CONVIDADO
     
     // Verificar se há mensagens de sucesso na URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -557,32 +672,4 @@ function getUrlParameter(name) {
     const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     const results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
-
-// ✅ MONITORAMENTO DE ENTREGA DE EMAIL EM TEMPO REAL
-function startEmailDeliveryMonitoring(email) {
-    let checks = 0;
-    const maxChecks = 10; // Verificar por até 5 minutos
-    
-    const checkInterval = setInterval(async () => {
-        checks++;
-        
-        try {
-            const { data: { user }, error } = await supabase.auth.getUser();
-            
-            if (user && user.email_confirmed_at) {
-                clearInterval(checkInterval);
-                showNotification('🎉 Email confirmado! Redirecionando...', 'success');
-                setTimeout(() => window.location.href = '../index.html', 2000);
-                return;
-            }
-            
-            if (checks >= maxChecks) {
-                clearInterval(checkInterval);
-                // Não mostra notificação para não incomodar o usuário
-            }
-        } catch (error) {
-            // Ignora erros
-        }
-    }, 30000); // Verificar a cada 30 segundos
 }

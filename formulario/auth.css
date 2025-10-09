@@ -777,3 +777,34 @@ body {
         height: 60px;
     }
 }
+
+/* Estilos para o botão de convidado */
+.btn-guest {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border: none !important;
+    padding: 15px 30px !important;
+    border-radius: 25px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.btn-guest:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+.btn-guest:disabled {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.guest-login-container {
+    margin-top: 20px;
+    text-align: center;
+}
