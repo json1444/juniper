@@ -1,8 +1,17 @@
-// Configuração do Supabase
-const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+// auth.js - NÃO declara supabase, usa a instância global
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Usar a instância global do Supabase
+const supabase = window.supabase;
+
+// Verificar se supabase está disponível
+if (!supabase) {
+    console.error('Supabase não inicializado. Verifique se auth-manager.js foi carregado primeiro!');
+    // Tentar inicializar como fallback
+    const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+    window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('Supabase inicializado no auth.js como fallback');
+}
 
 // Elementos do DOM
 const loginForm = document.getElementById('loginForm');
@@ -103,7 +112,7 @@ function calculatePasswordStrength(password) {
     return { percentage: strength, text: feedback, color: color };
 }
 
-// Cadastro de usuário - VERSÃO ULTRA RÁPIDO
+// Cadastro de usuário
 signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -117,7 +126,7 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        // ✅ CONFIGURAÇÃO OTIMIZADA PARA ENVIO RÁPIDO
+        // CONFIGURAÇÃO OTIMIZADA PARA ENVIO RÁPIDO
         const { data: authData, error: authError } = await supabase.auth.signUp({ 
             email: email.trim().toLowerCase(), // Normaliza o email
             password: password,
@@ -138,7 +147,7 @@ signupForm.addEventListener('submit', async (e) => {
                 throw new Error('Muitas tentativas. Aguarde 15 minutos.');
             }
             if (authError.message.includes('already registered')) {
-                // ✅ TENTAR LOGIN AUTOMÁTICO SE JÁ EXISTIR
+                // TENTAR LOGIN AUTOMÁTICO SE JÁ EXISTIR
                 const { error: signInError } = await supabase.auth.signInWithPassword({
                     email: email,
                     password: password
@@ -157,22 +166,22 @@ signupForm.addEventListener('submit', async (e) => {
             throw new Error('Erro ao criar conta: ' + authError.message);
         }
 
-        // ✅ VERIFICAÇÃO INSTANTÂNEA
+        // VERIFICAÇÃO INSTANTÂNEA
         if (authData.user) {
             if (authData.user.identities && authData.user.identities.length === 0) {
                 throw new Error('Este email já está cadastrado.');
             }
             
-            // ✅ FEEDBACK IMEDIATO E AÇÕES RÁPIDAS
+            // FEEDBACK IMEDIATO E AÇÕES RÁPIDAS
             showNotification('🎉 Conta criada com sucesso! Enviando email de confirmação...', 'success');
             
-            // ✅ BOTÃO DE REENVIO RÁPIDO
+            // BOTÃO DE REENVIO RÁPIDO
             showResendButton(email);
             
-            // ✅ VERIFICAÇÃO AUTOMÁTICA (para casos de email instantâneo)
+            // VERIFICAÇÃO AUTOMÁTICA (para casos de email instantâneo)
             setTimeout(() => checkEmailConfirmationStatus(authData.user.id), 3000);
             
-            // ✅ REDIRECIONAMENTO INTELIGENTE
+            // REDIRECIONAMENTO INTELIGENTE
             setTimeout(() => {
                 switchToLoginTab(email);
             }, 4000);
@@ -190,7 +199,7 @@ signupForm.addEventListener('submit', async (e) => {
     }
 });
 
-// ✅ FUNÇÃO PARA MOSTRAR BOTÃO DE REENVIO RÁPIDO
+// FUNÇÃO PARA MOSTRAR BOTÃO DE REENVIO RÁPIDO
 function showResendButton(email) {
     let resendContainer = document.getElementById('resendEmailContainer');
     
@@ -256,7 +265,7 @@ function showResendButton(email) {
     };
 }
 
-// ✅ FUNÇÃO DE REENVIO ULTRA RÁPIDO
+// FUNÇÃO DE REENVIO ULTRA RÁPIDO
 async function resendVerificationEmail(email) {
     try {
         const { error } = await supabase.auth.resend({
@@ -282,7 +291,7 @@ async function resendVerificationEmail(email) {
     }
 }
 
-// ✅ VERIFICAÇÃO AUTOMÁTICA DE STATUS
+// VERIFICAÇÃO AUTOMÁTICA DE STATUS
 async function checkEmailConfirmationStatus(userId) {
     try {
         const { data: { user }, error } = await supabase.auth.getUser();
@@ -298,7 +307,7 @@ async function checkEmailConfirmationStatus(userId) {
     }
 }
 
-// ✅ FUNÇÃO AUXILIAR PARA MUDAR DE ABA
+// FUNÇÃO AUXILIAR PARA MUDAR DE ABA
 function switchToLoginTab(email) {
     tabButtons.forEach(btn => btn.classList.remove('active'));
     document.querySelector('[data-tab="login"]').classList.add('active');
@@ -339,7 +348,7 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
-// ✅ ENTRAR COMO CONVIDADO - SOLUÇÃO CORRIGIDA
+// ENTRAR COMO CONVIDADO - SOLUÇÃO CORRIGIDA
 function setupGuestLogin() {
     const guestBtn = document.getElementById('guestLoginBtn');
     if (guestBtn) {
@@ -364,22 +373,22 @@ function setupGuestLogin() {
     }
 }
 
-// ✅ FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO CORRIGIDA
+// FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO CORRIGIDA
 async function loginAsGuest() {
     try {
-        // ✅ SOLUÇÃO: Usar localStorage para modo convidado sem autenticação Supabase
+        // SOLUÇÃO: Usar localStorage para modo convidado sem autenticação Supabase
         const guestName = generateGuestName();
         const guestAvatar = getRandomAvatar();
         const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-        // ✅ SALVAR INFORMAÇÕES DO CONVIDADO NO LOCALSTORAGE
+        // SALVAR INFORMAÇÕES DO CONVIDADO NO LOCALSTORAGE
         localStorage.setItem('isGuest', 'true');
         localStorage.setItem('guestName', guestName);
         localStorage.setItem('guestAvatar', guestAvatar);
         localStorage.setItem('guestId', guestId);
         localStorage.setItem('guestLoginTime', new Date().toISOString());
         
-        // ✅ DADOS DO "PERFIL" DO CONVIDADO
+        // DADOS DO "PERFIL" DO CONVIDADO
         const guestProfile = {
             id: guestId,
             nome: guestName,
@@ -390,13 +399,13 @@ async function loginAsGuest() {
         
         localStorage.setItem('guestProfile', JSON.stringify(guestProfile));
         
-        // ✅ DAR CRÉDITOS INICIAIS PARA CONVIDADO
+        // DAR CRÉDITOS INICIAIS PARA CONVIDADO
         localStorage.setItem('userCredits', '25'); // Convidado ganha menos créditos
         localStorage.setItem('isNewUser', 'true');
 
         showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
         
-        // ✅ REDIRECIONAR PARA PÁGINA PRINCIPAL
+        // REDIRECIONAR PARA PÁGINA PRINCIPAL
         setTimeout(() => {
             window.location.href = '../index.html';
         }, 1500);
@@ -407,7 +416,7 @@ async function loginAsGuest() {
     }
 }
 
-// ✅ GERAR NOME ALEATÓRIO PARA CONVIDADO
+// GERAR NOME ALEATÓRIO PARA CONVIDADO
 function generateGuestName() {
     const names = [
         'Amigo Pet', 'Explorador', 'Aventureiro', 'Curioso', 'Visitante',
@@ -418,24 +427,24 @@ function generateGuestName() {
     return `${randomName}#${Math.floor(Math.random() * 1000)}`;
 }
 
-// ✅ OBTER AVATAR ALEATÓRIO
+// OBTER AVATAR ALEATÓRIO
 function getRandomAvatar() {
     const avatars = ['cachorro', 'gato', 'coelho', 'pássaro'];
     return avatars[Math.floor(Math.random() * avatars.length)];
 }
 
-// ✅ VERIFICAR SE USUÁRIO É CONVIDADO
+// VERIFICAR SE USUÁRIO É CONVIDADO
 function isGuestUser() {
     return localStorage.getItem('isGuest') === 'true';
 }
 
-// ✅ OBTER PERFIL DO CONVIDADO
+// OBTER PERFIL DO CONVIDADO
 function getGuestProfile() {
     const guestProfile = localStorage.getItem('guestProfile');
     return guestProfile ? JSON.parse(guestProfile) : null;
 }
 
-// ✅ FAZER LOGOUT DO MODO CONVIDADO
+// FAZER LOGOUT DO MODO CONVIDADO
 function logoutGuest() {
     localStorage.removeItem('isGuest');
     localStorage.removeItem('guestName');
@@ -482,7 +491,7 @@ document.querySelector('.toast-close').addEventListener('click', hideNotificatio
 
 // Verificar se é uma confirmação de email
 async function checkEmailConfirmation() {
-    // ✅ CORRIGIDO: Usar hash em vez de search
+    // CORRIGIDO: Usar hash em vez de search
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = urlParams.get('access_token');
     const refreshToken = urlParams.get('refresh_token');
@@ -513,7 +522,7 @@ async function checkEmailConfirmation() {
             if (data && data.user) {
                 console.log('Sessão configurada com sucesso para:', data.user.email);
                 
-                // ✅ SALVAR NO LOCALSTORAGE PARA SINCRONIZAÇÃO ENTRE DISPOSITIVOS
+                // SALVAR NO LOCALSTORAGE PARA SINCRONIZAÇÃO ENTRE DISPOSITIVOS
                 localStorage.setItem('emailConfirmed', 'true');
                 localStorage.setItem('userEmail', data.user.email);
                 
@@ -523,7 +532,7 @@ async function checkEmailConfirmation() {
                 // Limpar a URL para remover os tokens
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                // ✅ REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO (SEM REDIRECIONAMENTO AUTOMÁTICO)
+                // REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO (SEM REDIRECIONAMENTO AUTOMÁTICO)
                 window.location.href = 'confirmacao-email.html';
             }
             
@@ -540,7 +549,7 @@ async function checkEmailConfirmation() {
     }
 }
 
-// ✅ NOVA FUNÇÃO: Verificar confirmação entre dispositivos
+// NOVA FUNÇÃO: Verificar confirmação entre dispositivos
 async function checkCrossDeviceConfirmation() {
     // Verificar se há indicação de que o email foi confirmado em outro dispositivo
     const emailConfirmed = localStorage.getItem('emailConfirmed');
@@ -572,7 +581,7 @@ async function checkAuth() {
     if (!window.location.pathname.includes('login.html')) return;
 
     try {
-        // ✅ VERIFICAR SE É CONVIDADO PRIMEIRO
+        // VERIFICAR SE É CONVIDADO PRIMEIRO
         if (isGuestUser()) {
             showNotification(`Você está no modo convidado como ${localStorage.getItem('guestName')}.`, 'info');
             return;
@@ -648,9 +657,9 @@ async function processAuthTokens() {
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
     checkEmailConfirmation();
-    checkCrossDeviceConfirmation(); // ✅ NOVA VERIFICAÇÃO
+    checkCrossDeviceConfirmation(); // NOVA VERIFICAÇÃO
     processAuthTokens();
-    setupGuestLogin(); // ✅ CONFIGURAR LOGIN COMO CONVIDADO
+    setupGuestLogin(); // CONFIGURAR LOGIN COMO CONVIDADO
     
     // Verificar se há mensagens de sucesso na URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -659,11 +668,11 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Email confirmado com sucesso!', 'success');
     }
     
-    // ✅ SUGERIR EMAIL TEMPORÁRIO PARA TESTES
+    // SUGERIR EMAIL TEMPORÁRIO PARA TESTES
     suggestTempEmail();
 });
 
-// ✅ FUNÇÃO PARA SUGERIR EMAIL TEMPORÁRIO
+// FUNÇÃO PARA SUGERIR EMAIL TEMPORÁRIO
 function suggestTempEmail() {
     const emailInput = document.getElementById('signupEmail');
     if (emailInput && !emailInput.value) {
@@ -680,7 +689,7 @@ function getUrlParameter(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-// ✅ EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
+// EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
 window.AuthUtils = {
     isGuestUser,
     getGuestProfile,
@@ -689,7 +698,7 @@ window.AuthUtils = {
     getRandomAvatar
 };
 
-// ✅ SISTEMA DE CONVIDADO COMPLETO
+// SISTEMA DE CONVIDADO COMPLETO
 function setupGuestLogin() {
     const guestBtn = document.getElementById('guestLoginBtn');
     if (guestBtn) {
@@ -714,14 +723,14 @@ function setupGuestLogin() {
     }
 }
 
-// ✅ FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO COMPLETA
+// FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO COMPLETA
 async function loginAsGuest() {
     try {
         const guestName = generateGuestName();
         const guestAvatar = getRandomAvatar();
         const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-        // ✅ SALVAR INFORMAÇÕES COMPLETAS DO CONVIDADO
+        // SALVAR INFORMAÇÕES COMPLETAS DO CONVIDADO
         const guestProfile = {
             id: guestId,
             nome: guestName,
@@ -736,17 +745,17 @@ async function loginAsGuest() {
         localStorage.setItem('guestProfile', JSON.stringify(guestProfile));
         localStorage.setItem('guestLoginTime', new Date().toISOString());
         
-        // ✅ DADOS INICIAIS PARA CONVIDADO
+        // DADOS INICIAIS PARA CONVIDADO
         localStorage.setItem('userCredits', '25');
         localStorage.setItem('isNewUser', 'true');
         
-        // ✅ INICIALIZAR CARRINHO E FAVORITOS PARA CONVIDADO
+        // INICIALIZAR CARRINHO E FAVORITOS PARA CONVIDADO
         localStorage.setItem('carrinho', JSON.stringify({}));
         localStorage.setItem('favoritos', JSON.stringify({}));
 
         showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
         
-        // ✅ REDIRECIONAR PARA PÁGINA PRINCIPAL
+        // REDIRECIONAR PARA PÁGINA PRINCIPAL
         setTimeout(() => {
             window.location.href = '../index.html';
         }, 1500);
@@ -757,18 +766,18 @@ async function loginAsGuest() {
     }
 }
 
-// ✅ VERIFICAR SE USUÁRIO É CONVIDADO
+// VERIFICAR SE USUÁRIO É CONVIDADO
 function isGuestUser() {
     return localStorage.getItem('isGuest') === 'true';
 }
 
-// ✅ OBTER PERFIL DO CONVIDADO
+// OBTER PERFIL DO CONVIDADO
 function getGuestProfile() {
     const guestProfile = localStorage.getItem('guestProfile');
     return guestProfile ? JSON.parse(guestProfile) : null;
 }
 
-// ✅ ATUALIZAR UI PARA CONVIDADO
+// ATUALIZAR UI PARA CONVIDADO
 function updateUIForGuest() {
     const guestProfile = getGuestProfile();
     if (!guestProfile) return;
@@ -783,11 +792,11 @@ function updateUIForGuest() {
     const profileLevel = document.querySelector('.profile-level');
     const userCreditsElement = document.getElementById('userCredits');
     
-    // ✅ OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
+    // OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
     if (loginBtn) loginBtn.style.display = 'none';
     if (userMenu) userMenu.style.display = 'flex';
     
-    // ✅ ATUALIZAR AVATAR E NOME
+    // ATUALIZAR AVATAR E NOME
     if (userAvatar) {
         userAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
         userAvatar.alt = guestProfile.nome;
@@ -809,7 +818,7 @@ function updateUIForGuest() {
     if (profileName) profileName.textContent = guestProfile.nome;
     if (profileLevel) profileLevel.textContent = `Nível ${guestProfile.nivel}`;
     
-    // ✅ ATUALIZAR CRÉDITOS
+    // ATUALIZAR CRÉDITOS
     if (userCreditsElement) {
         const userCredits = localStorage.getItem('userCredits') || '25';
         userCreditsElement.textContent = userCredits;
@@ -818,7 +827,7 @@ function updateUIForGuest() {
     console.log('UI atualizada para modo convidado:', guestProfile.nome);
 }
 
-// ✅ LOGOUT DO CONVIDADO
+// LOGOUT DO CONVIDADO
 function logoutGuest() {
     // Manter apenas os créditos, limpar o resto
     const userCredits = localStorage.getItem('userCredits');
@@ -841,7 +850,7 @@ function logoutGuest() {
     }, 1000);
 }
 
-// ✅ GERAR NOME ALEATÓRIO PARA CONVIDADO
+// GERAR NOME ALEATÓRIO PARA CONVIDADO
 function generateGuestName() {
     const names = [
         'Amigo Pet', 'Explorador', 'Aventureiro', 'Curioso', 'Visitante',
@@ -852,13 +861,13 @@ function generateGuestName() {
     return `${randomName}#${Math.floor(Math.random() * 1000)}`;
 }
 
-// ✅ OBTER AVATAR ALEATÓRIO
+// OBTER AVATAR ALEATÓRIO
 function getRandomAvatar() {
     const avatars = ['cachorro', 'gato', 'coelho', 'pássaro'];
     return avatars[Math.floor(Math.random() * avatars.length)];
 }
 
-// ✅ VERIFICAR E INICIALIZAR CONVIDADO NA PÁGINA PRINCIPAL
+// VERIFICAR E INICIALIZAR CONVIDADO NA PÁGINA PRINCIPAL
 function initGuestMode() {
     if (isGuestUser()) {
         console.log('Modo convidado detectado, inicializando...');
@@ -867,7 +876,7 @@ function initGuestMode() {
     }
 }
 
-// ✅ CONFIGURAR EVENT LISTENERS PARA CONVIDADO
+// CONFIGURAR EVENT LISTENERS PARA CONVIDADO
 function setupGuestEventListeners() {
     // Configurar logout para convidado
     const logoutBtn = document.getElementById('logoutBtn');
@@ -897,7 +906,7 @@ function setupGuestEventListeners() {
     }
 }
 
-// ✅ EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
+// EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
 window.GuestMode = {
     isGuestUser,
     getGuestProfile,

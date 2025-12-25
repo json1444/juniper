@@ -682,29 +682,8 @@
     </footer>
     
 
-    <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth-manager.js"></script>
-   
-<script>
-// Verificar se precisa forçar atualização do auth
-document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('forceAuthRefresh') === 'true') {
-        localStorage.removeItem('forceAuthRefresh');
-        setTimeout(() => {
-            if (window.authManager) {
-                window.authManager.checkSession();
-                window.location.reload();
-            }
-        }, 1000);
-    }
-});
-
-// Configuração do Supabase para o keep-alive
-const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
-
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-</script>
- 
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,8 +1,17 @@
-// Configuração do Supabase
-const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+// auth-manager.js - ÚNICA instância do Supabase
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Verificar se já existe configuração do Supabase
+if (typeof window.supabase === 'undefined') {
+    // Configuração do Supabase (APENAS UMA VEZ)
+    const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+
+    window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('Supabase inicializado no auth-manager.js');
+}
+
+// Usar a instância global
+const supabase = window.supabase;
 
 // Gerenciamento de autenticação e interface
 class AuthManager {
@@ -29,10 +38,10 @@ class AuthManager {
         // Verificar também tokens na URL (para confirmação de email)
         this.checkUrlTokens();
         
-        // ✅ NOVO: Verificar confirmação de email entre dispositivos
+        // Verificar confirmação de email entre dispositivos
         this.checkCrossDeviceEmailConfirmation();
         
-        // ✅ NOVO: Verificar modo convidado
+        // Verificar modo convidado
         this.checkGuestMode();
     }
 
@@ -55,7 +64,7 @@ class AuthManager {
                     window.history.replaceState({}, document.title, window.location.pathname);
                     console.log('Sessão configurada com sucesso a partir dos tokens da URL');
                     
-                    // ✅ NOVO: Salvar para sincronização entre dispositivos
+                    // Salvar para sincronização entre dispositivos
                     const { data: { user } } = await supabase.auth.getUser();
                     if (user) {
                         localStorage.setItem('emailConfirmed', 'true');
@@ -68,7 +77,7 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Verificar confirmação de email entre dispositivos
+    // Verificar confirmação de email entre dispositivos
     async checkCrossDeviceEmailConfirmation() {
         const emailConfirmed = localStorage.getItem('emailConfirmed');
         const userEmail = localStorage.getItem('userEmail');
@@ -95,7 +104,7 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Verificar modo convidado
+    // Verificar modo convidado
     checkGuestMode() {
         if (this.isGuestUser()) {
             console.log('Modo convidado detectado no AuthManager');
@@ -103,18 +112,18 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Verificar se é usuário convidado
+    // Verificar se é usuário convidado
     isGuestUser() {
         return localStorage.getItem('isGuest') === 'true';
     }
     
-    // ✅ NOVO: Obter perfil do convidado
+    // Obter perfil do convidado
     getGuestProfile() {
         const guestProfile = localStorage.getItem('guestProfile');
         return guestProfile ? JSON.parse(guestProfile) : null;
     }
 
-    // ✅ NOVO: Mostrar mensagem de email confirmado
+    // Mostrar mensagem de email confirmado
     showEmailConfirmedMessage(email) {
         // Criar elemento de mensagem
         const messageDiv = document.createElement('div');
@@ -183,7 +192,7 @@ class AuthManager {
             this.user = session.user;
             console.log('Usuário autenticado:', this.user.email);
             
-            // ✅ VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
+            // VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
             const urlParams = new URLSearchParams(window.location.hash.substring(1));
             const accessToken = urlParams.get('access_token');
             
@@ -199,7 +208,7 @@ class AuthManager {
                 this.updateUI();
             }
             
-            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS
+            // DAR CRÉDITOS PARA NOVOS USUÁRIOS
             await this.checkAndAwardCredits();
             
             // Limpar flags de confirmação
@@ -211,14 +220,14 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Método para dar créditos a novos usuários
+    // Método para dar créditos a novos usuários
     async checkAndAwardCredits() {
         try {
             // Verificar se é um novo usuário (primeiro login)
             const hasCredits = localStorage.getItem('userCredits');
             
             if (!hasCredits && this.user) {
-                // Novo usuário - dar 50 créditos iniciais (alterado de 100 para 50)
+                // Novo usuário - dar 50 créditos iniciais
                 localStorage.setItem('userCredits', '50');
                 localStorage.setItem('isNewUser', 'true');
                 
@@ -237,7 +246,7 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Mostrar seção de boas-vindas
+    // Mostrar seção de boas-vindas
     showWelcomeSection() {
         const welcomeSection = document.getElementById('welcome-credits');
         if (welcomeSection) {
@@ -250,13 +259,13 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Método para lidar com confirmação de email
+    // Método para lidar com confirmação de email
     async handleEmailConfirmation(session) {
         try {
             this.user = session.user;
             console.log('Usuário confirmado via email:', this.user.email);
             
-            // ✅ SINCRONIZAR ENTRE DISPOSITIVOS
+            // SINCRONIZAR ENTRE DISPOSITIVOS
             localStorage.setItem('emailConfirmed', 'true');
             localStorage.setItem('userEmail', this.user.email);
             
@@ -265,7 +274,7 @@ class AuthManager {
             
             this.updateUI();
             
-            // ✅ DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
+            // DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
             await this.checkAndAwardCredits();
             
             // Forçar atualização em todas as abas abertas
@@ -357,7 +366,7 @@ class AuthManager {
     }
 
     updateUI() {
-        // ✅ VERIFICAR SE É CONVIDADO PRIMEIRO
+        // VERIFICAR SE É CONVIDADO PRIMEIRO
         if (this.isGuestUser()) {
             console.log('Atualizando UI para modo convidado');
             this.updateUIForGuest();
@@ -387,7 +396,7 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Atualizar UI para modo convidado
+    // Atualizar UI para modo convidado
     updateUIForGuest() {
         const guestProfile = this.getGuestProfile();
         if (!guestProfile) return;
@@ -402,11 +411,11 @@ class AuthManager {
         const profileLevel = document.querySelector('.profile-level');
         const userCreditsElement = document.getElementById('userCredits');
         
-        // ✅ OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
+        // OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
         if (loginBtn) loginBtn.style.display = 'none';
         if (userMenu) userMenu.style.display = 'flex';
         
-        // ✅ ATUALIZAR AVATAR E NOME
+        // ATUALIZAR AVATAR E NOME
         if (userAvatar) {
             userAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
             userAvatar.alt = guestProfile.nome;
@@ -428,7 +437,7 @@ class AuthManager {
         if (profileName) profileName.textContent = guestProfile.nome;
         if (profileLevel) profileLevel.textContent = `Nível ${guestProfile.nivel}`;
         
-        // ✅ ATUALIZAR CRÉDITOS
+        // ATUALIZAR CRÉDITOS
         if (userCreditsElement) {
             const userCredits = localStorage.getItem('userCredits') || '25';
             userCreditsElement.textContent = userCredits;
@@ -485,7 +494,7 @@ class AuthManager {
         if (profileLevel) profileLevel.textContent = `Nível ${this.profile.nivel}`;
     }
     
-    // ✅ NOVO: Atualizar créditos do usuário na UI
+    // Atualizar créditos do usuário na UI
     updateUserCredits() {
         const userCreditsElement = document.getElementById('userCredits');
         if (userCreditsElement) {
@@ -494,7 +503,7 @@ class AuthManager {
         }
     }
     
-    // ✅ NOVO: Logout para convidado
+    // Logout para convidado
     logoutGuest() {
         // Manter apenas os créditos, limpar o resto
         const userCredits = localStorage.getItem('userCredits');
@@ -529,6 +538,13 @@ class AuthManager {
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Inicializando AuthManager...');
+    
+    // Verificar se supabase está disponível
+    if (typeof supabase === 'undefined') {
+        console.error('ERRO: Supabase não está disponível. Verifique se a biblioteca foi carregada.');
+        return;
+    }
+    
     window.authManager = new AuthManager();
     
     // Configurar toggle do dropdown
@@ -549,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Configurar logout - AGORA SUPORTA CONVIDADO TAMBÉM
+    // Configurar logout - SUPORTA CONVIDADO TAMBÉM
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async (e) => {
@@ -579,7 +595,7 @@ window.refreshAuth = function() {
     }
 };
 
-// ✅ NOVO: Função para fechar a seção de boas-vindas
+// Função para fechar a seção de boas-vindas
 window.closeWelcome = function() {
     const welcomeSection = document.getElementById('welcome-credits');
     if (welcomeSection) {
@@ -587,7 +603,7 @@ window.closeWelcome = function() {
     }
 };
 
-// ✅ NOVO: Exportar funções de convidado para uso global
+// Exportar funções de convidado para uso global
 window.GuestMode = {
     isGuestUser: function() {
         return window.authManager ? window.authManager.isGuestUser() : false;

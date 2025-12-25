@@ -75,7 +75,6 @@ function initAuthSync() {
     }, 2000);
 }
 
-
 // Função para limpar dados quando o usuário faz logout
 function clearUserData() {
     carrinho = {};
