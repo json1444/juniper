@@ -1,16 +1,24 @@
-// auth.js - NÃO declara supabase, usa a instância global
+// auth.js - Funcionalidades de login/cadastro
+// Este arquivo fica na pasta formulario/
 
-// Usar a instância global do Supabase
+// Usar a instância global do Supabase já criada pelo auth-manager.js
 const supabase = window.supabase;
 
 // Verificar se supabase está disponível
 if (!supabase) {
     console.error('Supabase não inicializado. Verifique se auth-manager.js foi carregado primeiro!');
+    
     // Tentar inicializar como fallback
     const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
-    window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    console.log('Supabase inicializado no auth.js como fallback');
+    
+    // Carregar a biblioteca do Supabase se não existir
+    if (typeof window.supabase === 'undefined') {
+        console.error('Biblioteca do Supabase não encontrada!');
+    } else {
+        window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('Supabase inicializado no auth.js como fallback');
+    }
 }
 
 // Elementos do DOM
@@ -18,62 +26,96 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const authForms = document.querySelectorAll('.auth-form');
-const passwordInputs = document.querySelectorAll('input[type="password"]');
 const togglePasswordButtons = document.querySelectorAll('.toggle-password');
 const passwordStrengthBar = document.querySelector('.strength-fill');
 const passwordStrengthText = document.querySelector('.strength-text');
-const notificationToast = document.getElementById('notificationToast');
 
-// Alternar entre login e cadastro
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const tab = button.dataset.tab;
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        authForms.forEach(form => form.classList.remove('active'));
-        document.getElementById(`${tab}Form`).classList.add('active');
-        
-        // Esconder container de reenvio ao mudar de aba
-        const resendContainer = document.getElementById('resendEmailContainer');
-        if (resendContainer) {
-            resendContainer.style.display = 'none';
-        }
+// Função para alternar entre login e cadastro - ESTA É A FUNÇÃO IMPORTANTE!
+function setupTabSwitching() {
+    console.log('Configurando tabs...');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Tab clicada:', button.dataset.tab);
+            
+            const tab = button.dataset.tab;
+            
+            // Remover classe active de todos os botões
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Adicionar classe active ao botão clicado
+            button.classList.add('active');
+            
+            // Remover classe active de todos os forms
+            authForms.forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Adicionar classe active ao form correspondente
+            const targetForm = document.getElementById(`${tab}Form`);
+            if (targetForm) {
+                targetForm.classList.add('active');
+                console.log('Form ativado:', targetForm.id);
+            } else {
+                console.error('Form não encontrado:', `${tab}Form`);
+            }
+            
+            // Esconder container de reenvio ao mudar de aba
+            const resendContainer = document.getElementById('resendEmailContainer');
+            if (resendContainer) {
+                resendContainer.style.display = 'none';
+            }
+        });
     });
-});
+    
+    console.log('Tabs configuradas');
+}
 
 // Toggle password visibility
-togglePasswordButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const input = button.closest('.input-with-icon').querySelector('input');
-        const icon = button.querySelector('i');
-        
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
+function setupPasswordVisibility() {
+    togglePasswordButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const input = button.closest('.input-with-icon').querySelector('input');
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
     });
-});
+}
 
 // Password strength indicator
-if (document.getElementById('signupPassword')) {
-    document.getElementById('signupPassword').addEventListener('input', function() {
-        const password = this.value;
-        const strength = calculatePasswordStrength(password);
-        
-        // Update strength bar
-        passwordStrengthBar.style.width = strength.percentage + '%';
-        passwordStrengthBar.style.background = strength.color;
-        
-        // Update strength text
-        passwordStrengthText.textContent = strength.text;
-        passwordStrengthText.style.color = strength.color;
-    });
+function setupPasswordStrength() {
+    const passwordInput = document.getElementById('signupPassword');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strength = calculatePasswordStrength(password);
+            
+            // Update strength bar
+            if (passwordStrengthBar) {
+                passwordStrengthBar.style.width = strength.percentage + '%';
+                passwordStrengthBar.style.background = strength.color;
+            }
+            
+            // Update strength text
+            if (passwordStrengthText) {
+                passwordStrengthText.textContent = strength.text;
+                passwordStrengthText.style.color = strength.color;
+            }
+        });
+    }
 }
 
 function calculatePasswordStrength(password) {
@@ -82,9 +124,15 @@ function calculatePasswordStrength(password) {
     let color = '';
     
     if (password.length > 0) {
-        document.querySelector('.password-strength').style.display = 'block';
+        const strengthElement = document.querySelector('.password-strength');
+        if (strengthElement) {
+            strengthElement.style.display = 'block';
+        }
     } else {
-        document.querySelector('.password-strength').style.display = 'none';
+        const strengthElement = document.querySelector('.password-strength');
+        if (strengthElement) {
+            strengthElement.style.display = 'none';
+        }
         return { percentage: 0, text: 'Força da senha', color: 'transparent' };
     }
     
@@ -113,91 +161,97 @@ function calculatePasswordStrength(password) {
 }
 
 // Cadastro de usuário
-signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+function setupSignupForm() {
+    if (!signupForm) return;
     
-    const submitButton = signupForm.querySelector('.btn-primary');
-    const originalText = submitButton.querySelector('.btn-text').textContent;
-    submitButton.classList.add('loading');
-    
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    const name = document.getElementById('signupName').value;
-    const avatar = document.querySelector('input[name="avatar"]:checked').value;
-
-    try {
-        // CONFIGURAÇÃO OTIMIZADA PARA ENVIO RÁPIDO
-        const { data: authData, error: authError } = await supabase.auth.signUp({ 
-            email: email.trim().toLowerCase(), // Normaliza o email
-            password: password,
-            options: {
-                data: {
-                    nome: name,
-                    avatar: avatar,
-                    signup_timestamp: Date.now() // Para tracking
-                },
-                emailRedirectTo: `${window.location.origin}/formulario/confirmacao-email.html`
-            }
-        });
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Enviando formulário de cadastro...');
         
-        if (authError) {
-            console.error('Erro Supabase:', authError);
-            
-            if (authError.message.includes('rate limit') || authError.message.includes('429')) {
-                throw new Error('Muitas tentativas. Aguarde 15 minutos.');
-            }
-            if (authError.message.includes('already registered')) {
-                // TENTAR LOGIN AUTOMÁTICO SE JÁ EXISTIR
-                const { error: signInError } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-                
-                if (!signInError) {
-                    showNotification('✅ Login realizado! Conta já existente.', 'success');
-                    setTimeout(() => window.location.href = '../index.html', 2000);
-                    return;
+        const submitButton = signupForm.querySelector('.btn-primary');
+        const originalText = submitButton.querySelector('.btn-text').textContent;
+        submitButton.classList.add('loading');
+        
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const name = document.getElementById('signupName').value;
+        const avatarInput = document.querySelector('input[name="avatar"]:checked');
+        const avatar = avatarInput ? avatarInput.value : 'cachorro';
+
+        try {
+            // CONFIGURAÇÃO OTIMIZADA PARA ENVIO RÁPIDO
+            const { data: authData, error: authError } = await supabase.auth.signUp({ 
+                email: email.trim().toLowerCase(),
+                password: password,
+                options: {
+                    data: {
+                        nome: name,
+                        avatar: avatar,
+                        signup_timestamp: Date.now()
+                    },
+                    emailRedirectTo: `${window.location.origin}/formulario/confirmacao-email.html`
                 }
-                throw new Error('Email já cadastrado. Recupere sua senha se necessário.');
+            });
+            
+            if (authError) {
+                console.error('Erro Supabase:', authError);
+                
+                if (authError.message.includes('rate limit') || authError.message.includes('429')) {
+                    throw new Error('Muitas tentativas. Aguarde 15 minutos.');
+                }
+                if (authError.message.includes('already registered')) {
+                    // TENTAR LOGIN AUTOMÁTICO SE JÁ EXISTIR
+                    const { error: signInError } = await supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    if (!signInError) {
+                        showNotification('✅ Login realizado! Conta já existente.', 'success');
+                        setTimeout(() => window.location.href = '../index.html', 2000);
+                        return;
+                    }
+                    throw new Error('Email já cadastrado. Recupere sua senha se necessário.');
+                }
+                if (authError.message.includes('email')) {
+                    throw new Error('Email inválido. Verifique e tente novamente.');
+                }
+                throw new Error('Erro ao criar conta: ' + authError.message);
             }
-            if (authError.message.includes('email')) {
-                throw new Error('Email inválido. Verifique e tente novamente.');
+
+            // VERIFICAÇÃO INSTANTÂNEA
+            if (authData.user) {
+                if (authData.user.identities && authData.user.identities.length === 0) {
+                    throw new Error('Este email já está cadastrado.');
+                }
+                
+                // FEEDBACK IMEDIATO E AÇÕES RÁPIDAS
+                showNotification('🎉 Conta criada com sucesso! Enviando email de confirmação...', 'success');
+                
+                // BOTÃO DE REENVIO RÁPIDO
+                showResendButton(email);
+                
+                // VERIFICAÇÃO AUTOMÁTICA (para casos de email instantâneo)
+                setTimeout(() => checkEmailConfirmationStatus(authData.user.id), 3000);
+                
+                // REDIRECIONAMENTO INTELIGENTE
+                setTimeout(() => {
+                    switchToLoginTab(email);
+                }, 4000);
             }
-            throw new Error('Erro ao criar conta: ' + authError.message);
+
+            // Limpar formulário
+            signupForm.reset();
+
+        } catch (error) {
+            console.error('Erro no cadastro:', error);
+            showNotification(error.message, 'error');
+        } finally {
+            submitButton.classList.remove('loading');
+            submitButton.querySelector('.btn-text').textContent = originalText;
         }
-
-        // VERIFICAÇÃO INSTANTÂNEA
-        if (authData.user) {
-            if (authData.user.identities && authData.user.identities.length === 0) {
-                throw new Error('Este email já está cadastrado.');
-            }
-            
-            // FEEDBACK IMEDIATO E AÇÕES RÁPIDAS
-            showNotification('🎉 Conta criada com sucesso! Enviando email de confirmação...', 'success');
-            
-            // BOTÃO DE REENVIO RÁPIDO
-            showResendButton(email);
-            
-            // VERIFICAÇÃO AUTOMÁTICA (para casos de email instantâneo)
-            setTimeout(() => checkEmailConfirmationStatus(authData.user.id), 3000);
-            
-            // REDIRECIONAMENTO INTELIGENTE
-            setTimeout(() => {
-                switchToLoginTab(email);
-            }, 4000);
-        }
-
-        // Limpar formulário
-        signupForm.reset();
-
-    } catch (error) {
-        console.error('Erro no cadastro:', error);
-        showNotification(error.message, 'error');
-    } finally {
-        submitButton.classList.remove('loading');
-        submitButton.querySelector('.btn-text').textContent = originalText;
-    }
-});
+    });
+}
 
 // FUNÇÃO PARA MOSTRAR BOTÃO DE REENVIO RÁPIDO
 function showResendButton(email) {
@@ -227,7 +281,9 @@ function showResendButton(email) {
             <div id="resendTimer" style="margin-top: 8px; font-size: 12px; color: #999;"></div>
         `;
         
-        signupForm.appendChild(resendContainer);
+        if (signupForm) {
+            signupForm.appendChild(resendContainer);
+        }
     }
     
     resendContainer.style.display = 'block';
@@ -238,31 +294,37 @@ function showResendButton(email) {
     
     let canResend = true;
     
-    resendBtn.onclick = async function() {
-        if (!canResend) return;
-        
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-        this.disabled = true;
-        
-        await resendVerificationEmail(email);
-        
-        // Timer de 30 segundos para próximo reenvio
-        canResend = false;
-        let timeLeft = 30;
-        
-        const timer = setInterval(() => {
-            timerElement.textContent = `Próximo reenvio em ${timeLeft}s`;
-            timeLeft--;
+    if (resendBtn) {
+        resendBtn.onclick = async function() {
+            if (!canResend) return;
             
-            if (timeLeft < 0) {
-                clearInterval(timer);
-                timerElement.textContent = '';
-                this.innerHTML = '<i class="fas fa-redo"></i> Reenviar Agora';
-                this.disabled = false;
-                canResend = true;
-            }
-        }, 1000);
-    };
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            this.disabled = true;
+            
+            await resendVerificationEmail(email);
+            
+            // Timer de 30 segundos para próximo reenvio
+            canResend = false;
+            let timeLeft = 30;
+            
+            const timer = setInterval(() => {
+                if (timerElement) {
+                    timerElement.textContent = `Próximo reenvio em ${timeLeft}s`;
+                }
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(timer);
+                    if (timerElement) {
+                        timerElement.textContent = '';
+                    }
+                    this.innerHTML = '<i class="fas fa-redo"></i> Reenviar Agora';
+                    this.disabled = false;
+                    canResend = true;
+                }
+            }, 1000);
+        };
+    }
 }
 
 // FUNÇÃO DE REENVIO ULTRA RÁPIDO
@@ -309,164 +371,76 @@ async function checkEmailConfirmationStatus(userId) {
 
 // FUNÇÃO AUXILIAR PARA MUDAR DE ABA
 function switchToLoginTab(email) {
+    console.log('Mudando para aba de login...');
+    
     tabButtons.forEach(btn => btn.classList.remove('active'));
-    document.querySelector('[data-tab="login"]').classList.add('active');
+    const loginTab = document.querySelector('[data-tab="login"]');
+    if (loginTab) {
+        loginTab.classList.add('active');
+    }
     
     authForms.forEach(form => form.classList.remove('active'));
-    document.getElementById('loginForm').classList.add('active');
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.classList.add('active');
+    }
     
-    document.getElementById('loginEmail').value = email;
+    const loginEmailInput = document.getElementById('loginEmail');
+    if (loginEmailInput) {
+        loginEmailInput.value = email;
+    }
 }
 
 // Login de usuário
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+function setupLoginForm() {
+    if (!loginForm) return;
     
-    const submitButton = loginForm.querySelector('.btn-primary');
-    submitButton.classList.add('loading');
-
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    try {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-
-        showNotification('Login realizado com sucesso! Redirecionando...', 'success');
-
-        setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 1500);
-
-    } catch (error) {
-        console.error('Erro no login:', error);
-        showNotification(error.message, 'error');
-        loginForm.classList.add('shake');
-        setTimeout(() => loginForm.classList.remove('shake'), 500);
-    } finally {
-        submitButton.classList.remove('loading');
-    }
-});
-
-// ENTRAR COMO CONVIDADO - SOLUÇÃO CORRIGIDA
-function setupGuestLogin() {
-    const guestBtn = document.getElementById('guestLoginBtn');
-    if (guestBtn) {
-        guestBtn.addEventListener('click', async function(e) {
-            e.preventDefault();
-            
-            const submitButton = this;
-            const originalText = submitButton.innerHTML;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
-            submitButton.disabled = true;
-            
-            try {
-                await loginAsGuest();
-            } catch (error) {
-                console.error('Erro ao entrar como convidado:', error);
-                showNotification('Erro ao entrar como convidado. Tente novamente.', 'error');
-            } finally {
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }
-        });
-    }
-}
-
-// FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO CORRIGIDA
-async function loginAsGuest() {
-    try {
-        // SOLUÇÃO: Usar localStorage para modo convidado sem autenticação Supabase
-        const guestName = generateGuestName();
-        const guestAvatar = getRandomAvatar();
-        const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-        // SALVAR INFORMAÇÕES DO CONVIDADO NO LOCALSTORAGE
-        localStorage.setItem('isGuest', 'true');
-        localStorage.setItem('guestName', guestName);
-        localStorage.setItem('guestAvatar', guestAvatar);
-        localStorage.setItem('guestId', guestId);
-        localStorage.setItem('guestLoginTime', new Date().toISOString());
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Enviando formulário de login...');
         
-        // DADOS DO "PERFIL" DO CONVIDADO
-        const guestProfile = {
-            id: guestId,
-            nome: guestName,
-            avatar: guestAvatar,
-            is_guest: true,
-            created_at: new Date().toISOString()
-        };
-        
-        localStorage.setItem('guestProfile', JSON.stringify(guestProfile));
-        
-        // DAR CRÉDITOS INICIAIS PARA CONVIDADO
-        localStorage.setItem('userCredits', '25'); // Convidado ganha menos créditos
-        localStorage.setItem('isNewUser', 'true');
+        const submitButton = loginForm.querySelector('.btn-primary');
+        submitButton.classList.add('loading');
 
-        showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
-        
-        // REDIRECIONAR PARA PÁGINA PRINCIPAL
-        setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 1500);
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
 
-    } catch (error) {
-        console.error('Erro no login como convidado:', error);
-        throw error;
-    }
-}
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) throw error;
 
-// GERAR NOME ALEATÓRIO PARA CONVIDADO
-function generateGuestName() {
-    const names = [
-        'Amigo Pet', 'Explorador', 'Aventureiro', 'Curioso', 'Visitante',
-        'Amigo dos Bichos', 'PetLover', 'Mimi', 'Tobby', 'Luna', 'Thor', 'Mel',
-        'Bob', 'Lucky', 'Charlie', 'Bella', 'Max', 'Lucy', 'Buddy', 'Daisy'
-    ];
-    const randomName = names[Math.floor(Math.random() * names.length)];
-    return `${randomName}#${Math.floor(Math.random() * 1000)}`;
-}
+            showNotification('Login realizado com sucesso! Redirecionando...', 'success');
 
-// OBTER AVATAR ALEATÓRIO
-function getRandomAvatar() {
-    const avatars = ['cachorro', 'gato', 'coelho', 'pássaro'];
-    return avatars[Math.floor(Math.random() * avatars.length)];
-}
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 1500);
 
-// VERIFICAR SE USUÁRIO É CONVIDADO
-function isGuestUser() {
-    return localStorage.getItem('isGuest') === 'true';
-}
-
-// OBTER PERFIL DO CONVIDADO
-function getGuestProfile() {
-    const guestProfile = localStorage.getItem('guestProfile');
-    return guestProfile ? JSON.parse(guestProfile) : null;
-}
-
-// FAZER LOGOUT DO MODO CONVIDADO
-function logoutGuest() {
-    localStorage.removeItem('isGuest');
-    localStorage.removeItem('guestName');
-    localStorage.removeItem('guestAvatar');
-    localStorage.removeItem('guestId');
-    localStorage.removeItem('guestProfile');
-    localStorage.removeItem('guestLoginTime');
-    
-    // Manter créditos se quiser, ou remover:
-    // localStorage.removeItem('userCredits');
-    
-    showNotification('Modo convidado finalizado.', 'info');
-    setTimeout(() => {
-        window.location.reload();
-    }, 1000);
+        } catch (error) {
+            console.error('Erro no login:', error);
+            showNotification(error.message, 'error');
+            loginForm.classList.add('shake');
+            setTimeout(() => loginForm.classList.remove('shake'), 500);
+        } finally {
+            submitButton.classList.remove('loading');
+        }
+    });
 }
 
 // Mostrar notificações
 function showNotification(message, type) {
     const toast = document.getElementById('notificationToast');
+    if (!toast) {
+        console.log('Toast não encontrado');
+        return;
+    }
+    
     const toastIcon = toast.querySelector('.toast-icon');
     const toastMessage = toast.querySelector('.toast-message');
+    
+    if (!toastMessage) {
+        console.log('Toast message não encontrado');
+        return;
+    }
     
     // Set message and type
     toastMessage.textContent = message;
@@ -483,11 +457,18 @@ function showNotification(message, type) {
 
 function hideNotification() {
     const toast = document.getElementById('notificationToast');
-    toast.classList.remove('show');
+    if (toast) {
+        toast.classList.remove('show');
+    }
 }
 
 // Close notification when close button is clicked
-document.querySelector('.toast-close').addEventListener('click', hideNotification);
+function setupNotificationClose() {
+    const closeBtn = document.querySelector('.toast-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', hideNotification);
+    }
+}
 
 // Verificar se é uma confirmação de email
 async function checkEmailConfirmation() {
@@ -549,44 +530,11 @@ async function checkEmailConfirmation() {
     }
 }
 
-// NOVA FUNÇÃO: Verificar confirmação entre dispositivos
-async function checkCrossDeviceConfirmation() {
-    // Verificar se há indicação de que o email foi confirmado em outro dispositivo
-    const emailConfirmed = localStorage.getItem('emailConfirmed');
-    const userEmail = localStorage.getItem('userEmail');
-    
-    if (emailConfirmed === 'true' && userEmail) {
-        console.log('Email confirmado em outro dispositivo, tentando login automático...');
-        
-        try {
-            // Tentar obter a sessão atual
-            const { data: { session }, error } = await supabase.auth.getSession();
-            
-            if (!session) {
-                // Se não há sessão, tentar fazer login com o email (usuário precisará digitar senha)
-                showNotification(`Email ${userEmail} confirmado. Faça login para continuar.`, 'info');
-            } else {
-                // Se já está logado, limpar o flag
-                localStorage.removeItem('emailConfirmed');
-                localStorage.removeItem('userEmail');
-            }
-        } catch (error) {
-            console.error('Erro ao verificar sessão cross-device:', error);
-        }
-    }
-}
-
 // Verificar se usuário já está logado
 async function checkAuth() {
     if (!window.location.pathname.includes('login.html')) return;
 
     try {
-        // VERIFICAR SE É CONVIDADO PRIMEIRO
-        if (isGuestUser()) {
-            showNotification(`Você está no modo convidado como ${localStorage.getItem('guestName')}.`, 'info');
-            return;
-        }
-
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
             const { data: profile, error } = await supabase
@@ -623,56 +571,7 @@ async function checkAuth() {
     }
 }
 
-// Função para verificar e processar tokens de autenticação
-async function processAuthTokens() {
-    const urlParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token');
-    const tokenType = urlParams.get('token_type');
-    const expiresIn = urlParams.get('expires_in');
-    
-    if (accessToken && refreshToken) {
-        try {
-            const { error } = await supabase.auth.setSession({
-                access_token: accessToken,
-                refresh_token: refreshToken
-            });
-            
-            if (!error) {
-                // Limpar a URL para remover os tokens
-                window.history.replaceState({}, document.title, window.location.pathname);
-                
-                // Redirecionar para página de confirmação
-                setTimeout(() => {
-                    window.location.href = 'confirmacao-email.html';
-                }, 1000);
-            }
-        } catch (error) {
-            console.error('Erro ao processar tokens:', error);
-        }
-    }
-}
-
-// Inicialização
-document.addEventListener('DOMContentLoaded', function() {
-    checkAuth();
-    checkEmailConfirmation();
-    checkCrossDeviceConfirmation(); // NOVA VERIFICAÇÃO
-    processAuthTokens();
-    setupGuestLogin(); // CONFIGURAR LOGIN COMO CONVIDADO
-    
-    // Verificar se há mensagens de sucesso na URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const message = urlParams.get('message');
-    if (message === 'email_confirmed') {
-        showNotification('Email confirmado com sucesso!', 'success');
-    }
-    
-    // SUGERIR EMAIL TEMPORÁRIO PARA TESTES
-    suggestTempEmail();
-});
-
-// FUNÇÃO PARA SUGERIR EMAIL TEMPORÁRIO
+// SUGERIR EMAIL TEMPORÁRIO PARA TESTES
 function suggestTempEmail() {
     const emailInput = document.getElementById('signupEmail');
     if (emailInput && !emailInput.value) {
@@ -681,236 +580,37 @@ function suggestTempEmail() {
     }
 }
 
-// Função auxiliar para extrair parâmetros da URL
-function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    const results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+// Inicialização COMPLETA
+function initAuth() {
+    console.log('Inicializando auth.js...');
+    
+    // 1. Configurar tabs (IMPORTANTE!)
+    setupTabSwitching();
+    
+    // 2. Configurar visibilidade de senhas
+    setupPasswordVisibility();
+    
+    // 3. Configurar força da senha
+    setupPasswordStrength();
+    
+    // 4. Configurar formulários
+    setupLoginForm();
+    setupSignupForm();
+    
+    // 5. Configurar notificações
+    setupNotificationClose();
+    
+    // 6. Verificar autenticação
+    checkAuth();
+    
+    // 7. Verificar confirmação de email
+    checkEmailConfirmation();
+    
+    // 8. Sugerir email temporário
+    suggestTempEmail();
+    
+    console.log('auth.js inicializado com sucesso!');
 }
 
-// EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
-window.AuthUtils = {
-    isGuestUser,
-    getGuestProfile,
-    logoutGuest,
-    generateGuestName,
-    getRandomAvatar
-};
-
-// SISTEMA DE CONVIDADO COMPLETO
-function setupGuestLogin() {
-    const guestBtn = document.getElementById('guestLoginBtn');
-    if (guestBtn) {
-        guestBtn.addEventListener('click', async function(e) {
-            e.preventDefault();
-            
-            const submitButton = this;
-            const originalText = submitButton.innerHTML;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
-            submitButton.disabled = true;
-            
-            try {
-                await loginAsGuest();
-            } catch (error) {
-                console.error('Erro ao entrar como convidado:', error);
-                showNotification('Erro ao entrar como convidado. Tente novamente.', 'error');
-            } finally {
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }
-        });
-    }
-}
-
-// FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO COMPLETA
-async function loginAsGuest() {
-    try {
-        const guestName = generateGuestName();
-        const guestAvatar = getRandomAvatar();
-        const guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-        // SALVAR INFORMAÇÕES COMPLETAS DO CONVIDADO
-        const guestProfile = {
-            id: guestId,
-            nome: guestName,
-            avatar: guestAvatar,
-            is_guest: true,
-            created_at: new Date().toISOString(),
-            nivel: 1,
-            email: `${guestId}@guest.luckpet.com`
-        };
-        
-        localStorage.setItem('isGuest', 'true');
-        localStorage.setItem('guestProfile', JSON.stringify(guestProfile));
-        localStorage.setItem('guestLoginTime', new Date().toISOString());
-        
-        // DADOS INICIAIS PARA CONVIDADO
-        localStorage.setItem('userCredits', '25');
-        localStorage.setItem('isNewUser', 'true');
-        
-        // INICIALIZAR CARRINHO E FAVORITOS PARA CONVIDADO
-        localStorage.setItem('carrinho', JSON.stringify({}));
-        localStorage.setItem('favoritos', JSON.stringify({}));
-
-        showNotification(`🎉 Bem-vindo, ${guestName}! Modo convidado ativado.`, 'success');
-        
-        // REDIRECIONAR PARA PÁGINA PRINCIPAL
-        setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 1500);
-
-    } catch (error) {
-        console.error('Erro no login como convidado:', error);
-        throw error;
-    }
-}
-
-// VERIFICAR SE USUÁRIO É CONVIDADO
-function isGuestUser() {
-    return localStorage.getItem('isGuest') === 'true';
-}
-
-// OBTER PERFIL DO CONVIDADO
-function getGuestProfile() {
-    const guestProfile = localStorage.getItem('guestProfile');
-    return guestProfile ? JSON.parse(guestProfile) : null;
-}
-
-// ATUALIZAR UI PARA CONVIDADO
-function updateUIForGuest() {
-    const guestProfile = getGuestProfile();
-    if (!guestProfile) return;
-    
-    const loginBtn = document.getElementById('loginBtn');
-    const userMenu = document.getElementById('userMenu');
-    const userToggle = document.getElementById('userToggle');
-    const userAvatar = document.querySelector('.user-avatar');
-    const userName = document.querySelector('.user-name');
-    const profileAvatar = document.querySelector('.profile-avatar');
-    const profileName = document.querySelector('.profile-name');
-    const profileLevel = document.querySelector('.profile-level');
-    const userCreditsElement = document.getElementById('userCredits');
-    
-    // OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
-    if (loginBtn) loginBtn.style.display = 'none';
-    if (userMenu) userMenu.style.display = 'flex';
-    
-    // ATUALIZAR AVATAR E NOME
-    if (userAvatar) {
-        userAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
-        userAvatar.alt = guestProfile.nome;
-        userAvatar.onerror = function() {
-            this.src = '../img/avatares/cachorro.jpg';
-        };
-    }
-    
-    if (userName) userName.textContent = guestProfile.nome;
-    
-    if (profileAvatar) {
-        profileAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
-        profileAvatar.alt = guestProfile.nome;
-        profileAvatar.onerror = function() {
-            this.src = '../img/avatares/cachorro.jpg';
-        };
-    }
-    
-    if (profileName) profileName.textContent = guestProfile.nome;
-    if (profileLevel) profileLevel.textContent = `Nível ${guestProfile.nivel}`;
-    
-    // ATUALIZAR CRÉDITOS
-    if (userCreditsElement) {
-        const userCredits = localStorage.getItem('userCredits') || '25';
-        userCreditsElement.textContent = userCredits;
-    }
-    
-    console.log('UI atualizada para modo convidado:', guestProfile.nome);
-}
-
-// LOGOUT DO CONVIDADO
-function logoutGuest() {
-    // Manter apenas os créditos, limpar o resto
-    const userCredits = localStorage.getItem('userCredits');
-    
-    localStorage.removeItem('isGuest');
-    localStorage.removeItem('guestProfile');
-    localStorage.removeItem('guestLoginTime');
-    localStorage.removeItem('isNewUser');
-    localStorage.removeItem('carrinho');
-    localStorage.removeItem('favoritos');
-    
-    // Restaurar créditos se existirem
-    if (userCredits) {
-        localStorage.setItem('userCredits', userCredits);
-    }
-    
-    showNotification('Modo convidado finalizado.', 'info');
-    setTimeout(() => {
-        window.location.reload();
-    }, 1000);
-}
-
-// GERAR NOME ALEATÓRIO PARA CONVIDADO
-function generateGuestName() {
-    const names = [
-        'Amigo Pet', 'Explorador', 'Aventureiro', 'Curioso', 'Visitante',
-        'Amigo dos Bichos', 'PetLover', 'Mimi', 'Tobby', 'Luna', 'Thor', 'Mel',
-        'Bob', 'Lucky', 'Charlie', 'Bella', 'Max', 'Lucy', 'Buddy', 'Daisy'
-    ];
-    const randomName = names[Math.floor(Math.random() * names.length)];
-    return `${randomName}#${Math.floor(Math.random() * 1000)}`;
-}
-
-// OBTER AVATAR ALEATÓRIO
-function getRandomAvatar() {
-    const avatars = ['cachorro', 'gato', 'coelho', 'pássaro'];
-    return avatars[Math.floor(Math.random() * avatars.length)];
-}
-
-// VERIFICAR E INICIALIZAR CONVIDADO NA PÁGINA PRINCIPAL
-function initGuestMode() {
-    if (isGuestUser()) {
-        console.log('Modo convidado detectado, inicializando...');
-        updateUIForGuest();
-        setupGuestEventListeners();
-    }
-}
-
-// CONFIGURAR EVENT LISTENERS PARA CONVIDADO
-function setupGuestEventListeners() {
-    // Configurar logout para convidado
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.onclick = function(e) {
-            e.preventDefault();
-            logoutGuest();
-        };
-    }
-    
-    // Configurar dropdown do usuário
-    const userToggle = document.getElementById('userToggle');
-    const userDropdown = document.getElementById('userDropdown');
-    
-    if (userToggle && userDropdown) {
-        userToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userDropdown.classList.toggle('show');
-        });
-        
-        // Fechar dropdown ao clicar fora
-        document.addEventListener('click', (e) => {
-            if (!userToggle.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });
-    }
-}
-
-// EXPORTAR FUNÇÕES PARA USO EM OUTROS ARQUIVOS
-window.GuestMode = {
-    isGuestUser,
-    getGuestProfile,
-    logoutGuest,
-    updateUIForGuest,
-    initGuestMode
-};
+// Inicializar quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', initAuth);

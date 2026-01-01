@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="auth.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="auth-container">
@@ -81,13 +80,6 @@
                         <i class="fas fa-envelope"></i>
                         <input type="email" id="signupEmail" required placeholder="seu@email.com">
                     </div>
-
-                    <div class="resend-email-container" style="display: none; margin-top: 15px; text-align: center;">
-    <p style="color: #666; margin-bottom: 10px;">Não recebeu o email?</p>
-    <button type="button" id="resendEmailBtn" class="btn-secondary">
-        <i class="fas fa-redo"></i> Reenviar Email de Verificação
-    </button>
-</div>
                 </div>
                 <div class="form-group">
                     <label for="signupPassword">Senha</label>
@@ -157,33 +149,33 @@
                 </button>
 
                 <!-- Botão de Entrar como Convidado -->
-<div class="guest-login-container" style="margin-top: 20px; text-align: center;">
-    <div style="border-top: 1px solid #e9ecef; margin: 20px 0; position: relative;">
-        <span style="background: white; padding: 0 15px; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: #666; font-size: 14px;">
-            ou
-        </span>
-    </div>
-    
-    <button type="button" id="guestLoginBtn" class="btn-guest" style="
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 25px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        width: 100%;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    ">
-        <i class="fas fa-user-clock"></i> Entrar como Convidado
-    </button>
-    
-    <p style="color: #666; font-size: 12px; margin-top: 10px;">
-        ⚡ Acesso rápido sem cadastro. Dados salvos apenas nesta sessão.
-    </p>
-</div>
+                <div class="guest-login-container" style="margin-top: 20px; text-align: center;">
+                    <div style="border-top: 1px solid #e9ecef; margin: 20px 0; position: relative;">
+                        <span style="background: white; padding: 0 15px; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: #666; font-size: 14px;">
+                            ou
+                        </span>
+                    </div>
+                    
+                    <button type="button" id="guestLoginBtn" class="btn-guest" style="
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        padding: 15px 30px;
+                        border-radius: 25px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        width: 100%;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+                    ">
+                        <i class="fas fa-user-clock"></i> Entrar como Convidado
+                    </button>
+                    
+                    <p style="color: #666; font-size: 12px; margin-top: 10px;">
+                        ⚡ Acesso rápido sem cadastro. Dados salvos apenas nesta sessão.
+                    </p>
+                </div>
             </form>
             
 
@@ -203,8 +195,37 @@
         </button>
     </div>
 
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../auth-manager.js"></script>
-<script src="auth.js"></script>
+    <!-- ORDEM CORRETA DOS SCRIPTS -->
+    <!-- 1. Biblioteca Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 2. Funcionalidades de login/cadastro (local) -->
+    <script src="auth.js"></script>
+    
+    <!-- 3. Sistema de convidado (raiz) -->
+    <script src="../guest-mode.js"></script>
+    
+    <!-- 4. Gerenciador global (raiz) -->
+    <script src="../auth-manager.js"></script>
+    
+    <!-- Script para debug -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Login page carregada!');
+            console.log('Supabase disponível?', typeof supabase !== 'undefined');
+            
+            // Verificar se as tabs estão funcionando
+            const tabs = document.querySelectorAll('.tab-btn');
+            console.log('Número de tabs encontradas:', tabs.length);
+            
+            // Testar função de notificação
+            setTimeout(function() {
+                console.log('Testando notificação...');
+                if (typeof showNotification === 'function') {
+                    showNotification('Sistema de login carregado!', 'success');
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>

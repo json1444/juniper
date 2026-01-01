@@ -1,8 +1,7 @@
 // auth-manager.js - ÚNICA instância do Supabase
 
-// Verificar se já existe configuração do Supabase
+// Configuração do Supabase (APENAS UMA VEZ)
 if (typeof window.supabase === 'undefined') {
-    // Configuração do Supabase (APENAS UMA VEZ)
     const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
 
@@ -35,18 +34,14 @@ class AuthManager {
             }
         });
 
-        // Verificar também tokens na URL (para confirmação de email)
+        // Verificar tokens na URL
         this.checkUrlTokens();
         
         // Verificar confirmação de email entre dispositivos
         this.checkCrossDeviceEmailConfirmation();
-        
-        // Verificar modo convidado
-        this.checkGuestMode();
     }
 
     async checkUrlTokens() {
-        // Verificar tokens na URL (comum após confirmação de email)
         const urlParams = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = urlParams.get('access_token');
         const refreshToken = urlParams.get('refresh_token');
@@ -60,11 +55,9 @@ class AuthManager {
                 });
                 
                 if (!error) {
-                    // Limpar a URL para remover os tokens
                     window.history.replaceState({}, document.title, window.location.pathname);
                     console.log('Sessão configurada com sucesso a partir dos tokens da URL');
                     
-                    // Salvar para sincronização entre dispositivos
                     const { data: { user } } = await supabase.auth.getUser();
                     if (user) {
                         localStorage.setItem('emailConfirmed', 'true');
@@ -77,7 +70,6 @@ class AuthManager {
         }
     }
     
-    // Verificar confirmação de email entre dispositivos
     async checkCrossDeviceEmailConfirmation() {
         const emailConfirmed = localStorage.getItem('emailConfirmed');
         const userEmail = localStorage.getItem('userEmail');
@@ -86,15 +78,11 @@ class AuthManager {
             console.log('Email confirmado em outro dispositivo:', userEmail);
             
             try {
-                // Tentar obter a sessão atual
                 const { data: { session }, error } = await supabase.auth.getSession();
                 
                 if (!session) {
-                    // Se não há sessão, mostrar mensagem para o usuário fazer login
-                    console.log('Usuário precisa fazer login após confirmação de email');
                     this.showEmailConfirmedMessage(userEmail);
                 } else {
-                    // Se já está logado, limpar o flag
                     localStorage.removeItem('emailConfirmed');
                     localStorage.removeItem('userEmail');
                 }
@@ -104,28 +92,7 @@ class AuthManager {
         }
     }
     
-    // Verificar modo convidado
-    checkGuestMode() {
-        if (this.isGuestUser()) {
-            console.log('Modo convidado detectado no AuthManager');
-            this.updateUI();
-        }
-    }
-    
-    // Verificar se é usuário convidado
-    isGuestUser() {
-        return localStorage.getItem('isGuest') === 'true';
-    }
-    
-    // Obter perfil do convidado
-    getGuestProfile() {
-        const guestProfile = localStorage.getItem('guestProfile');
-        return guestProfile ? JSON.parse(guestProfile) : null;
-    }
-
-    // Mostrar mensagem de email confirmado
     showEmailConfirmedMessage(email) {
-        // Criar elemento de mensagem
         const messageDiv = document.createElement('div');
         messageDiv.className = 'cross-device-message';
         messageDiv.innerHTML = `
@@ -133,7 +100,6 @@ class AuthManager {
             Email ${email} confirmado com sucesso! Faça login para continuar.
         `;
         
-        // Adicionar estilos se não existirem
         if (!document.querySelector('#crossDeviceStyles')) {
             const styles = document.createElement('style');
             styles.id = 'crossDeviceStyles';
@@ -156,7 +122,6 @@ class AuthManager {
             document.head.appendChild(styles);
         }
         
-        // Adicionar a mensagem no topo da página
         const authCard = document.querySelector('.auth-card');
         if (authCard) {
             authCard.insertBefore(messageDiv, authCard.firstChild);
@@ -192,26 +157,18 @@ class AuthManager {
             this.user = session.user;
             console.log('Usuário autenticado:', this.user.email);
             
-            // VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
             const urlParams = new URLSearchParams(window.location.hash.substring(1));
             const accessToken = urlParams.get('access_token');
             
             if (accessToken) {
-                // É uma confirmação de email
                 await this.handleEmailConfirmation(session);
-                
-                // Limpar a URL
                 window.history.replaceState({}, document.title, window.location.pathname);
             } else {
-                // Login normal
                 await this.loadUserProfile();
                 this.updateUI();
             }
             
-            // DAR CRÉDITOS PARA NOVOS USUÁRIOS
             await this.checkAndAwardCredits();
-            
-            // Limpar flags de confirmação
             localStorage.removeItem('emailConfirmed');
             localStorage.removeItem('userEmail');
             
@@ -220,25 +177,20 @@ class AuthManager {
         }
     }
     
-    // Método para dar créditos a novos usuários
     async checkAndAwardCredits() {
         try {
-            // Verificar se é um novo usuário (primeiro login)
             const hasCredits = localStorage.getItem('userCredits');
             
             if (!hasCredits && this.user) {
-                // Novo usuário - dar 50 créditos iniciais
                 localStorage.setItem('userCredits', '50');
                 localStorage.setItem('isNewUser', 'true');
                 
                 console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
                 
-                // Mostrar notificação (se a função existir)
                 if (typeof showNotification === 'function') {
-                    showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!');
+                    showNotification('🎉 Parabéns! Você ganhou 50 LuckCoins de boas-vindas!', 'success');
                 }
                 
-                // Mostrar seção de boas-vindas
                 this.showWelcomeSection();
             }
         } catch (error) {
@@ -246,38 +198,29 @@ class AuthManager {
         }
     }
     
-    // Mostrar seção de boas-vindas
     showWelcomeSection() {
         const welcomeSection = document.getElementById('welcome-credits');
         if (welcomeSection) {
             welcomeSection.style.display = 'block';
             
-            // Rolar suavemente para a seção após um breve delay
             setTimeout(() => {
                 welcomeSection.scrollIntoView({ behavior: 'smooth' });
             }, 1000);
         }
     }
     
-    // Método para lidar com confirmação de email
     async handleEmailConfirmation(session) {
         try {
             this.user = session.user;
             console.log('Usuário confirmado via email:', this.user.email);
             
-            // SINCRONIZAR ENTRE DISPOSITIVOS
             localStorage.setItem('emailConfirmed', 'true');
             localStorage.setItem('userEmail', this.user.email);
             
-            // Buscar perfil do usuário
             await this.loadUserProfile();
-            
             this.updateUI();
-            
-            // DAR CRÉDITOS PARA NOVOS USUÁRIOS APÓS CONFIRMAÇÃO DE EMAIL
             await this.checkAndAwardCredits();
             
-            // Forçar atualização em todas as abas abertas
             if (typeof BroadcastChannel !== 'undefined') {
                 try {
                     const channel = new BroadcastChannel('auth_channel');
@@ -305,8 +248,6 @@ class AuthManager {
                 
             if (error) {
                 console.error('Erro ao carregar perfil:', error);
-                
-                // Tentar criar perfil se não existir
                 await this.createUserProfile();
                 return;
             }
@@ -321,7 +262,6 @@ class AuthManager {
 
     async createUserProfile() {
         try {
-            // Usar metadata do usuário ou valores padrão
             const userMetadata = this.user.user_metadata || {};
             const { error } = await supabase
                 .from('profiles')
@@ -338,7 +278,6 @@ class AuthManager {
                 return;
             }
             
-            // Recarregar perfil após criação
             await this.loadUserProfile();
             
         } catch (error) {
@@ -358,7 +297,6 @@ class AuthManager {
             const { error } = await supabase.auth.signOut();
             if (error) throw error;
             
-            // Redirecionar para página inicial após logout
             window.location.href = '../index.html';
         } catch (error) {
             console.error('Erro ao fazer logout:', error);
@@ -366,84 +304,23 @@ class AuthManager {
     }
 
     updateUI() {
-        // VERIFICAR SE É CONVIDADO PRIMEIRO
-        if (this.isGuestUser()) {
-            console.log('Atualizando UI para modo convidado');
-            this.updateUIForGuest();
-            return;
-        }
-        
         const loginBtn = document.getElementById('loginBtn');
         const userMenu = document.getElementById('userMenu');
         
         console.log('Atualizando UI - Usuário:', this.user ? 'Logado' : 'Deslogado');
         
         if (this.user && this.profile) {
-            // Usuário logado - mostrar menu de usuário
             if (loginBtn) loginBtn.style.display = 'none';
             if (userMenu) {
                 userMenu.style.display = 'flex';
-                
-                // Atualizar avatar e nome
                 this.updateUserAvatar();
                 this.updateUserName();
                 this.updateUserCredits();
             }
         } else {
-            // Usuário não logado - mostrar botão de login
             if (loginBtn) loginBtn.style.display = 'flex';
             if (userMenu) userMenu.style.display = 'none';
         }
-    }
-    
-    // Atualizar UI para modo convidado
-    updateUIForGuest() {
-        const guestProfile = this.getGuestProfile();
-        if (!guestProfile) return;
-        
-        const loginBtn = document.getElementById('loginBtn');
-        const userMenu = document.getElementById('userMenu');
-        const userToggle = document.getElementById('userToggle');
-        const userAvatar = document.querySelector('.user-avatar');
-        const userName = document.querySelector('.user-name');
-        const profileAvatar = document.querySelector('.profile-avatar');
-        const profileName = document.querySelector('.profile-name');
-        const profileLevel = document.querySelector('.profile-level');
-        const userCreditsElement = document.getElementById('userCredits');
-        
-        // OCULTAR BOTÃO DE LOGIN E MOSTRAR MENU DO USUÁRIO
-        if (loginBtn) loginBtn.style.display = 'none';
-        if (userMenu) userMenu.style.display = 'flex';
-        
-        // ATUALIZAR AVATAR E NOME
-        if (userAvatar) {
-            userAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
-            userAvatar.alt = guestProfile.nome;
-            userAvatar.onerror = function() {
-                this.src = '../img/avatares/cachorro.jpg';
-            };
-        }
-        
-        if (userName) userName.textContent = guestProfile.nome;
-        
-        if (profileAvatar) {
-            profileAvatar.src = `../img/avatares/${guestProfile.avatar}.jpg`;
-            profileAvatar.alt = guestProfile.nome;
-            profileAvatar.onerror = function() {
-                this.src = '../img/avatares/cachorro.jpg';
-            };
-        }
-        
-        if (profileName) profileName.textContent = guestProfile.nome;
-        if (profileLevel) profileLevel.textContent = `Nível ${guestProfile.nivel}`;
-        
-        // ATUALIZAR CRÉDITOS
-        if (userCreditsElement) {
-            const userCredits = localStorage.getItem('userCredits') || '25';
-            userCreditsElement.textContent = userCredits;
-        }
-        
-        console.log('UI atualizada para modo convidado:', guestProfile.nome);
     }
 
     updateUserAvatar() {
@@ -452,7 +329,6 @@ class AuthManager {
         
         if (!this.profile) return;
         
-        // Mapeamento dos avatares
         const avatarMap = {
             'cachorro': 'cachorro.jpg',
             'gato': 'gato.jpg',
@@ -494,7 +370,6 @@ class AuthManager {
         if (profileLevel) profileLevel.textContent = `Nível ${this.profile.nivel}`;
     }
     
-    // Atualizar créditos do usuário na UI
     updateUserCredits() {
         const userCreditsElement = document.getElementById('userCredits');
         if (userCreditsElement) {
@@ -502,34 +377,7 @@ class AuthManager {
             userCreditsElement.textContent = userCredits;
         }
     }
-    
-    // Logout para convidado
-    logoutGuest() {
-        // Manter apenas os créditos, limpar o resto
-        const userCredits = localStorage.getItem('userCredits');
-        
-        localStorage.removeItem('isGuest');
-        localStorage.removeItem('guestProfile');
-        localStorage.removeItem('guestLoginTime');
-        localStorage.removeItem('isNewUser');
-        localStorage.removeItem('carrinho');
-        localStorage.removeItem('favoritos');
-        
-        // Restaurar créditos se existirem
-        if (userCredits) {
-            localStorage.setItem('userCredits', userCredits);
-        }
-        
-        if (typeof showNotification === 'function') {
-            showNotification('Modo convidado finalizado.', 'info');
-        }
-        
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-    }
 
-    // Método para forçar atualização da UI
     forceUpdate() {
         this.updateUI();
     }
@@ -539,7 +387,6 @@ class AuthManager {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Inicializando AuthManager...');
     
-    // Verificar se supabase está disponível
     if (typeof supabase === 'undefined') {
         console.error('ERRO: Supabase não está disponível. Verifique se a biblioteca foi carregada.');
         return;
@@ -557,7 +404,6 @@ document.addEventListener('DOMContentLoaded', () => {
             userDropdown.classList.toggle('show');
         });
         
-        // Fechar dropdown ao clicar fora
         document.addEventListener('click', (e) => {
             if (!userToggle.contains(e.target) && !userDropdown.contains(e.target)) {
                 userDropdown.classList.remove('show');
@@ -565,22 +411,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Configurar logout - SUPORTA CONVIDADO TAMBÉM
+    // Configurar logout
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async (e) => {
             e.preventDefault();
-            
-            // Verificar se é convidado
-            if (window.authManager.isGuestUser()) {
-                window.authManager.logoutGuest();
-            } else {
-                await window.authManager.signOut();
-            }
+            await window.authManager.signOut();
         });
     }
 
-    // Verificar se há mudanças de autenticação a cada 2 segundos (para garantir)
     setInterval(() => {
         if (window.authManager) {
             window.authManager.checkSession();
@@ -600,20 +439,5 @@ window.closeWelcome = function() {
     const welcomeSection = document.getElementById('welcome-credits');
     if (welcomeSection) {
         welcomeSection.style.display = 'none';
-    }
-};
-
-// Exportar funções de convidado para uso global
-window.GuestMode = {
-    isGuestUser: function() {
-        return window.authManager ? window.authManager.isGuestUser() : false;
-    },
-    getGuestProfile: function() {
-        return window.authManager ? window.authManager.getGuestProfile() : null;
-    },
-    logoutGuest: function() {
-        if (window.authManager) {
-            window.authManager.logoutGuest();
-        }
     }
 };
