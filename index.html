@@ -682,8 +682,17 @@
     </footer>
     
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="auth-manager.js"></script>
+  <script src="auth-manager.js"></script>
 <script src="script.js"></script>
+<script src="guest-mode.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar modo convidado se existir
+    if (typeof window.GuestMode !== 'undefined' && window.GuestMode.initGuestMode) {
+        window.GuestMode.initGuestMode();
+    }
+});
+</script>
 </body>
 </html>

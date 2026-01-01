@@ -195,37 +195,24 @@
         </button>
     </div>
 
-    <!-- ORDEM CORRETA DOS SCRIPTS -->
-    <!-- 1. Biblioteca Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- 2. Funcionalidades de login/cadastro (local) -->
-    <script src="auth.js"></script>
-    
-    <!-- 3. Sistema de convidado (raiz) -->
-    <script src="../guest-mode.js"></script>
-    
-    <!-- 4. Gerenciador global (raiz) -->
-    <script src="../auth-manager.js"></script>
-    
-    <!-- Script para debug -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Login page carregada!');
-            console.log('Supabase disponível?', typeof supabase !== 'undefined');
-            
-            // Verificar se as tabs estão funcionando
-            const tabs = document.querySelectorAll('.tab-btn');
-            console.log('Número de tabs encontradas:', tabs.length);
-            
-            // Testar função de notificação
-            setTimeout(function() {
-                console.log('Testando notificação...');
-                if (typeof showNotification === 'function') {
-                    showNotification('Sistema de login carregado!', 'success');
-                }
-            }, 1000);
-        });
-    </script>
+ <script src="../auth-manager.js"></script>
+<script src="auth.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🔐 Login page carregada!');
+        
+        // Verificar se as tabs estão funcionando
+        const tabs = document.querySelectorAll('.tab-btn');
+        console.log('Número de tabs:', tabs.length);
+        
+        // Testar notificação
+        setTimeout(function() {
+            if (typeof showNotification === 'function') {
+                showNotification('✅ Sistema carregado com sucesso!', 'success');
+            }
+        }, 1000);
+    });
+</script>
 </body>
 </html>
