@@ -1,15 +1,16 @@
-// auth-manager.js - Gerenciador de autenticação
-// NÃO contém configuração do Supabase - usa a instância global
+// auth-manager.js - ÚNICA instância do Supabase
 
-console.log('Carregando auth-manager.js...');
-
-// Verificar se Supabase está disponível
+// Verificar se já existe configuração do Supabase
 if (typeof window.supabase === 'undefined') {
-    console.error('❌ ERRO: Supabase não foi inicializado. Carregue supabase-config.js primeiro!');
-    throw new Error('Supabase não inicializado. Carregue supabase-config.js primeiro.');
+    // Configuração do Supabase (APENAS UMA VEZ)
+    const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+
+    window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('Supabase inicializado no auth-manager.js');
 }
 
-// Usar a instância global do Supabase
+// Usar a instância global
 const supabase = window.supabase;
 
 // Gerenciamento de autenticação e interface
@@ -21,8 +22,6 @@ class AuthManager {
     }
 
     async init() {
-        console.log('🔄 Inicializando AuthManager...');
-        
         // Verificar sessão ativa
         await this.checkSession();
         
@@ -54,7 +53,7 @@ class AuthManager {
 
         if (accessToken && refreshToken) {
             try {
-                console.log('🔑 Tokens encontrados na URL, processando...');
+                console.log('Tokens encontrados na URL, processando...');
                 const { error } = await supabase.auth.setSession({
                     access_token: accessToken,
                     refresh_token: refreshToken
@@ -63,7 +62,7 @@ class AuthManager {
                 if (!error) {
                     // Limpar a URL para remover os tokens
                     window.history.replaceState({}, document.title, window.location.pathname);
-                    console.log('✅ Sessão configurada com sucesso a partir dos tokens da URL');
+                    console.log('Sessão configurada com sucesso a partir dos tokens da URL');
                     
                     // Salvar para sincronização entre dispositivos
                     const { data: { user } } = await supabase.auth.getUser();
@@ -73,7 +72,7 @@ class AuthManager {
                     }
                 }
             } catch (error) {
-                console.error('❌ Erro ao processar tokens da URL:', error);
+                console.error('Erro ao processar tokens da URL:', error);
             }
         }
     }
@@ -84,7 +83,7 @@ class AuthManager {
         const userEmail = localStorage.getItem('userEmail');
         
         if (emailConfirmed === 'true' && userEmail) {
-            console.log('📧 Email confirmado em outro dispositivo:', userEmail);
+            console.log('Email confirmado em outro dispositivo:', userEmail);
             
             try {
                 // Tentar obter a sessão atual
@@ -92,7 +91,7 @@ class AuthManager {
                 
                 if (!session) {
                     // Se não há sessão, mostrar mensagem para o usuário fazer login
-                    console.log('👤 Usuário precisa fazer login após confirmação de email');
+                    console.log('Usuário precisa fazer login após confirmação de email');
                     this.showEmailConfirmedMessage(userEmail);
                 } else {
                     // Se já está logado, limpar o flag
@@ -100,7 +99,7 @@ class AuthManager {
                     localStorage.removeItem('userEmail');
                 }
             } catch (error) {
-                console.error('❌ Erro ao verificar sessão cross-device:', error);
+                console.error('Erro ao verificar sessão cross-device:', error);
             }
         }
     }
@@ -108,7 +107,7 @@ class AuthManager {
     // Verificar modo convidado
     checkGuestMode() {
         if (this.isGuestUser()) {
-            console.log('🎭 Modo convidado detectado no AuthManager');
+            console.log('Modo convidado detectado no AuthManager');
             this.updateUI();
         }
     }
@@ -166,24 +165,24 @@ class AuthManager {
 
     async checkSession() {
         try {
-            console.log('🔍 Verificando sessão...');
+            console.log('Verificando sessão...');
             const { data: { session }, error } = await supabase.auth.getSession();
             
             if (error) {
-                console.error('❌ Erro ao obter sessão:', error);
+                console.error('Erro ao obter sessão:', error);
                 this.handleSignOut();
                 return;
             }
             
             if (session) {
-                console.log('✅ Sessão encontrada:', session.user.email);
+                console.log('Sessão encontrada:', session.user.email);
                 await this.handleSignIn(session);
             } else {
-                console.log('ℹ️ Nenhuma sessão encontrada');
+                console.log('Nenhuma sessão encontrada');
                 this.handleSignOut();
             }
         } catch (error) {
-            console.error('❌ Erro ao verificar sessão:', error);
+            console.error('Erro ao verificar sessão:', error);
             this.handleSignOut();
         }
     }
@@ -191,7 +190,7 @@ class AuthManager {
     async handleSignIn(session) {
         try {
             this.user = session.user;
-            console.log('👤 Usuário autenticado:', this.user.email);
+            console.log('Usuário autenticado:', this.user.email);
             
             // VERIFICAR SE É UMA CONFIRMAÇÃO DE EMAIL
             const urlParams = new URLSearchParams(window.location.hash.substring(1));
@@ -217,7 +216,7 @@ class AuthManager {
             localStorage.removeItem('userEmail');
             
         } catch (error) {
-            console.error('❌ Erro no handleSignIn:', error);
+            console.error('Erro no handleSignIn:', error);
         }
     }
     
@@ -232,7 +231,7 @@ class AuthManager {
                 localStorage.setItem('userCredits', '50');
                 localStorage.setItem('isNewUser', 'true');
                 
-                console.log('💰 50 LuckCoins concedidos ao novo usuário:', this.user.email);
+                console.log('50 LuckCoins concedidos ao novo usuário:', this.user.email);
                 
                 // Mostrar notificação (se a função existir)
                 if (typeof showNotification === 'function') {
@@ -243,7 +242,7 @@ class AuthManager {
                 this.showWelcomeSection();
             }
         } catch (error) {
-            console.error('❌ Erro ao conceder créditos:', error);
+            console.error('Erro ao conceder créditos:', error);
         }
     }
     
@@ -264,7 +263,7 @@ class AuthManager {
     async handleEmailConfirmation(session) {
         try {
             this.user = session.user;
-            console.log('✅ Usuário confirmado via email:', this.user.email);
+            console.log('Usuário confirmado via email:', this.user.email);
             
             // SINCRONIZAR ENTRE DISPOSITIVOS
             localStorage.setItem('emailConfirmed', 'true');
@@ -287,12 +286,12 @@ class AuthManager {
                         email: this.user.email 
                     });
                 } catch (e) {
-                    console.log('ℹ️ BroadcastChannel não suportado');
+                    console.log('BroadcastChannel não suportado');
                 }
             }
             
         } catch (error) {
-            console.error('❌ Erro no handleEmailConfirmation:', error);
+            console.error('Erro no handleEmailConfirmation:', error);
         }
     }
 
@@ -305,7 +304,7 @@ class AuthManager {
                 .single();
                 
             if (error) {
-                console.error('❌ Erro ao carregar perfil:', error);
+                console.error('Erro ao carregar perfil:', error);
                 
                 // Tentar criar perfil se não existir
                 await this.createUserProfile();
@@ -313,10 +312,10 @@ class AuthManager {
             }
             
             this.profile = profile;
-            console.log('📋 Perfil carregado:', profile);
+            console.log('Perfil carregado:', profile);
             
         } catch (error) {
-            console.error('❌ Erro ao carregar perfil:', error);
+            console.error('Erro ao carregar perfil:', error);
         }
     }
 
@@ -335,7 +334,7 @@ class AuthManager {
                 }]);
             
             if (error) {
-                console.error('❌ Erro ao criar perfil:', error);
+                console.error('Erro ao criar perfil:', error);
                 return;
             }
             
@@ -343,14 +342,14 @@ class AuthManager {
             await this.loadUserProfile();
             
         } catch (error) {
-            console.error('❌ Erro ao criar perfil:', error);
+            console.error('Erro ao criar perfil:', error);
         }
     }
 
     handleSignOut() {
         this.user = null;
         this.profile = null;
-        console.log('👋 Usuário deslogado');
+        console.log('Usuário deslogado');
         this.updateUI();
     }
 
@@ -362,14 +361,14 @@ class AuthManager {
             // Redirecionar para página inicial após logout
             window.location.href = '../index.html';
         } catch (error) {
-            console.error('❌ Erro ao fazer logout:', error);
+            console.error('Erro ao fazer logout:', error);
         }
     }
 
     updateUI() {
         // VERIFICAR SE É CONVIDADO PRIMEIRO
         if (this.isGuestUser()) {
-            console.log('🎭 Atualizando UI para modo convidado');
+            console.log('Atualizando UI para modo convidado');
             this.updateUIForGuest();
             return;
         }
@@ -377,7 +376,7 @@ class AuthManager {
         const loginBtn = document.getElementById('loginBtn');
         const userMenu = document.getElementById('userMenu');
         
-        console.log('🔄 Atualizando UI - Usuário:', this.user ? 'Logado' : 'Deslogado');
+        console.log('Atualizando UI - Usuário:', this.user ? 'Logado' : 'Deslogado');
         
         if (this.user && this.profile) {
             // Usuário logado - mostrar menu de usuário
@@ -444,7 +443,7 @@ class AuthManager {
             userCreditsElement.textContent = userCredits;
         }
         
-        console.log('✅ UI atualizada para modo convidado:', guestProfile.nome);
+        console.log('UI atualizada para modo convidado:', guestProfile.nome);
     }
 
     updateUserAvatar() {
@@ -468,7 +467,7 @@ class AuthManager {
             avatarImg.src = avatarPath;
             avatarImg.alt = this.profile.nome;
             avatarImg.onerror = function() {
-                console.error('❌ Erro ao carregar avatar:', this.src);
+                console.error('Erro ao carregar avatar:', this.src);
                 this.src = '../img/avatares/ava-dog1.jpg';
             }
         }
@@ -477,7 +476,7 @@ class AuthManager {
             profileAvatar.src = avatarPath;
             profileAvatar.alt = this.profile.nome;
             profileAvatar.onerror = function() {
-                console.error('❌ Erro ao carregar avatar do perfil:', this.src);
+                console.error('Erro ao carregar avatar do perfil:', this.src);
                 this.src = '../img/avatares/cachorro.jpg';
             }
         }
@@ -538,11 +537,11 @@ class AuthManager {
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 DOM carregado, inicializando AuthManager...');
+    console.log('Inicializando AuthManager...');
     
     // Verificar se supabase está disponível
     if (typeof supabase === 'undefined') {
-        console.error('❌ ERRO FATAL: Supabase não está disponível. Verifique se supabase-config.js foi carregado.');
+        console.error('ERRO: Supabase não está disponível. Verifique se a biblioteca foi carregada.');
         return;
     }
     
@@ -618,5 +617,3 @@ window.GuestMode = {
         }
     }
 };
-
-console.log('✅ auth-manager.js carregado com sucesso');

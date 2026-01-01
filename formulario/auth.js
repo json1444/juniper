@@ -1,40 +1,17 @@
-// auth.js - Página de login/cadastro
-// NÃO contém configuração do Supabase - usa a instância global
-
-console.log('Carregando auth.js...');
-
-// Verificar se Supabase está disponível
-if (typeof window.supabase === 'undefined') {
-    console.error('❌ ERRO: Supabase não foi inicializado. Carregue supabase-config.js primeiro!');
-    
-    // Mostrar mensagem de erro para o usuário
-    const errorDiv = document.createElement('div');
-    errorDiv.style.cssText = `
-        background: #ffebee;
-        color: #c62828;
-        padding: 15px;
-        border-radius: 8px;
-        margin: 20px 0;
-        text-align: center;
-        border: 1px solid #ffcdd2;
-    `;
-    errorDiv.innerHTML = `
-        <i class="fas fa-exclamation-triangle"></i>
-        <strong>Erro de configuração:</strong> O sistema de autenticação não está disponível.
-        <br><small>Por favor, recarregue a página ou entre em contato com o suporte.</small>
-    `;
-    
-    const authCard = document.querySelector('.auth-card');
-    if (authCard) {
-        authCard.insertBefore(errorDiv, authCard.firstChild);
-    }
-    
-    throw new Error('Supabase não inicializado. Carregue supabase-config.js primeiro.');
-}
+// auth.js - NÃO declara supabase, usa a instância global
 
 // Usar a instância global do Supabase
 const supabase = window.supabase;
-console.log('✅ Supabase disponível no auth.js');
+
+// Verificar se supabase está disponível
+if (!supabase) {
+    console.error('Supabase não inicializado. Verifique se auth-manager.js foi carregado primeiro!');
+    // Tentar inicializar como fallback
+    const SUPABASE_URL = 'https://drbukxyfvbpcqfzykose.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYnVreHlmdmJwY3Fmenlrb3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNjA0MjgsImV4cCI6MjA3MTYzNjQyOH0.HADXFF8pJLkXnwx5Gy-Xz3ccLPHjSFFwmOt6JafZP0I';
+    window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('Supabase inicializado no auth.js como fallback');
+}
 
 // Elementos do DOM
 const loginForm = document.getElementById('loginForm');
@@ -149,8 +126,6 @@ signupForm.addEventListener('submit', async (e) => {
     const avatar = document.querySelector('input[name="avatar"]:checked').value;
 
     try {
-        console.log('📝 Tentando criar conta para:', email);
-        
         // CONFIGURAÇÃO OTIMIZADA PARA ENVIO RÁPIDO
         const { data: authData, error: authError } = await supabase.auth.signUp({ 
             email: email.trim().toLowerCase(), // Normaliza o email
@@ -166,7 +141,7 @@ signupForm.addEventListener('submit', async (e) => {
         });
         
         if (authError) {
-            console.error('❌ Erro Supabase:', authError);
+            console.error('Erro Supabase:', authError);
             
             if (authError.message.includes('rate limit') || authError.message.includes('429')) {
                 throw new Error('Muitas tentativas. Aguarde 15 minutos.');
@@ -216,7 +191,7 @@ signupForm.addEventListener('submit', async (e) => {
         signupForm.reset();
 
     } catch (error) {
-        console.error('❌ Erro no cadastro:', error);
+        console.error('Erro no cadastro:', error);
         showNotification(error.message, 'error');
     } finally {
         submitButton.classList.remove('loading');
@@ -293,7 +268,6 @@ function showResendButton(email) {
 // FUNÇÃO DE REENVIO ULTRA RÁPIDO
 async function resendVerificationEmail(email) {
     try {
-        console.log('📧 Reenviando email de verificação para:', email);
         const { error } = await supabase.auth.resend({
             type: 'signup',
             email: email,
@@ -312,7 +286,7 @@ async function resendVerificationEmail(email) {
         showNotification('📧 Email reenviado! Verifique sua caixa de entrada e SPAM.', 'success');
         
     } catch (error) {
-        console.error('❌ Erro ao reenviar:', error);
+        console.error('Erro ao reenviar:', error);
         showNotification(error.message || 'Erro ao reenviar email.', 'error');
     }
 }
@@ -355,18 +329,17 @@ loginForm.addEventListener('submit', async (e) => {
     const password = document.getElementById('loginPassword').value;
 
     try {
-        console.log('🔐 Tentando login para:', email);
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
 
-        showNotification('✅ Login realizado com sucesso! Redirecionando...', 'success');
+        showNotification('Login realizado com sucesso! Redirecionando...', 'success');
 
         setTimeout(() => {
             window.location.href = '../index.html';
         }, 1500);
 
     } catch (error) {
-        console.error('❌ Erro no login:', error);
+        console.error('Erro no login:', error);
         showNotification(error.message, 'error');
         loginForm.classList.add('shake');
         setTimeout(() => loginForm.classList.remove('shake'), 500);
@@ -375,7 +348,7 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
-// ENTRAR COMO CONVIDADO
+// ENTRAR COMO CONVIDADO - SOLUÇÃO CORRIGIDA
 function setupGuestLogin() {
     const guestBtn = document.getElementById('guestLoginBtn');
     if (guestBtn) {
@@ -390,7 +363,7 @@ function setupGuestLogin() {
             try {
                 await loginAsGuest();
             } catch (error) {
-                console.error('❌ Erro ao entrar como convidado:', error);
+                console.error('Erro ao entrar como convidado:', error);
                 showNotification('Erro ao entrar como convidado. Tente novamente.', 'error');
             } finally {
                 submitButton.innerHTML = originalText;
@@ -400,7 +373,7 @@ function setupGuestLogin() {
     }
 }
 
-// FUNÇÃO PARA LOGIN COMO CONVIDADO
+// FUNÇÃO PARA LOGIN COMO CONVIDADO - VERSÃO CORRIGIDA
 async function loginAsGuest() {
     try {
         // SOLUÇÃO: Usar localStorage para modo convidado sem autenticação Supabase
@@ -438,7 +411,7 @@ async function loginAsGuest() {
         }, 1500);
 
     } catch (error) {
-        console.error('❌ Erro no login como convidado:', error);
+        console.error('Erro no login como convidado:', error);
         throw error;
     }
 }
@@ -495,11 +468,6 @@ function showNotification(message, type) {
     const toastIcon = toast.querySelector('.toast-icon');
     const toastMessage = toast.querySelector('.toast-message');
     
-    if (!toast) {
-        console.warn('Elemento notificationToast não encontrado');
-        return;
-    }
-    
     // Set message and type
     toastMessage.textContent = message;
     toast.className = `notification-toast toast-${type}`;
@@ -515,16 +483,11 @@ function showNotification(message, type) {
 
 function hideNotification() {
     const toast = document.getElementById('notificationToast');
-    if (toast) {
-        toast.classList.remove('show');
-    }
+    toast.classList.remove('show');
 }
 
 // Close notification when close button is clicked
-const toastCloseBtn = document.querySelector('.toast-close');
-if (toastCloseBtn) {
-    toastCloseBtn.addEventListener('click', hideNotification);
-}
+document.querySelector('.toast-close').addEventListener('click', hideNotification);
 
 // Verificar se é uma confirmação de email
 async function checkEmailConfirmation() {
@@ -546,7 +509,7 @@ async function checkEmailConfirmation() {
     // Verificar se é um redirecionamento de confirmação de email
     if (accessToken && refreshToken) {
         try {
-            console.log('🔑 Processando tokens de confirmação de email...');
+            console.log('Processando tokens de confirmação de email...');
             
             // Tentar fazer login com os tokens
             const { data, error: sessionError } = await supabase.auth.setSession({
@@ -557,24 +520,24 @@ async function checkEmailConfirmation() {
             if (sessionError) throw sessionError;
             
             if (data && data.user) {
-                console.log('✅ Sessão configurada com sucesso para:', data.user.email);
+                console.log('Sessão configurada com sucesso para:', data.user.email);
                 
                 // SALVAR NO LOCALSTORAGE PARA SINCRONIZAÇÃO ENTRE DISPOSITIVOS
                 localStorage.setItem('emailConfirmed', 'true');
                 localStorage.setItem('userEmail', data.user.email);
                 
                 // Mostrar mensagem de sucesso
-                showNotification('✅ Email confirmado com sucesso! Redirecionando...', 'success');
+                showNotification('Email confirmado com sucesso! Redirecionando...', 'success');
                 
                 // Limpar a URL para remover os tokens
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                // REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO
+                // REDIRECIONAMENTO PARA PÁGINA DE CONFIRMAÇÃO (SEM REDIRECIONAMENTO AUTOMÁTICO)
                 window.location.href = 'confirmacao-email.html';
             }
             
         } catch (error) {
-            console.error('❌ Erro ao processar confirmação:', error);
+            console.error('Erro ao processar confirmação:', error);
             
             // Se der erro mas tiver tokens, tenta redirecionar para confirmação
             if (accessToken && refreshToken) {
@@ -593,7 +556,7 @@ async function checkCrossDeviceConfirmation() {
     const userEmail = localStorage.getItem('userEmail');
     
     if (emailConfirmed === 'true' && userEmail) {
-        console.log('📱 Email confirmado em outro dispositivo, tentando login automático...');
+        console.log('Email confirmado em outro dispositivo, tentando login automático...');
         
         try {
             // Tentar obter a sessão atual
@@ -608,7 +571,7 @@ async function checkCrossDeviceConfirmation() {
                 localStorage.removeItem('userEmail');
             }
         } catch (error) {
-            console.error('❌ Erro ao verificar sessão cross-device:', error);
+            console.error('Erro ao verificar sessão cross-device:', error);
         }
     }
 }
@@ -656,7 +619,7 @@ async function checkAuth() {
             }
         }
     } catch (error) {
-        console.error('❌ Erro ao verificar autenticação:', error);
+        console.error('Erro ao verificar autenticação:', error);
     }
 }
 
@@ -685,14 +648,13 @@ async function processAuthTokens() {
                 }, 1000);
             }
         } catch (error) {
-            console.error('❌ Erro ao processar tokens:', error);
+            console.error('Erro ao processar tokens:', error);
         }
     }
 }
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 auth.js inicializando...');
     checkAuth();
     checkEmailConfirmation();
     checkCrossDeviceConfirmation(); // NOVA VERIFICAÇÃO
@@ -703,7 +665,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const message = urlParams.get('message');
     if (message === 'email_confirmed') {
-        showNotification('✅ Email confirmado com sucesso!', 'success');
+        showNotification('Email confirmado com sucesso!', 'success');
     }
     
     // SUGERIR EMAIL TEMPORÁRIO PARA TESTES
@@ -751,7 +713,7 @@ function setupGuestLogin() {
             try {
                 await loginAsGuest();
             } catch (error) {
-                console.error('❌ Erro ao entrar como convidado:', error);
+                console.error('Erro ao entrar como convidado:', error);
                 showNotification('Erro ao entrar como convidado. Tente novamente.', 'error');
             } finally {
                 submitButton.innerHTML = originalText;
@@ -799,7 +761,7 @@ async function loginAsGuest() {
         }, 1500);
 
     } catch (error) {
-        console.error('❌ Erro no login como convidado:', error);
+        console.error('Erro no login como convidado:', error);
         throw error;
     }
 }
@@ -862,7 +824,7 @@ function updateUIForGuest() {
         userCreditsElement.textContent = userCredits;
     }
     
-    console.log('✅ UI atualizada para modo convidado:', guestProfile.nome);
+    console.log('UI atualizada para modo convidado:', guestProfile.nome);
 }
 
 // LOGOUT DO CONVIDADO
@@ -908,7 +870,7 @@ function getRandomAvatar() {
 // VERIFICAR E INICIALIZAR CONVIDADO NA PÁGINA PRINCIPAL
 function initGuestMode() {
     if (isGuestUser()) {
-        console.log('🎭 Modo convidado detectado, inicializando...');
+        console.log('Modo convidado detectado, inicializando...');
         updateUIForGuest();
         setupGuestEventListeners();
     }
@@ -952,5 +914,3 @@ window.GuestMode = {
     updateUIForGuest,
     initGuestMode
 };
-
-console.log('✅ auth.js carregado com sucesso');
