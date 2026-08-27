@@ -1,4 +1,4 @@
-# Juniper 🌿
+#  🌿
 
 **Juniper** is an autonomous agent that watches [pump.fun](https://pump.fun) in real time, tracking token **volume**, **bonding-curve migrations** (the jump to Raydium), and surfacing **statistically favorable windows to trade**.
 
