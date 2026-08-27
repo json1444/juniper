@@ -1,4 +1,4 @@
-#  🌿
+# Juniper🌿
 
 **Juniper** is an autonomous agent that watches [pump.fun](https://pump.fun) in real time, tracking token **volume**, **bonding-curve migrations** (the jump to Raydium), and surfacing **statistically favorable windows to trade**.
 
@@ -17,7 +17,7 @@ Pump.fun is noisy — hundreds of tokens launch daily, most die in the first hou
 | `juniper_timing_oracle.py` | Aggregates historical volume/migration data into a heatmap of best trading windows (hour-of-day, day-of-week) |
 | `juniper_agent.py` | The orchestrator — wires the three modules together into a single polling/streaming loop and dispatches alerts |
 | `juniper_config.py` | Central config: RPC endpoints, polling intervals, thresholds, alert channels |
-
+ 
 ---
 
 ## 🌳 Architecture
