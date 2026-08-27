@@ -1,62 +1,62 @@
 # Juniper🌿
 
 <p align="left">
-  <img
-    src="https://i.ibb.co/HDxHKHzj/Screenshot-2026-08-27-at-2-26-14-pm.png"
-    alt="Juniper"
-    width="95"
-  /> 
+<img
+src="https://i.ibb.co/HDxHKHzj/Screenshot-2026-08-27-at-2-26-14-pm.png"
+alt="Juniper"
+width="95"
+/>
 </p>
 
-**Juniper** is an autonomous agent that watches [pump.fun](https://pump.fun) in real time, tracking token **volume**, **bonding-curve migrations** (the jump to Raydium), and surfacing **statistically favorable windows to trade**.
+**Juniper** is an autonomous agent that watches [pump.fun](https://pump.fun) in real time, tracking token **volume**, **bonding-curve migrations** (the jump to PumpSwap), and surfacing **statistically favorable windows to trade**.
 
 > 🛠️ **Built with [grok.me](https://grok.me)** — this repo is the *scaffold*: structure, docs, and interfaces. The hardcore signal logic, model tuning, and live execution engine are being built and iterated on inside grok.me. Think of this repo as Juniper's skeleton; grok.me is where the muscle gets attached.
- 
+
 ---
 
 ## 🌿 What Juniper Does
 
-Pump.fun is noisy — hundreds of tokens launch daily, most die in the first hour, and the few that "migrate" to Raydium tend to do so after a recognizable volume ramp. Juniper exists to cut through that noise:
+Pump.fun is noisy — hundreds of tokens launch daily, most die in the first hour, and the few that "migrate" to PumpSwap tend to do so after a recognizable volume ramp. Juniper exists to cut through that noise:
 
-| Module | Job |
-|---|---|
-| `juniper_volume_pulse.py` | Streams real-time trade volume per token, computes rolling velocity (SOL/min), and flags abnormal spikes |
-| `juniper_migration_radar.py` | Watches bonding-curve completion %, predicts time-to-migration, and fires alerts when a token crosses the Raydium migration threshold |
-| `juniper_timing_oracle.py` | Aggregates historical volume/migration data into a heatmap of best trading windows (hour-of-day, day-of-week) |
-| `juniper_agent.py` | The orchestrator — wires the three modules together into a single polling/streaming loop and dispatches alerts |
-| `juniper_config.py` | Central config: RPC endpoints, polling intervals, thresholds, alert channels |
- 
+| Module                       | Job                                                                                                                                   |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `juniper_volume_pulse.py`    | Streams real-time trade volume per token, computes rolling velocity (SOL/min), and flags abnormal spikes                              |
+| `juniper_migration_radar.py` | Watches bonding-curve completion %, predicts time-to-migration, and fires alerts when a token crosses the PumpSwap migration threshold |
+| `juniper_timing_oracle.py`   | Aggregates historical volume/migration data into a heatmap of best trading windows (hour-of-day, day-of-week)                         |
+| `juniper_agent.py`           | The orchestrator — wires the three modules together into a single polling/streaming loop and dispatches alerts                        |
+| `juniper_config.py`          | Central config: RPC endpoints, polling intervals, thresholds, alert channels                                                          |
+
 ---
 
 ## 🌳 Architecture
 
 ```
-                        ┌───────────────────────┐
-                        │      pump.fun API      │
-                        │   + Solana RPC/WS feed  │
-                        └───────────┬─────────────┘
-                                    │
-                        ┌───────────▼─────────────┐
-                        │      juniper_agent.py     │
-                        │   (orchestration loop)    │
-                        └───┬───────────┬──────────┘
-             ┌──────────────┘           └──────────────┐
-             ▼                                          ▼
-┌─────────────────────────┐              ┌─────────────────────────────┐
-│ juniper_volume_pulse.py  │              │ juniper_migration_radar.py   │
-│ - rolling volume windows │              │ - bonding curve % tracking   │
-│ - spike detection        │              │ - migration ETA estimation   │
-└────────────┬─────────────┘              └───────────────┬───────────────┘
-             │                                             │
-             └─────────────────────┬───────────────────────┘
-                                    ▼
-                     ┌───────────────────────────┐
-                     │  juniper_timing_oracle.py   │
-                     │  - historical aggregation    │
-                     │  - best-hour / best-day heat  │
-                     └───────────────┬───────────────┘
-                                     ▼
-                          alerts / logs / dashboard
+┌───────────────────────┐
+│ pump.fun API │
+│ + Solana RPC/WS feed │
+└───────────┬─────────────┘
+│
+┌───────────▼─────────────┐
+│ juniper_agent.py │
+│ (orchestration loop) │
+└───┬───────────┬──────────┘
+┌──────────────┘ └──────────────┐
+▼ ▼
+┌─────────────────────────┐ ┌─────────────────────────────┐
+│ juniper_volume_pulse.py │ │ juniper_migration_radar.py │
+│ - rolling volume windows │ │ - bonding curve % tracking │
+│ - spike detection │ │ - migration ETA estimation │
+└────────────┬─────────────┘ └───────────────┬───────────────┘
+│ │
+└─────────────────────┬───────────────────────┘
+▼
+┌───────────────────────────┐
+│ juniper_timing_oracle.py │
+│ - historical aggregation │
+│ - best-hour / best-day heat │
+└───────────────┬───────────────┘
+▼
+alerts / logs / dashboard
 ```
 
 ---
@@ -65,17 +65,17 @@ Pump.fun is noisy — hundreds of tokens launch daily, most die in the first hou
 
 ```
 juniper/
-├── README.md                      ← you are here
-├── GROKME_BUILD_NOTES.md          ← what's scaffolded here vs. built in grok.me
-├── juniper_agent.py                ← main entrypoint / orchestrator
+├── README.md ← you are here
+├── GROKME_BUILD_NOTES.md ← what's scaffolded here vs. built in grok.me
+├── juniper_agent.py ← main entrypoint / orchestrator
 ├── src/
-│   ├── juniper_volume_pulse.py     ← volume tracking engine
-│   ├── juniper_migration_radar.py  ← migration detection engine
-│   ├── juniper_timing_oracle.py    ← best-time-to-trade analytics
-│   ├── juniper_config.py           ← config + constants
-│   └── juniper_alerts.py           ← alert dispatch (console/webhook/discord)
+│ ├── juniper_volume_pulse.py ← volume tracking engine
+│ ├── juniper_migration_radar.py ← migration detection engine
+│ ├── juniper_timing_oracle.py ← best-time-to-trade analytics
+│ ├── juniper_config.py ← config + constants
+│ └── juniper_alerts.py ← alert dispatch (console/webhook/discord)
 ├── data/
-│   └── .gitkeep
+│ └── .gitkeep
 ├── .github/workflows/juniper_ci.yml
 ├── requirements.txt
 ├── .env.example
@@ -92,7 +92,7 @@ git clone https://github.com/YOUR_USERNAME/juniper.git
 cd juniper
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # already pre-filled with sane public defaults
+cp .env.example .env # already pre-filled with sane public defaults
 python juniper_agent.py
 ```
 
