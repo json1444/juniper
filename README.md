@@ -1,5 +1,13 @@
 # Juniper🌿
 
+<p align="left">
+  <img
+    src="https://i.ibb.co/HDxHKHzj/Screenshot-2026-08-27-at-2-26-14-pm.png"
+    alt="Juniper"
+    width="100"
+  />
+</p>
+
 **Juniper** is an autonomous agent that watches [pump.fun](https://pump.fun) in real time, tracking token **volume**, **bonding-curve migrations** (the jump to Raydium), and surfacing **statistically favorable windows to trade**.
 
 > 🛠️ **Built with [grok.me](https://grok.me)** — this repo is the *scaffold*: structure, docs, and interfaces. The hardcore signal logic, model tuning, and live execution engine are being built and iterated on inside grok.me. Think of this repo as Juniper's skeleton; grok.me is where the muscle gets attached.
