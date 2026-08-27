@@ -4,8 +4,8 @@
   <img
     src="https://i.ibb.co/HDxHKHzj/Screenshot-2026-08-27-at-2-26-14-pm.png"
     alt="Juniper"
-    width="100"
-  />
+    width="95"
+  /> 
 </p>
 
 **Juniper** is an autonomous agent that watches [pump.fun](https://pump.fun) in real time, tracking token **volume**, **bonding-curve migrations** (the jump to Raydium), and surfacing **statistically favorable windows to trade**.
